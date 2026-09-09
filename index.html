@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ڕێبەر تێکست - Rebar Text</title>
+    <style>
+        body { font-family: Tahoma, sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 600px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        h2 { text-align: center; color: #0088cc; }
+        textarea { width: 100%; height: 250px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; resize: vertical; box-sizing: border-box; }
+        button { background: #0088cc; color: #fff; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
+        button:hover { background: #006699; }
+        #result { margin-top: 15px; word-break: break-all; background: #eef; padding: 10px; border-radius: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ڕێبەر تێکست</h2>
+        <textarea id="textInput" placeholder="لێرە دەقەکەت بنووسە..."></textarea>
+        <button onclick="generateLink()">دروستکردنی لینک</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function generateLink() {
+            const text = document.getElementById('textInput').value;
+            if(!text) { alert('تکایە دەقێک بنووسە'); return; }
+            const encoded = btoa(encodeURIComponent(text));
+            const link = window.location.origin + window.location.pathname + '#' + encoded;
+            const res = document.getElementById('result');
+            res.style.display = 'block';
+            res.innerHTML = 'لینکی دەقەکەت: <a href="' + link + '" target="_blank">' + link + '</a>';
+        }
+        window.onload = function() {
+            if(window.location.hash) {
+                try {
+                    const text = decodeURIComponent(atob(window.location.hash.substring(1)));
+                    document.body.innerHTML = '<div class="container" style="white-space: pre-wrap; font-size: 18px; line-height: 1.6;">' + text + '</div>';
+                } catch(e) {}
+            }
+        }
+    </script>
+</body>
+</html>
 
