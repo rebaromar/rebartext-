@@ -5,41 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ڕێبەر تێکست - Rebar Text</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background: #f4f4f9; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 600px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        body { font-family: Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 500px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #0088cc; }
-        textarea { width: 100%; height: 250px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; resize: vertical; box-sizing: border-box; }
-        button { background: #0088cc; color: #fff; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
+        textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: vertical; }
+        button { width: 100%; background: #0088cc; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
         button:hover { background: #006699; }
-        #result { margin-top: 15px; word-break: break-all; background: #eef; padding: 10px; border-radius: 5px; display: none; }
+        .result-box { margin-top: 15px; display: none; background: #eef9ff; padding: 10px; border-radius: 8px; border: 1px solid #bce8ff; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 8px; text-align: left; direction: ltr; font-size: 13px; }
+        .copy-btn { background: #28a745; margin-top: 0; }
+        .copy-btn:hover { background: #218838; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>ڕێبەر تێکست</h2>
-        <textarea id="textInput" placeholder="لێرە دەقەکەت بنووسە..."></textarea>
-        <button onclick="generateLink()">دروستکردنی لینک</button>
-        <div id="result"></div>
+
+<div class="container">
+    <h2>ڕێبەر تێکست</h2>
+    <textarea id="textInput" placeholder="تێکستەکەت لێرە بنووسە..."></textarea>
+    <button onclick="generateLink()">دروستکردنی لینک</button>
+
+    <div class="result-box" id="resultBox">
+        <input type="text" id="generatedLink" readonly>
+        <button class="copy-btn" onclick="copyLink()">کۆپیکردنی لینک</button>
     </div>
-    <script>
-        function generateLink() {
-            const text = document.getElementById('textInput').value;
-            if(!text) { alert('تکایە دەقێک بنووسە'); return; }
-            const encoded = btoa(encodeURIComponent(text));
-            const link = window.location.origin + window.location.pathname + '#' + encoded;
-            const res = document.getElementById('result');
-            res.style.display = 'block';
-            res.innerHTML = 'لینکی دەقەکەت: <a href="' + link + '" target="_blank">' + link + '</a>';
+</div>
+
+<script>
+    function generateLink() {
+        const text = document.getElementById('textInput').value;
+        if (!text.trim()) {
+            alert('تکایە سەرەتا تێکستێک بنووسە!');
+            return;
         }
-        window.onload = function() {
-            if(window.location.hash) {
-                try {
-                    const text = decodeURIComponent(atob(window.location.hash.substring(1)));
-                    document.body.innerHTML = '<div class="container" style="white-space: pre-wrap; font-size: 18px; line-height: 1.6;">' + text + '</div>';
-                } catch(e) {}
+        const encoded = btoa(encodeURIComponent(text));
+        const link = window.location.origin + window.location.pathname + '#' + encoded;
+        
+        document.getElementById('generatedLink').value = link;
+        document.getElementById('resultBox').style.display = 'block';
+    }
+
+    function copyLink() {
+        const linkInput = document.getElementById('generatedLink');
+        linkInput.select();
+        linkInput.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(linkInput.value);
+        alert('لینکەکە بە سەرکەوتوویی کۆپی کرا!');
+    }
+
+    window.onload = function() {
+        if (window.location.hash) {
+            try {
+                const encoded = window.location.hash.substring(1);
+                const text = decodeURIComponent(atob(encoded));
+                document.getElementById('textInput').value = text;
+            } catch (e) {
+                console.error(e);
             }
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
-
