@@ -62,16 +62,16 @@
         </div>
 
         <div class="field-group">
-            <span class="field-label">تێبینی (Note)</span>
+            <span class="field-label">لینک (کاتێک کلیک لە GetCode دەکرێت بچێتە کوێ؟)</span>
             <div class="input-with-copy">
-                <input type="text" id="inputNote" placeholder="تێبینی خۆت لێرە بنووسە...">
+                <input type="text" id="inputTargetLink" placeholder="http://devices.orangeid.top/...">
             </div>
         </div>
 
         <div class="field-group">
-            <span class="field-label">لینک (کاتێک کلیک لە GetCode دەکرێت بچێتە کوێ؟)</span>
+            <span class="field-label">تێبینی (Note)</span>
             <div class="input-with-copy">
-                <input type="text" id="inputTargetLink" placeholder="http://devices.orangeid.top/...">
+                <input type="text" id="inputNote" placeholder="تێبینی خۆت لێرە بنووسە...">
             </div>
         </div>
 
@@ -123,8 +123,11 @@
             </div>
         </div>
 
-        <!-- خانەی تێبینی -->
-        <div class="field-group" id="noteGroup" style="display:none;">
+        <!-- دوگمەی GetCode -->
+        <a id="btnGetCode" href="#" target="_blank" class="action-button">GetCode</a>
+
+        <!-- خانەی تێبینی لە دوای دوگمە -->
+        <div class="field-group" id="noteGroup" style="display:none; margin-top:15px;">
             <span class="field-label">Note / تێبینی</span>
             <div class="input-with-copy">
                 <button class="copy-icon-btn" onclick="copyText(document.getElementById('displayNote').value, this)" title="کۆپیکردن">📋</button>
@@ -132,16 +135,13 @@
             </div>
         </div>
 
-        <!-- دوگمەی GetCode -->
-        <a id="btnGetCode" href="#" target="_blank" class="action-button">GetCode</a>
-
         <!-- بەشی دەستکاریکردن بە پاسۆرد -->
         <div id="editSection" style="display:none; margin-top:20px; border-top:1px dashed #ccc; padding-top:15px;">
             <h4 style="margin:0 0 10px 0; color:#0088cc; text-align:center;">دەستکاریکردنی زانیارییەکان</h4>
             <div class="field-group"><span class="field-label">Email</span><input type="text" id="editEmail" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Password</span><input type="text" id="editPassword" style="width:100%; padding:10px; box-sizing:border-box;"></div>
-            <div class="field-group"><span class="field-label">Note</span><input type="text" id="editNote" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Target Link</span><input type="text" id="editTargetLink" style="width:100%; padding:10px; box-sizing:border-box; direction:ltr; text-align:left;"></div>
+            <div class="field-group"><span class="field-label">Note</span><input type="text" id="editNote" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <button class="action-button" style="background:#28a745;" onclick="saveEdit()">پاشەکەوتکردنی گۆڕانکاری</button>
         </div>
 
@@ -175,8 +175,8 @@
     async function createNewRecord() {
         const email = document.getElementById('inputEmail').value.trim();
         const password = document.getElementById('inputPassword').value.trim();
-        const note = document.getElementById('inputNote').value.trim();
         const targetLink = document.getElementById('inputTargetLink').value.trim();
+        const note = document.getElementById('inputNote').value.trim();
         const adminPass = document.getElementById('inputAdminPass').value.trim();
 
         if (!email && !password) {
@@ -191,8 +191,8 @@
         const dataPackage = {
             email: email,
             password: password,
-            note: note,
             targetLink: targetLink,
+            note: note,
             pass: adminPass
         };
 
@@ -209,7 +209,7 @@
             });
 
             if (response.ok) {
-                const message = `🔔 زانیاری نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n🔑 پاسۆردی ادمین: ${adminPass}\n\n📧 Email: ${email}\n🔒 Password: ${password}\n📝 Note: ${note}\n🌐 Target Link: ${targetLink}`;
+                const message = `🔔 زانیاری نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n🔑 پاسۆردی ادمین: ${adminPass}\n\n📧 Email: ${email}\n🔒 Password: ${password}\n🌐 Target Link: ${targetLink}\n📝 Note: ${note}`;
                 await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -270,18 +270,17 @@
                     try {
                         storedDataObj = JSON.parse(data.result);
                     } catch(err) {
-                        storedDataObj = { email: data.result, password: "", note: "", targetLink: "#", pass: "" };
+                        storedDataObj = { email: data.result, password: "", targetLink: "#", note: "", pass: "" };
                     }
                     
                     document.getElementById('displayEmail').value = storedDataObj.email || '';
                     document.getElementById('displayPassword').value = storedDataObj.password || '';
+                    document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
                     
                     if (storedDataObj.note && storedDataObj.note.trim() !== '') {
                         document.getElementById('displayNote').value = storedDataObj.note;
                         document.getElementById('noteGroup').style.display = 'block';
                     }
-
-                    document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
                 } else {
                     alert('بۆرە، ئەم زانیارییە نەدۆزرایەوە یان بەسەرچووە.');
                 }
@@ -299,8 +298,8 @@
             document.getElementById('editSection').style.display = 'block';
             document.getElementById('editEmail').value = storedDataObj.email || '';
             document.getElementById('editPassword').value = storedDataObj.password || '';
-            document.getElementById('editNote').value = storedDataObj.note || '';
             document.getElementById('editTargetLink').value = storedDataObj.targetLink || '';
+            document.getElementById('editNote').value = storedDataObj.note || '';
             alert('پاسۆردەکە ڕاستە! ئێستا دەتوانیت گۆڕانکاری بکەیت.');
         } else {
             alert('پاسۆردەکە هەڵەیە!');
@@ -310,8 +309,8 @@
     async function saveEdit() {
         storedDataObj.email = document.getElementById('editEmail').value;
         storedDataObj.password = document.getElementById('editPassword').value;
-        storedDataObj.note = document.getElementById('editNote').value;
         storedDataObj.targetLink = document.getElementById('editTargetLink').value;
+        storedDataObj.note = document.getElementById('editNote').value;
 
         try {
             const response = await fetch(`${UPSTASH_URL}/set/${currentId}`, {
@@ -326,6 +325,7 @@
             if (response.ok) {
                 document.getElementById('displayEmail').value = storedDataObj.email;
                 document.getElementById('displayPassword').value = storedDataObj.password;
+                document.getElementById('btnGetCode').href = storedDataObj.targetLink;
                 
                 if (storedDataObj.note && storedDataObj.note.trim() !== '') {
                     document.getElementById('displayNote').value = storedDataObj.note;
@@ -334,7 +334,6 @@
                     document.getElementById('noteGroup').style.display = 'none';
                 }
 
-                document.getElementById('btnGetCode').href = storedDataObj.targetLink;
                 document.getElementById('editSection').style.display = 'none';
                 alert('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران!');
             } else {
