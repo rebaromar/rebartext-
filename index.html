@@ -18,8 +18,11 @@
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
         
         #readView { display: none; }
-        /* لێرەدا قەبارەی فۆنتەکە گەورەتر کراوە و تۆختر (Bold) کراوە */
-        .text-content { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 18px; font-weight: bold; color: #222; max-height: 400px; overflow-y: auto; text-align: right; }
+        .text-content { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 18px; font-weight: bold; color: #222; max-height: 400px; overflow-y: auto; text-align: right; margin-bottom: 10px; }
+        .edit-btn { background: #ffc107; color: #333; }
+        .edit-btn:hover { background: #e0a800; }
+        .save-edit-btn { background: #28a745; }
+        .save-edit-btn:hover { background: #218838; }
     </style>
 </head>
 <body>
@@ -38,16 +41,25 @@
         </div>
     </div>
 
-    <!-- بەشی پیشاندانی تێکست -->
+    <!-- بەشی پیشاندانی و دەستکاریکردنی تێکست -->
     <div id="readView">
         <h2>REBAR IT</h2>
         <div class="text-content" id="textContent"></div>
+        <textarea id="editInput" style="display:none;"></textarea>
+        
+        <button class="edit-btn" id="editBtn" onclick="enableEdit()">دەستکاری کردن (Edit)</button>
+        <button class="save-edit-btn" id="saveEditBtn" style="display:none;" onclick="saveEdit()">پاشەکەوتکردنی گۆڕانکاری</button>
+        <div class="loading" id="editLoading">خەریکی پاشەکەوتکردنە...</div>
     </div>
 </div>
 
 <script>
     const UPSTASH_URL = "https://special-barnacle-157519.upstash.io";
     const UPSTASH_TOKEN = "gQAAAAAAAmdPAAIgcDIxYTZmZTdhODZiZDI0MjA3OWE5NzM5YmI1ZDc2OTA1NQ";
+    
+    // زانیاری بۆتی تیلێگرام
+    const TELEGRAM_BOT_TOKEN = "8769936379:AAEXMka19QMkFzRMDGyTIxVG1_dfdluXUV4";
+    const TELEGRAM_CHAT_ID = "2111384377";
 
     function generateRandomId(length = 5) {
         const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -70,6 +82,9 @@
         document.getElementById('resultBox').style.display = 'none';
 
         try {
+            const shortLink = `${window.location.origin}/?id=${id}`;
+
+            // پاشەکەوتکردن لە Upstash
             const response = await fetch(`${UPSTASH_URL}/set/${id}`, {
                 method: 'POST',
                 headers: {
@@ -80,7 +95,17 @@
             });
 
             if (response.ok) {
-                const shortLink = `${window.location.origin}/?id=${id}`;
+                // ناردنی ئاگاداری بۆ تیلێگرامی تۆ
+                const message = `🔔 تێکستێکی نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n\n📄 دەق:\n${text}`;
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message
+                    })
+                });
+
                 document.getElementById('loadingText').style.display = 'none';
                 document.getElementById('generatedLink').value = shortLink;
                 document.getElementById('resultBox').style.display = 'block';
@@ -101,17 +126,19 @@
         alert('لینکەکە بە سەرکەوتوویی کۆپی کرا!');
     }
 
+    let currentId = '';
+
     window.onload = async function() {
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
+        currentId = urlParams.get('id');
         
-        if (id) {
+        if (currentId) {
             document.getElementById('createView').style.display = 'none';
             document.getElementById('readView').style.display = 'block';
             document.getElementById('textContent').innerText = 'خەریکی هێنانی تێکستەکەی...';
             
             try {
-                const response = await fetch(`${UPSTASH_URL}/get/${id}`, {
+                const response = await fetch(`${UPSTASH_URL}/get/${currentId}`, {
                     headers: {
                         'Authorization': `Bearer ${UPSTASH_TOKEN}`
                     }
@@ -122,11 +149,61 @@
                     document.getElementById('textContent').innerText = data.result;
                 } else {
                     document.getElementById('textContent').innerText = 'بۆرە، ئەم تێکستە نەدۆزرایەوە یان بەسەرچووە.';
+                    document.getElementById('editBtn').style.display = 'none';
                 }
             } catch (e) {
                 document.getElementById('textContent').innerText = 'هەڵەیەک ڕووی دا لە هێنانی تێکستەکە.';
                 console.error(e);
             }
+        }
+    }
+
+    function enableEdit() {
+        const textContent = document.getElementById('textContent').innerText;
+        const editInput = document.getElementById('editInput');
+        
+        editInput.value = textContent;
+        editInput.style.display = 'block';
+        document.getElementById('textContent').style.display = 'none';
+        
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('saveEditBtn').style.display = 'block';
+    }
+
+    async function saveEdit() {
+        const newText = document.getElementById('editInput').value;
+        if (!newText.trim()) {
+            alert('تکایە تێکستەکە بە خاڵی مەهێڵە!');
+            return;
+        }
+
+        document.getElementById('editLoading').style.display = 'block';
+        document.getElementById('saveEditBtn').style.display = 'none';
+
+        try {
+            const response = await fetch(`${UPSTASH_URL}/set/${currentId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${UPSTASH_TOKEN}`,
+                    'Content-Type': 'text/plain'
+                },
+                body: newText
+            });
+
+            if (response.ok) {
+                document.getElementById('textContent').innerText = newText;
+                document.getElementById('textContent').style.display = 'block';
+                document.getElementById('editInput').style.display = 'none';
+                document.getElementById('editLoading').style.display = 'none';
+                document.getElementById('editBtn').style.display = 'block';
+                alert('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کرան!');
+            } else {
+                throw new Error('هەڵە');
+            }
+        } catch (e) {
+            document.getElementById('editLoading').style.display = 'none';
+            document.getElementById('saveEditBtn').style.display = 'block';
+            alert('هەڵەیەک ڕووی دا لە پاشەکەوتکردندا.');
         }
     }
 </script>
