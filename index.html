@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ڕێبەر تێکست - Rebar Text</title>
+    <title>REBAR IT</title>
     <style>
         body { font-family: Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .container { width: 100%; max-width: 500px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
@@ -17,11 +17,8 @@
         .copy-btn:hover { background: #218838; }
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
         
-        /* شێوازی پەڕەی خوێندنەوەی تێکست (وەک تێلێگراف) */
         #readView { display: none; }
         .text-content { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 15px; color: #333; max-height: 400px; overflow-y: auto; text-align: right; }
-        .create-new-btn { background: #6c757d; margin-top: 15px; }
-        .create-new-btn:hover { background: #5a6268; }
     </style>
 </head>
 <body>
@@ -29,7 +26,7 @@
 <div class="container">
     <!-- بەشی دروستکردنی تێکست -->
     <div id="createView">
-        <h2>ڕێبەر تێکست</h2>
+        <h2>REBAR IT</h2>
         <textarea id="textInput" placeholder="تێکستەکەت لێرە بنووسە..."></textarea>
         <button onclick="generateLink()">دروستکردنی لینک</button>
         <div class="loading" id="loadingText">چاوەڕێ بە، لینکەکە خەزن دەکرێت...</div>
@@ -40,11 +37,10 @@
         </div>
     </div>
 
-    <!-- بەشی پیشاندانی تێکست بۆ ئەوەی کە لینکەکە دەکاتەوە -->
+    <!-- بەشی پیشاندانی تێکست (بێ دوگمە) -->
     <div id="readView">
-        <h2>ڕێبەر تێکست</h2>
+        <h2>REBAR IT</h2>
         <div class="text-content" id="textContent"></div>
-        <button class="create-new-btn" onclick="location.href='/'">دروستکردنی تێکستێکی نوێ</button>
     </div>
 </div>
 
@@ -109,7 +105,6 @@
         const id = urlParams.get('id');
         
         if (id) {
-            // گۆڕینی دیمەن بۆ ئەوەی تەنها خوێندنەوەی تێکست بێت
             document.getElementById('createView').style.display = 'none';
             document.getElementById('readView').style.display = 'block';
             document.getElementById('textContent').innerText = 'خەریکی هێنانی تێکستەکەی...';
