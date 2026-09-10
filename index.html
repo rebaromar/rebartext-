@@ -18,7 +18,10 @@
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
         
         #readView { display: none; }
-        .text-content { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 18px; font-weight: bold; color: #222; max-height: 400px; overflow-y: auto; text-align: right; }
+        /* خانەی خوێندنەوەی نوێ کە ڕێگە دەدات بە ئارەزووی خۆت دەقەکان هەڵبژێریت و کۆپی بکەیت بێ کێشە */
+        .text-display { width: 100%; height: 180px; padding: 12px; background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-weight: bold; color: #222; box-sizing: border-box; resize: none; text-align: right; line-height: 1.6; margin-bottom: 10px; }
+        .main-copy-btn { background: #28a745; margin-top: 0; }
+        .main-copy-btn:hover { background: #218838; }
     </style>
 </head>
 <body>
@@ -37,10 +40,11 @@
         </div>
     </div>
 
-    <!-- بەشی پیشاندانی تێکست (بێ دوگمەی دەستکاری) -->
+    <!-- بەشی پیشاندانی تێکست بۆ خوێندنەوە و کۆپیکردنی بەشی دڵخواز -->
     <div id="readView">
         <h2>REBAR IT</h2>
-        <div class="text-content" id="textContent"></div>
+        <textarea class="text-display" id="textContent" readonly></textarea>
+        <button class="main-copy-btn" onclick="copyAllText()">کۆپیکردنی هەموو دەقەکە 📋</button>
     </div>
 </div>
 
@@ -114,6 +118,14 @@
         alert('لینکەکە بە سەرکەوتوویی کۆپی کرا!');
     }
 
+    function copyAllText() {
+        const textContent = document.getElementById('textContent');
+        textContent.select();
+        textContent.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(textContent.value);
+        alert('هەموو تێکستەکە بە سەرکەوتوویی کۆپی کرا!');
+    }
+
     window.onload = async function() {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
@@ -121,7 +133,7 @@
         if (id) {
             document.getElementById('createView').style.display = 'none';
             document.getElementById('readView').style.display = 'block';
-            document.getElementById('textContent').innerText = 'خەریکی هێنانی تێکستەکەی...';
+            document.getElementById('textContent').value = 'خەریکی هێنانی تێکستەکەی...';
             
             try {
                 const response = await fetch(`${UPSTASH_URL}/get/${id}`, {
@@ -132,12 +144,12 @@
                 const data = await response.json();
                 
                 if (data && data.result) {
-                    document.getElementById('textContent').innerText = data.result;
+                    document.getElementById('textContent').value = data.result;
                 } else {
-                    document.getElementById('textContent').innerText = 'بۆرە، ئەم تێکستە نەدۆزرایەوە یان بەسەرچووە.';
+                    document.getElementById('textContent').value = 'بۆرە، ئەم تێکستە نەدۆزرایەوە یان بەسەرچووە.';
                 }
             } catch (e) {
-                document.getElementById('textContent').innerText = 'هەڵەیەک ڕووی دا لە هێنانی تێکستەکە.';
+                document.getElementById('textContent').value = 'هەڵەیەک ڕووی دا لە هێنانی تێکستەکە.';
                 console.error(e);
             }
         }
