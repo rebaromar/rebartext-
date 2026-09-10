@@ -11,8 +11,8 @@
         .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-bottom: 12px; }
         .brand-container { display: flex; align-items: center; gap: 10px; }
         
-        /* لۆگۆی بازنەیی و تەواو ڕوون */
-        .brand-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #0088cc; background: #fff; }
+        /* لۆگۆی بازنەیی و ڕوون */
+        .brand-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #0088cc; background: #fff; display: block; }
         
         .brand-title { font-size: 22px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 6px; direction: ltr; }
         .brand-title span { color: #0088cc; }
@@ -29,7 +29,8 @@
         .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
         .copy-icon-btn:hover { background: #c0c8d0; }
 
-        .note-display { font-size: 16px; color: #111; font-weight: bold; margin: 12px 0; padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; line-height: 1.6; text-align: right; }
+        /* تێبینی بە شێوازی قتووی ڕێک و جوان و خوێندنەوەی ئاسان */
+        .note-display { font-size: 15px; color: #111; font-weight: bold; margin: 15px 0; padding: 12px; background: #f8f9fa; border: 1px solid #dcdcdc; border-radius: 10px; white-space: pre-wrap; word-break: break-word; line-height: 1.8; text-align: right; direction: rtl; }
 
         .action-button { background: #222; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
         .action-button:hover { background: #444; }
@@ -53,7 +54,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+                <img src="https://i.ibb.co/53v5zC9/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/53v5zC9'">
             </div>
         </div>
         
@@ -108,7 +109,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+                <img src="https://i.ibb.co/53v5zC9/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/53v5zC9'">
             </div>
         </div>
         
@@ -139,7 +140,7 @@
         <!-- دوگمەی بەدەستهێنانی کۆد -->
         <a id="btnGetCode" href="#" target="_blank" class="action-button">بەدەستهێنانی کۆد کلیک بکە</a>
 
-        <!-- تێبینی بە شێوازی دەقی تۆخ و ڕوون -->
+        <!-- تێبینی بە شێوازی قتووی ڕێک و قەشەنگ -->
         <div id="noteContainer" class="note-display" style="display:none;"></div>
 
         <!-- بەشی دەستکاریکردن بە پاسۆرد -->
@@ -357,3 +358,4 @@
 
 </body>
 </html>
+
