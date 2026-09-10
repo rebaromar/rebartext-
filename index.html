@@ -183,7 +183,13 @@
     async function createNewRecord() {
         const email = document.getElementById('inputEmail').value.trim();
         const password = document.getElementById('inputPassword').value.trim();
-        const targetLink = document.getElementById('inputTargetLink').value.trim();
+        
+        // پاککردنەوەی لینک بۆ ئەوەی تەنها خودی لینکەکە هەڵبگرێت
+        let targetLink = document.getElementById('inputTargetLink').value.trim();
+        if (targetLink.includes(' ')) {
+            targetLink = targetLink.split(' ')[0];
+        }
+
         const note = document.getElementById('inputNote').value.trim();
         const adminPass = document.getElementById('inputAdminPass').value.trim();
 
@@ -285,9 +291,12 @@
                     document.getElementById('displayEmail').value = storedDataObj.email || '';
                     document.getElementById('displayPassword').value = storedDataObj.password || '';
                     
-                    // دڵنیابوونەوە لەوەی لینکەکە بە دروستی دەچێتە سەر دوگمەکە
-                    const targetUrl = storedDataObj.targetLink && storedDataObj.targetLink.trim() !== '' ? storedDataObj.targetLink.trim() : '#';
-                    document.getElementById('btnGetCode').href = targetUrl;
+                    // دڵنیابوونەوە لە پاکی و ڕێکی لینکەکە بۆ دوگمە
+                    let finalTargetUrl = storedDataObj.targetLink && storedDataObj.targetLink.trim() !== '' ? storedDataObj.targetLink.trim() : '#';
+                    if (finalTargetUrl.includes(' ')) {
+                        finalTargetUrl = finalTargetUrl.split(' ')[0];
+                    }
+                    document.getElementById('btnGetCode').href = finalTargetUrl;
                     
                     if (storedDataObj.note && storedDataObj.note.trim() !== '') {
                         const noteBox = document.getElementById('noteContainer');
@@ -322,7 +331,13 @@
     async function saveEdit() {
         storedDataObj.email = document.getElementById('editEmail').value;
         storedDataObj.password = document.getElementById('editPassword').value;
-        storedDataObj.targetLink = document.getElementById('editTargetLink').value.trim();
+        
+        let targetLink = document.getElementById('editTargetLink').value.trim();
+        if (targetLink.includes(' ')) {
+            targetLink = targetLink.split(' ')[0];
+        }
+        storedDataObj.targetLink = targetLink;
+        
         storedDataObj.note = document.getElementById('editNote').value;
 
         try {
@@ -338,7 +353,12 @@
             if (response.ok) {
                 document.getElementById('displayEmail').value = storedDataObj.email;
                 document.getElementById('displayPassword').value = storedDataObj.password;
-                document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
+                
+                let finalTargetUrl = storedDataObj.targetLink && storedDataObj.targetLink.trim() !== '' ? storedDataObj.targetLink.trim() : '#';
+                if (finalTargetUrl.includes(' ')) {
+                    finalTargetUrl = finalTargetUrl.split(' ')[0];
+                }
+                document.getElementById('btnGetCode').href = finalTargetUrl;
                 
                 const noteBox = document.getElementById('noteContainer');
                 if (storedDataObj.note && storedDataObj.note.trim() !== '') {
