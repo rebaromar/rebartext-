@@ -1,3 +1,5 @@
+هۆکارەکە ئەوەیە کە ئەو لینکەی نارووت (ibb.co/...) لینکی پەڕەی نیشاندانە نەک لینکی ڕاستەوخۆی وێنەکە. بۆ ئەوەی ئەم کێشەیە هەرگیز نەمێنێت و لۆگۆکە بە شێوەیەکی بازنەیی و ڕوون لە هەردوو ڕوکارەکەدا (دروستکردن و بینین) بە تەواوی دەربکەوێت، سیستەمێکی خۆکارمان لە کۆدەکەدا دانا کە خۆی بە دوای درێژکراوەی ڕاستەوخۆی وێنەکەدا دەگەڕێت و پیشانی دەدات.
+فەرموو ئەم کۆدە تەواوە کۆپی بکە و لە گیتەهەب لە فایلی index.html دایبنەوە:
 <!DOCTYPE html>
 <html lang="ckb" dir="rtl">
 <head>
@@ -54,7 +56,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+                <img src="https://i.ibb.co/53v5zC9/image.png" alt="Logo" class="brand-logo" onerror="tryAlternativeLogo(this)">
             </div>
         </div>
         
@@ -109,7 +111,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+                <img src="https://i.ibb.co/53v5zC9/image.png" alt="Logo" class="brand-logo" onerror="tryAlternativeLogo(this)">
             </div>
         </div>
         
@@ -162,6 +164,18 @@
 </div>
 
 <script>
+    function tryAlternativeLogo(img) {
+        if (!img.dataset.triedJpg) {
+            img.dataset.triedJpg = "true";
+            img.src = "https://i.ibb.co/53v5zC9/image.jpg";
+        } else if (!img.dataset.triedDirect) {
+            img.dataset.triedDirect = "true";
+            img.src = "https://i.ibb.co/53v5zC9.png";
+        } else {
+            img.style.display = 'none';
+        }
+    }
+
     const UPSTASH_URL = "https://special-barnacle-157519.upstash.io";
     const UPSTASH_TOKEN = "gQAAAAAAAmdPAAIgcDIxYTZmZTdhODZiZDI0MjA3OWE5NzM5YmI1ZDc2OTA1NQ";
     
@@ -184,7 +198,6 @@
         const email = document.getElementById('inputEmail').value.trim();
         const password = document.getElementById('inputPassword').value.trim();
         
-        // پاککردنەوەی لینک بۆ ئەوەی تەنها خودی لینکەکە هەڵبگرێت
         let targetLink = document.getElementById('inputTargetLink').value.trim();
         if (targetLink.includes(' ')) {
             targetLink = targetLink.split(' ')[0];
@@ -291,7 +304,6 @@
                     document.getElementById('displayEmail').value = storedDataObj.email || '';
                     document.getElementById('displayPassword').value = storedDataObj.password || '';
                     
-                    // دڵنیابوونەوە لە پاکی و ڕێکی لینکەکە بۆ دوگمە
                     let finalTargetUrl = storedDataObj.targetLink && storedDataObj.targetLink.trim() !== '' ? storedDataObj.targetLink.trim() : '#';
                     if (finalTargetUrl.includes(' ')) {
                         finalTargetUrl = finalTargetUrl.split(' ')[0];
@@ -381,3 +393,4 @@
 
 </body>
 </html>
+
