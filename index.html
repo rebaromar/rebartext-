@@ -29,7 +29,7 @@
         .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
         .copy-icon-btn:hover { background: #c0c8d0; }
 
-        /* تێبینی بە شێوازی قتووی ڕێک و جوان و خوێندنەوەی ئاسان */
+        /* تێبینی بە شێوازی قتووی ڕێک و جوان */
         .note-display { font-size: 15px; color: #111; font-weight: bold; margin: 15px 0; padding: 12px; background: #f8f9fa; border: 1px solid #dcdcdc; border-radius: 10px; white-space: pre-wrap; word-break: break-word; line-height: 1.8; text-align: right; direction: rtl; }
 
         .action-button { background: #222; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
@@ -54,7 +54,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/53v5zC9'">
+                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
             </div>
         </div>
         
@@ -75,7 +75,7 @@
         <div class="field-group">
             <span class="field-label">لینک (کاتێک کلیک لە بەدەستهێنانی کۆد دەکرێت بچێتە کوێ؟)</span>
             <div class="input-with-copy">
-                <input type="text" id="inputTargetLink" placeholder="http://devices.orangeid.top/...">
+                <input type="text" id="inputTargetLink" placeholder="http://devices.orangeid.top/..." style="direction: ltr; text-align: left;">
             </div>
         </div>
 
@@ -109,7 +109,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/53v5zC9/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/53v5zC9'">
+                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
             </div>
         </div>
         
@@ -284,7 +284,10 @@
                     
                     document.getElementById('displayEmail').value = storedDataObj.email || '';
                     document.getElementById('displayPassword').value = storedDataObj.password || '';
-                    document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
+                    
+                    // دڵنیابوونەوە لەوەی لینکەکە بە دروستی دەچێتە سەر دوگمەکە
+                    const targetUrl = storedDataObj.targetLink && storedDataObj.targetLink.trim() !== '' ? storedDataObj.targetLink.trim() : '#';
+                    document.getElementById('btnGetCode').href = targetUrl;
                     
                     if (storedDataObj.note && storedDataObj.note.trim() !== '') {
                         const noteBox = document.getElementById('noteContainer');
@@ -319,7 +322,7 @@
     async function saveEdit() {
         storedDataObj.email = document.getElementById('editEmail').value;
         storedDataObj.password = document.getElementById('editPassword').value;
-        storedDataObj.targetLink = document.getElementById('editTargetLink').value;
+        storedDataObj.targetLink = document.getElementById('editTargetLink').value.trim();
         storedDataObj.note = document.getElementById('editNote').value;
 
         try {
@@ -335,7 +338,7 @@
             if (response.ok) {
                 document.getElementById('displayEmail').value = storedDataObj.email;
                 document.getElementById('displayPassword').value = storedDataObj.password;
-                document.getElementById('btnGetCode').href = storedDataObj.targetLink;
+                document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
                 
                 const noteBox = document.getElementById('noteContainer');
                 if (storedDataObj.note && storedDataObj.note.trim() !== '') {
@@ -358,4 +361,3 @@
 
 </body>
 </html>
-
