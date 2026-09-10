@@ -9,10 +9,10 @@
         .container { width: 100%; max-width: 480px; background: #fff; padding: 15px 20px; border-radius: 0 0 16px 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 0; }
         
         .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-bottom: 12px; }
-        .brand-container { display: flex; align-items: center; gap: 8px; }
+        .brand-container { display: flex; align-items: center; gap: 10px; }
         
-        /* قەبارە و شێوازی لۆگۆ */
-        .brand-logo { height: 45px; width: 45px; border-radius: 8px; object-fit: cover; border: 1px solid #ccc; background: #f9f9f9; }
+        /* لۆگۆی بازنەیی و تەواو ڕوون */
+        .brand-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #0088cc; background: #fff; }
         
         .brand-title { font-size: 22px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 6px; direction: ltr; }
         .brand-title span { color: #0088cc; }
@@ -53,7 +53,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/7NvRwWQL/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/7NvRwWQL.jpg'">
+                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
             </div>
         </div>
         
@@ -108,7 +108,7 @@
             <div class="apple-icon"></div>
             <div class="brand-container">
                 <div class="brand-title"><span>REBAR</span> IT</div>
-                <img src="https://i.ibb.co/7NvRwWQL/logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://i.ibb.co/7NvRwWQL.jpg'">
+                <img src="https://i.ibb.co/53v5zC9" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
             </div>
         </div>
         
@@ -316,13 +316,10 @@
     }
 
     async function saveEdit() {
-        storedDataObj.email = document.getElementById('editEmail5').value || document.getElementById('editEmail').value;
+        storedDataObj.email = document.getElementById('editEmail').value;
         storedDataObj.password = document.getElementById('editPassword').value;
         storedDataObj.targetLink = document.getElementById('editTargetLink').value;
         storedDataObj.note = document.getElementById('editNote').value;
-
-        // Correct field name check for safety
-        storedDataObj.email = document.getElementById('editEmail').value;
 
         try {
             const response = await fetch(`${UPSTASH_URL}/set/${currentId}`, {
