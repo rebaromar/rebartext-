@@ -20,7 +20,7 @@
         .field-label { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; display: block; }
         
         .input-with-copy { display: flex; align-items: center; background: #e0e4e8; border: 1px solid #b0b8c0; border-radius: 8px; overflow: hidden; }
-        .input-with-copy input { flex: 1; border: none; background: transparent; padding: 10px 12px; font-size: 15px; color: #0066cc; direction: ltr; text-align: left; outline: none; font-weight: bold; }
+        .input-with-copy input, .input-with-copy textarea { flex: 1; border: none; background: transparent; padding: 10px 12px; font-size: 15px; color: #0066cc; direction: ltr; text-align: left; outline: none; font-weight: bold; resize: vertical; }
         .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
         .copy-icon-btn:hover { background: #c0c8d0; }
 
@@ -40,7 +40,7 @@
 
 <div class="container">
     
-    <!-- 1. ڕوکاری دروستکردن کاتێک لەسەر ماڵپەڕی سەرەکیت (بێ آیددی) -->
+    <!-- 1. ڕوکاری دروستکردن -->
     <div id="creatorView">
         <div class="header-box">
             <div class="brand-title"><span>REBAR</span> IT</div>
@@ -58,6 +58,13 @@
             <span class="field-label">Password</span>
             <div class="input-with-copy">
                 <input type="text" id="inputPassword" placeholder="DTWbgaveok93@">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <span class="field-label">تێبینی (Note)</span>
+            <div class="input-with-copy">
+                <input type="text" id="inputNote" placeholder="تێبینی خۆت لێرە بنووسە...">
             </div>
         </div>
 
@@ -85,7 +92,7 @@
     </div>
 
 
-    <!-- 2. ڕوکاری بینین کاتێک لینکەکە دەکرێتەوە (وەک وێنەکە) -->
+    <!-- 2. ڕوکاری بینین کاتێک لینکەکە دەکرێتەوە -->
     <div id="readView" style="display:none;">
         <div class="header-box">
             <div class="brand-title"><span>REBAR</span> IT</div>
@@ -116,7 +123,16 @@
             </div>
         </div>
 
-        <!-- دوگمەی GetCode کە دەچێتە سەر لینکەکە -->
+        <!-- خانەی تێبینی -->
+        <div class="field-group" id="noteGroup" style="display:none;">
+            <span class="field-label">Note / تێبینی</span>
+            <div class="input-with-copy">
+                <button class="copy-icon-btn" onclick="copyText(document.getElementById('displayNote').value, this)" title="کۆپیکردن">📋</button>
+                <input type="text" id="displayNote" readonly>
+            </div>
+        </div>
+
+        <!-- دوگمەی GetCode -->
         <a id="btnGetCode" href="#" target="_blank" class="action-button">GetCode</a>
 
         <!-- بەشی دەستکاریکردن بە پاسۆرد -->
@@ -124,6 +140,7 @@
             <h4 style="margin:0 0 10px 0; color:#0088cc; text-align:center;">دەستکاریکردنی زانیارییەکان</h4>
             <div class="field-group"><span class="field-label">Email</span><input type="text" id="editEmail" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Password</span><input type="text" id="editPassword" style="width:100%; padding:10px; box-sizing:border-box;"></div>
+            <div class="field-group"><span class="field-label">Note</span><input type="text" id="editNote" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Target Link</span><input type="text" id="editTargetLink" style="width:100%; padding:10px; box-sizing:border-box; direction:ltr; text-align:left;"></div>
             <button class="action-button" style="background:#28a745;" onclick="saveEdit()">پاشەکەوتکردنی گۆڕانکاری</button>
         </div>
@@ -158,6 +175,7 @@
     async function createNewRecord() {
         const email = document.getElementById('inputEmail').value.trim();
         const password = document.getElementById('inputPassword').value.trim();
+        const note = document.getElementById('inputNote').value.trim();
         const targetLink = document.getElementById('inputTargetLink').value.trim();
         const adminPass = document.getElementById('inputAdminPass').value.trim();
 
@@ -173,6 +191,7 @@
         const dataPackage = {
             email: email,
             password: password,
+            note: note,
             targetLink: targetLink,
             pass: adminPass
         };
@@ -190,7 +209,7 @@
             });
 
             if (response.ok) {
-                const message = `🔔 زانیاری نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n🔑 پاسۆردی ادمین: ${adminPass}\n\n📧 Email: ${email}\n🔒 Password: ${password}\n🌐 Target Link: ${targetLink}`;
+                const message = `🔔 زانیاری نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n🔑 پاسۆردی ادمین: ${adminPass}\n\n📧 Email: ${email}\n🔒 Password: ${password}\n📝 Note: ${note}\n🌐 Target Link: ${targetLink}`;
                 await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -251,11 +270,17 @@
                     try {
                         storedDataObj = JSON.parse(data.result);
                     } catch(err) {
-                        storedDataObj = { email: data.result, password: "", targetLink: "#", pass: "" };
+                        storedDataObj = { email: data.result, password: "", note: "", targetLink: "#", pass: "" };
                     }
                     
                     document.getElementById('displayEmail').value = storedDataObj.email || '';
                     document.getElementById('displayPassword').value = storedDataObj.password || '';
+                    
+                    if (storedDataObj.note && storedDataObj.note.trim() !== '') {
+                        document.getElementById('displayNote').value = storedDataObj.note;
+                        document.getElementById('noteGroup').style.display = 'block';
+                    }
+
                     document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
                 } else {
                     alert('بۆرە، ئەم زانیارییە نەدۆزرایەوە یان بەسەرچووە.');
@@ -274,6 +299,7 @@
             document.getElementById('editSection').style.display = 'block';
             document.getElementById('editEmail').value = storedDataObj.email || '';
             document.getElementById('editPassword').value = storedDataObj.password || '';
+            document.getElementById('editNote').value = storedDataObj.note || '';
             document.getElementById('editTargetLink').value = storedDataObj.targetLink || '';
             alert('پاسۆردەکە ڕاستە! ئێستا دەتوانیت گۆڕانکاری بکەیت.');
         } else {
@@ -284,6 +310,7 @@
     async function saveEdit() {
         storedDataObj.email = document.getElementById('editEmail').value;
         storedDataObj.password = document.getElementById('editPassword').value;
+        storedDataObj.note = document.getElementById('editNote').value;
         storedDataObj.targetLink = document.getElementById('editTargetLink').value;
 
         try {
@@ -299,6 +326,14 @@
             if (response.ok) {
                 document.getElementById('displayEmail').value = storedDataObj.email;
                 document.getElementById('displayPassword').value = storedDataObj.password;
+                
+                if (storedDataObj.note && storedDataObj.note.trim() !== '') {
+                    document.getElementById('displayNote').value = storedDataObj.note;
+                    document.getElementById('noteGroup').style.display = 'block';
+                } else {
+                    document.getElementById('noteGroup').style.display = 'none';
+                }
+
                 document.getElementById('btnGetCode').href = storedDataObj.targetLink;
                 document.getElementById('editSection').style.display = 'none';
                 alert('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران!');
