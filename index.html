@@ -24,6 +24,9 @@
         .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
         .copy-icon-btn:hover { background: #c0c8d0; }
 
+        /* شێوازی تێبینی وەک وێنەکەی دووەم (بێ خانە و دوگمەی کۆپی، دەردەکەوێت بە ڕوونی) */
+        .note-display { font-size: 15px; color: #333; margin: 15px 0; padding: 10px 0; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; white-space: pre-wrap; word-break: break-word; line-height: 1.6; text-align: right; }
+
         .action-button { background: #222; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
         .action-button:hover { background: #444; }
 
@@ -71,7 +74,7 @@
         <div class="field-group">
             <span class="field-label">تێبینی (Note)</span>
             <div class="input-with-copy">
-                <input type="text" id="inputNote" placeholder="تێبینی خۆت لێرە بنووسە...">
+                <textarea id="inputNote" rows="3" placeholder="تێبینی خۆت لێرە بنووسە..." style="direction:rtl; text-align:right;"></textarea>
             </div>
         </div>
 
@@ -126,14 +129,8 @@
         <!-- دوگمەی GetCode -->
         <a id="btnGetCode" href="#" target="_blank" class="action-button">GetCode</a>
 
-        <!-- خانەی تێبینی لە دوای دوگمە -->
-        <div class="field-group" id="noteGroup" style="display:none; margin-top:15px;">
-            <span class="field-label">Note / تێبینی</span>
-            <div class="input-with-copy">
-                <button class="copy-icon-btn" onclick="copyText(document.getElementById('displayNote').value, this)" title="کۆپیکردن">📋</button>
-                <input type="text" id="displayNote" readonly>
-            </div>
-        </div>
+        <!-- تێبینی بە شێوازی دەقی ڕوون و فراوان لە خوارەوە بێ دوگمەی کۆپی -->
+        <div id="noteContainer" class="note-display" style="display:none;"></div>
 
         <!-- بەشی دەستکاریکردن بە پاسۆرد -->
         <div id="editSection" style="display:none; margin-top:20px; border-top:1px dashed #ccc; padding-top:15px;">
@@ -141,7 +138,7 @@
             <div class="field-group"><span class="field-label">Email</span><input type="text" id="editEmail" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Password</span><input type="text" id="editPassword" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">Target Link</span><input type="text" id="editTargetLink" style="width:100%; padding:10px; box-sizing:border-box; direction:ltr; text-align:left;"></div>
-            <div class="field-group"><span class="field-label">Note</span><input type="text" id="editNote" style="width:100%; padding:10px; box-sizing:border-box;"></div>
+            <div class="field-group"><span class="field-label">Note</span><textarea id="editNote" rows="3" style="width:100%; padding:10px; box-sizing:border-box; direction:rtl; text-align:right;"></textarea></div>
             <button class="action-button" style="background:#28a745;" onclick="saveEdit()">پاشەکەوتکردنی گۆڕانکاری</button>
         </div>
 
@@ -278,8 +275,9 @@
                     document.getElementById('btnGetCode').href = storedDataObj.targetLink || '#';
                     
                     if (storedDataObj.note && storedDataObj.note.trim() !== '') {
-                        document.getElementById('displayNote').value = storedDataObj.note;
-                        document.getElementById('noteGroup').style.display = 'block';
+                        const noteBox = document.getElementById('noteContainer');
+                        noteBox.innerText = storedDataObj.note;
+                        noteBox.style.display = 'block';
                     }
                 } else {
                     alert('بۆرە، ئەم زانیارییە نەدۆزرایەوە یان بەسەرچووە.');
@@ -327,11 +325,12 @@
                 document.getElementById('displayPassword').value = storedDataObj.password;
                 document.getElementById('btnGetCode').href = storedDataObj.targetLink;
                 
+                const noteBox = document.getElementById('noteContainer');
                 if (storedDataObj.note && storedDataObj.note.trim() !== '') {
-                    document.getElementById('displayNote').value = storedDataObj.note;
-                    document.getElementById('noteGroup').style.display = 'block';
+                    noteBox.innerText = storedDataObj.note;
+                    noteBox.style.display = 'block';
                 } else {
-                    document.getElementById('noteGroup').style.display = 'none';
+                    noteBox.style.display = 'none';
                 }
 
                 document.getElementById('editSection').style.display = 'none';
