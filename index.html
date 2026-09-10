@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REBAR IT</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background-color: #eef2f5; margin: 0; padding: 10px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .container { width: 100%; max-width: 480px; background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); box-sizing: border-box; }
+        body { font-family: Tahoma, sans-serif; background-color: #eef2f5; margin: 0; padding: 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; box-sizing: border-box; }
+        .container { width: 100%; max-width: 480px; background: #fff; padding: 15px 20px; border-radius: 0 0 16px 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); box-sizing: border-box; margin-top: 0; }
         
-        .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 12px; margin-bottom: 15px; }
-        .brand-title { font-size: 24px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 8px; direction: ltr; }
+        .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-bottom: 12px; }
+        .brand-container { display: flex; align-items: center; gap: 8px; }
+        .brand-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+        .brand-title { font-size: 22px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 6px; direction: ltr; }
         .brand-title span { color: #0088cc; }
         .apple-icon { font-size: 26px; }
 
-        .time-box { text-align: center; font-size: 13px; color: #555; margin-bottom: 15px; }
-        .time-box span { display: block; font-weight: bold; color: #222; font-size: 15px; margin-top: 3px; }
+        .time-box { text-align: center; font-size: 13px; color: #555; margin-bottom: 12px; }
+        .time-box span { display: block; font-weight: bold; color: #222; font-size: 15px; margin-top: 2px; }
 
-        .field-group { margin-bottom: 15px; text-align: right; }
+        .field-group { margin-bottom: 12px; text-align: right; }
         .field-label { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; display: block; text-align: center; }
         
         .input-with-copy { display: flex; align-items: center; background: #e0e4e8; border: 1px solid #b0b8c0; border-radius: 8px; overflow: hidden; }
@@ -24,8 +26,7 @@
         .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
         .copy-icon-btn:hover { background: #c0c8d0; }
 
-        /* شێوازی تێبینی تۆخ و ڕوون لە کاتی نیشانداندا */
-        .note-display { font-size: 16px; color: #111; font-weight: bold; margin: 15px 0; padding: 12px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; line-height: 1.6; text-align: right; }
+        .note-display { font-size: 16px; color: #111; font-weight: bold; margin: 12px 0; padding: 10px 0; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; line-height: 1.6; text-align: right; }
 
         .action-button { background: #222; color: white; border: none; width: 100%; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; text-align: center; margin-top: 10px; display: block; text-decoration: none; box-sizing: border-box; }
         .action-button:hover { background: #444; }
@@ -33,7 +34,7 @@
         .result-box { margin-top: 15px; display: none; background: #f8f9fa; padding: 12px; border-radius: 10px; border: 1px solid #ddd; }
         input[type="text"] { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 8px; text-align: left; direction: ltr; font-size: 13px; }
         
-        .status-text { text-align: center; font-size: 14px; color: #666; margin-top: 12px; border-top: 1px solid #eaeaea; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .status-text { text-align: center; font-size: 14px; color: #666; margin-top: 10px; border-top: 1px solid #eaeaea; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
         .admin-link { font-size: 12px; color: #888; text-decoration: none; cursor: pointer; }
         .admin-link:hover { color: #0088cc; }
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
@@ -46,8 +47,11 @@
     <!-- 1. ڕوکاری دروستکردن -->
     <div id="creatorView">
         <div class="header-box">
-            <div class="brand-title"><span>REBAR</span> IT</div>
             <div class="apple-icon"></div>
+            <div class="brand-container">
+                <div class="brand-title"><span>REBAR</span> IT</div>
+                <img src="https://i.ibb.co/7NvRwWQL" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+            </div>
         </div>
         
         <div class="field-group">
@@ -98,15 +102,18 @@
     <!-- 2. ڕوکاری بینین کاتێک لینکەکە دەکرێتەوە -->
     <div id="readView" style="display:none;">
         <div class="header-box">
-            <div class="brand-title"><span>REBAR</span> IT</div>
             <div class="apple-icon"></div>
+            <div class="brand-container">
+                <div class="brand-title"><span>REBAR</span> IT</div>
+                <img src="https://i.ibb.co/7NvRwWQL" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+            </div>
         </div>
         
         <div class="time-box">
             Used :
             <span id="dateTimeText"></span>
         </div>
-        <hr style="border: 0; border-top: 1px solid #eaeaea; margin-bottom: 15px;">
+        <hr style="border: 0; border-top: 1px solid #eaeaea; margin-bottom: 12px;">
 
         <!-- خانەی ئیمەیڵ -->
         <div class="field-group">
@@ -133,7 +140,7 @@
         <div id="noteContainer" class="note-display" style="display:none;"></div>
 
         <!-- بەشی دەستکاریکردن بە پاسۆرد -->
-        <div id="editSection" style="display:none; margin-top:20px; border-top:1px dashed #ccc; padding-top:15px;">
+        <div id="editSection" style="display:none; margin-top:15px; border-top:1px dashed #ccc; padding-top:12px;">
             <h4 style="margin:0 0 10px 0; color:#0088cc; text-align:center;">دەستکاریکردنی زانیارییەکان</h4>
             <div class="field-group"><span class="field-label">ئیمەیڵ</span><input type="text" id="editEmail" style="width:100%; padding:10px; box-sizing:border-box;"></div>
             <div class="field-group"><span class="field-label">پاسۆرد</span><input type="text" id="editPassword" style="width:100%; padding:10px; box-sizing:border-box;"></div>
@@ -244,6 +251,7 @@
     }
 
     window.onload = async function() {
+        window.scrollTo(0, 0);
         const urlParams = new URLSearchParams(window.location.search);
         currentId = urlParams.get('id');
         
