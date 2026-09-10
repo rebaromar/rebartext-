@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ڕێبەر تێکست - Rebar Text</title>
+    <!-- لێرە کتابخانەی pako بۆ پەستاندنی دەق بەکاردەهێنین تا لینکەکە کورت ببێتەوە -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <style>
         body { font-family: Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .container { width: 100%; max-width: 500px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -38,12 +40,26 @@
             return;
         }
 
-        // کۆدکردنی دەقەکە بە شێوازێکی خێرا و کورتکراوەی Base64
-        const encoded = btoa(encodeURIComponent(text)).replace(/=/g, '');
-        const link = window.location.origin + window.location.pathname + '#' + encoded;
-        
-        document.getElementById('generatedLink').value = link;
-        document.getElementById('resultBox').style.display = 'block';
+        try {
+            // پەستاندنی دەقەکە بۆ ئەوەی قەبارەکەی زۆر کەمبێتەوە
+            const utf8Encoder = new TextEncoder();
+            const compressed = pako.deflate(utf8Encoder.encode(text));
+            
+            // گۆڕینی بۆ پیت و ژمارەی کورت
+            let binary = '';
+            const len = compressed.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(compressed[i]);
+            }
+            const encoded = btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            
+            const link = window.location.origin + window.location.pathname + '#' + encoded;
+            
+            document.getElementById('generatedLink').value = link;
+            document.getElementById('resultBox').style.display = 'block';
+        } catch (e) {
+            alert('هەڵەیەک ڕووی دا لە کورتکردنەوەی تێکستەکە.');
+        }
     }
 
     function copyLink() {
@@ -57,8 +73,15 @@
     window.onload = function() {
         if (window.location.hash) {
             try {
-                const encoded = window.location.hash.substring(1) + '==';
-                const text = decodeURIComponent(atob(encoded));
+                const base64 = window.location.hash.substring(1).replace(/-/g, '+').replace(/_/g, '/');
+                const binary = atob(base64);
+                const len = binary.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                const decompressed = pako.inflate(bytes);
+                const text = new TextDecoder().decode(decompressed);
                 document.getElementById('textInput').value = text;
             } catch (e) {
                 console.error(e);
