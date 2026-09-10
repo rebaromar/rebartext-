@@ -6,8 +6,8 @@
     <title>ڕێبەر تێکست - Rebar Text</title>
     <style>
         body { font-family: Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 500px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #0088cc; }
+        .container { width: 100%; max-width: 500px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        h2 { text-align: center; color: #0088cc; margin-top: 0; }
         textarea { width: 100%; height: 150px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: vertical; }
         button { width: 100%; background: #0088cc; color: white; border: none; padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
         button:hover { background: #006699; }
@@ -16,19 +16,35 @@
         .copy-btn { background: #28a745; margin-top: 0; }
         .copy-btn:hover { background: #218838; }
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
+        
+        /* شێوازی پەڕەی خوێندنەوەی تێکست (وەک تێلێگراف) */
+        #readView { display: none; }
+        .text-content { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 15px; color: #333; max-height: 400px; overflow-y: auto; text-align: right; }
+        .create-new-btn { background: #6c757d; margin-top: 15px; }
+        .create-new-btn:hover { background: #5a6268; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>ڕێبەر تێکست</h2>
-    <textarea id="textInput" placeholder="تێکستەکەت لێرە بنووسە..."></textarea>
-    <button onclick="generateLink()">دروستکردنی لینک</button>
-    <div class="loading" id="loadingText">چاوەڕێ بە، لینکەکە خەزن دەکرێت...</div>
+    <!-- بەشی دروستکردنی تێکست -->
+    <div id="createView">
+        <h2>ڕێبەر تێکست</h2>
+        <textarea id="textInput" placeholder="تێکستەکەت لێرە بنووسە..."></textarea>
+        <button onclick="generateLink()">دروستکردنی لینک</button>
+        <div class="loading" id="loadingText">چاوەڕێ بە، لینکەکە خەزن دەکرێت...</div>
 
-    <div class="result-box" id="resultBox">
-        <input type="text" id="generatedLink" readonly>
-        <button class="copy-btn" onclick="copyLink()">کۆپیکردنی لینک</button>
+        <div class="result-box" id="resultBox">
+            <input type="text" id="generatedLink" readonly>
+            <button class="copy-btn" onclick="copyLink()">کۆپیکردنی لینک</button>
+        </div>
+    </div>
+
+    <!-- بەشی پیشاندانی تێکست بۆ ئەوەی کە لینکەکە دەکاتەوە -->
+    <div id="readView">
+        <h2>ڕێبەر تێکست</h2>
+        <div class="text-content" id="textContent"></div>
+        <button class="create-new-btn" onclick="location.href='/'">دروستکردنی تێکستێکی نوێ</button>
     </div>
 </div>
 
@@ -93,8 +109,10 @@
         const id = urlParams.get('id');
         
         if (id) {
-            document.getElementById('loadingText').innerText = 'خەریکی هێنانی تێکستەکەی...';
-            document.getElementById('loadingText').style.display = 'block';
+            // گۆڕینی دیمەن بۆ ئەوەی تەنها خوێندنەوەی تێکست بێت
+            document.getElementById('createView').style.display = 'none';
+            document.getElementById('readView').style.display = 'block';
+            document.getElementById('textContent').innerText = 'خەریکی هێنانی تێکستەکەی...';
             
             try {
                 const response = await fetch(`${UPSTASH_URL}/get/${id}`, {
@@ -105,11 +123,12 @@
                 const data = await response.json();
                 
                 if (data && data.result) {
-                    document.getElementById('textInput').value = data.result;
+                    document.getElementById('textContent').innerText = data.result;
+                } else {
+                    document.getElementById('textContent').innerText = 'بورە، ئەم تێکستە نەدۆزرایەوە یان بەسەرچووە.';
                 }
-                document.getElementById('loadingText').style.display = 'none';
             } catch (e) {
-                document.getElementById('loadingText').style.display = 'none';
+                document.getElementById('textContent').innerText = 'هەڵەیەک ڕووی دا لە هێنانی تێکستەکە.';
                 console.error(e);
             }
         }
