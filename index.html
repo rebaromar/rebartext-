@@ -11,18 +11,12 @@
         .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 10px; margin-bottom: 12px; }
         .brand-container { display: flex; align-items: center; gap: 10px; }
         
-        /* لۆگۆی بازنەیی و ڕوون بۆ دروستکردن */
+        /* لۆگۆی بازنەیی و ڕوون */
         .brand-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #0088cc; background: #fff; display: block; }
         
         .brand-title { font-size: 22px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 6px; direction: ltr; }
         .brand-title span { color: #0088cc; }
         .apple-icon { font-size: 26px; }
-
-        /* لۆگۆ و ناوی ناوەڕاست بۆ پەڕەی بینین */
-        .centered-brand-box { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; margin: 12px 0; }
-        .brand-logo-center { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid #0088cc; background: #fff; display: block; }
-        .brand-title-center { font-size: 24px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 6px; direction: ltr; }
-        .brand-title-center span { color: #0088cc; }
 
         .time-box { text-align: center; font-size: 13px; color: #555; margin-bottom: 8px; }
         .time-box span { display: block; font-weight: bold; color: #222; font-size: 15px; margin-top: 2px; }
@@ -113,8 +107,12 @@
 
     <!-- 2. ڕوکاری بینین کاتێک لینکەکە دەکرێتەوە -->
     <div id="readView" style="display:none;">
-        <div class="header-box" style="justify-content: flex-end;">
+        <div class="header-box">
             <div class="apple-icon"></div>
+            <div class="brand-container">
+                <div class="brand-title"><span>REBAR</span> IT</div>
+                <img src="https://i.ibb.co/53v5zC9/image.png" alt="Logo" class="brand-logo" onerror="tryAlternativeLogo(this)">
+            </div>
         </div>
         
         <div class="time-box">
@@ -122,15 +120,7 @@
             <span id="dateTimeText"></span>
         </div>
 
-        <!-- نوسینی APPLE ID لە ناوەڕاست لەژێر کاتدا -->
         <div class="apple-id-heading">APPLE ID</div>
-
-        <!-- لۆگۆ و ناوی REBAR IT لە ناوەڕاست لەژێر APPLE ID دا -->
-        <div class="centered-brand-box">
-            <img src="https://i.ibb.co/53v5zC9/image.png" alt="Logo" class="brand-logo-center" onerror="tryAlternativeLogo(this)">
-            <div class="brand-title-center"><span>REBAR</span> IT</div>
-        </div>
-
         <hr style="border: 0; border-top: 1px solid #eaeaea; margin: 12px 0;">
 
         <!-- خانەی ئیمەیڵ -->
