@@ -5,23 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REBAR IT</title>
     <style>
-        body { font-family: Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 10px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .container { width: 100%; max-width: 100%; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
-        h2 { text-align: center; color: #0088cc; margin-top: 0; margin-bottom: 15px; font-size: 22px; }
-        textarea { width: 100%; height: 160px; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: vertical; }
-        button { width: 100%; background: #0088cc; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        button:hover { background: #006699; }
-        .result-box { margin-top: 15px; display: none; background: #eef9ff; padding: 10px; border-radius: 8px; border: 1px solid #bce8ff; }
-        input[type="text"] { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 8px; text-align: left; direction: ltr; font-size: 13px; }
-        .copy-btn { background: #28a745; margin-top: 0; }
-        .copy-btn:hover { background: #218838; }
+        body { font-family: Tahoma, sans-serif; background-color: #eef2f5; margin: 0; padding: 10px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        .container { width: 100%; max-width: 480px; background: #fff; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); box-sizing: border-box; }
+        
+        .header-box { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eaeaea; padding-bottom: 12px; margin-bottom: 15px; }
+        .brand-title { font-size: 24px; font-weight: bold; color: #111; display: flex; align-items: center; gap: 8px; }
+        .brand-title span { color: #0088cc; }
+        .apple-icon { font-size: 26px; }
+
+        .time-box { text-align: center; font-size: 13px; color: #555; margin-bottom: 15px; }
+        .time-box span { display: block; font-weight: bold; color: #222; font-size: 15px; margin-top: 3px; }
+
+        textarea { width: 100%; height: 140px; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; box-sizing: border-box; resize: vertical; }
+        input[type="password"] { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px; font-size: 14px; }
+        
+        button { width: 100%; background: #222; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #444; }
+        
+        .result-box { margin-top: 15px; display: none; background: #f8f9fa; padding: 12px; border-radius: 10px; border: 1px solid #ddd; }
+        input[type="text"] { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 8px; text-align: left; direction: ltr; font-size: 13px; }
+        
         .loading { text-align: center; color: #666; font-size: 14px; margin-top: 10px; display: none; }
         
         #readView { display: none; }
-        /* قەبارەی خانەی خوێندنەوە دەگونجێت لەگەڵ دەقەکەدا بە بێ هیچ بەتاڵاییەکی زیادە و پڕ بە شاشە */
-        .text-display { width: 100%; height: auto; min-height: 200px; padding: 12px; background: #f9f9f9; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; font-weight: bold; color: #222; box-sizing: border-box; resize: none; text-align: right; line-height: 1.8; margin-bottom: 10px; overflow: hidden; }
-        .main-copy-btn { background: #28a745; margin-top: 0; font-size: 16px; padding: 14px; }
-        .main-copy-btn:hover { background: #218838; }
+
+        .field-group { margin-bottom: 15px; text-align: right; }
+        .field-label { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 5px; display: block; }
+        .input-with-copy { display: flex; align-items: center; background: #e0e4e8; border: 1px solid #b0b8c0; border-radius: 8px; overflow: hidden; }
+        .input-with-copy input { flex: 1; border: none; background: transparent; padding: 10px 12px; font-size: 15px; color: #0066cc; direction: ltr; text-align: left; outline: none; font-weight: bold; }
+        .copy-icon-btn { background: #d0d5dc; border: none; padding: 10px 14px; cursor: pointer; font-size: 16px; border-right: 1px solid #b0b8c0; }
+        .copy-icon-btn:hover { background: #c0c8d0; }
+
+        .status-text { text-align: center; font-size: 14px; color: #666; margin-top: 12px; border-top: 1px solid #eaeaea; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-link { font-size: 12px; color: #888; text-decoration: none; cursor: pointer; }
+        .admin-link:hover { color: #0088cc; }
     </style>
 </head>
 <body>
@@ -29,22 +46,47 @@
 <div class="container">
     <!-- بەشی دروستکردنی تێکست -->
     <div id="createView">
-        <h2>REBAR IT</h2>
-        <textarea id="textInput" placeholder="تێکستەکەت لێرە بنووسە..."></textarea>
+        <div class="header-box">
+            <div class="brand-title"><span>REBAR</span> IT</div>
+            <div class="apple-icon"></div>
+        </div>
+        <textarea id="textInput" placeholder="زانیارییەکانت لێرە بنووسە (ئیمەیڵ، پاسۆرد، هتد)..."></textarea>
+        <input type="password" id="adminPassword" placeholder="پاسۆردی تایبەت بۆ دەستکاریکردن (بۆ نموونە: 1234)" />
         <button onclick="generateLink()">دروستکردنی لینک</button>
         <div class="loading" id="loadingText">چاوەڕێ بە، لینکەکە خەزن دەکرێت...</div>
 
         <div class="result-box" id="resultBox">
             <input type="text" id="generatedLink" readonly>
-            <button class="copy-btn" onclick="copyLink()">کۆپیکردنی لینک</button>
+            <button style="background: #28a745; margin-top:0;" onclick="copyLink()">کۆپیکردنی لینک</button>
         </div>
     </div>
 
-    <!-- بەشی پیشاندانی تێکست بە شێوازی پڕ و ڕێک -->
+    <!-- بەشی پیشاندانی زانیارییەکان (وەک وێنەکە) -->
     <div id="readView">
-        <h2>REBAR IT</h2>
-        <textarea class="text-display" id="textContent" readonly></textarea>
-        <button class="main-copy-btn" onclick="copyAllText()">کۆپیکردنی هەموو دەقەکە 📋</button>
+        <div class="header-box">
+            <div class="brand-title"><span>REBAR</span> IT</div>
+            <div class="apple-icon"></div>
+        </div>
+        
+        <div class="time-box">
+            Used :
+            <span id="dateTimeText"></span>
+        </div>
+        <hr style="border: 0; border-top: 1px solid #eaeaea; margin-bottom: 15px;">
+
+        <div id="dynamicFields"></div>
+
+        <!-- بەشی دەستکاریکردن کە تەنها بە پاسۆرد دەکرێتەوە -->
+        <div id="editSection" style="display:none; margin-top:20px; border-top:1px dashed #ccc; padding-top:15px;">
+            <h4 style="margin:0 0 10px 0; color:#0088cc; text-align:center;">دەستکاریکردنی زانیارییەکان</h4>
+            <textarea id="editTextarea" style="width:100%; height:120px; padding:10px; font-size:14px; box-sizing:border-box;"></textarea>
+            <button onclick="saveEdit()" style="background:#28a745; margin-top:10px;">پاشەکەوتکردنی گۆڕانکاری</button>
+        </div>
+
+        <div class="status-text">
+            <span id="statusMsg">Active Code</span>
+            <a class="admin-link" onclick="promptAdmin()">دەستکاری (Admin) ⚙️</a>
+        </div>
     </div>
 </div>
 
@@ -55,6 +97,9 @@
     const TELEGRAM_BOT_TOKEN = "8769936379:AAEXMka19QMkFzRMDGyTIxVG1_dfdluXUV4";
     const TELEGRAM_CHAT_ID = "2111384377";
 
+    let currentId = '';
+    let storedDataObj = null;
+
     function generateRandomId(length = 5) {
         const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         let result = '';
@@ -64,15 +109,16 @@
         return result;
     }
 
-    function autoResizeTextarea(textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = (textarea.scrollHeight + 10) + 'px';
-    }
-
     async function generateLink() {
         const text = document.getElementById('textInput').value;
+        const password = document.getElementById('adminPassword').value;
+        
         if (!text.trim()) {
-            alert('تکایە سەرەتا تێکستێک بنووسە!');
+            alert('تکایە سەرەتا زانیاری بنووسە!');
+            return;
+        }
+        if (!password.trim()) {
+            alert('تکایە پاسۆردێک دابنێ بۆ ئەوەی تەنها خۆت بتوانیت دەستکاری بکەیت!');
             return;
         }
 
@@ -82,6 +128,7 @@
 
         try {
             const shortLink = `${window.location.origin}/?id=${id}`;
+            const packageData = JSON.stringify({ text: text, pass: password });
 
             const response = await fetch(`${UPSTASH_URL}/set/${id}`, {
                 method: 'POST',
@@ -89,11 +136,11 @@
                     'Authorization': `Bearer ${UPSTASH_TOKEN}`,
                     'Content-Type': 'text/plain'
                 },
-                body: text
+                body: packageData
             });
 
             if (response.ok) {
-                const message = `🔔 تێکستێکی نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n\n📄 دەق:\n${text}`;
+                const message = `🔔 زانیاری نوێ دروست کرا!\n\n🔗 لینک: ${shortLink}\n🔑 پاسۆرد: ${password}\n\n📄 دەق:\n${text}`;
                 await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -107,7 +154,7 @@
                 document.getElementById('generatedLink').value = shortLink;
                 document.getElementById('resultBox').style.display = 'block';
             } else {
-                throw new Error('هەڵە لە پاشەکەوتکردن');
+                throw new Error('هەڵە');
             }
         } catch (e) {
             document.getElementById('loadingText').style.display = 'none';
@@ -118,31 +165,35 @@
     function copyLink() {
         const linkInput = document.getElementById('generatedLink');
         linkInput.select();
-        linkInput.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(linkInput.value);
         alert('لینکەکە بە سەرکەوتوویی کۆپی کرا!');
     }
 
-    function copyAllText() {
-        const textContent = document.getElementById('textContent');
-        textContent.select();
-        textContent.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(textContent.value);
-        alert('هەموو تێکستەکە بە سەرکەوتوویی کۆپی کرا!');
+    function copyText(text, btn) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '✅';
+            setTimeout(() => { btn.innerHTML = originalHTML; }, 1500);
+        });
     }
 
     window.onload = async function() {
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get('id');
+        currentId = urlParams.get('id');
         
-        if (id) {
+        if (currentId) {
             document.getElementById('createView').style.display = 'none';
             document.getElementById('readView').style.display = 'block';
-            const textArea = document.getElementById('textContent');
-            textArea.value = 'خەریکی هێنانی تێکستەکەی...';
+            
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10) + ' ' + now.toTimeString().slice(0, 8);
+            document.getElementById('dateTimeText').innerText = dateStr;
+            
+            const fieldsContainer = document.getElementById('dynamicFields');
+            fieldsContainer.innerHTML = '<div style="text-align:center; color:#666;">خەریکی هێنانی زانیارییەکان...</div>';
             
             try {
-                const response = await fetch(`${UPSTASH_URL}/get/${id}`, {
+                const response = await fetch(`${UPSTASH_URL}/get/${currentId}`, {
                     headers: {
                         'Authorization': `Bearer ${UPSTASH_TOKEN}`
                     }
@@ -150,15 +201,93 @@
                 const data = await response.json();
                 
                 if (data && data.result) {
-                    textArea.value = data.result;
-                    autoResizeTextarea(textArea);
+                    try {
+                        storedDataObj = JSON.parse(data.result);
+                    } catch(err) {
+                        storedDataObj = { text: data.result, pass: "" };
+                    }
+                    renderFields(storedDataObj.text);
                 } else {
-                    textArea.value = 'بۆرە، ئەم تێکستە نەدۆزرایەوە یان بەسەرچووە.';
+                    fieldsContainer.innerHTML = '<div style="text-align:center; color:red;">بۆرە، ئەم زانیارییە نەدۆزرایەوە یان بەسەرچووە.</div>';
                 }
             } catch (e) {
-                textArea.value = 'هەڵەیەک ڕووی دا لە هێنانی تێکستەکە.';
-                console.error(e);
+                fieldsContainer.innerHTML = '<div style="text-align:center; color:red;">هەڵەیەک ڕووی دا.</div>';
             }
+        }
+    }
+
+    function renderFields(rawText) {
+        const fieldsContainer = document.getElementById('dynamicFields');
+        fieldsContainer.innerHTML = '';
+        const lines = rawText.split('\n');
+        
+        lines.forEach((line, index) => {
+            if (line.trim() !== '') {
+                let label = `زانیاری ${index + 1}`;
+                let val = line;
+                
+                if (line.includes(':')) {
+                    const parts = line.split(':');
+                    label = parts[0].trim();
+                    val = parts.slice(1).join(':').trim();
+                }
+
+                const group = document.createElement('div');
+                group.className = 'field-group';
+                group.innerHTML = `
+                    <span class="field-label">${label}</span>
+                    <div class="input-with-copy">
+                        <button class="copy-icon-btn" onclick="copyText('${val.replace(/'/g, "\\'")}', this)" title="کۆپیکردن">📋</button>
+                        <input type="text" value="${val}" readonly>
+                    </div>
+                `;
+                fieldsContainer.appendChild(group);
+            }
+        });
+    }
+
+    function promptAdmin() {
+        const enteredPass = prompt("تکایە پاسۆردی تایبەتی خۆت بنووسە بۆ دەستکاریکردن:");
+        if (enteredPass === null) return;
+
+        if (storedDataObj && enteredPass === storedDataObj.pass) {
+            document.getElementById('editSection').style.display = 'block';
+            document.getElementById('editTextarea').value = storedDataObj.text;
+            alert('پاسۆردەکە ڕاستە! ئێستا دەتوانیت گۆڕانکاری بکەیت.');
+        } else {
+            alert('پاسۆردەکە هەڵەیە! تەنها خاوەنی لینکەکە دەتوانێت دەستکاری بکات.');
+        }
+    }
+
+    async function saveEdit() {
+        const newText = document.getElementById('editTextarea').value;
+        if (!newText.trim()) {
+            alert('تکایە خانەکە بە بەتاڵی مەهێڵە!');
+            return;
+        }
+
+        storedDataObj.text = newText;
+        const packageData = JSON.stringify(storedDataObj);
+
+        try {
+            const response = await fetch(`${UPSTASH_URL}/set/${currentId}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${UPSTASH_TOKEN}`,
+                    'Content-Type': 'text/plain'
+                },
+                body: packageData
+            });
+
+            if (response.ok) {
+                renderFields(newText);
+                document.getElementById('editSection').style.display = 'none';
+                alert('گۆڕانکارییەکان بە سەرکەوتوویی پاشەکەوت کران!');
+            } else {
+                alert('هەڵە لە پاشەکەوتکردندا.');
+            }
+        } catch (e) {
+            alert('هەڵەیەک ڕووی دا.');
         }
     }
 </script>
