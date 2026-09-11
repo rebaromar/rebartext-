@@ -3101,6 +3101,39 @@
 
 </script>
 
+<script>
+window.openCodeInside = function () {
 
+  if (
+    typeof currentTargetLink === "undefined" ||
+    !currentTargetLink ||
+    currentTargetLink.trim() === ""
+  ) {
+    alert("هیچ لینکێک دانەنراوە.");
+    return;
+  }
+
+  try {
+
+    const url = new URL(currentTargetLink);
+
+    if (
+      url.protocol !== "https:" &&
+      url.protocol !== "http:"
+    ) {
+      alert("لینکەکە دروست نییە.");
+      return;
+    }
+
+    window.location.href = url.href;
+
+  } catch (error) {
+
+    alert("لینکەکە دروست نییە.");
+
+  }
+
+};
+</script>
 </body>
 </html>
