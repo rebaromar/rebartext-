@@ -1,668 +1,986 @@
 <!DOCTYPE html>
 <html lang="ckb" dir="rtl">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#f3f6f9" />
-  <title>REBAR IT Secure</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f8fb">
+
+  <title>REBAR IT</title>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800&display=swap');
 
-    :root{
-      --bg:#eef3f7;
-      --surface:#ffffff;
-      --surface-2:#f8fafc;
-      --ink:#101827;
-      --muted:#66758a;
-      --line:#dce4ec;
-      --navy:#0a1724;
-      --navy-2:#10263a;
-      --blue:#0c98db;
-      --cyan:#43c8f5;
-      --blue-soft:#edf8fd;
-      --green:#17a56c;
-      --red:#d94b5b;
-      --shadow:0 24px 70px rgba(15,23,42,.10);
-      --shadow-soft:0 10px 30px rgba(15,23,42,.07);
-      --radius:26px;
+    :root {
+      --bg: #eef4f8;
+      --white: #ffffff;
+      --text: #111827;
+      --muted: #718096;
+      --border: #dce5ec;
+      --blue: #098fd0;
+      --cyan: #39c3f1;
+      --navy: #091725;
+      --green: #18a66d;
+      --red: #d94b5c;
+
+      --radius: 26px;
+
+      --shadow:
+        0 25px 70px rgba(15, 23, 42, 0.10);
     }
 
-    *{
-      box-sizing:border-box;
+    * {
+      box-sizing: border-box;
     }
 
     html,
-    body{
-      margin:0;
-      min-height:100%;
-      color:var(--ink);
-      font-family:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,Arial,sans-serif;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
+    body {
+      margin: 0;
+      min-height: 100%;
     }
 
-    html{
-      background:var(--bg);
-    }
+    body {
+      color: var(--text);
 
-    body{
-      padding:0 14px 42px;
+      font-family:
+        "Noto Kufi Arabic",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+
       background:
-        radial-gradient(circle at 15% 0%, rgba(67,200,245,.16), transparent 26%),
-        radial-gradient(circle at 95% 8%, rgba(12,152,219,.10), transparent 24%),
-        linear-gradient(180deg,#f8fbfd 0%,#eef3f7 52%,#edf2f6 100%);
+        radial-gradient(
+          circle at 12% 0%,
+          rgba(57, 195, 241, .16),
+          transparent 27%
+        ),
+        radial-gradient(
+          circle at 95% 5%,
+          rgba(9, 143, 208, .10),
+          transparent 25%
+        ),
+        linear-gradient(
+          180deg,
+          #fbfdff 0%,
+          #eef4f8 55%,
+          #edf2f6 100%
+        );
+
+      padding: 0 14px 40px;
     }
 
     button,
     input,
     textarea,
-    select{
-      font-family:inherit;
+    select {
+      font-family: inherit;
     }
 
-    button{
-      touch-action:manipulation;
+    button {
+      touch-action: manipulation;
     }
 
-    .shell{
-      width:100%;
-      max-width:720px;
-      margin:0 auto;
+    .shell {
+      width: 100%;
+      max-width: 720px;
+      margin: auto;
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      min-height:92px;
-      padding:18px 4px 14px;
+    /* =========================
+       HEADER
+    ========================== */
+
+    .topbar {
+      min-height: 100px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+
+      padding: 18px 4px 14px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:13px;
-      direction:ltr;
+    .brand {
+      display: flex;
+      align-items: center;
+
+      gap: 13px;
+
+      direction: ltr;
     }
 
-    .logo{
-      width:58px;
-      height:58px;
-      border-radius:18px;
-      overflow:hidden;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(145deg,#0d2537,#08131f);
-      border:1px solid rgba(12,152,219,.28);
-      box-shadow:0 10px 28px rgba(12,152,219,.17);
-      color:#fff;
-      font-family:Inter,Arial,sans-serif;
-      font-size:22px;
-      font-weight:800;
-      position:relative;
+    .brand-logo {
+      width: 62px;
+      height: 62px;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      background: #07111f;
+
+      border: 2px solid var(--blue);
+
+      box-shadow:
+        0 0 0 4px rgba(9, 143, 208, .08),
+        0 12px 30px rgba(9, 143, 208, .20);
     }
 
-    .logo::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 42%);
-      pointer-events:none;
+    .brand-name {
+      direction: ltr;
+      text-align: left;
+
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
     }
 
-    .brandText{
-      direction:ltr;
-      text-align:left;
-      font-family:Inter,Arial,sans-serif;
+    .brand-name strong {
+      display: block;
+
+      font-size: 24px;
+      line-height: 1;
+
+      font-weight: 800;
+
+      color: #111827;
+
+      letter-spacing: .2px;
     }
 
-    .brandText b{
-      display:block;
-      color:#0e1726;
-      font-size:23px;
-      line-height:1.05;
-      letter-spacing:.2px;
-      font-weight:800;
+    .brand-name strong span {
+      color: var(--blue);
     }
 
-    .brandText b span{
-      color:var(--blue);
+    .brand-name small {
+      display: block;
+
+      margin-top: 8px;
+
+      color: #8492a3;
+
+      font-size: 9px;
+
+      font-weight: 700;
+
+      letter-spacing: 1.5px;
     }
 
-    .brandText small{
-      display:block;
-      margin-top:7px;
-      color:#8391a2;
-      font-size:9.5px;
-      font-weight:700;
-      letter-spacing:1.25px;
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 9px 13px;
+
+      border-radius: 999px;
+
+      border: 1px solid #cae9f5;
+
+      background: rgba(240, 250, 255, .88);
+
+      color: #086f9f;
+
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+      font-size: 10px;
+
+      font-weight: 800;
     }
 
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      padding:9px 13px;
-      border:1px solid #c9e9f6;
-      border-radius:999px;
-      color:#086e9c;
-      background:rgba(240,250,255,.86);
-      box-shadow:0 6px 20px rgba(12,152,219,.07);
-      font-family:Inter,Arial,sans-serif;
-      font-size:10.5px;
-      font-weight:800;
-      letter-spacing:.25px;
+    .status-badge::before {
+      content: "";
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #22b878;
+
+      box-shadow:
+        0 0 0 4px rgba(34, 184, 120, .11);
     }
 
-    .badge::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#25b678;
-      box-shadow:0 0 0 4px rgba(37,182,120,.11);
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      overflow: hidden;
+
+      position: relative;
+
+      background: rgba(255, 255, 255, .98);
+
+      border: 1px solid rgba(214, 224, 233, .98);
+
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
     }
 
-    .card{
-      position:relative;
-      background:rgba(255,255,255,.97);
-      border:1px solid rgba(213,223,232,.95);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden;
+    .card::before {
+      content: "";
+
+      display: block;
+
+      height: 4px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--blue),
+          var(--cyan),
+          #8ce4ff
+        );
     }
 
-    .card::before{
-      content:"";
-      display:block;
-      height:4px;
-      background:linear-gradient(90deg,var(--blue),var(--cyan),#8de3ff);
+    .hidden {
+      display: none !important;
     }
 
-    .cardHead{
-      padding:25px 26px 18px;
-      background:linear-gradient(180deg,#fff,#fbfdfe);
-      border-bottom:1px solid #eef2f5;
+    /* =========================
+       LOGIN
+    ========================== */
+
+    .login-box {
+      max-width: 470px;
+
+      margin: auto;
+
+      padding: 42px 32px 38px;
     }
 
-    .cardHead h1,
-    .cardHead h2{
-      margin:0;
-      color:#111827;
-      font-size:22px;
-      line-height:1.8;
-      font-weight:800;
+    .security-logo {
+      position: relative;
+
+      width: 76px;
+      height: 76px;
+
+      margin: 0 auto 20px;
+
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #f5fcff,
+          #e8f7fd
+        );
+
+      border: 1px solid #c8e8f5;
+
+      box-shadow:
+        0 12px 30px rgba(9, 143, 208, .10);
     }
 
-    .cardHead p{
-      max-width:590px;
-      margin:5px 0 0;
-      color:#718094;
-      font-size:11.5px;
-      line-height:2;
+    .security-logo::before {
+      content: "";
+
+      position: absolute;
+
+      top: 18px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 28px;
+      height: 23px;
+
+      border:
+        4px solid var(--blue);
+
+      border-bottom: 0;
+
+      border-radius:
+        15px 15px 0 0;
     }
 
-    .pad{
-      padding:24px 26px 28px;
+    .security-logo::after {
+      content: "";
+
+      position: absolute;
+
+      bottom: 16px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 36px;
+      height: 30px;
+
+      border-radius: 9px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--cyan)
+        );
+
+      box-shadow:
+        0 8px 18px rgba(9, 143, 208, .22);
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:15px;
+    .login-title {
+      text-align: center;
+
+      font-size: 23px;
+
+      font-weight: 800;
+
+      margin: 0 0 8px;
+
+      color: #111827;
     }
 
-    .full{
-      grid-column:1/-1;
+    .login-description {
+      max-width: 400px;
+
+      margin:
+        0 auto 22px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 2.2;
     }
 
-    .field label{
-      display:block;
-      margin:0 3px 8px;
-      color:#344256;
-      font-size:11.5px;
-      font-weight:700;
-      line-height:1.8;
+    /* =========================
+       FIELDS
+    ========================== */
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+
+      margin: 0 4px 8px;
+
+      color: #344256;
+
+      font-size: 12px;
+
+      font-weight: 700;
     }
 
     .field input,
     .field textarea,
-    .field select{
-      width:100%;
-      min-height:50px;
-      padding:12px 14px;
-      border:1px solid #d4dde6;
-      border-radius:15px;
-      outline:none;
-      background:#fafcfd;
-      color:#111827;
-      font-size:13px;
-      line-height:1.8;
-      transition:
-        border-color .18s ease,
-        box-shadow .18s ease,
-        background .18s ease;
+    .field select {
+      width: 100%;
+
+      min-height: 52px;
+
+      padding: 12px 14px;
+
+      outline: none;
+
+      color: #111827;
+
+      background: #fafcfd;
+
+      border:
+        1px solid #d4dde6;
+
+      border-radius: 15px;
+
+      font-size: 13px;
+
+      transition: .18s ease;
     }
 
-    .field textarea{
-      min-height:108px;
-      resize:vertical;
+    .field textarea {
+      min-height: 110px;
+
+      resize: vertical;
+
+      line-height: 2;
     }
 
     .field input:focus,
     .field textarea:focus,
-    .field select:focus{
-      border-color:#46b6e5;
-      background:#fff;
-      box-shadow:0 0 0 4px rgba(12,152,219,.09);
+    .field select:focus {
+      background: #fff;
+
+      border-color: #47b7e4;
+
+      box-shadow:
+        0 0 0 4px rgba(9, 143, 208, .09);
     }
 
     .field input::placeholder,
-    .field textarea::placeholder{
-      color:#a2adba;
+    .field textarea::placeholder {
+      color: #a3aeba;
     }
 
-    .ltr{
-      direction:ltr;
-      text-align:left;
-      font-family:Inter,Arial,sans-serif;
+    .ltr {
+      direction: ltr;
+
+      text-align: left;
+
+      font-family:
+        Inter,
+        Arial,
+        sans-serif;
     }
 
-    .btnRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:17px;
-    }
+    /* =========================
+       BUTTONS
+    ========================== */
 
     button,
-    .button{
-      appearance:none;
-      border:0;
-      cursor:pointer;
-      min-height:48px;
-      border-radius:14px;
-      padding:12px 18px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      text-decoration:none;
-      font:inherit;
-      font-size:12px;
-      font-weight:800;
-      transition:
-        transform .15s ease,
-        box-shadow .15s ease,
-        filter .15s ease;
-    }
+    .button {
+      appearance: none;
 
-    button:hover,
-    .button:hover{
-      filter:brightness(.99);
+      border: none;
+
+      cursor: pointer;
+
+      min-height: 50px;
+
+      padding: 12px 18px;
+
+      border-radius: 15px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      text-decoration: none;
+
+      transition: .16s ease;
     }
 
     button:active,
-    .button:active{
-      transform:translateY(1px);
+    .button:active {
+      transform: translateY(1px);
     }
 
-    .primary{
-      color:#fff;
-      background:linear-gradient(135deg,#078fd1,#31b9ec);
-      box-shadow:0 12px 26px rgba(12,152,219,.22);
-    }
+    .primary {
+      color: #fff;
 
-    .secondary{
-      color:#26364a;
-      background:#f6f8fa;
-      border:1px solid #dbe3ea;
-      box-shadow:0 5px 16px rgba(15,23,42,.04);
-    }
-
-    .danger{
-      color:#b3293b;
-      background:#fff3f4;
-      border:1px solid #f8ccd2;
-    }
-
-    .wide{
-      width:100%;
-    }
-
-    .tabs{
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:8px;
-      padding:14px 18px;
-      background:#f8fafc;
-      border-bottom:1px solid #edf1f4;
-    }
-
-    .tab{
-      min-height:44px;
-      padding:10px 8px;
-      border:1px solid #dce4eb;
-      border-radius:13px;
-      background:#fff;
-      color:#66758a;
-      box-shadow:none;
-    }
-
-    .tab.active{
-      color:#fff;
-      border-color:#132d43;
-      background:linear-gradient(135deg,#0b1a29,#183b57);
-      box-shadow:0 8px 18px rgba(10,23,36,.14);
-    }
-
-    .notice{
-      display:none;
-      margin-top:13px;
-      padding:12px 14px;
-      border-radius:13px;
-      font-size:11.5px;
-      line-height:1.9;
-    }
-
-    .ok{
-      display:block;
-      color:#0d7b52;
-      border:1px solid #bdebd7;
-      background:#f0fbf6;
-    }
-
-    .err{
-      display:block;
-      color:#b22d3f;
-      border:1px solid #f5c8ce;
-      background:#fff5f6;
-    }
-
-    .result{
-      display:none;
-      margin-top:16px;
-      padding:15px;
-      border:1px dashed #93d8f2;
-      border-radius:16px;
-      background:linear-gradient(180deg,#f4fbfe,#edf9fe);
-    }
-
-    .result code{
-      display:block;
-      direction:ltr;
-      text-align:left;
-      word-break:break-all;
-      color:#075985;
-      font:600 12px/1.9 Inter,Arial,sans-serif;
-    }
-
-    .hidden{
-      display:none!important;
-    }
-
-    .publicHero{
-      padding:30px 24px 24px;
-      text-align:center;
       background:
-        radial-gradient(circle at 50% -20%,rgba(67,200,245,.17),transparent 45%),
-        linear-gradient(180deg,#fff,#f8fbfd);
-      border-bottom:1px solid #edf2f5;
+        linear-gradient(
+          135deg,
+          #078fd1,
+          #31b9ec
+        );
+
+      box-shadow:
+        0 12px 26px rgba(9, 143, 208, .23);
     }
 
-    .publicHero .apple{
-      display:none;
+    .secondary {
+      color: #28384a;
+
+      background: #f6f8fa;
+
+      border:
+        1px solid #dbe3ea;
     }
 
-    .publicHero h1{
-      margin:0;
-      direction:ltr;
-      color:#0e1726;
-      font:800 29px/1.2 Inter,Arial,sans-serif;
-      letter-spacing:.3px;
+    .danger {
+      color: #b52c3d;
+
+      background: #fff3f4;
+
+      border:
+        1px solid #f6cad0;
     }
 
-    .publicHero h1 span{
-      color:var(--blue);
+    .wide {
+      width: 100%;
     }
 
-    .publicHero p{
-      margin:8px 0 0;
-      color:#8795a5;
-      font:700 10px/1.6 Inter,Arial,sans-serif;
-      letter-spacing:.85px;
-      text-transform:uppercase;
+    /* =========================
+       MESSAGES
+    ========================== */
+
+    .notice {
+      display: none;
+
+      margin-top: 13px;
+
+      padding: 12px 14px;
+
+      border-radius: 13px;
+
+      font-size: 11.5px;
+
+      line-height: 2;
     }
 
-    .credential{
-      margin-bottom:12px;
-      padding:13px 14px;
-      border:1px solid #dce4eb;
-      border-radius:16px;
-      background:linear-gradient(180deg,#fbfcfd,#f7f9fb);
+    .notice.ok {
+      display: block;
+
+      color: #0b7950;
+
+      background: #effbf5;
+
+      border:
+        1px solid #bbe9d4;
     }
 
-    .credential small{
-      display:block;
-      margin-bottom:5px;
-      color:#7b899a;
-      font-size:10.5px;
-      font-weight:700;
+    .notice.err {
+      display: block;
+
+      color: #b22d3f;
+
+      background: #fff4f5;
+
+      border:
+        1px solid #f5c8ce;
     }
 
-    .credential .row{
-      display:flex;
-      align-items:center;
-      gap:9px;
+    /* =========================
+       ADMIN
+    ========================== */
+
+    .admin-header {
+      padding: 25px 26px 18px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff,
+          #fbfdfe
+        );
+
+      border-bottom:
+        1px solid #edf2f5;
     }
 
-    .credential input{
-      flex:1;
-      min-width:0;
-      border:0;
-      outline:0;
-      padding:0;
-      background:transparent;
-      color:#111827;
-      direction:ltr;
-      text-align:left;
-      font:700 14px/1.8 Inter,Arial,sans-serif;
+    .admin-header h1 {
+      margin: 0;
+
+      font-size: 22px;
+
+      font-weight: 800;
+
+      color: #111827;
     }
 
-    .copy{
-      min-height:36px;
-      height:36px;
-      width:auto;
-      padding:0 12px;
-      border:1px solid #d8e1e8;
-      border-radius:11px;
-      background:#fff;
-      color:#425267;
-      box-shadow:0 4px 12px rgba(15,23,42,.04);
-      font-size:10px;
+    .admin-header p {
+      margin: 7px 0 0;
+
+      color: #718094;
+
+      font-size: 11.5px;
+
+      line-height: 2;
     }
 
-    .note{
-      margin-top:14px;
-      padding:14px 15px;
-      border:1px solid #dce4eb;
-      border-radius:15px;
-      background:#fafcfd;
-      color:#405065;
-      font-size:12px;
-      line-height:2;
-      white-space:pre-wrap;
+    .tabs {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr 1fr;
+
+      gap: 8px;
+
+      padding: 14px 18px;
+
+      background: #f8fafc;
+
+      border-bottom:
+        1px solid #edf1f4;
     }
 
-    .status{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top:17px;
-      padding-top:14px;
-      border-top:1px solid #edf1f4;
-      color:#8794a4;
-      font:600 10.5px/1.6 Inter,"Noto Kufi Arabic",sans-serif;
+    .tab {
+      min-height: 44px;
+
+      color: #66758a;
+
+      background: #fff;
+
+      border:
+        1px solid #dce4eb;
+
+      border-radius: 13px;
     }
 
-    .dot{
-      display:inline-block;
-      width:8px;
-      height:8px;
-      margin-left:6px;
-      border-radius:50%;
-      background:var(--green);
-      box-shadow:0 0 0 4px rgba(23,165,108,.10);
+    .tab.active {
+      color: #fff;
+
+      border-color: #142e44;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b1a29,
+          #193d59
+        );
     }
 
-    .lockbox{
-      max-width:455px;
-      margin:0 auto;
-      padding:40px 30px 34px;
+    .content {
+      padding: 24px 26px 28px;
     }
 
-    .lockIcon{
-      position:relative;
-      width:68px;
-      height:68px;
-      margin:0 auto 18px;
-      border:1px solid #c8e8f6;
-      border-radius:21px;
-      background:linear-gradient(145deg,#f6fcff,#e8f7fd);
-      box-shadow:0 10px 26px rgba(12,152,219,.09);
-      font-size:0;
+    .grid {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 15px;
     }
 
-    .lockIcon::before{
-      content:"";
-      position:absolute;
-      left:50%;
-      top:18px;
-      width:24px;
-      height:19px;
-      transform:translateX(-50%);
-      border:3px solid #0d91d0;
-      border-bottom:0;
-      border-radius:12px 12px 0 0;
+    .full {
+      grid-column: 1 / -1;
     }
 
-    .lockIcon::after{
-      content:"";
-      position:absolute;
-      left:50%;
-      bottom:16px;
-      width:31px;
-      height:25px;
-      transform:translateX(-50%);
-      border-radius:8px;
-      background:linear-gradient(135deg,#0c98db,#43c8f5);
-      box-shadow:0 7px 16px rgba(12,152,219,.20);
+    .button-row {
+      display: flex;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+      margin-top: 17px;
     }
 
-    .lockbox h2{
-      margin:0 0 7px;
-      text-align:center;
-      color:#111827;
-      font-size:21px;
-      line-height:1.8;
-      font-weight:800;
+    /* =========================
+       RESULT
+    ========================== */
+
+    .result {
+      display: none;
+
+      margin-top: 16px;
+
+      padding: 15px;
+
+      border-radius: 16px;
+
+      border:
+        1px dashed #94d8f1;
+
+      background:
+        linear-gradient(
+          180deg,
+          #f5fcff,
+          #edf9fd
+        );
     }
 
-    .lockbox p{
-      max-width:380px;
-      margin:0 auto 20px;
-      text-align:center;
-      color:#738195;
-      font-size:11.5px;
-      line-height:2.1;
+    .result code {
+      display: block;
+
+      direction: ltr;
+
+      text-align: left;
+
+      word-break: break-all;
+
+      color: #075985;
+
+      font:
+        600 12px/1.9
+        Inter,
+        Arial,
+        sans-serif;
     }
 
-    .footer{
-      margin:18px 0 5px;
-      text-align:center;
-      color:#93a0ae;
-      font:700 9.5px/1.6 Inter,Arial,sans-serif;
-      letter-spacing:.7px;
+    /* =========================
+       PUBLIC LINK
+    ========================== */
+
+    .public-head {
+      padding: 28px 24px 23px;
+
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          rgba(57, 195, 241, .17),
+          transparent 45%
+        ),
+        linear-gradient(
+          180deg,
+          #fff,
+          #f8fbfd
+        );
+
+      border-bottom:
+        1px solid #edf2f5;
     }
 
-    @media(max-width:620px){
-      body{
-        padding:0 9px 30px;
+    .public-head h1 {
+      margin: 0;
+
+      direction: ltr;
+
+      color: #111827;
+
+      font:
+        800 29px/1.2
+        Inter,
+        Arial,
+        sans-serif;
+    }
+
+    .public-head h1 span {
+      color: var(--blue);
+    }
+
+    .public-head p {
+      margin: 8px 0 0;
+
+      color: #8795a5;
+
+      font:
+        700 10px/1.6
+        Inter,
+        Arial,
+        sans-serif;
+
+      letter-spacing: .8px;
+    }
+
+    .credential {
+      margin-bottom: 12px;
+
+      padding: 13px 14px;
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fbfcfd,
+          #f7f9fb
+        );
+
+      border:
+        1px solid #dce4eb;
+    }
+
+    .credential small {
+      display: block;
+
+      margin-bottom: 5px;
+
+      color: #7b899a;
+
+      font-size: 10.5px;
+
+      font-weight: 700;
+    }
+
+    .credential-row {
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+    }
+
+    .credential input {
+      flex: 1;
+
+      min-width: 0;
+
+      border: none;
+
+      outline: none;
+
+      background: transparent;
+
+      color: #111827;
+
+      direction: ltr;
+
+      text-align: left;
+
+      font:
+        700 14px/1.8
+        Inter,
+        Arial,
+        sans-serif;
+    }
+
+    .copy-button {
+      min-height: 36px;
+
+      height: 36px;
+
+      padding: 0 12px;
+
+      border-radius: 11px;
+
+      border:
+        1px solid #d8e1e8;
+
+      color: #425267;
+
+      background: #fff;
+
+      font-size: 10px;
+    }
+
+    .note {
+      margin-top: 14px;
+
+      padding: 14px 15px;
+
+      border-radius: 15px;
+
+      border:
+        1px solid #dce4eb;
+
+      background: #fafcfd;
+
+      color: #405065;
+
+      font-size: 12px;
+
+      line-height: 2;
+
+      white-space: pre-wrap;
+    }
+
+    .record-status {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-top: 17px;
+
+      padding-top: 14px;
+
+      border-top:
+        1px solid #edf1f4;
+
+      color: #8794a4;
+
+      font:
+        600 10.5px/1.6
+        Inter,
+        Arial,
+        sans-serif;
+    }
+
+    .active-dot {
+      display: inline-block;
+
+      width: 8px;
+      height: 8px;
+
+      margin-left: 6px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 0 4px rgba(23, 165, 108, .10);
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media(max-width:620px) {
+
+      body {
+        padding:
+          0 9px 28px;
       }
 
-      .topbar{
-        min-height:82px;
-        padding:14px 3px 12px;
+      .topbar {
+        min-height: 86px;
+
+        padding:
+          14px 3px 12px;
       }
 
-      .logo{
-        width:50px;
-        height:50px;
-        border-radius:16px;
-        font-size:19px;
+      .brand-logo {
+        width: 52px;
+        height: 52px;
       }
 
-      .brandText b{
-        font-size:20px;
+      .brand-name strong {
+        font-size: 20px;
       }
 
-      .brandText small{
-        display:none;
+      .brand-name small {
+        display: none;
       }
 
-      .badge{
-        padding:8px 10px;
-        font-size:9.5px;
+      .status-badge {
+        padding: 8px 10px;
+
+        font-size: 9px;
       }
 
-      .card{
-        border-radius:22px;
+      .card {
+        border-radius: 22px;
       }
 
-      .grid{
-        grid-template-columns:1fr;
+      .grid {
+        grid-template-columns:
+          1fr;
       }
 
-      .full{
-        grid-column:auto;
+      .full {
+        grid-column: auto;
       }
 
-      .cardHead,
-      .pad{
-        padding-left:16px;
-        padding-right:16px;
+      .content,
+      .admin-header {
+        padding-left: 16px;
+        padding-right: 16px;
       }
 
-      .cardHead{
-        padding-top:20px;
-        padding-bottom:15px;
+      .tabs {
+        padding: 11px;
       }
 
-      .tabs{
-        padding:11px;
+      .tab {
+        font-size: 10px;
       }
 
-      .tab{
-        font-size:10.5px;
+      .login-box {
+        padding:
+          32px 18px 28px;
       }
 
-      .lockbox{
-        padding:32px 18px 28px;
+      .login-title {
+        font-size: 20px;
       }
 
-      .lockbox h2{
-        font-size:19px;
+      .public-head {
+        padding:
+          24px 18px 20px;
       }
 
-      .publicHero{
-        padding:25px 18px 20px;
-      }
-
-      .publicHero h1{
-        font-size:25px;
+      .public-head h1 {
+        font-size: 25px;
       }
     }
   </style>
@@ -672,93 +990,111 @@
 
 <div class="shell">
 
-  <div class="topbar">
+  <!-- HEADER -->
+
+  <header class="topbar">
 
     <div class="brand">
 
-      <div class="logo">
-        R
-      </div>
+      <img
+        class="brand-logo"
+        src="https://i.ibb.co/2YqsDtSH/IMG-4129.jpg"
+        alt="REBAR IT Logo"
+      >
 
-      <div class="brandText">
+      <div class="brand-name">
 
-        <b>
+        <strong>
           <span>REBAR</span> IT
-        </b>
+        </strong>
 
         <small>
-          SECURE ACCESS PANEL
+          SECURE ACCESS
         </small>
 
       </div>
 
     </div>
 
-    <div class="badge" id="modeBadge">
+
+    <div
+      class="status-badge"
+      id="modeBadge"
+    >
       Secure
     </div>
 
-  </div>
+  </header>
 
 
-  <!-- PUBLIC VIEW -->
+  <!-- =========================
+       PUBLIC
+  ========================== -->
 
-  <section id="publicView" class="card hidden">
+  <section
+    id="publicView"
+    class="card hidden"
+  >
 
-    <div class="publicHero">
-
-      <div class="apple">
-        
-      </div>
+    <div class="public-head">
 
       <h1>
         <span>REBAR</span> IT
       </h1>
 
       <p>
-        Protected Apple ID Information
+        Protected Information
       </p>
 
     </div>
 
 
-    <div id="pinGate" class="lockbox hidden">
+    <!-- PIN -->
 
-      <div class="lockIcon">
-        🔐
-      </div>
+    <div
+      id="pinGate"
+      class="login-box hidden"
+    >
 
-      <h2>
+      <div class="security-logo"></div>
+
+      <h2 class="login-title">
         ئەم لینکە پارێزراوە
       </h2>
 
-      <p>
-        بۆ بینینی زانیارییەکان PIN ـەکە بنووسە.
+      <p class="login-description">
+        بۆ بینینی زانیارییەکان، PIN ـەکە بنووسە.
       </p>
+
 
       <div class="field">
 
         <label>
-          Viewer PIN
+          PIN
         </label>
 
         <input
           id="viewerPin"
+          type="password"
           inputmode="numeric"
           autocomplete="one-time-code"
           placeholder="••••"
-          style="text-align:center;letter-spacing:4px"
-        />
+          style="
+            text-align:center;
+            letter-spacing:5px;
+          "
+        >
 
       </div>
 
+
       <button
         class="primary wide"
-        style="margin-top:12px"
         onclick="unlockRecord()"
       >
-        کردنەوەی زانیارییەکان
+        کردنەوە
       </button>
+
 
       <div
         id="pinMsg"
@@ -768,9 +1104,11 @@
     </div>
 
 
+    <!-- PUBLIC DATA -->
+
     <div
       id="publicContent"
-      class="pad hidden"
+      class="content hidden"
     >
 
       <div class="credential">
@@ -779,17 +1117,16 @@
           ئیمەیڵ
         </small>
 
-        <div class="row">
+        <div class="credential-row">
 
           <input
             id="displayEmail"
             readonly
-          />
+          >
 
           <button
-            class="copy"
+            class="copy-button"
             onclick="copyFrom('displayEmail',this)"
-            aria-label="کۆپیکردنی ئیمەیڵ"
           >
             کۆپی
           </button>
@@ -805,17 +1142,16 @@
           پاسۆرد
         </small>
 
-        <div class="row">
+        <div class="credential-row">
 
           <input
             id="displayPassword"
             readonly
-          />
+          >
 
           <button
-            class="copy"
+            class="copy-button"
             onclick="copyFrom('displayPassword',this)"
-            aria-label="کۆپیکردنی پاسۆرد"
           >
             کۆپی
           </button>
@@ -842,10 +1178,10 @@
       ></div>
 
 
-      <div class="status">
+      <div class="record-status">
 
         <span>
-          <i class="dot"></i>
+          <i class="active-dot"></i>
           Active
         </span>
 
@@ -858,26 +1194,31 @@
   </section>
 
 
-  <!-- ADMIN LOGIN -->
+  <!-- =========================
+       LOGIN
+  ========================== -->
 
   <section
     id="loginView"
     class="card hidden"
   >
 
-    <div class="lockbox">
+    <div class="login-box">
 
-      <div class="lockIcon">
-        🛡️
-      </div>
+      <div class="security-logo"></div>
 
-      <h2>
+
+      <h2 class="login-title">
         بەشی بەڕێوەبەر
       </h2>
 
-      <p>
-        بۆ پاراستنی زانیارییەکان، تەنها بە پاسۆردی بەڕێوەبەر دەتوانرێت بچیتە ژوورەوە.
+
+      <p class="login-description">
+        بۆ پاراستنی زانیارییەکان،
+        تەنها بە پاسۆردی بەڕێوەبەر
+        دەتوانرێت بچیتە ژوورەوە.
       </p>
+
 
       <div class="field">
 
@@ -890,17 +1231,18 @@
           type="password"
           autocomplete="current-password"
           placeholder="••••••••"
-        />
+        >
 
       </div>
 
+
       <button
         class="primary wide"
-        style="margin-top:12px"
         onclick="adminLogin()"
       >
         چوونەژوورەوە
       </button>
+
 
       <div
         id="loginMsg"
@@ -912,21 +1254,25 @@
   </section>
 
 
-  <!-- ADMIN DASHBOARD -->
+  <!-- =========================
+       ADMIN
+  ========================== -->
 
   <section
     id="adminView"
     class="card hidden"
   >
 
-    <div class="cardHead">
+    <div class="admin-header">
 
       <h1>
-        داشبۆردی بەڕێوەبەر
+        بەڕێوەبردنی لینکەکان
       </h1>
 
       <p>
-        لینکی نوێ دروست بکە، زانیارییەکان بە ئاسانی دەستکاری بکە و بە شێوەی پارێزراو بەڕێوەیان ببە.
+        لینک دروست بکە،
+        زانیارییەکان دەستکاری بکە
+        و لینکەکان بەڕێوەببە.
       </p>
 
     </div>
@@ -942,6 +1288,7 @@
         لینکی نوێ
       </button>
 
+
       <button
         id="tabEdit"
         class="tab"
@@ -949,6 +1296,7 @@
       >
         دەستکاری
       </button>
+
 
       <button
         class="tab"
@@ -963,8 +1311,8 @@
     <!-- CREATE -->
 
     <div
-      id="createPanel"
-      class="pad"
+      id="createView"
+      class="content"
     >
 
       <div class="grid">
@@ -979,7 +1327,7 @@
             id="cEmail"
             class="ltr"
             placeholder="example@email.com"
-          />
+          >
 
         </div>
 
@@ -994,7 +1342,7 @@
             id="cPassword"
             class="ltr"
             placeholder="Password"
-          />
+          >
 
         </div>
 
@@ -1002,14 +1350,14 @@
         <div class="field full">
 
           <label>
-            Target Link
+            لینک
           </label>
 
           <input
             id="cTargetLink"
             class="ltr"
             placeholder="https://..."
-          />
+          >
 
         </div>
 
@@ -1031,15 +1379,15 @@
         <div class="field">
 
           <label>
-            Viewer PIN (اختیاری)
+            PIN ـی بینەر
           </label>
 
           <input
             id="cPin"
-            inputmode="numeric"
             class="ltr"
-            placeholder="مثلاً 2580"
-          />
+            inputmode="numeric"
+            placeholder="2580"
+          >
 
         </div>
 
@@ -1047,7 +1395,7 @@
         <div class="field">
 
           <label>
-            بەسەرچوون
+            ماوەی بەردەستبوون
           </label>
 
           <select id="cExpiry">
@@ -1097,7 +1445,8 @@
 
         <code id="generatedLink"></code>
 
-        <div class="btnRow">
+
+        <div class="button-row">
 
           <button
             class="secondary"
@@ -1105,6 +1454,7 @@
           >
             کۆپی لینک
           </button>
+
 
           <button
             class="secondary"
@@ -1123,166 +1473,172 @@
     <!-- EDIT -->
 
     <div
-      id="editPanel"
-      class="pad hidden"
+      id="editView"
+      class="content hidden"
     >
 
-      <div class="grid">
+      <div class="field">
 
-        <div class="field full">
+        <label>
+          ID ی لینک
+        </label>
 
-          <label>
-            ID ی لینک
-          </label>
+        <div
+          style="
+            display:flex;
+            gap:8px;
+          "
+        >
 
-          <div style="display:flex;gap:8px">
+          <input
+            id="editId"
+            class="ltr"
+            placeholder="ID"
+          >
+
+
+          <button
+            class="secondary"
+            onclick="loadRecordForEdit()"
+          >
+            بارکردن
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="editFields"
+        class="hidden"
+      >
+
+        <div class="grid">
+
+
+          <div class="field">
+
+            <label>
+              ئیمەیڵ
+            </label>
 
             <input
-              id="editId"
+              id="eEmail"
               class="ltr"
-              placeholder="مثلاً a8F3kP2q"
-            />
-
-            <button
-              class="secondary"
-              onclick="loadRecordForEdit()"
             >
-              بارکردن
-            </button>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              پاسۆرد
+            </label>
+
+            <input
+              id="ePassword"
+              class="ltr"
+            >
+
+          </div>
+
+
+          <div class="field full">
+
+            <label>
+              لینک
+            </label>
+
+            <input
+              id="eTargetLink"
+              class="ltr"
+            >
+
+          </div>
+
+
+          <div class="field full">
+
+            <label>
+              تێبینی
+            </label>
+
+            <textarea
+              id="eNote"
+            ></textarea>
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              PIN ـی نوێ
+            </label>
+
+            <input
+              id="ePin"
+              class="ltr"
+              inputmode="numeric"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              ماوە
+            </label>
+
+            <select id="eExpiry">
+
+              <option value="keep">
+                هەمان ماوە
+              </option>
+
+              <option value="0">
+                بێ سنوور
+              </option>
+
+              <option value="24">
+                24 کاتژمێر
+              </option>
+
+              <option value="168">
+                7 ڕۆژ
+              </option>
+
+              <option value="720">
+                30 ڕۆژ
+              </option>
+
+            </select>
 
           </div>
 
         </div>
 
 
-        <div
-          id="editFields"
-          class="full hidden"
-        >
+        <div class="button-row">
 
-          <div class="grid">
-
-            <div class="field">
-
-              <label>
-                ئیمەیڵ
-              </label>
-
-              <input
-                id="eEmail"
-                class="ltr"
-              />
-
-            </div>
+          <button
+            class="primary"
+            style="flex:1"
+            onclick="saveRecord()"
+          >
+            پاشەکەوتکردن
+          </button>
 
 
-            <div class="field">
-
-              <label>
-                پاسۆرد
-              </label>
-
-              <input
-                id="ePassword"
-                class="ltr"
-              />
-
-            </div>
-
-
-            <div class="field full">
-
-              <label>
-                Target Link
-              </label>
-
-              <input
-                id="eTargetLink"
-                class="ltr"
-              />
-
-            </div>
-
-
-            <div class="field full">
-
-              <label>
-                تێبینی
-              </label>
-
-              <textarea id="eNote"></textarea>
-
-            </div>
-
-
-            <div class="field">
-
-              <label>
-                Viewer PIN نوێ (بەتاڵ = گۆڕانکاری مەکە)
-              </label>
-
-              <input
-                id="ePin"
-                inputmode="numeric"
-                class="ltr"
-              />
-
-            </div>
-
-
-            <div class="field">
-
-              <label>
-                بەسەرچوون
-              </label>
-
-              <select id="eExpiry">
-
-                <option value="keep">
-                  هەمان کات بمێنێتەوە
-                </option>
-
-                <option value="0">
-                  بێ سنوور
-                </option>
-
-                <option value="24">
-                  24 کاتژمێر لە ئێستا
-                </option>
-
-                <option value="168">
-                  7 ڕۆژ لە ئێستا
-                </option>
-
-                <option value="720">
-                  30 ڕۆژ لە ئێستا
-                </option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-
-          <div class="btnRow">
-
-            <button
-              class="primary"
-              style="flex:1"
-              onclick="saveRecord()"
-            >
-              پاشەکەوتکردن
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteRecord()"
-            >
-              سڕینەوە
-            </button>
-
-          </div>
+          <button
+            class="danger"
+            onclick="deleteRecord()"
+          >
+            سڕینەوە
+          </button>
 
         </div>
 
@@ -1298,11 +1654,6 @@
 
   </section>
 
-
-  <div class="footer">
-    REBAR IT • Secure Link System
-  </div>
-
 </div>
 
 
@@ -1311,30 +1662,37 @@
   const API_BASE =
     "https://rebarit-secure-api.rebar4qwrna.workers.dev";
 
+
   const ADMIN_TOKEN_KEY =
     "rebarit_admin_session";
+
 
   let currentPublicId = "";
 
   let createdUrl = "";
 
 
-  const $ = (id) =>
+  const $ = id =>
     document.getElementById(id);
 
 
-  function showOnly(id){
+  function showOnly(id) {
 
     [
       "publicView",
       "loginView",
       "adminView"
 
-    ].forEach(x =>
-      $(x).classList.add("hidden")
+    ].forEach(
+      item => {
+        $(item).classList.add("hidden");
+      }
     );
 
-    $(id).classList.remove("hidden");
+
+    $(id)
+      .classList
+      .remove("hidden");
 
   }
 
@@ -1342,32 +1700,37 @@
   function setNotice(
     id,
     text,
-    ok=false
-  ){
+    success = false
+  ) {
 
-    const el = $(id);
+    const element = $(id);
 
-    el.textContent = text;
+    element.textContent = text;
 
-    el.className =
+    element.className =
       "notice " +
-      (ok ? "ok" : "err");
+      (
+        success
+          ? "ok"
+          : "err"
+      );
 
   }
 
 
-  function clearNotice(id){
+  function clearNotice(id) {
 
-    const el = $(id);
+    const element = $(id);
 
-    el.textContent = "";
+    element.textContent = "";
 
-    el.className = "notice";
+    element.className =
+      "notice";
 
   }
 
 
-  function authHeaders(){
+  function authHeaders() {
 
     return {
 
@@ -1387,19 +1750,22 @@
   }
 
 
-  function cleanId(raw){
+  function cleanId(raw) {
 
-    const s =
-      (raw || "").trim();
+    const value =
+      (raw || "")
+        .trim();
 
-    const m =
-      s.match(
+
+    const match =
+      value.match(
         /[?&]id=([A-Za-z0-9_-]+)/
       );
 
-    return m
-      ? m[1]
-      : s.replace(
+
+    return match
+      ? match[1]
+      : value.replace(
           /[^A-Za-z0-9_-]/g,
           ""
         );
@@ -1410,47 +1776,58 @@
   window.addEventListener(
     "DOMContentLoaded",
 
-    async ()=>{
+    async () => {
 
       const params =
         new URLSearchParams(
           location.search
         );
 
+
       currentPublicId =
         params.get("id") || "";
 
 
-      if(currentPublicId){
+      if (currentPublicId) {
 
-        $("modeBadge").textContent =
-          "Public Link";
+        $("modeBadge")
+          .textContent =
+          "Public";
 
-        showOnly("publicView");
+        showOnly(
+          "publicView"
+        );
 
         await loadPublicRecord();
 
       }
 
-      else{
+      else {
 
-        $("modeBadge").textContent =
+        $("modeBadge")
+          .textContent =
           "Admin";
 
 
-        if(
+        const token =
           sessionStorage.getItem(
             ADMIN_TOKEN_KEY
-          )
-        ){
+          );
 
-          showOnly("adminView");
+
+        if (token) {
+
+          showOnly(
+            "adminView"
+          );
 
         }
 
-        else{
+        else {
 
-          showOnly("loginView");
+          showOnly(
+            "loginView"
+          );
 
         }
 
@@ -1461,36 +1838,47 @@
   );
 
 
-  async function adminLogin(){
+  async function adminLogin() {
 
-    clearNotice("loginMsg");
+    clearNotice(
+      "loginMsg"
+    );
+
 
     const password =
-      $("adminPassword").value;
+      $("adminPassword")
+        .value;
 
 
-    if(!password){
+    if (!password) {
 
-      return setNotice(
+      setNotice(
         "loginMsg",
-        "پاسۆرد بنووسە."
+        "تکایە پاسۆرد بنووسە."
       );
+
+      return;
 
     }
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
-          API_BASE + "/api/login",
+
+          API_BASE +
+          "/api/login",
+
           {
 
-            method:"POST",
+            method: "POST",
 
-            headers:{
+            headers: {
+
               "Content-Type":
                 "application/json"
+
             },
 
             body:
@@ -1499,17 +1887,18 @@
               })
 
           }
+
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "Login failed"
         );
 
@@ -1518,21 +1907,26 @@
 
       sessionStorage.setItem(
         ADMIN_TOKEN_KEY,
-        j.token
+        data.token
       );
 
 
-      $("adminPassword").value = "";
+      $("adminPassword")
+        .value =
+        "";
 
-      showOnly("adminView");
+
+      showOnly(
+        "adminView"
+      );
 
     }
 
-    catch(e){
+    catch (error) {
 
       setNotice(
         "loginMsg",
-        "پاسۆرد هەڵەیە یان API بەردەست نییە."
+        "پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
       );
 
     }
@@ -1540,7 +1934,7 @@
   }
 
 
-  function logout(){
+  function logout() {
 
     sessionStorage.removeItem(
       ADMIN_TOKEN_KEY
@@ -1551,7 +1945,7 @@
   }
 
 
-  function switchTab(name){
+  function switchTab(name) {
 
     $("tabCreate")
       .classList
@@ -1569,7 +1963,7 @@
       );
 
 
-    $("createPanel")
+    $("createView")
       .classList
       .toggle(
         "hidden",
@@ -1577,7 +1971,7 @@
       );
 
 
-    $("editPanel")
+    $("editView")
       .classList
       .toggle(
         "hidden",
@@ -1587,74 +1981,91 @@
   }
 
 
-  function adminPayload(prefix){
+  function getFormData(prefix) {
 
     return {
 
       email:
         $(
           prefix + "Email"
-        ).value.trim(),
+        )
+        .value
+        .trim(),
 
       password:
         $(
           prefix + "Password"
-        ).value.trim(),
+        )
+        .value
+        .trim(),
 
       targetLink:
         $(
           prefix + "TargetLink"
-        ).value.trim(),
+        )
+        .value
+        .trim(),
 
       note:
         $(
           prefix + "Note"
-        ).value.trim()
+        )
+        .value
+        .trim()
 
     };
 
   }
 
 
-  async function createRecord(){
+  async function createRecord() {
 
-    clearNotice("createMsg");
+    clearNotice(
+      "createMsg"
+    );
+
 
     $("createResult")
-      .style.display =
+      .style
+      .display =
       "none";
 
 
     const payload =
-      adminPayload("c");
+      getFormData("c");
 
 
     payload.viewerPin =
-      $("cPin").value.trim();
+      $("cPin")
+        .value
+        .trim();
 
 
     payload.expiryHours =
       Number(
-        $("cExpiry").value || 0
+        $("cExpiry")
+          .value || 0
       );
 
 
-    if(
+    if (
       !payload.email &&
       !payload.password
-    ){
+    ) {
 
-      return setNotice(
+      setNotice(
         "createMsg",
         "لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە."
       );
 
+      return;
+
     }
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -1662,7 +2073,8 @@
 
           {
 
-            method:"POST",
+            method:
+              "POST",
 
             headers:
               authHeaders(),
@@ -1677,11 +2089,13 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(r.status === 401){
+      if (
+        response.status === 401
+      ) {
 
         logout();
 
@@ -1690,10 +2104,10 @@
       }
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "Create failed"
         );
 
@@ -1701,7 +2115,12 @@
 
 
       createdUrl =
-        `${location.origin}${location.pathname}?id=${encodeURIComponent(j.id)}`;
+        location.origin +
+        location.pathname +
+        "?id=" +
+        encodeURIComponent(
+          data.id
+        );
 
 
       $("generatedLink")
@@ -1710,23 +2129,24 @@
 
 
       $("createResult")
-        .style.display =
+        .style
+        .display =
         "block";
 
 
       setNotice(
         "createMsg",
-        "لینکەکە بە سەرکەوتوویی دروست کرا ✅",
+        "لینکەکە بە سەرکەوتوویی دروست کرا.",
         true
       );
 
     }
 
-    catch(e){
+    catch (error) {
 
       setNotice(
         "createMsg",
-        e.message ||
+        error.message ||
         "هەڵەیەک ڕوویدا."
       );
 
@@ -1735,33 +2155,40 @@
   }
 
 
-  async function loadRecordForEdit(){
+  async function loadRecordForEdit() {
 
-    clearNotice("editMsg");
+    clearNotice(
+      "editMsg"
+    );
 
 
     const id =
       cleanId(
-        $("editId").value
+        $("editId")
+          .value
       );
 
 
-    $("editId").value = id;
+    $("editId")
+      .value =
+      id;
 
 
-    if(!id){
+    if (!id) {
 
-      return setNotice(
+      setNotice(
         "editMsg",
         "ID بنووسە."
       );
 
+      return;
+
     }
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -1776,11 +2203,13 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(r.status === 401){
+      if (
+        response.status === 401
+      ) {
 
         logout();
 
@@ -1789,36 +2218,43 @@
       }
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "Record not found"
         );
 
       }
 
 
-      $("eEmail").value =
-        j.record.email || "";
+      $("eEmail")
+        .value =
+        data.record.email || "";
 
 
-      $("ePassword").value =
-        j.record.password || "";
+      $("ePassword")
+        .value =
+        data.record.password || "";
 
 
-      $("eTargetLink").value =
-        j.record.targetLink || "";
+      $("eTargetLink")
+        .value =
+        data.record.targetLink || "";
 
 
-      $("eNote").value =
-        j.record.note || "";
+      $("eNote")
+        .value =
+        data.record.note || "";
 
 
-      $("ePin").value = "";
+      $("ePin")
+        .value =
+        "";
 
 
-      $("eExpiry").value =
+      $("eExpiry")
+        .value =
         "keep";
 
 
@@ -1829,13 +2265,13 @@
 
       setNotice(
         "editMsg",
-        "زانیارییەکان بارکران ✅",
+        "زانیارییەکان بارکران.",
         true
       );
 
     }
 
-    catch(e){
+    catch (error) {
 
       $("editFields")
         .classList
@@ -1844,8 +2280,8 @@
 
       setNotice(
         "editMsg",
-        e.message ||
-        "نەدۆزرایەوە."
+        error.message ||
+        "زانیارییەکە نەدۆزرایەوە."
       );
 
     }
@@ -1853,32 +2289,38 @@
   }
 
 
-  async function saveRecord(){
+  async function saveRecord() {
 
-    clearNotice("editMsg");
+    clearNotice(
+      "editMsg"
+    );
 
 
     const id =
       cleanId(
-        $("editId").value
+        $("editId")
+          .value
       );
 
 
     const payload =
-      adminPayload("e");
+      getFormData("e");
 
 
     payload.viewerPin =
-      $("ePin").value.trim();
+      $("ePin")
+        .value
+        .trim();
 
 
     payload.expiryHours =
-      $("eExpiry").value;
+      $("eExpiry")
+        .value;
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -1887,7 +2329,8 @@
 
           {
 
-            method:"PUT",
+            method:
+              "PUT",
 
             headers:
               authHeaders(),
@@ -1902,11 +2345,13 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(r.status === 401){
+      if (
+        response.status === 401
+      ) {
 
         logout();
 
@@ -1915,10 +2360,10 @@
       }
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "Update failed"
         );
 
@@ -1927,24 +2372,27 @@
 
       setNotice(
         "editMsg",
-        "گۆڕانکارییەکان پاشەکەوت کران ✅",
+        "گۆڕانکارییەکان پاشەکەوت کران.",
         true
       );
 
 
-      $("ePin").value = "";
+      $("ePin")
+        .value =
+        "";
 
 
-      $("eExpiry").value =
+      $("eExpiry")
+        .value =
         "keep";
 
     }
 
-    catch(e){
+    catch (error) {
 
       setNotice(
         "editMsg",
-        e.message ||
+        error.message ||
         "هەڵەیەک ڕوویدا."
       );
 
@@ -1953,33 +2401,34 @@
   }
 
 
-  async function deleteRecord(){
+  async function deleteRecord() {
 
     const id =
       cleanId(
-        $("editId").value
+        $("editId")
+          .value
       );
 
 
-    if(!id){
+    if (!id) {
       return;
     }
 
 
-    if(
-      !confirm(
+    const confirmed =
+      confirm(
         "دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"
-      )
-    ){
+      );
 
+
+    if (!confirmed) {
       return;
-
     }
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -1988,7 +2437,8 @@
 
           {
 
-            method:"DELETE",
+            method:
+              "DELETE",
 
             headers:
               authHeaders()
@@ -1998,11 +2448,13 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(r.status === 401){
+      if (
+        response.status === 401
+      ) {
 
         logout();
 
@@ -2011,10 +2463,10 @@
       }
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "Delete failed"
         );
 
@@ -2028,17 +2480,17 @@
 
       setNotice(
         "editMsg",
-        "لینکەکە سڕایەوە ✅",
+        "لینکەکە سڕایەوە.",
         true
       );
 
     }
 
-    catch(e){
+    catch (error) {
 
       setNotice(
         "editMsg",
-        e.message ||
+        error.message ||
         "هەڵەیەک ڕوویدا."
       );
 
@@ -2047,11 +2499,11 @@
   }
 
 
-  async function loadPublicRecord(){
+  async function loadPublicRecord() {
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -2063,11 +2515,13 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(r.status === 410){
+      if (
+        response.status === 410
+      ) {
 
         throw new Error(
           "ئەم لینکە بەسەرچووە."
@@ -2076,7 +2530,9 @@
       }
 
 
-      if(r.status === 404){
+      if (
+        response.status === 404
+      ) {
 
         throw new Error(
           "ئەم لینکە نەدۆزرایەوە."
@@ -2085,16 +2541,19 @@
       }
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error || "هەڵە"
+          data.error ||
+          "هەڵە"
         );
 
       }
 
 
-      if(j.requiresPin){
+      if (
+        data.requiresPin
+      ) {
 
         $("pinGate")
           .classList
@@ -2107,17 +2566,17 @@
 
       }
 
-      else{
+      else {
 
         renderPublic(
-          j.record
+          data.record
         );
 
       }
 
     }
 
-    catch(e){
+    catch (error) {
 
       $("pinGate")
         .classList
@@ -2126,19 +2585,30 @@
 
       $("pinGate")
         .innerHTML =
+        `
+          <div class="security-logo"></div>
 
-        `<div class="lockIcon">⚠️</div>
-         <h2>بەردەست نییە</h2>
-         <p>${escapeHtml(e.message)}</p>`;
+          <h2 class="login-title">
+            بەردەست نییە
+          </h2>
+
+          <p class="login-description">
+            ${escapeHtml(
+              error.message
+            )}
+          </p>
+        `;
 
     }
 
   }
 
 
-  async function unlockRecord(){
+  async function unlockRecord() {
 
-    clearNotice("pinMsg");
+    clearNotice(
+      "pinMsg"
+    );
 
 
     const pin =
@@ -2147,19 +2617,21 @@
         .trim();
 
 
-    if(!pin){
+    if (!pin) {
 
-      return setNotice(
+      setNotice(
         "pinMsg",
         "PIN بنووسە."
       );
 
+      return;
+
     }
 
 
-    try{
+    try {
 
-      const r =
+      const response =
         await fetch(
 
           API_BASE +
@@ -2171,11 +2643,14 @@
 
           {
 
-            method:"POST",
+            method:
+              "POST",
 
-            headers:{
+            headers: {
+
               "Content-Type":
                 "application/json"
+
             },
 
             body:
@@ -2188,14 +2663,14 @@
         );
 
 
-      const j =
-        await r.json();
+      const data =
+        await response.json();
 
 
-      if(!r.ok){
+      if (!response.ok) {
 
         throw new Error(
-          j.error ||
+          data.error ||
           "PIN هەڵەیە."
         );
 
@@ -2208,16 +2683,16 @@
 
 
       renderPublic(
-        j.record
+        data.record
       );
 
     }
 
-    catch(e){
+    catch (error) {
 
       setNotice(
         "pinMsg",
-        "PIN هەڵەیە یان لینکەکە بەسەرچووە."
+        "PIN هەڵەیە یان لینکەکە بەردەست نییە."
       );
 
     }
@@ -2225,26 +2700,31 @@
   }
 
 
-  function renderPublic(record){
+  function renderPublic(record) {
 
     $("publicContent")
       .classList
       .remove("hidden");
 
 
-    $("displayEmail").value =
+    $("displayEmail")
+      .value =
       record.email || "";
 
 
-    $("displayPassword").value =
+    $("displayPassword")
+      .value =
       record.password || "";
 
 
-    $("btnGetCode").href =
+    $("btnGetCode")
+      .href =
       record.targetLink || "#";
 
 
-    if(record.note){
+    if (
+      record.note
+    ) {
 
       $("publicNote")
         .textContent =
@@ -2254,6 +2734,14 @@
       $("publicNote")
         .classList
         .remove("hidden");
+
+    }
+
+    else {
+
+      $("publicNote")
+        .classList
+        .add("hidden");
 
     }
 
@@ -2268,8 +2756,8 @@
 
   async function copyFrom(
     id,
-    btn
-  ){
+    button
+  ) {
 
     await navigator
       .clipboard
@@ -2278,18 +2766,20 @@
       );
 
 
-    const old =
-      btn.textContent;
+    const oldText =
+      button.textContent;
 
 
-    btn.textContent =
+    button.textContent =
       "کۆپی کرا";
 
 
     setTimeout(
-      ()=>{
-        btn.textContent =
-          old;
+      () => {
+
+        button.textContent =
+          oldText;
+
       },
       1100
     );
@@ -2297,7 +2787,7 @@
   }
 
 
-  async function copyGenerated(){
+  async function copyGenerated() {
 
     await navigator
       .clipboard
@@ -2308,33 +2798,42 @@
   }
 
 
-  function openGenerated(){
+  function openGenerated() {
 
-    if(createdUrl){
-
-      window.open(
-        createdUrl,
-        "_blank",
-        "noopener"
-      );
-
+    if (!createdUrl) {
+      return;
     }
+
+
+    window.open(
+      createdUrl,
+      "_blank",
+      "noopener"
+    );
 
   }
 
 
-  function escapeHtml(s){
+  function escapeHtml(value) {
 
-    return String(s)
+    return String(value)
       .replace(
         /[&<>"']/g,
-        c => ({
-          "&":"&amp;",
-          "<":"&lt;",
-          ">":"&gt;",
-          "\"":"&quot;",
-          "'":"&#39;"
-        }[c])
+
+        character => ({
+
+          "&": "&amp;",
+
+          "<": "&lt;",
+
+          ">": "&gt;",
+
+          "\"": "&quot;",
+
+          "'": "&#39;"
+
+        }[character])
+
       );
 
   }
