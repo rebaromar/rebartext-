@@ -1,1 +1,477 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <title>REBAR IT Secure</title>
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg2:#0b1828;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.12);
+      --text:#f7fbff;
+      --muted:#a9b8c7;
+      --line:rgba(255,255,255,.12);
+      --blue:#1aa7ff;
+      --cyan:#51d7ff;
+      --green:#2dd4a3;
+      --red:#ff6b7a;
+      --shadow:0 25px 70px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Tahoma,Arial,sans-serif;background:
+      radial-gradient(circle at 20% 10%,rgba(26,167,255,.18),transparent 30%),
+      radial-gradient(circle at 90% 25%,rgba(81,215,255,.10),transparent 30%),
+      linear-gradient(180deg,var(--bg),#050b13 65%,#03070b);color:var(--text)}
+    body{padding:18px}
+    .shell{width:100%;max-width:720px;margin:0 auto}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin:4px 0 18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:54px;height:54px;border-radius:17px;display:grid;place-items:center;
+      background:linear-gradient(145deg,#0d263c,#07111f);
+      border:1px solid rgba(81,215,255,.35);box-shadow:0 10px 30px rgba(26,167,255,.18);
+      font-weight:900;color:var(--cyan);font-size:20px
+    }
+    .brandText{direction:ltr;text-align:left}
+    .brandText b{font-size:22px;letter-spacing:.5px}
+    .brandText b span{color:var(--blue)}
+    .brandText small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .badge{font-size:12px;color:#c8f4ff;border:1px solid rgba(81,215,255,.28);background:rgba(81,215,255,.08);padding:8px 11px;border-radius:999px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.055));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);overflow:hidden
+    }
+    .cardHead{padding:22px 22px 8px}
+    .cardHead h1,.cardHead h2{margin:0;font-size:24px}
+    .cardHead p{color:var(--muted);line-height:1.8;font-size:13px;margin:8px 0 0}
+    .pad{padding:20px 22px 24px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .full{grid-column:1/-1}
+    .field label{display:block;font-size:13px;font-weight:700;margin:0 4px 7px;color:#dfeaf4}
+    .field input,.field textarea,.field select{
+      width:100%;border:1px solid rgba(255,255,255,.14);outline:none;border-radius:15px;
+      background:rgba(0,0,0,.20);color:#fff;padding:13px 14px;font-size:15px;
+      transition:.2s ease
+    }
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(81,215,255,.7);box-shadow:0 0 0 4px rgba(81,215,255,.08)}
+    .field input::placeholder,.field textarea::placeholder{color:#718296}
+    textarea{resize:vertical;min-height:92px}
+    .ltr{direction:ltr;text-align:left}
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    button,.button{
+      appearance:none;border:0;cursor:pointer;border-radius:15px;padding:13px 17px;
+      font:inherit;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px
+    }
+    .primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#04111b;box-shadow:0 10px 25px rgba(26,167,255,.2)}
+    .secondary{background:rgba(255,255,255,.09);border:1px solid var(--line);color:#fff}
+    .danger{background:rgba(255,107,122,.13);border:1px solid rgba(255,107,122,.28);color:#ffdfe4}
+    .wide{width:100%}
+    .tabs{display:flex;gap:8px;padding:0 22px 16px}
+    .tab{flex:1;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--line)}
+    .tab.active{color:#04111b;background:linear-gradient(135deg,var(--blue),var(--cyan))}
+    .notice{padding:12px 14px;border-radius:14px;font-size:13px;line-height:1.7;margin-top:12px;display:none}
+    .ok{display:block;background:rgba(45,212,163,.10);border:1px solid rgba(45,212,163,.30);color:#cffff1}
+    .err{display:block;background:rgba(255,107,122,.10);border:1px solid rgba(255,107,122,.30);color:#ffe0e5}
+    .result{margin-top:16px;padding:14px;border:1px dashed rgba(81,215,255,.35);border-radius:16px;background:rgba(81,215,255,.055);display:none}
+    .result code{direction:ltr;display:block;word-break:break-all;color:#bfefff;font-size:12px;line-height:1.8}
+    .hidden{display:none!important}
+    .publicHero{text-align:center;padding:30px 22px 20px}
+    .publicHero .apple{font-size:38px;margin-bottom:8px}
+    .publicHero h1{margin:0;font-size:28px;direction:ltr}
+    .publicHero h1 span{color:var(--blue)}
+    .publicHero p{color:var(--muted);font-size:12px;margin:8px 0 0}
+    .credential{padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(0,0,0,.18);margin-bottom:12px}
+    .credential small{display:block;color:var(--muted);margin-bottom:6px}
+    .credential .row{display:flex;align-items:center;gap:8px}
+    .credential input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:16px;font-weight:800;direction:ltr;text-align:left;min-width:0}
+    .copy{width:42px;height:42px;padding:0;border-radius:12px;background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+    .note{white-space:pre-wrap;line-height:1.9;background:rgba(255,255,255,.055);padding:14px;border-radius:16px;border:1px solid var(--line);margin-top:14px;color:#e8f2f8}
+    .status{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+    .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-left:6px;box-shadow:0 0 15px var(--green)}
+    .lockbox{max-width:430px;margin:0 auto;padding:26px 22px 28px}
+    .lockIcon{width:64px;height:64px;border-radius:20px;margin:0 auto 14px;display:grid;place-items:center;font-size:28px;background:rgba(81,215,255,.08);border:1px solid rgba(81,215,255,.25)}
+    .lockbox h2{text-align:center;margin:0 0 6px}.lockbox p{text-align:center;color:var(--muted);font-size:13px;line-height:1.8}
+    .footer{text-align:center;color:#65778a;font-size:11px;margin:16px 0 6px}
+    @media(max-width:620px){body{padding:10px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.cardHead,.pad{padding-right:16px;padding-left:16px}.tabs{padding-right:16px;padding-left:16px}.brandText small{display:none}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">R</div>
+      <div class="brandText"><b><span>REBAR</span> IT</b><small>SECURE ACCESS PANEL</small></div>
+    </div>
+    <div class="badge" id="modeBadge">Secure</div>
+  </div>
 
+  <!-- PUBLIC VIEW -->
+  <section id="publicView" class="card hidden">
+    <div class="publicHero">
+      <div class="apple">ï£¿</div>
+      <h1><span>REBAR</span> IT</h1>
+      <p>Protected Apple ID Information</p>
+    </div>
+
+    <div id="pinGate" class="lockbox hidden">
+      <div class="lockIcon">ð</div>
+      <h2>Ø¦ÛÙ ÙÛÙÚ©Û Ù¾Ø§Ø±ÛØ²Ø±Ø§ÙÛ</h2>
+      <p>Ø¨Û Ø¨ÛÙÛÙÛ Ø²Ø§ÙÛØ§Ø±ÛÛÛÚ©Ø§Ù PIN ÙÛÚ©Û Ø¨ÙÙÙØ³Û.</p>
+      <div class="field">
+        <label>Viewer PIN</label>
+        <input id="viewerPin" inputmode="numeric" autocomplete="one-time-code" placeholder="â¢â¢â¢â¢" style="text-align:center;letter-spacing:4px" />
+      </div>
+      <button class="primary wide" style="margin-top:12px" onclick="unlockRecord()">Ú©Ø±Ø¯ÙÛÙÛÛ Ø²Ø§ÙÛØ§Ø±ÛÛÛÚ©Ø§Ù</button>
+      <div id="pinMsg" class="notice"></div>
+    </div>
+
+    <div id="publicContent" class="pad hidden">
+      <div class="credential">
+        <small>Ø¦ÛÙÛÛÚµ</small>
+        <div class="row">
+          <input id="displayEmail" readonly />
+          <button class="copy" onclick="copyFrom('displayEmail',this)">ð</button>
+        </div>
+      </div>
+
+      <div class="credential">
+        <small>Ù¾Ø§Ø³ÛØ±Ø¯</small>
+        <div class="row">
+          <input id="displayPassword" readonly />
+          <button class="copy" onclick="copyFrom('displayPassword',this)">ð</button>
+        </div>
+      </div>
+
+      <a id="btnGetCode" class="button primary wide" href="#" target="_blank" rel="noopener noreferrer">Ø¨ÛØ¯ÛØ³ØªÙÛÙØ§ÙÛ Ú©ÛØ¯</a>
+      <div id="publicNote" class="note hidden"></div>
+
+      <div class="status">
+        <span><i class="dot"></i> Active</span>
+        <span id="usedAt"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADMIN LOGIN -->
+  <section id="loginView" class="card hidden">
+    <div class="lockbox">
+      <div class="lockIcon">ð¡ï¸</div>
+      <h2>REBAR IT Admin</h2>
+      <p>ØªÛÙÙØ§ Ø¨ÛÚÛÙÛØ¨ÛØ± Ø¯ÛØªÙØ§ÙÛØª ÙÛÙÚ© Ø¯Ø±ÙØ³Øª Ø¨Ú©Ø§Øª ÛØ§Ù Ø¯ÛØ³ØªÚ©Ø§Ø±Û Ø¨Ú©Ø§Øª.</p>
+      <div class="field">
+        <label>Ù¾Ø§Ø³ÛØ±Ø¯Û Ø¨ÛÚÛÙÛØ¨ÛØ±</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" />
+      </div>
+      <button class="primary wide" style="margin-top:12px" onclick="adminLogin()">ÚÙÙÙÛÚÙÙØ±ÛÙÛ</button>
+      <div id="loginMsg" class="notice"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN DASHBOARD -->
+  <section id="adminView" class="card hidden">
+    <div class="cardHead">
+      <h1>Ø¯Ø§Ø´Ø¨ÛØ±Ø¯Û Ø¨ÛÚÛÙÛØ¨ÛØ±</h1>
+      <p>Ø¯Ø±ÙØ³ØªÚ©Ø±Ø¯ÙØ Ø¯ÛØ³ØªÚ©Ø§Ø±ÛÚ©Ø±Ø¯Ù Ù Ø³ÚÛÙÛÙÛÛ ÙÛÙÚ©ÛÚ©Ø§Ù. Token Ù Ù¾Ø§Ø³ÛØ±Ø¯Û ÙÙÛÙÛÛÛÚ©Ø§Ù ÙÛ browser ÙØ¯Ø§ ÙÛÛÛÙ.</p>
+    </div>
+
+    <div class="tabs">
+      <button id="tabCreate" class="tab active" onclick="switchTab('create')">ÙÛÙÚ©Û ÙÙÛ</button>
+      <button id="tabEdit" class="tab" onclick="switchTab('edit')">Ø¯ÛØ³ØªÚ©Ø§Ø±Û</button>
+      <button class="tab" onclick="logout()">ÚÙÙÙÛØ¯ÛØ±ÛÙÛ</button>
+    </div>
+
+    <div id="createPanel" class="pad">
+      <div class="grid">
+        <div class="field"><label>Ø¦ÛÙÛÛÚµ</label><input id="cEmail" class="ltr" placeholder="example@email.com" /></div>
+        <div class="field"><label>Ù¾Ø§Ø³ÛØ±Ø¯</label><input id="cPassword" class="ltr" placeholder="Password" /></div>
+        <div class="field full"><label>Target Link</label><input id="cTargetLink" class="ltr" placeholder="https://..." /></div>
+        <div class="field full"><label>ØªÛØ¨ÛÙÛ</label><textarea id="cNote" placeholder="ØªÛØ¨ÛÙÛ..."></textarea></div>
+        <div class="field"><label>Viewer PIN (Ø§Ø®ØªÛØ§Ø±Û)</label><input id="cPin" inputmode="numeric" class="ltr" placeholder="ÙØ«ÙØ§Ù 2580" /></div>
+        <div class="field">
+          <label>Ø¨ÛØ³ÛØ±ÚÙÙÙ</label>
+          <select id="cExpiry">
+            <option value="0">Ø¨Û Ø³ÙÙÙØ±</option>
+            <option value="24">24 Ú©Ø§ØªÚÙÛØ±</option>
+            <option value="168">7 ÚÛÚ</option>
+            <option value="720">30 ÚÛÚ</option>
+          </select>
+        </div>
+      </div>
+      <button class="primary wide" style="margin-top:16px" onclick="createRecord()">Ø¯Ø±ÙØ³ØªÚ©Ø±Ø¯ÙÛ ÙÛÙÚ©</button>
+      <div id="createMsg" class="notice"></div>
+      <div id="createResult" class="result">
+        <code id="generatedLink"></code>
+        <div class="btnRow">
+          <button class="secondary" onclick="copyGenerated()">Ú©ÛÙ¾Û ÙÛÙÚ©</button>
+          <button class="secondary" onclick="openGenerated()">Ú©Ø±Ø¯ÙÛÙÛ</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="editPanel" class="pad hidden">
+      <div class="grid">
+        <div class="field full">
+          <label>ID Û ÙÛÙÚ©</label>
+          <div style="display:flex;gap:8px">
+            <input id="editId" class="ltr" placeholder="ÙØ«ÙØ§Ù a8F3kP2q" />
+            <button class="secondary" onclick="loadRecordForEdit()">Ø¨Ø§Ø±Ú©Ø±Ø¯Ù</button>
+          </div>
+        </div>
+        <div id="editFields" class="full hidden">
+          <div class="grid">
+            <div class="field"><label>Ø¦ÛÙÛÛÚµ</label><input id="eEmail" class="ltr" /></div>
+            <div class="field"><label>Ù¾Ø§Ø³ÛØ±Ø¯</label><input id="ePassword" class="ltr" /></div>
+            <div class="field full"><label>Target Link</label><input id="eTargetLink" class="ltr" /></div>
+            <div class="field full"><label>ØªÛØ¨ÛÙÛ</label><textarea id="eNote"></textarea></div>
+            <div class="field"><label>Viewer PIN ÙÙÛ (Ø¨ÛØªØ§Úµ = Ú¯ÛÚØ§ÙÚ©Ø§Ø±Û ÙÛÚ©Û)</label><input id="ePin" inputmode="numeric" class="ltr" /></div>
+            <div class="field">
+              <label>Ø¨ÛØ³ÛØ±ÚÙÙÙ</label>
+              <select id="eExpiry">
+                <option value="keep">ÙÛÙØ§Ù Ú©Ø§Øª Ø¨ÙÛÙÛØªÛÙÛ</option>
+                <option value="0">Ø¨Û Ø³ÙÙÙØ±</option>
+                <option value="24">24 Ú©Ø§ØªÚÙÛØ± ÙÛ Ø¦ÛØ³ØªØ§</option>
+                <option value="168">7 ÚÛÚ ÙÛ Ø¦ÛØ³ØªØ§</option>
+                <option value="720">30 ÚÛÚ ÙÛ Ø¦ÛØ³ØªØ§</option>
+              </select>
+            </div>
+          </div>
+          <div class="btnRow">
+            <button class="primary" style="flex:1" onclick="saveRecord()">Ù¾Ø§Ø´ÛÚ©ÛÙØªÚ©Ø±Ø¯Ù</button>
+            <button class="danger" onclick="deleteRecord()">Ø³ÚÛÙÛÙÛ</button>
+          </div>
+        </div>
+      </div>
+      <div id="editMsg" class="notice"></div>
+    </div>
+  </section>
+
+  <div class="footer">REBAR IT â¢ Secure Link System</div>
+</div>
+
+<script>
+  // IMPORTANT: replace with your deployed Cloudflare Worker URL.
+  const API_BASE = "https://YOUR-WORKER.workers.dev";
+  const ADMIN_TOKEN_KEY = "rebarit_admin_session";
+  let currentPublicId = "";
+  let createdUrl = "";
+
+  const $ = (id) => document.getElementById(id);
+
+  function showOnly(id){
+    ["publicView","loginView","adminView"].forEach(x => $(x).classList.add("hidden"));
+    $(id).classList.remove("hidden");
+  }
+
+  function setNotice(id, text, ok=false){
+    const el=$(id); el.textContent=text; el.className="notice " + (ok ? "ok" : "err");
+  }
+
+  function clearNotice(id){
+    const el=$(id); el.textContent=""; el.className="notice";
+  }
+
+  function authHeaders(){
+    return {
+      "Content-Type":"application/json",
+      "Authorization":"Bearer " + (sessionStorage.getItem(ADMIN_TOKEN_KEY) || "")
+    };
+  }
+
+  function cleanId(raw){
+    const s=(raw||"").trim();
+    const m=s.match(/[?&]id=([A-Za-z0-9_-]+)/);
+    return m ? m[1] : s.replace(/[^A-Za-z0-9_-]/g,"");
+  }
+
+  window.addEventListener("DOMContentLoaded", async ()=>{
+    const params=new URLSearchParams(location.search);
+    currentPublicId=params.get("id")||"";
+
+    if(currentPublicId){
+      $("modeBadge").textContent="Public Link";
+      showOnly("publicView");
+      await loadPublicRecord();
+    }else{
+      $("modeBadge").textContent="Admin";
+      if(sessionStorage.getItem(ADMIN_TOKEN_KEY)){
+        showOnly("adminView");
+      }else{
+        showOnly("loginView");
+      }
+    }
+  });
+
+  async function adminLogin(){
+    clearNotice("loginMsg");
+    const password=$("adminPassword").value;
+    if(!password) return setNotice("loginMsg","Ù¾Ø§Ø³ÛØ±Ø¯ Ø¨ÙÙÙØ³Û.");
+    try{
+      const r=await fetch(API_BASE+"/api/login",{
+        method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password})
+      });
+      const j=await r.json();
+      if(!r.ok) throw new Error(j.error||"Login failed");
+      sessionStorage.setItem(ADMIN_TOKEN_KEY,j.token);
+      $("adminPassword").value="";
+      showOnly("adminView");
+    }catch(e){ setNotice("loginMsg","Ù¾Ø§Ø³ÛØ±Ø¯ ÙÛÚµÛÛÛ ÛØ§Ù API Ø¨ÛØ±Ø¯ÛØ³Øª ÙÛÛÛ."); }
+  }
+
+  function logout(){
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    location.reload();
+  }
+
+  function switchTab(name){
+    $("tabCreate").classList.toggle("active",name==="create");
+    $("tabEdit").classList.toggle("active",name==="edit");
+    $("createPanel").classList.toggle("hidden",name!=="create");
+    $("editPanel").classList.toggle("hidden",name!=="edit");
+  }
+
+  function adminPayload(prefix){
+    return {
+      email: $(prefix+"Email").value.trim(),
+      password: $(prefix+"Password").value.trim(),
+      targetLink: $(prefix+"TargetLink").value.trim(),
+      note: $(prefix+"Note").value.trim()
+    };
+  }
+
+  async function createRecord(){
+    clearNotice("createMsg");
+    $("createResult").style.display="none";
+    const payload=adminPayload("c");
+    payload.viewerPin=$("cPin").value.trim();
+    payload.expiryHours=Number($("cExpiry").value||0);
+
+    if(!payload.email && !payload.password) return setNotice("createMsg","ÙØ§ÛÛÙÛ Ú©ÛÙ Ø¦ÛÙÛÛÚµ ÛØ§Ù Ù¾Ø§Ø³ÛØ±Ø¯ Ø¨ÙÙÙØ³Û.");
+
+    try{
+      const r=await fetch(API_BASE+"/api/records",{method:"POST",headers:authHeaders(),body:JSON.stringify(payload)});
+      const j=await r.json();
+      if(r.status===401){ logout(); return; }
+      if(!r.ok) throw new Error(j.error||"Create failed");
+      createdUrl=`${location.origin}${location.pathname}?id=${encodeURIComponent(j.id)}`;
+      $("generatedLink").textContent=createdUrl;
+      $("createResult").style.display="block";
+      setNotice("createMsg","ÙÛÙÚ©ÛÚ©Û Ø¨Û Ø³ÛØ±Ú©ÛÙØªÙÙÛÛ Ø¯Ø±ÙØ³Øª Ú©Ø±Ø§ â",true);
+    }catch(e){setNotice("createMsg",e.message||"ÙÛÚµÛÛÛÚ© ÚÙÙÛØ¯Ø§.");}
+  }
+
+  async function loadRecordForEdit(){
+    clearNotice("editMsg");
+    const id=cleanId($("editId").value);
+    $("editId").value=id;
+    if(!id) return setNotice("editMsg","ID Ø¨ÙÙÙØ³Û.");
+    try{
+      const r=await fetch(API_BASE+"/api/admin/record/"+encodeURIComponent(id),{headers:authHeaders()});
+      const j=await r.json();
+      if(r.status===401){ logout(); return; }
+      if(!r.ok) throw new Error(j.error||"Record not found");
+      $("eEmail").value=j.record.email||"";
+      $("ePassword").value=j.record.password||"";
+      $("eTargetLink").value=j.record.targetLink||"";
+      $("eNote").value=j.record.note||"";
+      $("ePin").value="";
+      $("eExpiry").value="keep";
+      $("editFields").classList.remove("hidden");
+      setNotice("editMsg","Ø²Ø§ÙÛØ§Ø±ÛÛÛÚ©Ø§Ù Ø¨Ø§Ø±Ú©Ø±Ø§Ù â",true);
+    }catch(e){$("editFields").classList.add("hidden");setNotice("editMsg",e.message||"ÙÛØ¯ÛØ²Ø±Ø§ÛÛÙÛ.");}
+  }
+
+  async function saveRecord(){
+    clearNotice("editMsg");
+    const id=cleanId($("editId").value);
+    const payload=adminPayload("e");
+    payload.viewerPin=$("ePin").value.trim();
+    payload.expiryHours=$("eExpiry").value;
+    try{
+      const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)});
+      const j=await r.json();
+      if(r.status===401){ logout(); return; }
+      if(!r.ok) throw new Error(j.error||"Update failed");
+      setNotice("editMsg","Ú¯ÛÚØ§ÙÚ©Ø§Ø±ÛÛÛÚ©Ø§Ù Ù¾Ø§Ø´ÛÚ©ÛÙØª Ú©Ø±Ø§Ù â",true);
+      $("ePin").value="";
+      $("eExpiry").value="keep";
+    }catch(e){setNotice("editMsg",e.message||"ÙÛÚµÛÛÛÚ© ÚÙÙÛØ¯Ø§.");}
+  }
+
+  async function deleteRecord(){
+    const id=cleanId($("editId").value);
+    if(!id) return;
+    if(!confirm("Ø¯ÚµÙÛØ§ÛØª Ø¯ÛØªÛÙÛØª Ø¦ÛÙ ÙÛÙÚ©Û Ø¨Ø³ÚÛØªÛÙÛØ")) return;
+    try{
+      const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()});
+      const j=await r.json();
+      if(r.status===401){ logout(); return; }
+      if(!r.ok) throw new Error(j.error||"Delete failed");
+      $("editFields").classList.add("hidden");
+      setNotice("editMsg","ÙÛÙÚ©ÛÚ©Û Ø³ÚØ§ÛÛÙÛ â",true);
+    }catch(e){setNotice("editMsg",e.message||"ÙÛÚµÛÛÛÚ© ÚÙÙÛØ¯Ø§.");}
+  }
+
+  async function loadPublicRecord(){
+    try{
+      const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId));
+      const j=await r.json();
+      if(r.status===410) throw new Error("Ø¦ÛÙ ÙÛÙÚ©Û Ø¨ÛØ³ÛØ±ÚÙÙÛ.");
+      if(r.status===404) throw new Error("Ø¦ÛÙ ÙÛÙÚ©Û ÙÛØ¯ÛØ²Ø±Ø§ÛÛÙÛ.");
+      if(!r.ok) throw new Error(j.error||"ÙÛÚµÛ");
+
+      if(j.requiresPin){
+        $("pinGate").classList.remove("hidden");
+        $("publicContent").classList.add("hidden");
+      }else{
+        renderPublic(j.record);
+      }
+    }catch(e){
+      $("pinGate").classList.remove("hidden");
+      $("pinGate").innerHTML=`<div class="lockIcon">â ï¸</div><h2>Ø¨ÛØ±Ø¯ÛØ³Øª ÙÛÛÛ</h2><p>${escapeHtml(e.message)}</p>`;
+    }
+  }
+
+  async function unlockRecord(){
+    clearNotice("pinMsg");
+    const pin=$("viewerPin").value.trim();
+    if(!pin) return setNotice("pinMsg","PIN Ø¨ÙÙÙØ³Û.");
+    try{
+      const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)+"/unlock",{
+        method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({pin})
+      });
+      const j=await r.json();
+      if(!r.ok) throw new Error(j.error||"PIN ÙÛÚµÛÛÛ.");
+      $("pinGate").classList.add("hidden");
+      renderPublic(j.record);
+    }catch(e){setNotice("pinMsg","PIN ÙÛÚµÛÛÛ ÛØ§Ù ÙÛÙÚ©ÛÚ©Û Ø¨ÛØ³ÛØ±ÚÙÙÛ.");}
+  }
+
+  function renderPublic(record){
+    $("publicContent").classList.remove("hidden");
+    $("displayEmail").value=record.email||"";
+    $("displayPassword").value=record.password||"";
+    $("btnGetCode").href=record.targetLink||"#";
+    if(record.note){
+      $("publicNote").textContent=record.note;
+      $("publicNote").classList.remove("hidden");
+    }
+    $("usedAt").textContent=new Date().toLocaleString();
+  }
+
+  async function copyFrom(id,btn){
+    await navigator.clipboard.writeText($(id).value);
+    const old=btn.textContent; btn.textContent="â"; setTimeout(()=>btn.textContent=old,1000);
+  }
+  async function copyGenerated(){
+    await navigator.clipboard.writeText(createdUrl);
+  }
+  function openGenerated(){ if(createdUrl) window.open(createdUrl,"_blank","noopener"); }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+</script>
+</body>
+</html>
