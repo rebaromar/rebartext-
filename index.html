@@ -7,51 +7,67 @@
   <title>REBAR IT Secure</title>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Inter:wght@500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800&display=swap');
 
     :root{
-      --bg:#f3f6f9;
-      --card:#ffffff;
-      --text:#111827;
-      --muted:#64748b;
-      --line:#dce3ea;
-      --blue:#0b8fd3;
-      --blue2:#22b7ef;
-      --navy:#0c1724;
-      --green:#16a36a;
-      --red:#d84a5b;
-      --soft:#eef7fc;
-      --radius:22px;
-      --shadow:0 16px 45px rgba(15,23,42,.10);
+      --bg:#eef3f7;
+      --surface:#ffffff;
+      --surface-2:#f8fafc;
+      --ink:#101827;
+      --muted:#66758a;
+      --line:#dce4ec;
+      --navy:#0a1724;
+      --navy-2:#10263a;
+      --blue:#0c98db;
+      --cyan:#43c8f5;
+      --blue-soft:#edf8fd;
+      --green:#17a56c;
+      --red:#d94b5b;
+      --shadow:0 24px 70px rgba(15,23,42,.10);
+      --shadow-soft:0 10px 30px rgba(15,23,42,.07);
+      --radius:26px;
     }
 
-    *{box-sizing:border-box}
+    *{
+      box-sizing:border-box;
+    }
 
-    html{background:var(--bg)}
-
-    html,body{
+    html,
+    body{
       margin:0;
       min-height:100%;
-      color:var(--text);
-      background:
-        radial-gradient(circle at 10% 0%, rgba(34,183,239,.10), transparent 26%),
-        linear-gradient(180deg,#f8fbfd 0%,#eef3f7 100%);
+      color:var(--ink);
       font-family:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,Arial,sans-serif;
       -webkit-font-smoothing:antialiased;
       text-rendering:optimizeLegibility;
     }
 
-    body{
-      padding:22px 14px 40px;
+    html{
+      background:var(--bg);
     }
 
-    button,input,textarea,select{
+    body{
+      padding:0 14px 42px;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(67,200,245,.16), transparent 26%),
+        radial-gradient(circle at 95% 8%, rgba(12,152,219,.10), transparent 24%),
+        linear-gradient(180deg,#f8fbfd 0%,#eef3f7 52%,#edf2f6 100%);
+    }
+
+    button,
+    input,
+    textarea,
+    select{
       font-family:inherit;
+    }
+
+    button{
+      touch-action:manipulation;
     }
 
     .shell{
       width:100%;
-      max-width:680px;
+      max-width:720px;
       margin:0 auto;
     }
 
@@ -60,28 +76,40 @@
       align-items:center;
       justify-content:space-between;
       gap:14px;
-      padding:10px 4px 18px;
+      min-height:92px;
+      padding:18px 4px 14px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:13px;
+      direction:ltr;
     }
 
     .logo{
-      width:54px;
-      height:54px;
+      width:58px;
+      height:58px;
       border-radius:18px;
+      overflow:hidden;
       display:grid;
       place-items:center;
-      background:linear-gradient(145deg,#0d2537,#09131f);
+      background:linear-gradient(145deg,#0d2537,#08131f);
+      border:1px solid rgba(12,152,219,.28);
+      box-shadow:0 10px 28px rgba(12,152,219,.17);
       color:#fff;
       font-family:Inter,Arial,sans-serif;
+      font-size:22px;
       font-weight:800;
-      font-size:21px;
-      border:1px solid rgba(11,143,211,.30);
-      box-shadow:0 10px 28px rgba(11,143,211,.16);
+      position:relative;
+    }
+
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.10),transparent 42%);
+      pointer-events:none;
     }
 
     .brandText{
@@ -91,9 +119,12 @@
     }
 
     .brandText b{
-      font-size:22px;
-      letter-spacing:.3px;
-      color:#111827;
+      display:block;
+      color:#0e1726;
+      font-size:23px;
+      line-height:1.05;
+      letter-spacing:.2px;
+      font-weight:800;
     }
 
     .brandText b span{
@@ -102,61 +133,85 @@
 
     .brandText small{
       display:block;
-      margin-top:3px;
-      font-size:10px;
-      letter-spacing:1.1px;
-      color:#7b8a9a;
-      font-weight:600;
+      margin-top:7px;
+      color:#8391a2;
+      font-size:9.5px;
+      font-weight:700;
+      letter-spacing:1.25px;
     }
 
     .badge{
-      font-family:Inter,Arial,sans-serif;
-      font-size:11px;
-      font-weight:700;
-      color:#076a9d;
-      background:#eaf7fd;
-      border:1px solid #bfe8f8;
-      padding:8px 12px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:9px 13px;
+      border:1px solid #c9e9f6;
       border-radius:999px;
+      color:#086e9c;
+      background:rgba(240,250,255,.86);
+      box-shadow:0 6px 20px rgba(12,152,219,.07);
+      font-family:Inter,Arial,sans-serif;
+      font-size:10.5px;
+      font-weight:800;
+      letter-spacing:.25px;
+    }
+
+    .badge::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#25b678;
+      box-shadow:0 0 0 4px rgba(37,182,120,.11);
     }
 
     .card{
-      background:rgba(255,255,255,.96);
-      border:1px solid rgba(213,222,230,.95);
+      position:relative;
+      background:rgba(255,255,255,.97);
+      border:1px solid rgba(213,223,232,.95);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
 
+    .card::before{
+      content:"";
+      display:block;
+      height:4px;
+      background:linear-gradient(90deg,var(--blue),var(--cyan),#8de3ff);
+    }
+
     .cardHead{
-      padding:24px 24px 10px;
-      border-bottom:1px solid #edf1f4;
+      padding:25px 26px 18px;
+      background:linear-gradient(180deg,#fff,#fbfdfe);
+      border-bottom:1px solid #eef2f5;
     }
 
     .cardHead h1,
     .cardHead h2{
       margin:0;
-      font-size:22px;
-      line-height:1.7;
       color:#111827;
-      font-weight:700;
+      font-size:22px;
+      line-height:1.8;
+      font-weight:800;
     }
 
     .cardHead p{
-      color:var(--muted);
+      max-width:590px;
+      margin:5px 0 0;
+      color:#718094;
+      font-size:11.5px;
       line-height:2;
-      font-size:12px;
-      margin:7px 0 0;
     }
 
     .pad{
-      padding:22px 24px 26px;
+      padding:24px 26px 28px;
     }
 
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:14px;
+      gap:15px;
     }
 
     .full{
@@ -165,10 +220,10 @@
 
     .field label{
       display:block;
-      font-size:12px;
+      margin:0 3px 8px;
+      color:#344256;
+      font-size:11.5px;
       font-weight:700;
-      margin:0 4px 8px;
-      color:#334155;
       line-height:1.8;
     }
 
@@ -176,33 +231,37 @@
     .field textarea,
     .field select{
       width:100%;
-      border:1px solid #cfd8e1;
+      min-height:50px;
+      padding:12px 14px;
+      border:1px solid #d4dde6;
+      border-radius:15px;
       outline:none;
-      border-radius:14px;
-      background:#f8fafc;
+      background:#fafcfd;
       color:#111827;
-      padding:13px 14px;
-      font-size:14px;
-      line-height:1.7;
-      transition:.18s ease;
+      font-size:13px;
+      line-height:1.8;
+      transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+    }
+
+    .field textarea{
+      min-height:108px;
+      resize:vertical;
     }
 
     .field input:focus,
     .field textarea:focus,
     .field select:focus{
-      border-color:#39aee1;
+      border-color:#46b6e5;
       background:#fff;
-      box-shadow:0 0 0 4px rgba(11,143,211,.10);
+      box-shadow:0 0 0 4px rgba(12,152,219,.09);
     }
 
     .field input::placeholder,
     .field textarea::placeholder{
-      color:#9aa8b7;
-    }
-
-    textarea{
-      resize:vertical;
-      min-height:96px;
+      color:#a2adba;
     }
 
     .ltr{
@@ -215,7 +274,7 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:16px;
+      margin-top:17px;
     }
 
     button,
@@ -223,17 +282,26 @@
       appearance:none;
       border:0;
       cursor:pointer;
+      min-height:48px;
       border-radius:14px;
-      padding:13px 18px;
-      font:inherit;
-      font-size:13px;
-      font-weight:700;
-      text-decoration:none;
+      padding:12px 18px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
-      transition:.18s ease;
+      text-decoration:none;
+      font:inherit;
+      font-size:12px;
+      font-weight:800;
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        filter .15s ease;
+    }
+
+    button:hover,
+    .button:hover{
+      filter:brightness(.99);
     }
 
     button:active,
@@ -242,25 +310,22 @@
     }
 
     .primary{
-      background:linear-gradient(135deg,var(--blue),var(--blue2));
       color:#fff;
-      box-shadow:0 10px 24px rgba(11,143,211,.22);
-    }
-
-    .primary:hover{
-      filter:brightness(.98);
+      background:linear-gradient(135deg,#078fd1,#31b9ec);
+      box-shadow:0 12px 26px rgba(12,152,219,.22);
     }
 
     .secondary{
-      background:#f5f7f9;
-      border:1px solid #d7dfe7;
-      color:#1e293b;
+      color:#26364a;
+      background:#f6f8fa;
+      border:1px solid #dbe3ea;
+      box-shadow:0 5px 16px rgba(15,23,42,.04);
     }
 
     .danger{
-      background:#fff1f2;
-      border:1px solid #fecdd3;
-      color:#b42338;
+      color:#b3293b;
+      background:#fff3f4;
+      border:1px solid #f8ccd2;
     }
 
     .wide{
@@ -268,67 +333,70 @@
     }
 
     .tabs{
-      display:flex;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
       gap:8px;
-      padding:16px 24px;
-      background:#fbfcfd;
+      padding:14px 18px;
+      background:#f8fafc;
       border-bottom:1px solid #edf1f4;
     }
 
     .tab{
-      flex:1;
+      min-height:44px;
+      padding:10px 8px;
+      border:1px solid #dce4eb;
+      border-radius:13px;
       background:#fff;
-      color:#64748b;
-      border:1px solid #dce3ea;
-      padding:11px 10px;
+      color:#66758a;
+      box-shadow:none;
     }
 
     .tab.active{
       color:#fff;
-      background:linear-gradient(135deg,#0c1724,#16314a);
-      border-color:#16314a;
+      border-color:#132d43;
+      background:linear-gradient(135deg,#0b1a29,#183b57);
+      box-shadow:0 8px 18px rgba(10,23,36,.14);
     }
 
     .notice{
+      display:none;
+      margin-top:13px;
       padding:12px 14px;
       border-radius:13px;
-      font-size:12px;
+      font-size:11.5px;
       line-height:1.9;
-      margin-top:12px;
-      display:none;
     }
 
     .ok{
       display:block;
-      background:#ecfdf5;
-      border:1px solid #a7f3d0;
-      color:#0f7a52;
+      color:#0d7b52;
+      border:1px solid #bdebd7;
+      background:#f0fbf6;
     }
 
     .err{
       display:block;
-      background:#fff1f2;
-      border:1px solid #fecdd3;
-      color:#b42338;
+      color:#b22d3f;
+      border:1px solid #f5c8ce;
+      background:#fff5f6;
     }
 
     .result{
-      margin-top:16px;
-      padding:14px;
-      border:1px dashed #9ed8ef;
-      border-radius:15px;
-      background:#f0faff;
       display:none;
+      margin-top:16px;
+      padding:15px;
+      border:1px dashed #93d8f2;
+      border-radius:16px;
+      background:linear-gradient(180deg,#f4fbfe,#edf9fe);
     }
 
     .result code{
-      direction:ltr;
       display:block;
+      direction:ltr;
+      text-align:left;
       word-break:break-all;
       color:#075985;
-      font-size:12px;
-      line-height:1.8;
-      font-family:Inter,Arial,sans-serif;
+      font:600 12px/1.9 Inter,Arial,sans-serif;
     }
 
     .hidden{
@@ -336,24 +404,24 @@
     }
 
     .publicHero{
+      padding:30px 24px 24px;
       text-align:center;
-      padding:30px 24px 22px;
-      background:linear-gradient(180deg,#ffffff,#f7fbfd);
-      border-bottom:1px solid #edf1f4;
+      background:
+        radial-gradient(circle at 50% -20%,rgba(67,200,245,.17),transparent 45%),
+        linear-gradient(180deg,#fff,#f8fbfd);
+      border-bottom:1px solid #edf2f5;
     }
 
     .publicHero .apple{
-      font-size:34px;
-      margin-bottom:7px;
-      color:#111;
+      display:none;
     }
 
     .publicHero h1{
       margin:0;
-      font-size:27px;
       direction:ltr;
-      font-family:Inter,Arial,sans-serif;
-      color:#111827;
+      color:#0e1726;
+      font:800 29px/1.2 Inter,Arial,sans-serif;
+      letter-spacing:.3px;
     }
 
     .publicHero h1 span{
@@ -361,137 +429,197 @@
     }
 
     .publicHero p{
-      color:#7b8a9a;
-      font-size:11px;
-      margin:7px 0 0;
-      font-family:Inter,Arial,sans-serif;
+      margin:8px 0 0;
+      color:#8795a5;
+      font:700 10px/1.6 Inter,Arial,sans-serif;
+      letter-spacing:.85px;
+      text-transform:uppercase;
     }
 
     .credential{
-      padding:13px 14px;
-      border:1px solid #dce3ea;
-      border-radius:15px;
-      background:#f8fafc;
       margin-bottom:12px;
+      padding:13px 14px;
+      border:1px solid #dce4eb;
+      border-radius:16px;
+      background:linear-gradient(180deg,#fbfcfd,#f7f9fb);
     }
 
     .credential small{
       display:block;
-      color:#64748b;
       margin-bottom:5px;
-      font-size:11px;
+      color:#7b899a;
+      font-size:10.5px;
+      font-weight:700;
     }
 
     .credential .row{
       display:flex;
       align-items:center;
-      gap:8px;
+      gap:9px;
     }
 
     .credential input{
       flex:1;
-      background:transparent;
+      min-width:0;
       border:0;
       outline:0;
-      color:#0f172a;
-      font-size:15px;
-      font-weight:700;
+      padding:0;
+      background:transparent;
+      color:#111827;
       direction:ltr;
       text-align:left;
-      min-width:0;
-      font-family:Inter,Arial,sans-serif;
+      font:700 14px/1.8 Inter,Arial,sans-serif;
     }
 
     .copy{
-      width:40px;
-      height:40px;
-      padding:0;
+      min-height:36px;
+      height:36px;
+      width:auto;
+      padding:0 12px;
+      border:1px solid #d8e1e8;
       border-radius:11px;
       background:#fff;
-      color:#334155;
-      border:1px solid #d7e0e8;
+      color:#425267;
+      box-shadow:0 4px 12px rgba(15,23,42,.04);
+      font-size:10px;
     }
 
     .note{
-      white-space:pre-wrap;
-      line-height:2;
-      background:#f8fafc;
-      padding:14px;
-      border-radius:15px;
-      border:1px solid #dce3ea;
       margin-top:14px;
-      color:#334155;
-      font-size:13px;
+      padding:14px 15px;
+      border:1px solid #dce4eb;
+      border-radius:15px;
+      background:#fafcfd;
+      color:#405065;
+      font-size:12px;
+      line-height:2;
+      white-space:pre-wrap;
     }
 
     .status{
       display:flex;
+      align-items:center;
       justify-content:space-between;
       gap:12px;
-      align-items:center;
-      color:#7b8a9a;
-      font-size:11px;
-      margin-top:16px;
+      margin-top:17px;
       padding-top:14px;
       border-top:1px solid #edf1f4;
-      font-family:Inter,"Noto Kufi Arabic",sans-serif;
+      color:#8794a4;
+      font:600 10.5px/1.6 Inter,"Noto Kufi Arabic",sans-serif;
     }
 
     .dot{
       display:inline-block;
       width:8px;
       height:8px;
+      margin-left:6px;
       border-radius:50%;
       background:var(--green);
-      margin-left:6px;
-      box-shadow:0 0 0 4px rgba(22,163,106,.10);
+      box-shadow:0 0 0 4px rgba(23,165,108,.10);
     }
 
     .lockbox{
-      max-width:440px;
+      max-width:455px;
       margin:0 auto;
-      padding:34px 28px 32px;
+      padding:40px 30px 34px;
     }
 
     .lockIcon{
-      width:62px;
-      height:62px;
-      border-radius:19px;
-      margin:0 auto 16px;
-      display:grid;
-      place-items:center;
-      font-size:27px;
-      background:#eff8fd;
-      border:1px solid #c9e9f7;
+      position:relative;
+      width:68px;
+      height:68px;
+      margin:0 auto 18px;
+      border:1px solid #c8e8f6;
+      border-radius:21px;
+      background:linear-gradient(145deg,#f6fcff,#e8f7fd);
+      box-shadow:0 10px 26px rgba(12,152,219,.09);
+      font-size:0;
+    }
+
+    .lockIcon::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:18px;
+      width:24px;
+      height:19px;
+      transform:translateX(-50%);
+      border:3px solid #0d91d0;
+      border-bottom:0;
+      border-radius:12px 12px 0 0;
+    }
+
+    .lockIcon::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:16px;
+      width:31px;
+      height:25px;
+      transform:translateX(-50%);
+      border-radius:8px;
+      background:linear-gradient(135deg,#0c98db,#43c8f5);
+      box-shadow:0 7px 16px rgba(12,152,219,.20);
     }
 
     .lockbox h2{
+      margin:0 0 7px;
       text-align:center;
-      margin:0 0 8px;
       color:#111827;
-      font-size:22px;
-      line-height:1.7;
+      font-size:21px;
+      line-height:1.8;
+      font-weight:800;
     }
 
     .lockbox p{
+      max-width:380px;
+      margin:0 auto 20px;
       text-align:center;
-      color:#64748b;
-      font-size:12px;
-      line-height:2;
-      margin:0 0 18px;
+      color:#738195;
+      font-size:11.5px;
+      line-height:2.1;
     }
 
     .footer{
+      margin:18px 0 5px;
       text-align:center;
-      color:#8b99a8;
-      font-size:10px;
-      margin:18px 0 6px;
-      font-family:Inter,Arial,sans-serif;
+      color:#93a0ae;
+      font:700 9.5px/1.6 Inter,Arial,sans-serif;
+      letter-spacing:.7px;
     }
 
     @media(max-width:620px){
       body{
-        padding:10px 9px 28px;
+        padding:0 9px 30px;
+      }
+
+      .topbar{
+        min-height:82px;
+        padding:14px 3px 12px;
+      }
+
+      .logo{
+        width:50px;
+        height:50px;
+        border-radius:16px;
+        font-size:19px;
+      }
+
+      .brandText b{
+        font-size:20px;
+      }
+
+      .brandText small{
+        display:none;
+      }
+
+      .badge{
+        padding:8px 10px;
+        font-size:9.5px;
+      }
+
+      .card{
+        border-radius:22px;
       }
 
       .grid{
@@ -504,31 +632,37 @@
 
       .cardHead,
       .pad{
-        padding-right:16px;
         padding-left:16px;
+        padding-right:16px;
+      }
+
+      .cardHead{
+        padding-top:20px;
+        padding-bottom:15px;
       }
 
       .tabs{
-        padding-right:16px;
-        padding-left:16px;
+        padding:11px;
       }
 
-      .brandText small{
-        display:none;
-      }
-
-      .brandText b{
-        font-size:19px;
-      }
-
-      .logo{
-        width:48px;
-        height:48px;
-        border-radius:16px;
+      .tab{
+        font-size:10.5px;
       }
 
       .lockbox{
-        padding:28px 18px 26px;
+        padding:32px 18px 28px;
+      }
+
+      .lockbox h2{
+        font-size:19px;
+      }
+
+      .publicHero{
+        padding:25px 18px 20px;
+      }
+
+      .publicHero h1{
+        font-size:25px;
       }
     }
   </style>
@@ -541,12 +675,23 @@
   <div class="topbar">
 
     <div class="brand">
-      <div class="logo">R</div>
+
+      <div class="logo">
+        R
+      </div>
 
       <div class="brandText">
-        <b><span>REBAR</span> IT</b>
-        <small>SECURE ACCESS PANEL</small>
+
+        <b>
+          <span>REBAR</span> IT
+        </b>
+
+        <small>
+          SECURE ACCESS PANEL
+        </small>
+
       </div>
+
     </div>
 
     <div class="badge" id="modeBadge">
@@ -615,12 +760,18 @@
         کردنەوەی زانیارییەکان
       </button>
 
-      <div id="pinMsg" class="notice"></div>
+      <div
+        id="pinMsg"
+        class="notice"
+      ></div>
 
     </div>
 
 
-    <div id="publicContent" class="pad hidden">
+    <div
+      id="publicContent"
+      class="pad hidden"
+    >
 
       <div class="credential">
 
@@ -638,8 +789,9 @@
           <button
             class="copy"
             onclick="copyFrom('displayEmail',this)"
+            aria-label="کۆپیکردنی ئیمەیڵ"
           >
-            📋
+            کۆپی
           </button>
 
         </div>
@@ -663,8 +815,9 @@
           <button
             class="copy"
             onclick="copyFrom('displayPassword',this)"
+            aria-label="کۆپیکردنی پاسۆرد"
           >
-            📋
+            کۆپی
           </button>
 
         </div>
@@ -719,11 +872,11 @@
       </div>
 
       <h2>
-        REBAR IT Admin
+        بەشی بەڕێوەبەر
       </h2>
 
       <p>
-        تەنها بەڕێوەبەر دەتوانێت لینک دروست بکات یان دەستکاری بکات.
+        بۆ پاراستنی زانیارییەکان، تەنها بە پاسۆردی بەڕێوەبەر دەتوانرێت بچیتە ژوورەوە.
       </p>
 
       <div class="field">
@@ -773,7 +926,7 @@
       </h1>
 
       <p>
-        دروستکردن، دەستکاریکردن و سڕینەوەی لینکەکان. Token و پاسۆردە نهێنییەکان لە browser ـدا نییەن.
+        لینکی نوێ دروست بکە، زانیارییەکان بە ئاسانی دەستکاری بکە و بە شێوەی پارێزراو بەڕێوەیان ببە.
       </p>
 
     </div>
@@ -982,9 +1135,7 @@
             ID ی لینک
           </label>
 
-          <div
-            style="display:flex;gap:8px"
-          >
+          <div style="display:flex;gap:8px">
 
             <input
               id="editId"
@@ -2132,7 +2283,7 @@
 
 
     btn.textContent =
-      "✅";
+      "کۆپی کرا";
 
 
     setTimeout(
@@ -2140,7 +2291,7 @@
         btn.textContent =
           old;
       },
-      1000
+      1100
     );
 
   }
