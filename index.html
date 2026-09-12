@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f8fb">
+<meta name="theme-color" content="#eef8ff">
 
-<title>REBAR IT</title>
+<title>REBAR IT • Secure Access</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root{
-  --blue:#1698e5;
-  --cyan:#38bdf8;
-  --text:#17191d;
-  --muted:#697586;
-  --line:#dce5ec;
-  --green:#16a66a;
-  --red:#d94b5c;
+  --blue:#149bea;
+  --blue2:#3bc2f4;
+  --dark:#121722;
+  --text:#334155;
+  --muted:#718096;
+  --line:#dce8f2;
+  --card:rgba(255,255,255,.86);
+  --green:#14b86a;
+  --yellow:#fff7df;
 }
 
 *{
@@ -33,487 +34,460 @@ body{
 
 body{
   font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif;
-  color:var(--text);
+  color:var(--dark);
 
   background:
-    radial-gradient(
-      circle at 12% 0%,
-      rgba(55,190,240,.14),
-      transparent 28%
-    ),
-    linear-gradient(
-      180deg,
-      #fbfdff,
-      #eef4f8
-    );
+    radial-gradient(circle at 8% 0%,rgba(49,190,245,.22),transparent 28%),
+    radial-gradient(circle at 92% 8%,rgba(106,195,255,.18),transparent 30%),
+    linear-gradient(180deg,#fafdff 0%,#eef8ff 50%,#edf6fc 100%);
 
-  padding:0 12px 34px;
+  padding:20px 14px 40px;
 
   -webkit-font-smoothing:antialiased;
 }
 
-.hidden{
-  display:none !important;
-}
-
 .shell{
   width:100%;
-  max-width:980px;
-  margin:auto;
+  max-width:920px;
+  margin:0 auto;
 }
 
 
 /* =========================
-   HEADER
+   TOP BAR
 ========================= */
 
 .topbar{
-  direction:ltr;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
-  gap:14px;
-
-  min-height:106px;
-
-  padding:14px 0;
+  gap:18px;
+  direction:ltr;
+  margin-bottom:22px;
 }
 
 .brand{
   display:flex;
-
   align-items:center;
-
-  gap:12px;
-
-  min-width:0;
+  gap:14px;
 }
 
 .logo{
-  width:78px;
-  height:78px;
-
-  flex:0 0 78px;
+  width:82px;
+  height:82px;
+  flex:0 0 82px;
 
   border-radius:50%;
-
   overflow:hidden;
 
   background:#02070d;
-
-  border:2px solid #fff;
+  border:3px solid #fff;
 
   box-shadow:
-    0 0 0 2px rgba(7,143,209,.22),
-    0 10px 24px rgba(15,23,42,.14);
+    0 0 0 2px rgba(20,155,234,.18),
+    0 12px 32px rgba(15,23,42,.14);
 }
 
 .logo img{
   width:100%;
   height:100%;
-
   object-fit:contain;
-
   padding:5px;
 }
 
-.brand-text{
-  direction:ltr;
-
+.brandText{
   text-align:left;
+  direction:ltr;
 }
 
-.brand-name{
-  font-family:Inter,Arial,sans-serif;
-
-  font-size:27px;
-
-  font-weight:900;
-
-  line-height:1;
+.brandTitle{
+  margin:0;
+  font:900 29px/1 Inter,Arial,sans-serif;
+  letter-spacing:.2px;
 }
 
-.brand-name .rebar{
+.brandTitle .rebar{
   color:#078fd1;
 }
 
-.brand-name .it{
-  margin-left:6px;
+.brandTitle .it{
+  color:#111827;
 }
 
-.brand-sub{
-  margin-top:6px;
-
-  color:#718096;
-
-  font:
-    800 9px/1.2
-    Inter,
-    Arial,
-    sans-serif;
-
-  letter-spacing:1px;
+.brandSub{
+  margin-top:7px;
+  color:#6f8096;
+  font:500 13px/1.2 Inter,Arial,sans-serif;
 }
 
-.status{
+.secureBadge{
   direction:ltr;
 
   display:flex;
-
   align-items:center;
+  gap:10px;
 
-  gap:7px;
+  padding:11px 15px;
 
-  padding:8px 11px;
-
-  border:
-    1px solid #dce6ee;
-
+  border:1px solid rgba(196,215,228,.9);
   border-radius:999px;
 
-  background:#fff;
+  background:rgba(255,255,255,.78);
 
   box-shadow:
-    0 7px 18px
-    rgba(15,23,42,.05);
+    0 8px 24px rgba(15,23,42,.06),
+    inset 0 1px 0 rgba(255,255,255,.8);
 
-  font:
-    800 9px/1
-    Inter,
-    Arial,
-    sans-serif;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  color:#435168;
+
+  font:600 12px/1 Inter,Arial,sans-serif;
 }
 
-.dot{
-  width:7px;
-  height:7px;
-
+.secureDot{
+  width:10px;
+  height:10px;
   border-radius:50%;
 
-  background:#22b873;
+  background:var(--green);
 
   box-shadow:
-    0 0 0 3px
-    rgba(34,184,115,.12);
+    0 0 0 6px rgba(20,184,106,.10);
 }
 
 
 /* =========================
-   CARD
+   MAIN CARD
 ========================= */
 
-.card{
-  background:#fff;
-
-  border:
-    1px solid #dce6ee;
-
-  border-radius:24px;
-
+.mainCard{
+  position:relative;
   overflow:hidden;
 
+  border:1px solid rgba(199,218,231,.92);
+  border-radius:30px;
+
+  background:var(--card);
+
   box-shadow:
-    0 20px 55px
-    rgba(15,23,42,.08);
+    0 30px 75px rgba(39,88,118,.12),
+    inset 0 1px 0 rgba(255,255,255,.95);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
 }
 
-.card:before{
+.mainCard::before{
   content:"";
+  position:absolute;
+  inset:0;
 
-  display:block;
-
-  height:4px;
+  pointer-events:none;
 
   background:
-    linear-gradient(
-      90deg,
-      #078fd1,
-      #37bef0,
-      #8be5ff
-    );
+    radial-gradient(circle at 100% 25%,rgba(60,185,244,.10),transparent 28%),
+    radial-gradient(circle at 0% 70%,rgba(90,192,255,.08),transparent 32%);
 }
 
 
 /* =========================
-   PUBLIC HEADER
+   HERO
 ========================= */
 
-.public-head{
+.hero{
+  position:relative;
+  z-index:1;
+
   text-align:center;
 
-  padding:
-    28px 20px 20px;
+  padding:42px 22px 30px;
 
-  border-bottom:
-    1px solid #edf2f5;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fff,
-      #f9fcfd
-    );
+  border-bottom:1px solid #e9f0f5;
 }
 
-.public-head h1{
+.heroIcon{
+  width:72px;
+  height:72px;
+
+  margin:0 auto 15px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:23px;
+
+  background:
+    linear-gradient(145deg,#f4fbff,#e7f6ff);
+
+  border:1px solid #cae8f7;
+
+  box-shadow:
+    0 12px 28px rgba(20,155,234,.10);
+
+  font-size:34px;
+}
+
+.hero h1{
   margin:0;
 
   direction:ltr;
 
-  font:
-    900 30px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+  color:#15171b;
+
+  font:900 38px/1.05 Inter,Arial,sans-serif;
 }
 
-.public-head h1 span{
-  color:#078fd1;
+.hero p{
+  margin:10px 0 0;
+
+  direction:ltr;
+
+  color:#718096;
+
+  font:500 15px/1.4 Inter,Arial,sans-serif;
 }
 
-.public-head p{
-  margin:8px 0 0;
+.heroLine{
+  width:130px;
+  height:3px;
 
-  color:#7b8a9b;
+  margin:20px auto 0;
 
-  font:
-    800 10px/1.4
-    Inter,
-    Arial,
-    sans-serif;
+  border-radius:999px;
 
-  letter-spacing:.8px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--blue),
+      var(--blue2),
+      transparent
+    );
 }
 
 
 /* =========================
-   PUBLIC CONTENT
+   CONTENT
 ========================= */
 
 .content{
-  padding:
-    28px 24px 26px;
+  position:relative;
+  z-index:1;
+
+  padding:30px 34px 32px;
 }
 
 
 /* =========================
-   EMAIL / PASSWORD DESIGN
+   INFO ROW
 ========================= */
 
-.account-block{
-  margin-bottom:24px;
-}
-
-.account-label{
-  display:block;
-
-  margin:
-    0 0 10px;
-
-  text-align:center;
-
-  direction:ltr;
-
-  color:#26292e;
-
-  font:
-    500 21px/1.2
-    Inter,
-    Arial,
-    sans-serif;
-}
-
-.account-box{
-  direction:ltr;
-
+.infoCard{
   display:flex;
-
   align-items:center;
+  direction:ltr;
 
-  width:100%;
+  gap:14px;
 
-  min-height:76px;
+  min-height:108px;
 
-  overflow:hidden;
+  margin-bottom:16px;
+  padding:14px 16px;
 
-  border:
-    2px solid #33363b;
+  border:1px solid #d6e4ee;
+  border-radius:22px;
 
-  border-radius:9px;
-
-  background:#d8d8d8;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(250,253,255,.96),
+      rgba(241,248,252,.92)
+    );
 
   box-shadow:
-    inset 0 1px 0
-    rgba(255,255,255,.55);
+    0 10px 24px rgba(42,83,110,.05),
+    inset 0 1px 0 rgba(255,255,255,.85);
 }
 
-
-/* COPY ICON AREA */
-
-.icon-copy-button{
-  flex:
-    0 0 72px;
-
-  width:72px;
-
-  min-height:72px;
+.infoIcon{
+  width:62px;
+  height:62px;
+  flex:0 0 62px;
 
   display:grid;
-
   place-items:center;
 
-  padding:0;
+  border-radius:18px;
 
-  border:0;
+  background:#edf4f9;
 
-  background:transparent;
+  color:#4d5a6b;
+
+  font-size:26px;
+}
+
+.infoBody{
+  flex:1;
+  min-width:0;
+}
+
+.infoLabel{
+  margin-bottom:6px;
+
+  color:#59697f;
+
+  font:600 13px/1.2 Inter,Arial,sans-serif;
+}
+
+.infoValue{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+
+  color:#1597e5;
+
+  font:600 21px/1.3 Inter,Arial,sans-serif;
+}
+
+.copyButton{
+  width:82px;
+  min-height:72px;
+  flex:0 0 82px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:5px;
+
+  border:1px solid #d6e1ea;
+  border-radius:18px;
+
+  background:
+    linear-gradient(180deg,#fff,#f6f9fb);
+
+  box-shadow:
+    0 7px 18px rgba(15,23,42,.06);
+
+  color:#455367;
+
+  font:600 12px/1.1 Inter,Arial,sans-serif;
 
   cursor:pointer;
-
-  -webkit-tap-highlight-color:
-    transparent;
 
   transition:
     transform .12s ease,
+    box-shadow .12s ease,
     background .12s ease;
+
+  -webkit-tap-highlight-color:transparent;
 }
 
-.icon-copy-button:active{
-  transform:scale(.91);
-
-  background:
-    rgba(255,255,255,.25);
+.copyButton:active{
+  transform:scale(.95);
 }
 
-.icon-copy-button svg{
-  width:31px;
-  height:31px;
-
-  fill:#33363b;
+.copyButton.copied{
+  color:#0c8c54;
+  background:#effcf5;
+  border-color:#bce8cf;
 }
 
-.copy-divider{
-  width:2px;
-
-  height:52px;
-
-  flex:
-    0 0 2px;
-
-  background:#323438;
-}
-
-
-/* VALUE */
-
-.account-value{
-  flex:1;
-
-  min-width:0;
-
-  height:72px;
-
-  padding:
-    0 17px;
-
-  border:0;
-
-  outline:0;
-
-  background:transparent;
-
-  color:#1698e5;
-
-  direction:ltr;
-
-  text-align:left;
-
-  font:
-    500 20px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+.copyIcon{
+  font-size:22px;
 }
 
 
 /* =========================
-   MAIN BUTTON
+   ACTION BUTTON
 ========================= */
 
-button,
-.button{
-  appearance:none;
+.actionButton{
+  width:100%;
+  min-height:84px;
+
+  margin-top:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  direction:ltr;
+
+  padding:0 20px 0 26px;
 
   border:0;
+  border-radius:21px;
 
-  cursor:pointer;
-
-  min-height:50px;
-
-  padding:
-    11px 17px;
-
-  border-radius:15px;
-
-  display:inline-flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-decoration:none;
-
-  font-size:13px;
-
-  font-weight:900;
-
-  font-family:inherit;
-
-  transition:.14s ease;
-
-  touch-action:manipulation;
-}
-
-.primary{
   color:#fff;
 
   background:
     linear-gradient(
       135deg,
-      #078fd1,
-      #37bef0
+      #1598e4,
+      #21a9ef,
+      #32b9f1
     );
 
   box-shadow:
-    0 11px 24px
-    rgba(7,143,209,.20);
+    0 18px 32px rgba(20,155,234,.23);
+
+  cursor:pointer;
+
+  text-decoration:none;
+
+  transition:
+    transform .13s ease,
+    box-shadow .13s ease;
 }
 
-.secondary{
-  color:#334155;
-
-  background:#f7f9fb;
-
-  border:
-    1px solid #dae3ea;
+.actionButton:active{
+  transform:scale(.985);
+  box-shadow:
+    0 10px 18px rgba(20,155,234,.18);
 }
 
-.danger{
-  color:#b3263b;
-
-  background:#fff3f5;
-
-  border:
-    1px solid #f4cad1;
+.actionText{
+  flex:1;
+  text-align:center;
 }
 
-.wide{
-  width:100%;
+.actionText strong{
+  display:block;
+
+  font-size:19px;
+  font-weight:900;
+}
+
+.actionText span{
+  display:block;
+
+  margin-top:4px;
+
+  opacity:.84;
+
+  direction:ltr;
+
+  font:500 12px/1 Inter,Arial,sans-serif;
+}
+
+.actionArrow{
+  width:46px;
+  height:46px;
+
+  flex:0 0 46px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.13);
+
+  font-size:27px;
 }
 
 
@@ -521,388 +495,174 @@ button,
    NOTE
 ========================= */
 
-.note{
-  margin-top:16px;
-
-  padding:14px;
-
-  border:
-    1px solid #dce4eb;
-
-  border-radius:15px;
-
-  background:#fafcfd;
-
-  color:#405065;
-
-  font-size:12px;
-
-  line-height:2;
-
-  white-space:pre-wrap;
-}
-
-
-/* =========================
-   USED
-========================= */
-
-.used-box{
-  margin-top:24px;
-
-  padding:
-    20px 12px 6px;
-
-  border-top:
-    1px solid #e5e7eb;
+.noteBox{
+  display:flex;
+  align-items:center;
+  gap:14px;
 
   direction:ltr;
 
-  text-align:center;
-}
+  margin-top:22px;
 
-.used-title{
-  margin-bottom:8px;
+  padding:18px;
 
-  color:#26292e;
-
-  font:
-    500 20px/1.2
-    Inter,
-    Arial,
-    sans-serif;
-}
-
-.used-date{
-  direction:ltr;
-
-  color:#24272b;
-
-  font:
-    500 19px/1.4
-    Inter,
-    Arial,
-    sans-serif;
-
-  letter-spacing:.3px;
-}
-
-
-/* =========================
-   ERROR / LOGIN
-========================= */
-
-.login-area{
-  max-width:560px;
-
-  margin:auto;
-
-  padding:
-    38px 24px;
-}
-
-.security-logo{
-  width:76px;
-  height:76px;
-
-  margin:
-    0 auto 17px;
-
-  border-radius:23px;
-
-  display:grid;
-
-  place-items:center;
-
-  background:
-    linear-gradient(
-      145deg,
-      #f6fcff,
-      #eaf8fd
-    );
-
-  border:
-    1px solid #cde8f4;
-}
-
-.security-logo svg{
-  width:40px;
-  height:40px;
-}
-
-.login-title{
-  margin:
-    0 0 8px;
-
-  text-align:center;
-
-  font-size:25px;
-
-  font-weight:900;
-}
-
-.login-description{
-  margin:
-    0 auto 22px;
-
-  text-align:center;
-
-  color:#607086;
-
-  font-size:13px;
-
-  line-height:2;
-}
-
-
-/* =========================
-   FORM
-========================= */
-
-.field{
-  margin-bottom:14px;
-}
-
-.field label{
-  display:block;
-
-  margin:
-    0 4px 8px;
-
-  color:#27364a;
-
-  font-size:13px;
-
-  font-weight:800;
-}
-
-.field input,
-.field textarea{
-  width:100%;
-
-  min-height:54px;
-
-  padding:
-    12px 14px;
-
-  border:
-    1px solid #d5dfe7;
-
-  border-radius:15px;
-
-  outline:0;
-
-  background:#fbfdfe;
-
-  color:#111827;
-
-  font-size:14px;
-
-  font-family:inherit;
-}
-
-.field textarea{
-  min-height:110px;
-
-  resize:vertical;
-
-  line-height:2;
-}
-
-.field input:focus,
-.field textarea:focus{
-  background:#fff;
-
-  border-color:#50bce8;
-
-  box-shadow:
-    0 0 0 4px
-    rgba(7,143,209,.08);
-}
-
-.ltr{
-  direction:ltr;
-
-  text-align:left;
-
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
-}
-
-
-/* =========================
-   ADMIN
-========================= */
-
-.admin-header{
-  padding:
-    23px 24px 17px;
-
-  border-bottom:
-    1px solid #edf1f4;
-}
-
-.admin-header h1{
-  margin:0;
-
-  font-size:23px;
-}
-
-.admin-header p{
-  margin:
-    5px 0 0;
-
-  color:#6b7c90;
-
-  font-size:12px;
-}
-
-.tabs{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr 1fr;
-
-  gap:8px;
-
-  padding:
-    12px 16px;
-
-  background:#f8fafc;
-
-  border-bottom:
-    1px solid #edf1f4;
-}
-
-.tab{
-  min-height:44px;
-
-  background:#fff;
-
-  color:#627287;
-
-  border:
-    1px solid #dbe3e9;
-
-  border-radius:13px;
-
-  font-size:10.5px;
-}
-
-.tab.active{
-  color:#fff;
+  border:1px solid #f1d99a;
+  border-radius:19px;
 
   background:
     linear-gradient(
       135deg,
-      #0c1b2b,
-      #193b56
+      #fffaf0,
+      #fff5d9
     );
+
+  color:#465267;
 }
 
-.grid{
+.noteIcon{
+  width:50px;
+  height:50px;
+
+  flex:0 0 50px;
+
   display:grid;
+  place-items:center;
 
-  grid-template-columns:
-    1fr 1fr;
+  border-radius:50%;
 
-  gap:14px;
+  background:#ffefbf;
+
+  font-size:23px;
 }
 
-.full{
-  grid-column:1/-1;
-}
+.noteText{
+  direction:rtl;
+  text-align:right;
 
-.button-row{
-  display:flex;
-
-  gap:9px;
-
-  flex-wrap:wrap;
-
-  margin-top:16px;
-}
-
-
-/* =========================
-   NOTICE
-========================= */
-
-.notice{
-  display:none;
-
-  margin-top:13px;
-
-  padding:
-    11px 13px;
-
-  border-radius:13px;
-
-  font-size:12px;
-
+  font-size:13px;
   line-height:1.9;
 }
 
-.notice.ok{
+.noteText small{
   display:block;
 
-  color:#0d784f;
+  margin-top:3px;
 
-  background:#eefbf4;
+  direction:ltr;
+  text-align:left;
 
-  border:
-    1px solid #bbe8cf;
-}
+  color:#8a97a8;
 
-.notice.err{
-  display:block;
-
-  color:#b2293d;
-
-  background:#fff3f5;
-
-  border:
-    1px solid #f4c8cf;
+  font:500 11px/1.3 Inter,Arial,sans-serif;
 }
 
 
 /* =========================
-   RESULT
+   FIRST OPENED
 ========================= */
 
-.result{
-  display:none;
+.openedArea{
+  margin-top:26px;
+  padding-top:24px;
 
-  margin-top:15px;
+  text-align:center;
 
-  padding:14px;
-
-  border:
-    1px dashed #9ddaf1;
-
-  border-radius:15px;
-
-  background:#f3fbff;
+  border-top:1px solid #dde8ef;
 }
 
-.result code{
-  display:block;
+.openedTitle{
+  direction:ltr;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:13px;
+
+  color:#232830;
+
+  font:700 16px/1 Inter,Arial,sans-serif;
+}
+
+.openedDot{
+  width:11px;
+  height:11px;
+
+  border-radius:50%;
+
+  background:#19bd69;
+
+  box-shadow:
+    0 0 0 6px rgba(25,189,105,.10);
+}
+
+.openedDate{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
 
   direction:ltr;
 
-  text-align:left;
+  padding:11px 18px;
 
-  word-break:break-all;
+  border:1px solid #dce6ee;
+  border-radius:999px;
 
-  color:#075985;
+  background:#f4f7fa;
 
-  font:
-    700 12px/1.8
-    Inter,
-    Arial,
-    sans-serif;
+  color:#445166;
+
+  font:500 14px/1 Inter,Arial,sans-serif;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  gap:16px;
+
+  margin-top:28px;
+
+  padding:20px 10px 4px;
+
+  border-top:1px solid #d9e6ef;
+}
+
+.footerItem{
+  text-align:center;
+  color:#506077;
+}
+
+.footerIcon{
+  font-size:26px;
+}
+
+.footerItem strong{
+  display:block;
+
+  margin-top:7px;
+
+  direction:ltr;
+
+  font:600 12px/1.2 Inter,Arial,sans-serif;
+}
+
+.footerItem small{
+  display:block;
+
+  margin-top:4px;
+
+  direction:ltr;
+
+  color:#8a97a8;
+
+  font:500 10px/1.3 Inter,Arial,sans-serif;
 }
 
 
@@ -914,101 +674,127 @@ button,
 
   body{
     padding:
-      0 9px 26px;
+      12px 9px 28px;
   }
 
   .topbar{
-    min-height:88px;
+    margin-bottom:16px;
   }
 
   .logo{
-    width:62px;
-    height:62px;
-
-    flex-basis:62px;
+    width:64px;
+    height:64px;
+    flex-basis:64px;
   }
 
-  .brand-name{
-    font-size:19px;
+  .brandTitle{
+    font-size:21px;
   }
 
-  .brand-sub{
-    display:none;
+  .brandSub{
+    font-size:10px;
   }
 
-  .status{
-    font-size:8px;
+  .secureBadge{
+    padding:8px 10px;
+    font-size:9px;
+  }
 
+  .mainCard{
+    border-radius:24px;
+  }
+
+  .hero{
     padding:
-      7px 9px;
+      30px 16px 24px;
   }
 
-  .card{
-    border-radius:21px;
+  .heroIcon{
+    width:60px;
+    height:60px;
+
+    border-radius:19px;
+
+    font-size:29px;
+  }
+
+  .hero h1{
+    font-size:29px;
+  }
+
+  .hero p{
+    font-size:12px;
   }
 
   .content{
     padding:
-      24px 14px;
+      22px 14px 24px;
   }
 
-  .login-area{
-    padding:
-      31px 17px 27px;
+  .infoCard{
+    min-height:96px;
+    padding:12px;
+    gap:10px;
+    border-radius:18px;
   }
 
-  .grid{
-    grid-template-columns:1fr;
+  .infoIcon{
+    width:50px;
+    height:50px;
+    flex-basis:50px;
+    border-radius:15px;
+    font-size:22px;
   }
 
-  .full{
-    grid-column:auto;
+  .infoLabel{
+    font-size:11px;
   }
 
-  .public-head h1{
-    font-size:26px;
-  }
-
-  .account-label{
-    font-size:18px;
-  }
-
-  .account-box{
-    min-height:67px;
-  }
-
-  .icon-copy-button{
-    flex-basis:62px;
-
-    width:62px;
-
-    min-height:63px;
-  }
-
-  .icon-copy-button svg{
-    width:27px;
-    height:27px;
-  }
-
-  .copy-divider{
-    height:46px;
-  }
-
-  .account-value{
-    height:63px;
-
-    padding:
-      0 13px;
-
+  .infoValue{
     font-size:16px;
   }
 
-  .used-title{
-    font-size:18px;
+  .copyButton{
+    width:67px;
+    flex-basis:67px;
+    min-height:66px;
+    border-radius:15px;
+    font-size:10px;
   }
 
-  .used-date{
+  .copyIcon{
+    font-size:19px;
+  }
+
+  .actionButton{
+    min-height:72px;
+    padding:0 13px 0 18px;
+  }
+
+  .actionText strong{
     font-size:16px;
+  }
+
+  .actionText span{
+    font-size:10px;
+  }
+
+  .actionArrow{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+  }
+
+  .footer{
+    gap:5px;
+  }
+
+  .footerItem strong{
+    font-size:10px;
+  }
+
+  .footerItem small{
+    font-size:8px;
   }
 }
 
@@ -1021,632 +807,306 @@ button,
 <div class="shell">
 
 
-<!-- HEADER -->
+  <!-- HEADER -->
 
-<header class="topbar">
+  <header class="topbar">
 
-  <div class="brand">
+    <div class="brand">
 
-    <div class="logo">
+      <div class="logo">
 
-      <img
-        src="https://i.ibb.co/NntMjTNW/IMG-4129.png"
-        alt="REBAR IT Logo"
+        <img
+          src="https://i.ibb.co/NntMjTNW/IMG-4129.png"
+          alt="REBAR IT"
+        >
+
+      </div>
+
+      <div class="brandText">
+
+        <h1 class="brandTitle">
+          <span class="rebar">REBAR</span>
+          <span class="it"> IT</span>
+        </h1>
+
+        <div class="brandSub">
+          Secure Access Solution
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="secureBadge">
+
+      <span class="secureDot"></span>
+
+      Secure & Private
+
+      <span>🛡️</span>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- MAIN -->
+
+  <main class="mainCard">
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="heroIcon">
+        🔐
+      </div>
+
+      <h1>
+        Apple ID
+      </h1>
+
+      <p>
+        Your Account Information
+      </p>
+
+      <div class="heroLine"></div>
+
+    </section>
+
+
+
+    <!-- CONTENT -->
+
+    <section class="content">
+
+
+      <!-- ACCOUNT EMAIL -->
+
+      <div class="infoCard">
+
+        <div class="infoIcon">
+          ✉️
+        </div>
+
+        <div class="infoBody">
+
+          <div class="infoLabel">
+            Account Email
+          </div>
+
+          <div
+            id="emailValue"
+            class="infoValue"
+          >
+            customer@example.com
+          </div>
+
+        </div>
+
+        <button
+          class="copyButton"
+          onclick="copyValue('emailValue',this)"
+        >
+
+          <span class="copyIcon">
+            ⧉
+          </span>
+
+          <span>
+            Copy
+          </span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- REFERENCE -->
+
+      <div class="infoCard">
+
+        <div class="infoIcon">
+          🆔
+        </div>
+
+        <div class="infoBody">
+
+          <div class="infoLabel">
+            Reference ID
+          </div>
+
+          <div
+            id="referenceValue"
+            class="infoValue"
+          >
+            REBAR-2026-001
+          </div>
+
+        </div>
+
+        <button
+          class="copyButton"
+          onclick="copyValue('referenceValue',this)"
+        >
+
+          <span class="copyIcon">
+            ⧉
+          </span>
+
+          <span>
+            Copy
+          </span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- SAFE ACTION -->
+
+      <a
+        class="actionButton"
+        href="https://account.apple.com/"
+        target="_blank"
+        rel="noopener noreferrer"
       >
 
-    </div>
+        <div class="actionText">
 
+          <strong>
+            کردنەوەی هەژماری Apple
+          </strong>
 
-    <div class="brand-text">
+          <span>
+            Open Apple Account
+          </span>
 
-      <div class="brand-name">
+        </div>
 
-        <span class="rebar">
-          REBAR
-        </span>
+        <div class="actionArrow">
+          →
+        </div>
 
-        <span class="it">
-          IT
-        </span>
-
-      </div>
-
-      <div class="brand-sub">
-        SECURE ACCESS
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="status">
-
-    <span id="modeLabel">
-      Admin
-    </span>
-
-    <span class="dot"></span>
-
-  </div>
-
-</header>
+      </a>
 
 
 
-<!-- PUBLIC -->
+      <!-- NOTE -->
 
-<section
-  id="publicView"
-  class="card hidden"
->
+      <div class="noteBox">
 
-  <div class="public-head">
+        <div class="noteIcon">
+          ⚠️
+        </div>
 
-    <h1>
-      <span>APPLE</span>
-      ID
-    </h1>
+        <div class="noteText">
 
-    <p>
-      INFORMATION
-    </p>
+          بۆ گۆڕینی زانیارییەکانی هەژمار،
+          تەنها ماڵپەڕی فەرمی Apple بەکاربهێنە.
 
-  </div>
+          <small>
+            Never share passwords or verification codes.
+          </small>
 
-
-  <div
-    id="publicError"
-    class="login-area hidden"
-  >
-
-    <div class="security-logo">
-
-      <svg viewBox="0 0 24 24">
-
-        <path
-          fill="#078fd1"
-          d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"
-        />
-
-      </svg>
-
-    </div>
-
-    <h2 class="login-title">
-      بەردەست نییە
-    </h2>
-
-    <p
-      id="publicErrorText"
-      class="login-description"
-    ></p>
-
-  </div>
-
-
-  <div
-    id="publicContent"
-    class="content hidden"
-  >
-
-
-    <!-- EMAIL -->
-
-    <div class="account-block">
-
-      <div class="account-label">
-        Email
-      </div>
-
-
-      <div class="account-box">
-
-
-        <button
-          class="icon-copy-button"
-          onclick="copyFrom('displayEmail',this)"
-          aria-label="Copy Email"
-        >
-
-          <svg viewBox="0 0 24 24">
-
-            <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
-
-          </svg>
-
-        </button>
-
-
-        <div class="copy-divider"></div>
-
-
-        <input
-          id="displayEmail"
-          class="account-value"
-          readonly
-        >
-
+        </div>
 
       </div>
 
-    </div>
 
 
+      <!-- FIRST OPENED -->
 
-    <!-- PASSWORD -->
+      <div class="openedArea">
 
-    <div class="account-block">
+        <div class="openedTitle">
 
-      <div class="account-label">
-        Password
-      </div>
+          <span class="openedDot"></span>
 
-
-      <div class="account-box">
-
-
-        <button
-          class="icon-copy-button"
-          onclick="copyFrom('displayPassword',this)"
-          aria-label="Copy Password"
-        >
-
-          <svg viewBox="0 0 24 24">
-
-            <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
-
-          </svg>
-
-        </button>
-
-
-        <div class="copy-divider"></div>
-
-
-        <input
-          id="displayPassword"
-          class="account-value"
-          readonly
-        >
-
-
-      </div>
-
-    </div>
-
-
-
-    <!-- GET CODE -->
-
-    <a
-      id="btnGetCode"
-      class="button primary wide"
-      href="#"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      بەدەستهێنانی کۆد
-    </a>
-
-
-
-    <div
-      id="publicNote"
-      class="note hidden"
-    ></div>
-
-
-
-    <!-- USED -->
-
-    <div
-      id="usedBox"
-      class="used-box hidden"
-    >
-
-      <div class="used-title">
-        Used :
-      </div>
-
-      <div
-        id="usedDate"
-        class="used-date"
-      ></div>
-
-    </div>
-
-
-  </div>
-
-</section>
-
-
-
-<!-- LOGIN -->
-
-<section
-  id="loginView"
-  class="card hidden"
->
-
-  <div class="login-area">
-
-    <div class="security-logo">
-
-      <svg viewBox="0 0 24 24">
-
-        <path
-          fill="#078fd1"
-          d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"
-        />
-
-      </svg>
-
-    </div>
-
-
-    <h2 class="login-title">
-      بەشی بەڕێوەبەر
-    </h2>
-
-
-    <p class="login-description">
-
-      بۆ پاراستنی زانیارییەکان،
-      تەنها بە پاسۆردی بەڕێوەبەر
-      دەتوانرێت بچیتە ژوورەوە.
-
-    </p>
-
-
-    <div class="field">
-
-      <label>
-        پاسۆردی بەڕێوەبەر
-      </label>
-
-      <input
-        id="adminPassword"
-        type="password"
-        autocomplete="current-password"
-        placeholder="••••••••"
-      >
-
-    </div>
-
-
-    <button
-      class="primary wide"
-      onclick="adminLogin()"
-    >
-      چوونەژوورەوە
-    </button>
-
-
-    <div
-      id="loginMsg"
-      class="notice"
-    ></div>
-
-  </div>
-
-</section>
-
-
-
-<!-- ADMIN -->
-
-<section
-  id="adminView"
-  class="card hidden"
->
-
-  <div class="admin-header">
-
-    <h1>
-      بەڕێوەبردنی لینکەکان
-    </h1>
-
-    <p>
-      لینک دروست بکە،
-      دەستکاری بکە
-      یان بسڕەوە.
-    </p>
-
-  </div>
-
-
-  <div class="tabs">
-
-    <button
-      id="tabCreate"
-      class="tab active"
-      onclick="switchTab('create')"
-    >
-      لینکی نوێ
-    </button>
-
-
-    <button
-      id="tabEdit"
-      class="tab"
-      onclick="switchTab('edit')"
-    >
-      دەستکاری
-    </button>
-
-
-    <button
-      class="tab"
-      onclick="logout()"
-    >
-      چوونەدەرەوە
-    </button>
-
-  </div>
-
-
-
-  <!-- CREATE -->
-
-  <div
-    id="createView"
-    class="content"
-  >
-
-    <div class="grid">
-
-
-      <div class="field">
-
-        <label>
-          ئیمەیڵ
-        </label>
-
-        <input
-          id="cEmail"
-          class="ltr"
-          placeholder="example@email.com"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          پاسۆرد
-        </label>
-
-        <input
-          id="cPassword"
-          class="ltr"
-          placeholder="Password"
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          لینک
-        </label>
-
-        <input
-          id="cTargetLink"
-          class="ltr"
-          placeholder="https://..."
-        >
-
-      </div>
-
-
-      <div class="field full">
-
-        <label>
-          تێبینی
-        </label>
-
-        <textarea
-          id="cNote"
-          placeholder="تێبینی..."
-        ></textarea>
-
-      </div>
-
-
-    </div>
-
-
-    <button
-      class="primary wide"
-      style="margin-top:15px"
-      onclick="createRecord()"
-    >
-      دروستکردنی لینک
-    </button>
-
-
-    <div
-      id="createMsg"
-      class="notice"
-    ></div>
-
-
-    <div
-      id="createResult"
-      class="result"
-    >
-
-      <code id="generatedLink"></code>
-
-
-      <div class="button-row">
-
-        <button
-          class="secondary"
-          onclick="copyGenerated()"
-        >
-          کۆپی لینک
-        </button>
-
-
-        <button
-          class="secondary"
-          onclick="openGenerated()"
-        >
-          کردنەوە
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- EDIT -->
-
-  <div
-    id="editView"
-    class="content hidden"
-  >
-
-    <div class="field">
-
-      <label>
-        ID ی لینک
-      </label>
-
-
-      <div
-        style="
-          display:flex;
-          gap:8px;
-        "
-      >
-
-        <input
-          id="editId"
-          class="ltr"
-          placeholder="ID"
-        >
-
-        <button
-          class="secondary"
-          onclick="loadRecordForEdit()"
-        >
-          بارکردن
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div
-      id="editFields"
-      class="hidden"
-    >
-
-      <div class="grid">
-
-
-        <div class="field">
-
-          <label>
-            ئیمەیڵ
-          </label>
-
-          <input
-            id="eEmail"
-            class="ltr"
-          >
+          First opened
 
         </div>
 
 
-        <div class="field">
+        <div class="openedDate">
 
-          <label>
-            پاسۆرد
-          </label>
+          <span>📅</span>
 
-          <input
-            id="ePassword"
-            class="ltr"
-          >
+          <span id="firstOpened">
+            --
+          </span>
 
         </div>
-
-
-        <div class="field full">
-
-          <label>
-            لینک
-          </label>
-
-          <input
-            id="eTargetLink"
-            class="ltr"
-          >
-
-        </div>
-
-
-        <div class="field full">
-
-          <label>
-            تێبینی
-          </label>
-
-          <textarea
-            id="eNote"
-          ></textarea>
-
-        </div>
-
 
       </div>
 
 
-      <div class="button-row">
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+
+        <div class="footerItem">
+
+          <div class="footerIcon">
+            🛡️
+          </div>
+
+          <strong>
+            Safe & Encrypted
+          </strong>
+
+          <small>
+            Protected access
+          </small>
+
+        </div>
 
 
-        <button
-          class="primary"
-          style="flex:1"
-          onclick="saveRecord()"
-        >
-          پاشەکەوتکردن
-        </button>
+        <div class="footerItem">
+
+          <div class="footerIcon">
+            🔒
+          </div>
+
+          <strong>
+            Private Access
+          </strong>
+
+          <small>
+            Your information
+          </small>
+
+        </div>
 
 
-        <button
-          class="danger"
-          onclick="deleteRecord()"
-        >
-          سڕینەوە
-        </button>
+        <div class="footerItem">
 
+          <div class="footerIcon">
+            ◈
+          </div>
+
+          <strong>
+            REBAR IT
+          </strong>
+
+          <small>
+            Trusted Service
+          </small>
+
+        </div>
 
       </div>
 
-    </div>
 
+    </section>
 
-    <div
-      id="editMsg"
-      class="notice"
-    ></div>
-
-  </div>
-
-</section>
-
+  </main>
 
 </div>
 
@@ -1654,229 +1114,194 @@ button,
 
 <script>
 
-
 /* =========================
-   SETTINGS
+   CLICK SOUND
 ========================= */
 
-const API_BASE =
-  "https://rebarit-secure-api.rebar4qwrna.workers.dev";
+let audioContext = null;
 
-const ADMIN_TOKEN_KEY =
-  "rebarit_admin_session";
+function playClickSound(){
 
-let currentPublicId = "";
+  try{
 
-let createdUrl = "";
+    const AudioContextClass =
+      window.AudioContext ||
+      window.webkitAudioContext;
 
-let copyAudioContext = null;
+    if(!AudioContextClass){
+      return;
+    }
 
+    if(!audioContext){
+      audioContext =
+        new AudioContextClass();
+    }
 
-const $ = id =>
-  document.getElementById(id);
+    if(
+      audioContext.state ===
+      "suspended"
+    ){
+      audioContext.resume();
+    }
 
+    const now =
+      audioContext.currentTime;
 
+    const oscillator =
+      audioContext
+        .createOscillator();
 
-/* =========================
-   CLEAN TARGET LINK
-========================= */
+    const gain =
+      audioContext
+        .createGain();
 
-function cleanTargetUrl(raw){
+    oscillator.type =
+      "sine";
 
-  if(!raw){
-    return "";
-  }
+    oscillator.frequency
+      .setValueAtTime(
+        760,
+        now
+      );
 
+    oscillator.frequency
+      .exponentialRampToValueAtTime(
+        940,
+        now + .045
+      );
 
-  let value =
-    String(raw)
-      .trim();
+    gain.gain
+      .setValueAtTime(
+        .045,
+        now
+      );
 
+    gain.gain
+      .exponentialRampToValueAtTime(
+        .001,
+        now + .07
+      );
 
-  const match =
-    value.match(
-      /https?:\/\/[^\s<>"']+/i
+    oscillator.connect(gain);
+
+    gain.connect(
+      audioContext.destination
     );
 
+    oscillator.start(now);
 
-  if(match){
-    value =
-      match[0];
+    oscillator.stop(
+      now + .07
+    );
+
+  }catch(error){
+
   }
+
+}
+
+
+/* =========================
+   COPY
+========================= */
+
+async function copyValue(
+  id,
+  button
+){
+
+  playClickSound();
+
+  const element =
+    document.getElementById(id);
+
+  const value =
+    element.textContent.trim();
 
 
   try{
 
-    const url =
-      new URL(value);
+    await navigator
+      .clipboard
+      .writeText(value);
 
 
-    const idValue =
-      url.searchParams.get(
-        "id"
-      );
+    const oldHTML =
+      button.innerHTML;
 
 
-    if(idValue){
-
-      const cleanIdMatch =
-        String(idValue)
-          .trim()
-          .match(
-            /^[A-Za-z0-9_-]+/
-          );
+    button.classList
+      .add("copied");
 
 
-      if(cleanIdMatch){
+    button.innerHTML =
+      `
+      <span class="copyIcon">
+        ✓
+      </span>
+      <span>
+        Copied
+      </span>
+      `;
 
-        url.searchParams.set(
-          "id",
-          cleanIdMatch[0]
-        );
 
-      }
+    setTimeout(
+      ()=>{
 
-    }
+        button.innerHTML =
+          oldHTML;
 
+        button.classList
+          .remove("copied");
 
-    return url.toString();
+      },
+      1000
+    );
 
 
   }catch(error){
 
-    return value
-      .split(/\s+/)[0]
-      .trim();
-
   }
 
 }
 
 
-
 /* =========================
-   UI
+   FIRST OPENED
 ========================= */
 
-function showOnly(id){
+function getFirstOpened(){
 
-  [
-    "publicView",
-    "loginView",
-    "adminView"
-
-  ].forEach(item=>{
-
-    $(item)
-      .classList
-      .add("hidden");
-
-  });
+  const key =
+    "rebar_safe_first_opened";
 
 
-  $(id)
-    .classList
-    .remove("hidden");
-
-}
+  let value =
+    localStorage.getItem(key);
 
 
-function setNotice(
-  id,
-  text,
-  ok=false
-){
+  if(!value){
 
-  const element =
-    $(id);
+    value =
+      new Date()
+        .toISOString();
 
-
-  element.textContent =
-    text;
-
-
-  element.className =
-    "notice " +
-    (
-      ok
-        ? "ok"
-        : "err"
+    localStorage.setItem(
+      key,
+      value
     );
 
-}
+  }
 
 
-function clearNotice(id){
-
-  const element =
-    $(id);
-
-
-  element.textContent = "";
-
-
-  element.className =
-    "notice";
+  return value;
 
 }
 
 
-function authHeaders(){
-
-  return{
-
-    "Content-Type":
-      "application/json",
-
-    "Authorization":
-      "Bearer " +
-      (
-        sessionStorage.getItem(
-          ADMIN_TOKEN_KEY
-        ) || ""
-      )
-
-  };
-
-}
-
-
-function cleanId(raw){
-
-  const value =
-    (raw || "")
-      .trim();
-
-
-  const match =
-    value.match(
-      /[?&]id=([A-Za-z0-9_-]+)/
-    );
-
-
-  return match
-    ? match[1]
-    : value.replace(
-        /[^A-Za-z0-9_-]/g,
-        ""
-      );
-
-}
-
-
-
-/* =========================
-   DATE FORMAT
-========================= */
-
-function formatUsedDate(
+function formatDate(
   iso
 ){
-
-  if(!iso){
-    return "";
-  }
-
 
   const date =
     new Date(iso);
@@ -1888,61 +1313,41 @@ function formatUsedDate(
       new Intl.DateTimeFormat(
         "en-GB",
         {
-          timeZone:
-            "Asia/Baghdad",
-
-          year:
-            "numeric",
-
-          month:
-            "2-digit",
-
-          day:
-            "2-digit",
-
-          hour:
-            "2-digit",
-
-          minute:
-            "2-digit",
-
-          second:
-            "2-digit",
-
-          hour12:
-            false
+          year:"numeric",
+          month:"2-digit",
+          day:"2-digit",
+          hour:"2-digit",
+          minute:"2-digit",
+          second:"2-digit",
+          hour12:false
         }
       )
       .formatToParts(date);
 
 
-    const values = {};
+    const data = {};
 
 
     parts.forEach(
-      part => {
-
-        values[
-          part.type
-        ] =
+      part=>{
+        data[part.type] =
           part.value;
-
       }
     );
 
 
     return (
-      values.year +
+      data.year +
       "-" +
-      values.month +
+      data.month +
       "-" +
-      values.day +
-      " " +
-      values.hour +
+      data.day +
+      "  " +
+      data.hour +
       ":" +
-      values.minute +
+      data.minute +
       ":" +
-      values.second
+      data.second
     );
 
 
@@ -1955,1180 +1360,25 @@ function formatUsedDate(
 }
 
 
-
-/* =========================
-   START
-========================= */
-
-window.addEventListener(
+document.addEventListener(
   "DOMContentLoaded",
-  async()=>{
+  ()=>{
 
-    currentPublicId =
-      new URLSearchParams(
-        location.search
-      ).get("id") || "";
+    const firstOpened =
+      getFirstOpened();
 
 
-    if(currentPublicId){
-
-      $("modeLabel")
-        .textContent =
-        "Public";
-
-
-      showOnly(
-        "publicView"
+    document
+      .getElementById(
+        "firstOpened"
+      )
+      .textContent =
+      formatDate(
+        firstOpened
       );
-
-
-      await loadPublicRecord();
-
-
-    }else{
-
-      $("modeLabel")
-        .textContent =
-        "Admin";
-
-
-      const token =
-        sessionStorage.getItem(
-          ADMIN_TOKEN_KEY
-        );
-
-
-      showOnly(
-        token
-          ? "adminView"
-          : "loginView"
-      );
-
-    }
 
   }
 );
-
-
-
-/* =========================
-   LOGIN
-========================= */
-
-async function adminLogin(){
-
-  clearNotice(
-    "loginMsg"
-  );
-
-
-  const password =
-    $("adminPassword")
-      .value;
-
-
-  if(!password){
-
-    setNotice(
-      "loginMsg",
-      "تکایە پاسۆرد بنووسە."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/login",
-        {
-
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              password
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Login failed"
-      );
-
-    }
-
-
-    sessionStorage.setItem(
-      ADMIN_TOKEN_KEY,
-      data.token
-    );
-
-
-    $("adminPassword")
-      .value = "";
-
-
-    showOnly(
-      "adminView"
-    );
-
-
-  }catch(error){
-
-    setNotice(
-      "loginMsg",
-      "پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
-    );
-
-  }
-
-}
-
-
-function logout(){
-
-  sessionStorage.removeItem(
-    ADMIN_TOKEN_KEY
-  );
-
-  location.reload();
-
-}
-
-
-
-/* =========================
-   TABS
-========================= */
-
-function switchTab(name){
-
-  $("tabCreate")
-    .classList
-    .toggle(
-      "active",
-      name === "create"
-    );
-
-
-  $("tabEdit")
-    .classList
-    .toggle(
-      "active",
-      name === "edit"
-    );
-
-
-  $("createView")
-    .classList
-    .toggle(
-      "hidden",
-      name !== "create"
-    );
-
-
-  $("editView")
-    .classList
-    .toggle(
-      "hidden",
-      name !== "edit"
-    );
-
-}
-
-
-
-/* =========================
-   FORM DATA
-========================= */
-
-function getFormData(prefix){
-
-  return{
-
-    email:
-      $(prefix + "Email")
-        .value
-        .trim(),
-
-    password:
-      $(prefix + "Password")
-        .value
-        .trim(),
-
-    targetLink:
-      cleanTargetUrl(
-        $(prefix + "TargetLink")
-          .value
-          .trim()
-      ),
-
-    note:
-      $(prefix + "Note")
-        .value
-        .trim()
-
-  };
-
-}
-
-
-
-/* =========================
-   CREATE
-========================= */
-
-async function createRecord(){
-
-  clearNotice(
-    "createMsg"
-  );
-
-
-  $("createResult")
-    .style
-    .display =
-    "none";
-
-
-  const payload =
-    getFormData("c");
-
-
-  $("cTargetLink")
-    .value =
-    payload.targetLink;
-
-
-  if(
-    !payload.email &&
-    !payload.password
-  ){
-
-    setNotice(
-      "createMsg",
-      "لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/records",
-        {
-
-          method:"POST",
-
-          headers:
-            authHeaders(),
-
-          body:
-            JSON.stringify(
-              payload
-            )
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
-      logout();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Create failed"
-      );
-
-    }
-
-
-    createdUrl =
-      location.origin +
-      location.pathname +
-      "?id=" +
-      encodeURIComponent(
-        data.id
-      );
-
-
-    $("generatedLink")
-      .textContent =
-      createdUrl;
-
-
-    $("createResult")
-      .style
-      .display =
-      "block";
-
-
-    setNotice(
-      "createMsg",
-      "لینکەکە بە سەرکەوتوویی دروست کرا.",
-      true
-    );
-
-
-  }catch(error){
-
-    setNotice(
-      "createMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
-  }
-
-}
-
-
-
-/* =========================
-   LOAD EDIT
-========================= */
-
-async function loadRecordForEdit(){
-
-  clearNotice(
-    "editMsg"
-  );
-
-
-  const id =
-    cleanId(
-      $("editId").value
-    );
-
-
-  $("editId")
-    .value =
-    id;
-
-
-  if(!id){
-
-    setNotice(
-      "editMsg",
-      "ID بنووسە."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/admin/record/" +
-        encodeURIComponent(id),
-        {
-          headers:
-            authHeaders()
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
-      logout();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Record not found"
-      );
-
-    }
-
-
-    $("eEmail")
-      .value =
-      data.record.email || "";
-
-
-    $("ePassword")
-      .value =
-      data.record.password || "";
-
-
-    $("eTargetLink")
-      .value =
-      cleanTargetUrl(
-        data.record.targetLink ||
-        ""
-      );
-
-
-    $("eNote")
-      .value =
-      data.record.note || "";
-
-
-    $("editFields")
-      .classList
-      .remove("hidden");
-
-
-    setNotice(
-      "editMsg",
-      "زانیارییەکان بارکران.",
-      true
-    );
-
-
-  }catch(error){
-
-    $("editFields")
-      .classList
-      .add("hidden");
-
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "زانیارییەکە نەدۆزرایەوە."
-    );
-
-  }
-
-}
-
-
-
-/* =========================
-   SAVE
-========================= */
-
-async function saveRecord(){
-
-  clearNotice(
-    "editMsg"
-  );
-
-
-  const id =
-    cleanId(
-      $("editId").value
-    );
-
-
-  const payload =
-    getFormData("e");
-
-
-  $("eTargetLink")
-    .value =
-    payload.targetLink;
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(id),
-        {
-
-          method:"PUT",
-
-          headers:
-            authHeaders(),
-
-          body:
-            JSON.stringify(
-              payload
-            )
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
-      logout();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Update failed"
-      );
-
-    }
-
-
-    setNotice(
-      "editMsg",
-      "گۆڕانکارییەکان پاشەکەوت کران.",
-      true
-    );
-
-
-  }catch(error){
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
-  }
-
-}
-
-
-
-/* =========================
-   DELETE
-========================= */
-
-async function deleteRecord(){
-
-  const id =
-    cleanId(
-      $("editId").value
-    );
-
-
-  if(!id){
-
-    return;
-
-  }
-
-
-  if(
-    !confirm(
-      "دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(id),
-        {
-
-          method:"DELETE",
-
-          headers:
-            authHeaders()
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
-      logout();
-
-      return;
-
-    }
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Delete failed"
-      );
-
-    }
-
-
-    $("editFields")
-      .classList
-      .add("hidden");
-
-
-    setNotice(
-      "editMsg",
-      "لینکەکە سڕایەوە.",
-      true
-    );
-
-
-  }catch(error){
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
-  }
-
-}
-
-
-
-/* =========================
-   PUBLIC + FIRST VIEW
-========================= */
-
-async function loadPublicRecord(){
-
-  try{
-
-
-    /*
-      یەکەم جار کە لینکەکە
-      دەکرێتەوە Used تۆمار دەکات.
-    */
-
-    let firstViewedAt =
-      null;
-
-
-    try{
-
-      const viewResponse =
-        await fetch(
-          API_BASE +
-          "/api/record/" +
-          encodeURIComponent(
-            currentPublicId
-          ) +
-          "/view",
-          {
-            method:"POST"
-          }
-        );
-
-
-      if(viewResponse.ok){
-
-        const viewData =
-          await viewResponse.json();
-
-
-        firstViewedAt =
-          viewData.firstViewedAt ||
-          null;
-
-      }
-
-    }catch(error){
-
-    }
-
-
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(
-          currentPublicId
-        )
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 404
-    ){
-
-      throw new Error(
-        "ئەم لینکە نەدۆزرایەوە."
-      );
-
-    }
-
-
-    if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "هەڵەیەک ڕوویدا."
-      );
-
-    }
-
-
-    if(
-      firstViewedAt &&
-      !data.record.firstViewedAt
-    ){
-
-      data.record.firstViewedAt =
-        firstViewedAt;
-
-    }
-
-
-    renderPublic(
-      data.record
-    );
-
-
-  }catch(error){
-
-    $("publicContent")
-      .classList
-      .add("hidden");
-
-
-    $("publicError")
-      .classList
-      .remove("hidden");
-
-
-    $("publicErrorText")
-      .textContent =
-      error.message;
-
-  }
-
-}
-
-
-
-/* =========================
-   RENDER
-========================= */
-
-function renderPublic(record){
-
-  $("publicError")
-    .classList
-    .add("hidden");
-
-
-  $("publicContent")
-    .classList
-    .remove("hidden");
-
-
-  $("displayEmail")
-    .value =
-    record.email || "";
-
-
-  $("displayPassword")
-    .value =
-    record.password || "";
-
-
-  const cleanLink =
-    cleanTargetUrl(
-      record.targetLink || ""
-    );
-
-
-  $("btnGetCode")
-    .href =
-    cleanLink || "#";
-
-
-
-  if(record.note){
-
-    $("publicNote")
-      .textContent =
-      record.note;
-
-
-    $("publicNote")
-      .classList
-      .remove("hidden");
-
-
-  }else{
-
-    $("publicNote")
-      .classList
-      .add("hidden");
-
-  }
-
-
-
-  if(record.firstViewedAt){
-
-    $("usedDate")
-      .textContent =
-      formatUsedDate(
-        record.firstViewedAt
-      );
-
-
-    $("usedBox")
-      .classList
-      .remove("hidden");
-
-
-  }else{
-
-    $("usedBox")
-      .classList
-      .add("hidden");
-
-  }
-
-}
-
-
-
-/* =========================
-   COPY SOUND
-========================= */
-
-function playCopySound(){
-
-  try{
-
-    const AudioContextClass =
-      window.AudioContext ||
-      window.webkitAudioContext;
-
-
-    if(!AudioContextClass){
-
-      return;
-
-    }
-
-
-    if(!copyAudioContext){
-
-      copyAudioContext =
-        new AudioContextClass();
-
-    }
-
-
-    if(
-      copyAudioContext.state ===
-      "suspended"
-    ){
-
-      copyAudioContext.resume();
-
-    }
-
-
-    const now =
-      copyAudioContext.currentTime;
-
-
-    const oscillator =
-      copyAudioContext
-        .createOscillator();
-
-
-    const gain =
-      copyAudioContext
-        .createGain();
-
-
-    oscillator.type =
-      "sine";
-
-
-    oscillator.frequency
-      .setValueAtTime(
-        760,
-        now
-      );
-
-
-    oscillator.frequency
-      .exponentialRampToValueAtTime(
-        920,
-        now + .045
-      );
-
-
-    gain.gain
-      .setValueAtTime(
-        .055,
-        now
-      );
-
-
-    gain.gain
-      .exponentialRampToValueAtTime(
-        .001,
-        now + .075
-      );
-
-
-    oscillator.connect(
-      gain
-    );
-
-
-    gain.connect(
-      copyAudioContext.destination
-    );
-
-
-    oscillator.start(
-      now
-    );
-
-
-    oscillator.stop(
-      now + .075
-    );
-
-
-  }catch(error){
-
-  }
-
-}
-
-
-
-/* =========================
-   CLIPBOARD
-========================= */
-
-async function writeClipboard(
-  text
-){
-
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
-
-    await navigator
-      .clipboard
-      .writeText(text);
-
-    return;
-
-  }
-
-
-  const textarea =
-    document.createElement(
-      "textarea"
-    );
-
-
-  textarea.value =
-    text;
-
-
-  textarea.setAttribute(
-    "readonly",
-    ""
-  );
-
-
-  textarea.style.position =
-    "fixed";
-
-
-  textarea.style.opacity =
-    "0";
-
-
-  document.body
-    .appendChild(
-      textarea
-    );
-
-
-  textarea.select();
-
-
-  textarea.setSelectionRange(
-    0,
-    textarea.value.length
-  );
-
-
-  document.execCommand(
-    "copy"
-  );
-
-
-  textarea.remove();
-
-}
-
-
-
-/* =========================
-   COPY EMAIL / PASSWORD
-========================= */
-
-async function copyFrom(
-  id,
-  button
-){
-
-  playCopySound();
-
-
-  try{
-
-    await writeClipboard(
-      $(id).value || ""
-    );
-
-
-    const svg =
-      button.innerHTML;
-
-
-    button.innerHTML =
-      `
-      <svg viewBox="0 0 24 24">
-        <path
-          fill="#16a66a"
-          d="M9.2 16.2L4.8 11.8L3.4 13.2L9.2 19L21 7.2L19.6 5.8Z"
-        />
-      </svg>
-      `;
-
-
-    setTimeout(
-      ()=>{
-
-        button.innerHTML =
-          svg;
-
-      },
-      900
-    );
-
-
-  }catch(error){
-
-  }
-
-}
-
-
-
-/* =========================
-   GENERATED LINK
-========================= */
-
-async function copyGenerated(){
-
-  playCopySound();
-
-
-  try{
-
-    await writeClipboard(
-      createdUrl
-    );
-
-  }catch(error){
-
-  }
-
-}
-
-
-function openGenerated(){
-
-  if(!createdUrl){
-
-    return;
-
-  }
-
-
-  window.open(
-    createdUrl,
-    "_blank",
-    "noopener"
-  );
-
-}
 
 </script>
 
