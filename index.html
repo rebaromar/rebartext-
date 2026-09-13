@@ -25,9 +25,12 @@
   --red:#d94b5c;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html,body{
+html,
+body{
   margin:0;
   min-height:100%;
 }
@@ -42,7 +45,9 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-.hidden{display:none!important}
+.hidden{
+  display:none !important;
+}
 
 .shell{
   width:100%;
@@ -99,8 +104,13 @@ body{
   line-height:1;
 }
 
-.brand-name .rebar{color:#078fd1}
-.brand-name .it{margin-left:6px}
+.brand-name .rebar{
+  color:#078fd1;
+}
+
+.brand-name .it{
+  margin-left:6px;
+}
 
 .brand-sub{
   margin-top:6px;
@@ -160,13 +170,19 @@ body{
   font:900 30px/1.2 Inter,Arial,sans-serif;
 }
 
-.public-head h1 span{color:#078fd1}
+.public-head h1 span{
+  color:#078fd1;
+}
 
-.content{padding:28px 24px 26px}
+.content{
+  padding:28px 24px 26px;
+}
 
 /* EMAIL / PASSWORD */
 
-.account-block{margin-bottom:24px}
+.account-block{
+  margin-bottom:24px;
+}
 
 .account-label{
   display:block;
@@ -240,7 +256,8 @@ body{
 
 /* BUTTONS */
 
-button,.button{
+button,
+.button{
   appearance:none;
   border:0;
   cursor:pointer;
@@ -274,7 +291,9 @@ button,.button{
   border:1px solid #f4cad1;
 }
 
-.wide{width:100%}
+.wide{
+  width:100%;
+}
 
 /* NOTE */
 
@@ -353,7 +372,9 @@ button,.button{
 
 /* FORM */
 
-.field{margin-bottom:14px}
+.field{
+  margin-bottom:14px;
+}
 
 .field label{
   display:block;
@@ -443,7 +464,9 @@ button,.button{
   gap:14px;
 }
 
-.full{grid-column:1/-1}
+.full{
+  grid-column:1/-1;
+}
 
 .button-row{
   display:flex;
@@ -477,7 +500,7 @@ button,.button{
   border:1px solid #f4c8cf;
 }
 
-/* CREATE RESULT */
+/* RESULT */
 
 .result{
   display:none;
@@ -523,7 +546,7 @@ button,.button{
 }
 
 .qr-result-title{
-  margin-bottom:12px;
+  margin-bottom:10px;
   color:#18222d;
   font:800 15px/1.3 Inter,Arial,sans-serif;
 }
@@ -532,7 +555,7 @@ button,.button{
   direction:ltr;
   margin:0 auto 16px;
   color:#078fd1;
-  font:900 22px/1.3 Inter,Arial,sans-serif;
+  font:900 30px/1.2 Inter,Arial,sans-serif;
 }
 
 #qrCodeBox{
@@ -545,9 +568,9 @@ button,.button{
 #qrCodeBox img,
 #qrCodeBox canvas{
   display:block;
-  width:220px!important;
-  height:220px!important;
-  max-width:100%!important;
+  width:220px !important;
+  height:220px !important;
+  max-width:100% !important;
   padding:10px;
   background:#fff;
   border:1px solid #e2e8ee;
@@ -569,30 +592,106 @@ button,.button{
 }
 
 @media(max-width:650px){
-  body{padding:0 9px 26px}
-  .topbar{min-height:88px}
-  .logo{width:62px;height:62px;flex-basis:62px}
-  .brand-name{font-size:19px}
-  .brand-sub{display:none}
-  .card{border-radius:21px}
-  .content{padding:24px 14px}
-  .login-area{padding:31px 17px 27px}
-  .grid{grid-template-columns:1fr}
-  .full{grid-column:auto}
-  .apple-logo-top{width:56px;height:56px;border-radius:16px}
-  .apple-logo-top svg{width:28px;height:28px}
-  .public-head h1{font-size:26px}
-  .account-label{font-size:18px}
-  .account-box{min-height:67px;border-radius:20px}
-  .icon-copy-button{flex-basis:78px;width:78px;min-height:63px;font-size:14px}
-  .icon-copy-button.copied{font-size:12px}
-  .copy-divider{height:44px}
-  .account-value{height:63px;padding:0 13px;font-size:16px}
-  .used-title{font-size:18px}
-  .used-date{font-size:16px}
-  #qrCodeBox img,#qrCodeBox canvas{
-    width:205px!important;
-    height:205px!important;
+
+  body{
+    padding:0 9px 26px;
+  }
+
+  .topbar{
+    min-height:88px;
+  }
+
+  .logo{
+    width:62px;
+    height:62px;
+    flex-basis:62px;
+  }
+
+  .brand-name{
+    font-size:19px;
+  }
+
+  .brand-sub{
+    display:none;
+  }
+
+  .card{
+    border-radius:21px;
+  }
+
+  .content{
+    padding:24px 14px;
+  }
+
+  .login-area{
+    padding:31px 17px 27px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .apple-logo-top{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+  }
+
+  .apple-logo-top svg{
+    width:28px;
+    height:28px;
+  }
+
+  .public-head h1{
+    font-size:26px;
+  }
+
+  .account-label{
+    font-size:18px;
+  }
+
+  .account-box{
+    min-height:67px;
+    border-radius:20px;
+  }
+
+  .icon-copy-button{
+    flex-basis:78px;
+    width:78px;
+    min-height:63px;
+    font-size:14px;
+  }
+
+  .icon-copy-button.copied{
+    font-size:12px;
+  }
+
+  .copy-divider{
+    height:44px;
+  }
+
+  .account-value{
+    height:63px;
+    padding:0 13px;
+    font-size:16px;
+  }
+
+  .used-title{
+    font-size:18px;
+  }
+
+  .used-date{
+    font-size:16px;
+  }
+
+  #qrCodeBox img,
+  #qrCodeBox canvas{
+    width:205px !important;
+    height:205px !important;
   }
 }
 </style>
@@ -603,20 +702,33 @@ button,.button{
 <div class="shell">
 
 <header class="topbar">
+
   <div class="brand">
+
     <div class="logo">
-      <img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo">
+      <img
+        src="https://i.ibb.co/NntMjTNW/IMG-4129.png"
+        alt="REBAR IT Logo"
+      >
     </div>
 
     <div class="brand-text">
+
       <div class="brand-name">
         <span class="rebar">REBAR</span>
         <span class="it">IT</span>
       </div>
-      <div class="brand-sub">SECURE ACCESS</div>
+
+      <div class="brand-sub">
+        SECURE ACCESS
+      </div>
+
     </div>
+
   </div>
+
 </header>
+
 
 <!-- PUBLIC -->
 
@@ -625,49 +737,101 @@ button,.button{
   <div class="public-head">
 
     <div class="apple-logo-top">
+
       <svg viewBox="0 0 24 24">
+
         <path d="M16.37 12.18c.02 2.26 1.98 3.01 2 3.02-.02.05-.31 1.07-1.03 2.11-.62.9-1.26 1.79-2.28 1.81-1 .02-1.32-.59-2.46-.59-1.15 0-1.5.57-2.43.61-.98.04-1.73-.98-2.36-1.87-1.28-1.85-2.26-5.24-.95-7.52.65-1.13 1.81-1.84 3.07-1.86.96-.02 1.87.65 2.46.65.59 0 1.7-.8 2.87-.68.49.02 1.86.2 2.74 1.49-.07.04-1.63.95-1.61 2.83zm-1.98-6.86c.52-.63.87-1.5.77-2.37-.75.03-1.66.5-2.2 1.13-.48.56-.91 1.45-.8 2.3.84.06 1.7-.43 2.23-1.06z"/>
+
       </svg>
+
     </div>
 
-    <h1><span>APPLE</span> ID</h1>
+    <h1>
+      <span>APPLE</span> ID
+    </h1>
 
   </div>
+
 
   <div id="publicError" class="login-area hidden">
 
     <div class="security-logo">
+
       <svg viewBox="0 0 24 24">
         <path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"/>
       </svg>
+
     </div>
 
-    <h2 class="login-title">بەردەست نییە</h2>
-    <p id="publicErrorText" class="login-description"></p>
+    <h2 class="login-title">
+      بەردەست نییە
+    </h2>
+
+    <p
+      id="publicErrorText"
+      class="login-description"
+    ></p>
 
   </div>
+
 
   <div id="publicContent" class="content hidden">
 
     <div class="account-block">
-      <div class="account-label">Email</div>
+
+      <div class="account-label">
+        Email
+      </div>
 
       <div class="account-box">
-        <button class="icon-copy-button" onclick="copyFrom('displayEmail',this)">کۆپی</button>
+
+        <button
+          class="icon-copy-button"
+          onclick="copyFrom('displayEmail',this)"
+        >
+          کۆپی
+        </button>
+
         <div class="copy-divider"></div>
-        <input id="displayEmail" class="account-value" readonly>
+
+        <input
+          id="displayEmail"
+          class="account-value"
+          readonly
+        >
+
       </div>
+
     </div>
+
 
     <div class="account-block">
-      <div class="account-label">Password</div>
+
+      <div class="account-label">
+        Password
+      </div>
 
       <div class="account-box">
-        <button class="icon-copy-button" onclick="copyFrom('displayPassword',this)">کۆپی</button>
+
+        <button
+          class="icon-copy-button"
+          onclick="copyFrom('displayPassword',this)"
+        >
+          کۆپی
+        </button>
+
         <div class="copy-divider"></div>
-        <input id="displayPassword" class="account-value" readonly>
+
+        <input
+          id="displayPassword"
+          class="account-value"
+          readonly
+        >
+
       </div>
+
     </div>
+
 
     <a
       id="btnGetCode"
@@ -679,16 +843,33 @@ button,.button{
       بەدەستهێنانی کۆد
     </a>
 
-    <div id="publicNote" class="note hidden"></div>
 
-    <div id="usedBox" class="used-box hidden">
-      <div class="used-title">First Opened :</div>
-      <div id="usedDate" class="used-date"></div>
+    <div
+      id="publicNote"
+      class="note hidden"
+    ></div>
+
+
+    <div
+      id="usedBox"
+      class="used-box hidden"
+    >
+
+      <div class="used-title">
+        First Opened :
+      </div>
+
+      <div
+        id="usedDate"
+        class="used-date"
+      ></div>
+
     </div>
 
   </div>
 
 </section>
+
 
 <!-- LOGIN -->
 
@@ -697,125 +878,245 @@ button,.button{
   <div class="login-area">
 
     <div class="security-logo">
+
       <svg viewBox="0 0 24 24">
-        <path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"/>
+
+        <path
+          fill="#078fd1"
+          d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"
+        />
+
       </svg>
+
     </div>
 
-    <h2 class="login-title">بەشی بەڕێوەبەر</h2>
+    <h2 class="login-title">
+      بەشی بەڕێوەبەر
+    </h2>
 
     <p class="login-description">
       بۆ پاراستنی زانیارییەکان، تەنها بە پاسۆردی بەڕێوەبەر دەتوانرێت بچیتە ژوورەوە.
     </p>
 
     <div class="field">
-      <label>پاسۆردی بەڕێوەبەر</label>
-      <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+
+      <label>
+        پاسۆردی بەڕێوەبەر
+      </label>
+
+      <input
+        id="adminPassword"
+        type="password"
+        autocomplete="current-password"
+        placeholder="••••••••"
+      >
+
     </div>
 
-    <button class="primary wide" onclick="adminLogin()">چوونەژوورەوە</button>
+    <button
+      class="primary wide"
+      onclick="adminLogin()"
+    >
+      چوونەژوورەوە
+    </button>
 
-    <div id="loginMsg" class="notice"></div>
+    <div
+      id="loginMsg"
+      class="notice"
+    ></div>
 
   </div>
 
 </section>
+
 
 <!-- ADMIN -->
 
 <section id="adminView" class="card hidden">
 
   <div class="admin-header">
-    <h1>بەڕێوەبردنی لینکەکان</h1>
-    <p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p>
+
+    <h1>
+      بەڕێوەبردنی لینکەکان
+    </h1>
+
+    <p>
+      لینک دروست بکە، دەستکاری بکە یان بسڕەوە.
+    </p>
+
   </div>
+
 
   <div class="tabs">
 
-    <button id="tabCreate" class="tab active" onclick="switchTab('create')">
+    <button
+      id="tabCreate"
+      class="tab active"
+      onclick="switchTab('create')"
+    >
       لینکی نوێ
     </button>
 
-    <button id="tabEdit" class="tab" onclick="switchTab('edit')">
+    <button
+      id="tabEdit"
+      class="tab"
+      onclick="switchTab('edit')"
+    >
       دەستکاری
     </button>
 
-    <button class="tab" onclick="logout()">
+    <button
+      class="tab"
+      onclick="logout()"
+    >
       چوونەدەرەوە
     </button>
 
   </div>
+
 
   <div id="createView" class="content">
 
     <div class="grid">
 
       <div class="field">
-        <label>ئیمەیڵ</label>
-        <input id="cEmail" class="ltr" placeholder="example@email.com">
+
+        <label>
+          ئیمەیڵ
+        </label>
+
+        <input
+          id="cEmail"
+          class="ltr"
+          placeholder="example@email.com"
+        >
+
       </div>
+
 
       <div class="field">
-        <label>پاسۆرد</label>
-        <input id="cPassword" class="ltr" placeholder="Password">
+
+        <label>
+          پاسۆرد
+        </label>
+
+        <input
+          id="cPassword"
+          class="ltr"
+          placeholder="Password"
+        >
+
       </div>
 
-      <div class="field full">
-        <label>لینک</label>
-        <input id="cTargetLink" class="ltr" placeholder="https://...">
-      </div>
 
       <div class="field full">
-        <label>تێبینی</label>
-        <textarea id="cNote" placeholder="تێبینی..."></textarea>
+
+        <label>
+          لینک
+        </label>
+
+        <input
+          id="cTargetLink"
+          class="ltr"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="field full">
+
+        <label>
+          تێبینی
+        </label>
+
+        <textarea
+          id="cNote"
+          placeholder="تێبینی..."
+        ></textarea>
+
       </div>
 
     </div>
 
-    <button class="primary wide" style="margin-top:15px" onclick="createRecord()">
+
+    <button
+      class="primary wide"
+      style="margin-top:15px"
+      onclick="createRecord()"
+    >
       دروستکردنی لینک
     </button>
 
-    <div id="createMsg" class="notice"></div>
 
-    <div id="createResult" class="result">
+    <div
+      id="createMsg"
+      class="notice"
+    ></div>
+
+
+    <div
+      id="createResult"
+      class="result"
+    >
 
       <code id="generatedLink"></code>
 
+
       <div class="button-row">
 
-        <button class="secondary" onclick="copyGenerated()">
+        <button
+          class="secondary"
+          onclick="copyGenerated()"
+        >
           کۆپی لینک
         </button>
 
-        <button class="secondary" onclick="openGenerated()">
+        <button
+          class="secondary"
+          onclick="openGenerated()"
+        >
           کردنەوە
         </button>
 
       </div>
 
+
       <div class="qr-tools">
 
-        <button class="qr-create-btn" onclick="generateCreatedQr()">
+        <button
+          class="qr-create-btn"
+          onclick="generateCreatedQr()"
+        >
           دروستکردنی QR Code
         </button>
 
-        <div id="qrResultBox" class="qr-result-box hidden">
 
-          <div class="qr-result-title">QR Code</div>
+        <div
+          id="qrResultBox"
+          class="qr-result-box hidden"
+        >
 
+          <div class="qr-result-title">
+            QR Code
+          </div>
+
+          <!-- تەنها ژمارە -->
           <div class="qr-number-top">
-            QR No: <span id="qrNumber"></span>
+            <span id="qrNumber"></span>
           </div>
 
           <div id="qrCodeBox"></div>
 
-          <button class="qr-save-btn" onclick="saveQrImage()">
+          <button
+            class="qr-save-btn"
+            onclick="saveQrImage()"
+          >
             خەزنکردنی QR
           </button>
 
           <div class="qr-note">
-            ژمارەکە لە سەرەوەی QR ـەکە لە ناو وێنەی خەزنکراودا دەمێنێتەوە.
+            کاتێ خەزنی دەکەیت، تەنها ژمارەکە لە سەرەوەی QR ـەکە دەبێت.
           </div>
 
         </div>
@@ -826,19 +1127,32 @@ button,.button{
 
   </div>
 
+
   <!-- EDIT -->
 
-  <div id="editView" class="content hidden">
+  <div
+    id="editView"
+    class="content hidden"
+  >
 
     <div class="field">
 
-      <label>ID ی لینک</label>
+      <label>
+        ID ی لینک
+      </label>
 
       <div style="display:flex;gap:8px">
 
-        <input id="editId" class="ltr" placeholder="ID">
+        <input
+          id="editId"
+          class="ltr"
+          placeholder="ID"
+        >
 
-        <button class="secondary" onclick="loadRecordForEdit()">
+        <button
+          class="secondary"
+          onclick="loadRecordForEdit()"
+        >
           بارکردن
         </button>
 
@@ -846,39 +1160,83 @@ button,.button{
 
     </div>
 
-    <div id="editFields" class="hidden">
+
+    <div
+      id="editFields"
+      class="hidden"
+    >
 
       <div class="grid">
 
         <div class="field">
-          <label>ئیمەیڵ</label>
-          <input id="eEmail" class="ltr">
+
+          <label>
+            ئیمەیڵ
+          </label>
+
+          <input
+            id="eEmail"
+            class="ltr"
+          >
+
         </div>
+
 
         <div class="field">
-          <label>پاسۆرد</label>
-          <input id="ePassword" class="ltr">
+
+          <label>
+            پاسۆرد
+          </label>
+
+          <input
+            id="ePassword"
+            class="ltr"
+          >
+
         </div>
 
-        <div class="field full">
-          <label>لینک</label>
-          <input id="eTargetLink" class="ltr">
-        </div>
 
         <div class="field full">
-          <label>تێبینی</label>
+
+          <label>
+            لینک
+          </label>
+
+          <input
+            id="eTargetLink"
+            class="ltr"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label>
+            تێبینی
+          </label>
+
           <textarea id="eNote"></textarea>
+
         </div>
 
       </div>
 
+
       <div class="button-row">
 
-        <button class="primary" style="flex:1" onclick="saveRecord()">
+        <button
+          class="primary"
+          style="flex:1"
+          onclick="saveRecord()"
+        >
           پاشەکەوتکردن
         </button>
 
-        <button class="danger" onclick="deleteRecord()">
+        <button
+          class="danger"
+          onclick="deleteRecord()"
+        >
           سڕینەوە
         </button>
 
@@ -886,7 +1244,11 @@ button,.button{
 
     </div>
 
-    <div id="editMsg" class="notice"></div>
+
+    <div
+      id="editMsg"
+      class="notice"
+    ></div>
 
   </div>
 
@@ -894,11 +1256,17 @@ button,.button{
 
 </div>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+
 <script>
-const API_BASE = "https://rebarit-secure-api.rebar4qwrna.workers.dev";
-const ADMIN_TOKEN_KEY = "rebarit_admin_session";
+
+const API_BASE =
+  "https://rebarit-secure-api.rebar4qwrna.workers.dev";
+
+const ADMIN_TOKEN_KEY =
+  "rebarit_admin_session";
 
 let currentPublicId = "";
 let createdUrl = "";
@@ -906,17 +1274,25 @@ let createdRecordId = "";
 let currentQrNo = null;
 let copyAudioContext = null;
 
-const $ = id => document.getElementById(id);
+const $ = id =>
+  document.getElementById(id);
+
 
 /* CLEAN TARGET */
 
 function cleanTargetUrl(raw){
 
-  if(!raw) return "";
+  if(!raw){
+    return "";
+  }
 
-  let value = String(raw).trim();
+  let value =
+    String(raw).trim();
 
-  const match = value.match(/https?:\/\/[^\s<>"']+/i);
+  const match =
+    value.match(
+      /https?:\/\/[^\s<>"']+/i
+    );
 
   if(match){
     value = match[0];
@@ -924,86 +1300,125 @@ function cleanTargetUrl(raw){
 
   try{
 
-    const url = new URL(value);
-    const idValue = url.searchParams.get("id");
-
-    if(idValue){
-
-      const cleanIdMatch =
-        String(idValue)
-        .trim()
-        .match(/^[A-Za-z0-9_-]+/);
-
-      if(cleanIdMatch){
-        url.searchParams.set("id",cleanIdMatch[0]);
-      }
-
-    }
+    const url =
+      new URL(value);
 
     return url.toString();
 
   }catch(error){
 
-    return value.split(/\s+/)[0].trim();
-
+    return value
+      .split(/\s+/)[0]
+      .trim();
   }
 }
+
 
 /* UI */
 
 function showOnly(id){
 
-  ["publicView","loginView","adminView"].forEach(item=>{
-    $(item).classList.add("hidden");
+  [
+    "publicView",
+    "loginView",
+    "adminView"
+  ].forEach(item=>{
+
+    $(item)
+      .classList
+      .add("hidden");
+
   });
 
-  $(id).classList.remove("hidden");
+  $(id)
+    .classList
+    .remove("hidden");
 }
 
-function setNotice(id,text,ok=false){
 
-  const element = $(id);
+function setNotice(
+  id,
+  text,
+  ok=false
+){
 
-  element.textContent = text;
-  element.className = "notice " + (ok ? "ok" : "err");
+  const element =
+    $(id);
+
+  element.textContent =
+    text;
+
+  element.className =
+    "notice " +
+    (
+      ok
+        ? "ok"
+        : "err"
+    );
 }
+
 
 function clearNotice(id){
 
-  const element = $(id);
+  const element =
+    $(id);
 
   element.textContent = "";
   element.className = "notice";
 }
 
+
 function authHeaders(){
 
-  return {
-    "Content-Type":"application/json",
-    "Authorization":"Bearer " + (sessionStorage.getItem(ADMIN_TOKEN_KEY) || "")
+  return{
+
+    "Content-Type":
+      "application/json",
+
+    "Authorization":
+      "Bearer " +
+      (
+        sessionStorage.getItem(
+          ADMIN_TOKEN_KEY
+        ) || ""
+      )
   };
 }
 
+
 function cleanId(raw){
 
-  const value = String(raw || "").trim();
+  const value =
+    String(raw || "")
+      .trim();
 
-  const match = value.match(/[?&]id=([^&#]+)/);
+  const match =
+    value.match(
+      /[?&]id=([^&#]+)/
+    );
 
-  let id = match
-    ? decodeURIComponent(match[1])
-    : value;
+  let id =
+    match
+      ? decodeURIComponent(match[1])
+      : value;
 
-  return id.replace(/[^A-Za-z0-9_$~_-]/g,"");
+  return id.replace(
+    /[^A-Za-z0-9_$~_-]/g,
+    ""
+  );
 }
+
 
 /* DATE */
 
 function formatUsedDate(iso){
 
-  if(!iso) return "";
+  if(!iso){
+    return "";
+  }
 
-  const date = new Date(iso);
+  const date =
+    new Date(iso);
 
   try{
 
@@ -1020,64 +1435,85 @@ function formatUsedDate(iso){
           second:"2-digit",
           hour12:false
         }
-      ).formatToParts(date);
+      )
+      .formatToParts(date);
 
     const values = {};
 
     parts.forEach(part=>{
-      values[part.type] = part.value;
+      values[
+        part.type
+      ] = part.value;
     });
 
     return (
-      values.year + "-" +
-      values.month + "-" +
-      values.day + " " +
-      values.hour + ":" +
-      values.minute + ":" +
+      values.year +
+      "-" +
+      values.month +
+      "-" +
+      values.day +
+      " " +
+      values.hour +
+      ":" +
+      values.minute +
+      ":" +
       values.second
     );
 
   }catch(error){
 
     return iso;
-
   }
 }
 
+
 /* START */
 
-window.addEventListener("DOMContentLoaded",async()=>{
+window.addEventListener(
+  "DOMContentLoaded",
+  async()=>{
 
-  currentPublicId =
-    new URLSearchParams(location.search).get("id") || "";
+    currentPublicId =
+      new URLSearchParams(
+        location.search
+      ).get("id") || "";
 
-  if(currentPublicId){
+    if(currentPublicId){
 
-    showOnly("publicView");
-    await loadPublicRecord();
+      showOnly(
+        "publicView"
+      );
 
-  }else{
+      await loadPublicRecord();
 
-    const token =
-      sessionStorage.getItem(ADMIN_TOKEN_KEY);
+    }else{
 
-    showOnly(
-      token
-        ? "adminView"
-        : "loginView"
-    );
+      const token =
+        sessionStorage.getItem(
+          ADMIN_TOKEN_KEY
+        );
 
+      showOnly(
+        token
+          ? "adminView"
+          : "loginView"
+      );
+    }
   }
-});
+);
+
 
 /* LOGIN */
 
 async function adminLogin(){
 
-  clearNotice("loginMsg");
+  clearNotice(
+    "loginMsg"
+  );
 
   const password =
-    $("adminPassword").value;
+    $("adminPassword")
+      .value;
 
   if(!password){
 
@@ -1093,13 +1529,20 @@ async function adminLogin(){
 
     const response =
       await fetch(
-        API_BASE + "/api/login",
+        API_BASE +
+        "/api/login",
         {
           method:"POST",
+
           headers:{
-            "Content-Type":"application/json"
+            "Content-Type":
+              "application/json"
           },
-          body:JSON.stringify({password})
+
+          body:
+            JSON.stringify({
+              password
+            })
         }
       );
 
@@ -1107,7 +1550,11 @@ async function adminLogin(){
       await response.json();
 
     if(!response.ok){
-      throw new Error(data.error || "Login failed");
+
+      throw new Error(
+        data.error ||
+        "Login failed"
+      );
     }
 
     sessionStorage.setItem(
@@ -1115,70 +1562,142 @@ async function adminLogin(){
       data.token
     );
 
-    $("adminPassword").value = "";
+    $("adminPassword")
+      .value = "";
 
-    showOnly("adminView");
+    showOnly(
+      "adminView"
+    );
 
   }catch(error){
 
-    setNotice(
-      "loginMsg",
-      error.message === "Too many login attempts. Try again later."
-        ? "هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە."
-        : "پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
-    );
+    if(
+      error.message ===
+      "Too many login attempts. Try again later."
+    ){
 
+      setNotice(
+        "loginMsg",
+        "هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە."
+      );
+
+    }else{
+
+      setNotice(
+        "loginMsg",
+        "پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
+      );
+    }
   }
 }
 
+
 function logout(){
 
-  sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+  sessionStorage.removeItem(
+    ADMIN_TOKEN_KEY
+  );
+
   location.reload();
 }
+
 
 /* TABS */
 
 function switchTab(name){
 
-  $("tabCreate").classList.toggle("active",name==="create");
-  $("tabEdit").classList.toggle("active",name==="edit");
+  $("tabCreate")
+    .classList
+    .toggle(
+      "active",
+      name==="create"
+    );
 
-  $("createView").classList.toggle("hidden",name!=="create");
-  $("editView").classList.toggle("hidden",name!=="edit");
+  $("tabEdit")
+    .classList
+    .toggle(
+      "active",
+      name==="edit"
+    );
+
+  $("createView")
+    .classList
+    .toggle(
+      "hidden",
+      name!=="create"
+    );
+
+  $("editView")
+    .classList
+    .toggle(
+      "hidden",
+      name!=="edit"
+    );
 }
+
 
 /* FORM */
 
 function getFormData(prefix){
 
-  return {
-    email:$(prefix+"Email").value.trim(),
-    password:$(prefix+"Password").value.trim(),
-    targetLink:cleanTargetUrl($(prefix+"TargetLink").value.trim()),
-    note:$(prefix+"Note").value.trim()
+  return{
+
+    email:
+      $(prefix+"Email")
+        .value
+        .trim(),
+
+    password:
+      $(prefix+"Password")
+        .value
+        .trim(),
+
+    targetLink:
+      cleanTargetUrl(
+        $(prefix+"TargetLink")
+          .value
+          .trim()
+      ),
+
+    note:
+      $(prefix+"Note")
+        .value
+        .trim()
   };
 }
+
 
 /* CREATE */
 
 async function createRecord(){
 
-  clearNotice("createMsg");
+  clearNotice(
+    "createMsg"
+  );
 
   createdUrl = "";
   createdRecordId = "";
   currentQrNo = null;
 
-  $("createResult").style.display = "none";
-  $("qrResultBox").classList.add("hidden");
-  $("qrCodeBox").innerHTML = "";
-  $("qrNumber").textContent = "";
+  $("createResult")
+    .style
+    .display = "none";
+
+  $("qrResultBox")
+    .classList
+    .add("hidden");
+
+  $("qrCodeBox")
+    .innerHTML = "";
+
+  $("qrNumber")
+    .textContent = "";
 
   const payload =
     getFormData("c");
 
-  $("cTargetLink").value =
+  $("cTargetLink")
+    .value =
     payload.targetLink;
 
   if(
@@ -1198,33 +1717,39 @@ async function createRecord(){
 
     const response =
       await fetch(
-        API_BASE + "/api/records",
+        API_BASE +
+        "/api/records",
         {
           method:"POST",
           headers:authHeaders(),
-          body:JSON.stringify(payload)
+          body:
+            JSON.stringify(
+              payload
+            )
         }
       );
 
     const data =
       await response.json();
 
-    if(response.status===401){
+    if(
+      response.status === 401
+    ){
+
       logout();
       return;
     }
 
     if(!response.ok){
-      throw new Error(data.error || "Create failed");
+
+      throw new Error(
+        data.error ||
+        "Create failed"
+      );
     }
 
     createdRecordId =
       data.id;
-
-    /*
-      ID ـەکە تەنها 10 پیتە.
-      $ و نیشانەکان ڕاستەوخۆ لە URL دەمێنن.
-    */
 
     createdUrl =
       location.origin +
@@ -1232,10 +1757,13 @@ async function createRecord(){
       "?id=" +
       data.id;
 
-    $("generatedLink").textContent =
+    $("generatedLink")
+      .textContent =
       createdUrl;
 
-    $("createResult").style.display =
+    $("createResult")
+      .style
+      .display =
       "block";
 
     setNotice(
@@ -1248,13 +1776,14 @@ async function createRecord(){
 
     setNotice(
       "createMsg",
-      error.message || "هەڵەیەک ڕوویدا."
+      error.message ||
+      "هەڵەیەک ڕوویدا."
     );
-
   }
 }
 
-/* QR */
+
+/* GENERATE QR */
 
 async function generateCreatedQr(){
 
@@ -1277,7 +1806,9 @@ async function generateCreatedQr(){
       await fetch(
         API_BASE +
         "/api/record/" +
-        encodeURIComponent(createdRecordId) +
+        encodeURIComponent(
+          createdRecordId
+        ) +
         "/qr",
         {
           method:"POST",
@@ -1288,29 +1819,53 @@ async function generateCreatedQr(){
     const data =
       await response.json();
 
-    if(response.status===401){
+    if(
+      response.status ===
+      401
+    ){
+
       logout();
       return;
     }
 
     if(!response.ok){
-      throw new Error(data.error || "QR creation failed");
+
+      throw new Error(
+        data.error ||
+        "QR creation failed"
+      );
     }
 
-    if(typeof QRCode==="undefined"){
-      throw new Error("QR library not loaded");
+    if(
+      typeof QRCode ===
+      "undefined"
+    ){
+
+      throw new Error(
+        "QR library not loaded"
+      );
     }
 
     currentQrNo =
-      Number(data.qrNo);
+      Number(
+        data.qrNo
+      );
 
-    $("qrNumber").textContent =
-      currentQrNo;
+    /*
+      لە پەڕەکەش تەنها ژمارە
+    */
+
+    $("qrNumber")
+      .textContent =
+      String(
+        currentQrNo
+      );
 
     const qrBox =
       $("qrCodeBox");
 
-    qrBox.innerHTML = "";
+    qrBox.innerHTML =
+      "";
 
     new QRCode(
       qrBox,
@@ -1320,7 +1875,8 @@ async function generateCreatedQr(){
         height:220,
         colorDark:"#111827",
         colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.H
+        correctLevel:
+          QRCode.CorrectLevel.H
       }
     );
 
@@ -1333,13 +1889,18 @@ async function generateCreatedQr(){
     setNotice(
       "createMsg",
       "QR Code دروست نەکرا: " +
-      (error.message || "هەڵە")
+      (
+        error.message ||
+        "هەڵە"
+      )
     );
-
   }
 }
 
-/* SAVE QR WITH NUMBER ABOVE */
+
+/* SAVE QR
+   تەنها ژمارە لە سەرەوە
+*/
 
 async function saveQrImage(){
 
@@ -1357,13 +1918,18 @@ async function saveQrImage(){
     $("qrCodeBox");
 
   const sourceCanvas =
-    qrBox.querySelector("canvas");
+    qrBox.querySelector(
+      "canvas"
+    );
 
   const sourceImage =
-    qrBox.querySelector("img");
+    qrBox.querySelector(
+      "img"
+    );
 
-  let source =
-    sourceCanvas || sourceImage;
+  const source =
+    sourceCanvas ||
+    sourceImage;
 
   if(!source){
 
@@ -1375,29 +1941,41 @@ async function saveQrImage(){
     return;
   }
 
-  /*
-    وێنەی کۆتایی:
-    ژمارە لە سەرەوە
-    QR لە خوارەوە
-  */
+  const SIZE =
+    640;
 
-  const SIZE = 640;
-  const QR_SIZE = 500;
-  const TOP_SPACE = 105;
+  const QR_SIZE =
+    500;
+
+  const TOP_SPACE =
+    110;
+
+  const BOTTOM_SPACE =
+    45;
 
   const exportCanvas =
-    document.createElement("canvas");
+    document.createElement(
+      "canvas"
+    );
 
   exportCanvas.width =
     SIZE;
 
   exportCanvas.height =
-    QR_SIZE + TOP_SPACE + 55;
+    TOP_SPACE +
+    QR_SIZE +
+    BOTTOM_SPACE;
 
   const ctx =
-    exportCanvas.getContext("2d");
+    exportCanvas.getContext(
+      "2d"
+    );
 
-  ctx.fillStyle = "#ffffff";
+  /* background */
+
+  ctx.fillStyle =
+    "#ffffff";
+
   ctx.fillRect(
     0,
     0,
@@ -1405,19 +1983,36 @@ async function saveQrImage(){
     exportCanvas.height
   );
 
-  ctx.fillStyle = "#078fd1";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = "bold 42px Arial";
+  /*
+    تەنها ژمارە
+    نەک QR No
+  */
+
+  ctx.fillStyle =
+    "#078fd1";
+
+  ctx.textAlign =
+    "center";
+
+  ctx.textBaseline =
+    "middle";
+
+  ctx.font =
+    "900 58px Arial";
 
   ctx.fillText(
-    "QR No: " + currentQrNo,
+    String(
+      currentQrNo
+    ),
     SIZE / 2,
-    55
+    58
   );
 
   const x =
-    (SIZE - QR_SIZE) / 2;
+    (
+      SIZE -
+      QR_SIZE
+    ) / 2;
 
   const y =
     TOP_SPACE;
@@ -1453,7 +2048,10 @@ async function saveQrImage(){
       if(!blob){
 
         const dataUrl =
-          exportCanvas.toDataURL("image/png");
+          exportCanvas
+            .toDataURL(
+              "image/png"
+            );
 
         window.open(
           dataUrl,
@@ -1464,10 +2062,14 @@ async function saveQrImage(){
       }
 
       const url =
-        URL.createObjectURL(blob);
+        URL.createObjectURL(
+          blob
+        );
 
       const link =
-        document.createElement("a");
+        document.createElement(
+          "a"
+        );
 
       link.href =
         url;
@@ -1475,7 +2077,10 @@ async function saveQrImage(){
       link.download =
         fileName;
 
-      document.body.appendChild(link);
+      document.body
+        .appendChild(
+          link
+        );
 
       link.click();
 
@@ -1483,7 +2088,9 @@ async function saveQrImage(){
 
       setTimeout(
         ()=>{
-          URL.revokeObjectURL(url);
+          URL.revokeObjectURL(
+            url
+          );
         },
         1500
       );
@@ -1494,18 +2101,22 @@ async function saveQrImage(){
   );
 }
 
-/* EDIT LOAD */
+
+/* LOAD EDIT */
 
 async function loadRecordForEdit(){
 
-  clearNotice("editMsg");
+  clearNotice(
+    "editMsg"
+  );
 
   const id =
     cleanId(
       $("editId").value
     );
 
-  $("editId").value =
+  $("editId")
+    .value =
     id;
 
   if(!id){
@@ -1526,34 +2137,47 @@ async function loadRecordForEdit(){
         "/api/admin/record/" +
         encodeURIComponent(id),
         {
-          headers:authHeaders()
+          headers:
+            authHeaders()
         }
       );
 
     const data =
       await response.json();
 
-    if(response.status===401){
+    if(
+      response.status === 401
+    ){
+
       logout();
       return;
     }
 
     if(!response.ok){
-      throw new Error(data.error || "Record not found");
+
+      throw new Error(
+        data.error ||
+        "Record not found"
+      );
     }
 
-    $("eEmail").value =
+    $("eEmail")
+      .value =
       data.record.email || "";
 
-    $("ePassword").value =
+    $("ePassword")
+      .value =
       data.record.password || "";
 
-    $("eTargetLink").value =
+    $("eTargetLink")
+      .value =
       cleanTargetUrl(
-        data.record.targetLink || ""
+        data.record.targetLink ||
+        ""
       );
 
-    $("eNote").value =
+    $("eNote")
+      .value =
       data.record.note || "";
 
     $("editFields")
@@ -1574,17 +2198,20 @@ async function loadRecordForEdit(){
 
     setNotice(
       "editMsg",
-      error.message || "زانیارییەکە نەدۆزرایەوە."
+      error.message ||
+      "زانیارییەکە نەدۆزرایەوە."
     );
-
   }
 }
+
 
 /* SAVE EDIT */
 
 async function saveRecord(){
 
-  clearNotice("editMsg");
+  clearNotice(
+    "editMsg"
+  );
 
   const id =
     cleanId(
@@ -1594,7 +2221,8 @@ async function saveRecord(){
   const payload =
     getFormData("e");
 
-  $("eTargetLink").value =
+  $("eTargetLink")
+    .value =
     payload.targetLink;
 
   try{
@@ -1607,20 +2235,30 @@ async function saveRecord(){
         {
           method:"PUT",
           headers:authHeaders(),
-          body:JSON.stringify(payload)
+          body:
+            JSON.stringify(
+              payload
+            )
         }
       );
 
     const data =
       await response.json();
 
-    if(response.status===401){
+    if(
+      response.status === 401
+    ){
+
       logout();
       return;
     }
 
     if(!response.ok){
-      throw new Error(data.error || "Update failed");
+
+      throw new Error(
+        data.error ||
+        "Update failed"
+      );
     }
 
     setNotice(
@@ -1633,11 +2271,12 @@ async function saveRecord(){
 
     setNotice(
       "editMsg",
-      error.message || "هەڵەیەک ڕوویدا."
+      error.message ||
+      "هەڵەیەک ڕوویدا."
     );
-
   }
 }
+
 
 /* DELETE */
 
@@ -1648,7 +2287,9 @@ async function deleteRecord(){
       $("editId").value
     );
 
-  if(!id) return;
+  if(!id){
+    return;
+  }
 
   if(
     !confirm(
@@ -1674,13 +2315,21 @@ async function deleteRecord(){
     const data =
       await response.json();
 
-    if(response.status===401){
+    if(
+      response.status ===
+      401
+    ){
+
       logout();
       return;
     }
 
     if(!response.ok){
-      throw new Error(data.error || "Delete failed");
+
+      throw new Error(
+        data.error ||
+        "Delete failed"
+      );
     }
 
     $("editFields")
@@ -1697,11 +2346,12 @@ async function deleteRecord(){
 
     setNotice(
       "editMsg",
-      error.message || "هەڵەیەک ڕوویدا."
+      error.message ||
+      "هەڵەیەک ڕوویدا."
     );
-
   }
 }
+
 
 /* PUBLIC */
 
@@ -1718,7 +2368,9 @@ async function loadPublicRecord(){
         await fetch(
           API_BASE +
           "/api/record/" +
-          encodeURIComponent(currentPublicId) +
+          encodeURIComponent(
+            currentPublicId
+          ) +
           "/view",
           {
             method:"POST"
@@ -1731,38 +2383,55 @@ async function loadPublicRecord(){
           await viewResponse.json();
 
         firstViewedAt =
-          viewData.firstViewedAt || null;
+          viewData.firstViewedAt ||
+          null;
       }
 
     }catch(error){}
+
 
     const response =
       await fetch(
         API_BASE +
         "/api/record/" +
-        encodeURIComponent(currentPublicId)
+        encodeURIComponent(
+          currentPublicId
+        )
       );
 
     const data =
       await response.json();
 
-    if(response.status===404){
-      throw new Error("ئەم لینکە نەدۆزرایەوە.");
+    if(
+      response.status ===
+      404
+    ){
+
+      throw new Error(
+        "ئەم لینکە نەدۆزرایەوە."
+      );
     }
 
     if(!response.ok){
-      throw new Error(data.error || "هەڵەیەک ڕوویدا.");
+
+      throw new Error(
+        data.error ||
+        "هەڵەیەک ڕوویدا."
+      );
     }
 
     if(
       firstViewedAt &&
       !data.record.firstViewedAt
     ){
+
       data.record.firstViewedAt =
         firstViewedAt;
     }
 
-    renderPublic(data.record);
+    renderPublic(
+      data.record
+    );
 
   }catch(error){
 
@@ -1780,6 +2449,7 @@ async function loadPublicRecord(){
   }
 }
 
+
 function renderPublic(record){
 
   $("publicError")
@@ -1790,20 +2460,24 @@ function renderPublic(record){
     .classList
     .remove("hidden");
 
-  $("displayEmail").value =
+  $("displayEmail")
+    .value =
     record.email || "";
 
-  $("displayPassword").value =
+  $("displayPassword")
+    .value =
     record.password || "";
 
   const cleanLink =
     cleanTargetUrl(
-      record.targetLink || ""
+      record.targetLink ||
+      ""
     );
 
   if(cleanLink){
 
-    $("btnGetCode").href =
+    $("btnGetCode")
+      .href =
       cleanLink;
 
     $("btnGetCode")
@@ -1815,12 +2489,12 @@ function renderPublic(record){
     $("btnGetCode")
       .classList
       .add("hidden");
-
   }
 
   if(record.note){
 
-    $("publicNote").textContent =
+    $("publicNote")
+      .textContent =
       record.note;
 
     $("publicNote")
@@ -1836,7 +2510,8 @@ function renderPublic(record){
 
   if(record.firstViewedAt){
 
-    $("usedDate").textContent =
+    $("usedDate")
+      .textContent =
       formatUsedDate(
         record.firstViewedAt
       );
@@ -1853,6 +2528,7 @@ function renderPublic(record){
   }
 }
 
+
 /* COPY SOUND */
 
 function playCopySound(){
@@ -1863,14 +2539,21 @@ function playCopySound(){
       window.AudioContext ||
       window.webkitAudioContext;
 
-    if(!AudioContextClass) return;
+    if(!AudioContextClass){
+      return;
+    }
 
     if(!copyAudioContext){
+
       copyAudioContext =
         new AudioContextClass();
     }
 
-    if(copyAudioContext.state==="suspended"){
+    if(
+      copyAudioContext.state ===
+      "suspended"
+    ){
+
       copyAudioContext.resume();
     }
 
@@ -1878,27 +2561,59 @@ function playCopySound(){
       copyAudioContext.currentTime;
 
     const oscillator =
-      copyAudioContext.createOscillator();
+      copyAudioContext
+        .createOscillator();
 
     const gain =
-      copyAudioContext.createGain();
+      copyAudioContext
+        .createGain();
 
-    oscillator.type = "sine";
+    oscillator.type =
+      "sine";
 
-    oscillator.frequency.setValueAtTime(760,now);
-    oscillator.frequency.exponentialRampToValueAtTime(920,now+.045);
+    oscillator.frequency
+      .setValueAtTime(
+        760,
+        now
+      );
 
-    gain.gain.setValueAtTime(.055,now);
-    gain.gain.exponentialRampToValueAtTime(.001,now+.075);
+    oscillator.frequency
+      .exponentialRampToValueAtTime(
+        920,
+        now + .045
+      );
 
-    oscillator.connect(gain);
-    gain.connect(copyAudioContext.destination);
+    gain.gain
+      .setValueAtTime(
+        .055,
+        now
+      );
 
-    oscillator.start(now);
-    oscillator.stop(now+.075);
+    gain.gain
+      .exponentialRampToValueAtTime(
+        .001,
+        now + .075
+      );
+
+    oscillator.connect(
+      gain
+    );
+
+    gain.connect(
+      copyAudioContext.destination
+    );
+
+    oscillator.start(
+      now
+    );
+
+    oscillator.stop(
+      now + .075
+    );
 
   }catch(error){}
 }
+
 
 /* CLIPBOARD */
 
@@ -1909,29 +2624,56 @@ async function writeClipboard(text){
     window.isSecureContext
   ){
 
-    await navigator.clipboard.writeText(text);
+    await navigator
+      .clipboard
+      .writeText(text);
+
     return;
   }
 
   const textarea =
-    document.createElement("textarea");
+    document.createElement(
+      "textarea"
+    );
 
-  textarea.value = text;
-  textarea.setAttribute("readonly","");
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
+  textarea.value =
+    text;
 
-  document.body.appendChild(textarea);
+  textarea.setAttribute(
+    "readonly",
+    ""
+  );
+
+  textarea.style.position =
+    "fixed";
+
+  textarea.style.opacity =
+    "0";
+
+  document.body
+    .appendChild(
+      textarea
+    );
 
   textarea.select();
-  textarea.setSelectionRange(0,textarea.value.length);
 
-  document.execCommand("copy");
+  textarea.setSelectionRange(
+    0,
+    textarea.value.length
+  );
+
+  document.execCommand(
+    "copy"
+  );
 
   textarea.remove();
 }
 
-async function copyFrom(id,button){
+
+async function copyFrom(
+  id,
+  button
+){
 
   playCopySound();
 
@@ -1941,42 +2683,64 @@ async function copyFrom(id,button){
       $(id).value || ""
     );
 
-    button.classList.add("copied");
-    button.textContent = "کۆپی کرا ✓";
+    button
+      .classList
+      .add("copied");
+
+    button.textContent =
+      "کۆپی کرا ✓";
 
     setTimeout(
       ()=>{
-        button.classList.remove("copied");
-        button.textContent = "کۆپی";
+
+        button
+          .classList
+          .remove("copied");
+
+        button.textContent =
+          "کۆپی";
+
       },
       1200
     );
 
   }catch(error){
 
-    button.textContent = "هەڵە";
+    button.textContent =
+      "هەڵە";
 
     setTimeout(
       ()=>{
-        button.textContent = "کۆپی";
+
+        button.textContent =
+          "کۆپی";
+
       },
       1200
     );
   }
 }
 
+
 async function copyGenerated(){
 
   playCopySound();
 
   try{
-    await writeClipboard(createdUrl);
+
+    await writeClipboard(
+      createdUrl
+    );
+
   }catch(error){}
 }
 
+
 function openGenerated(){
 
-  if(!createdUrl) return;
+  if(!createdUrl){
+    return;
+  }
 
   window.open(
     createdUrl,
@@ -1984,6 +2748,7 @@ function openGenerated(){
     "noopener"
   );
 }
+
 </script>
 
 </body>
