@@ -9,14 +9,14 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root{
-  --blue:#078fd1;
-  --cyan:#37bef0;
-  --text:#0f172a;
-  --muted:#64748b;
-  --line:#dce6ee;
+  --blue:#1698e5;
+  --cyan:#38bdf8;
+  --text:#17191d;
+  --muted:#697586;
+  --line:#dce5ec;
   --green:#16a66a;
   --red:#d94b5c;
 }
@@ -64,13 +64,16 @@ body{
 
 
 /* =========================
-   TOP BAR
+   HEADER
 ========================= */
 
 .topbar{
   direction:ltr;
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   gap:14px;
@@ -82,6 +85,7 @@ body{
 
 .brand{
   display:flex;
+
   align-items:center;
 
   gap:12px;
@@ -118,8 +122,9 @@ body{
 }
 
 .brand-text{
-  text-align:left;
   direction:ltr;
+
+  text-align:left;
 }
 
 .brand-name{
@@ -133,7 +138,7 @@ body{
 }
 
 .brand-name .rebar{
-  color:var(--blue);
+  color:#078fd1;
 }
 
 .brand-name .it{
@@ -145,7 +150,11 @@ body{
 
   color:#718096;
 
-  font:800 9px/1.2 Inter,Arial,sans-serif;
+  font:
+    800 9px/1.2
+    Inter,
+    Arial,
+    sans-serif;
 
   letter-spacing:1px;
 }
@@ -154,22 +163,29 @@ body{
   direction:ltr;
 
   display:flex;
+
   align-items:center;
 
   gap:7px;
 
   padding:8px 11px;
 
-  border:1px solid #dce6ee;
+  border:
+    1px solid #dce6ee;
 
   border-radius:999px;
 
   background:#fff;
 
   box-shadow:
-    0 7px 18px rgba(15,23,42,.05);
+    0 7px 18px
+    rgba(15,23,42,.05);
 
-  font:800 9px/1 Inter,Arial,sans-serif;
+  font:
+    800 9px/1
+    Inter,
+    Arial,
+    sans-serif;
 }
 
 .dot{
@@ -181,7 +197,8 @@ body{
   background:#22b873;
 
   box-shadow:
-    0 0 0 3px rgba(34,184,115,.12);
+    0 0 0 3px
+    rgba(34,184,115,.12);
 }
 
 
@@ -192,14 +209,16 @@ body{
 .card{
   background:#fff;
 
-  border:1px solid #dce6ee;
+  border:
+    1px solid #dce6ee;
 
   border-radius:24px;
 
   overflow:hidden;
 
   box-shadow:
-    0 20px 55px rgba(15,23,42,.08);
+    0 20px 55px
+    rgba(15,23,42,.08);
 }
 
 .card:before{
@@ -212,8 +231,8 @@ body{
   background:
     linear-gradient(
       90deg,
-      var(--blue),
-      var(--cyan),
+      #078fd1,
+      #37bef0,
       #8be5ff
     );
 }
@@ -226,7 +245,8 @@ body{
 .public-head{
   text-align:center;
 
-  padding:28px 20px 20px;
+  padding:
+    28px 20px 20px;
 
   border-bottom:
     1px solid #edf2f5;
@@ -252,7 +272,7 @@ body{
 }
 
 .public-head h1 span{
-  color:var(--blue);
+  color:#078fd1;
 }
 
 .public-head p{
@@ -271,55 +291,135 @@ body{
 
 
 /* =========================
-   CONTENT
+   PUBLIC CONTENT
 ========================= */
 
 .content{
-  padding:24px;
+  padding:
+    28px 24px 26px;
 }
 
-.credential{
-  margin-bottom:12px;
 
-  padding:13px 14px;
+/* =========================
+   EMAIL / PASSWORD DESIGN
+========================= */
 
-  border:
-    1px solid #dce4eb;
-
-  border-radius:16px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fbfcfd,
-      #f7f9fb
-    );
+.account-block{
+  margin-bottom:24px;
 }
 
-.credential small{
+.account-label{
   display:block;
 
-  margin-bottom:6px;
+  margin:
+    0 0 10px;
 
-  color:#77879a;
+  text-align:center;
 
-  font-size:11px;
+  direction:ltr;
 
-  font-weight:800;
+  color:#26292e;
+
+  font:
+    500 21px/1.2
+    Inter,
+    Arial,
+    sans-serif;
 }
 
-.credential-row{
+.account-box{
+  direction:ltr;
+
   display:flex;
 
   align-items:center;
 
-  gap:9px;
+  width:100%;
+
+  min-height:76px;
+
+  overflow:hidden;
+
+  border:
+    2px solid #33363b;
+
+  border-radius:9px;
+
+  background:#d8d8d8;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.55);
 }
 
-.credential input{
+
+/* COPY ICON AREA */
+
+.icon-copy-button{
+  flex:
+    0 0 72px;
+
+  width:72px;
+
+  min-height:72px;
+
+  display:grid;
+
+  place-items:center;
+
+  padding:0;
+
+  border:0;
+
+  background:transparent;
+
+  cursor:pointer;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+  transition:
+    transform .12s ease,
+    background .12s ease;
+}
+
+.icon-copy-button:active{
+  transform:scale(.91);
+
+  background:
+    rgba(255,255,255,.25);
+}
+
+.icon-copy-button svg{
+  width:31px;
+  height:31px;
+
+  fill:#33363b;
+}
+
+.copy-divider{
+  width:2px;
+
+  height:52px;
+
+  flex:
+    0 0 2px;
+
+  background:#323438;
+}
+
+
+/* VALUE */
+
+.account-value{
   flex:1;
 
   min-width:0;
+
+  height:72px;
+
+  padding:
+    0 17px;
 
   border:0;
 
@@ -327,14 +427,14 @@ body{
 
   background:transparent;
 
-  color:#111827;
+  color:#1698e5;
 
   direction:ltr;
 
   text-align:left;
 
   font:
-    800 14px/1.8
+    500 20px/1.2
     Inter,
     Arial,
     sans-serif;
@@ -342,7 +442,7 @@ body{
 
 
 /* =========================
-   BUTTONS
+   MAIN BUTTON
 ========================= */
 
 button,
@@ -355,7 +455,8 @@ button,
 
   min-height:50px;
 
-  padding:11px 17px;
+  padding:
+    11px 17px;
 
   border-radius:15px;
 
@@ -384,8 +485,8 @@ button,
   background:
     linear-gradient(
       135deg,
-      var(--blue),
-      var(--cyan)
+      #078fd1,
+      #37bef0
     );
 
   box-shadow:
@@ -417,62 +518,11 @@ button,
 
 
 /* =========================
-   COPY BUTTON
-========================= */
-
-.copy-button{
-  min-width:80px !important;
-
-  min-height:44px !important;
-
-  height:44px !important;
-
-  padding:0 16px !important;
-
-  border:
-    1px solid #cfdbe5 !important;
-
-  border-radius:
-    13px !important;
-
-  background:#fff !important;
-
-  color:#334155 !important;
-
-  box-shadow:
-    0 4px 12px
-    rgba(15,23,42,.07) !important;
-
-  font-size:12px !important;
-
-  font-weight:800 !important;
-
-  -webkit-tap-highlight-color:
-    transparent;
-
-  user-select:none;
-}
-
-.copy-button:active{
-  transform:scale(.95);
-}
-
-.copy-button.copied{
-  color:#0d784f !important;
-
-  background:#eefbf4 !important;
-
-  border-color:
-    #b9e6cd !important;
-}
-
-
-/* =========================
    NOTE
 ========================= */
 
 .note{
-  margin-top:14px;
+  margin-top:16px;
 
   padding:14px;
 
@@ -494,49 +544,52 @@ button,
 
 
 /* =========================
-   RECORD STATUS
+   USED
 ========================= */
 
-.record-status{
-  display:flex;
+.used-box{
+  margin-top:24px;
 
-  justify-content:space-between;
-
-  gap:12px;
-
-  margin-top:17px;
-
-  padding-top:14px;
+  padding:
+    20px 12px 6px;
 
   border-top:
-    1px solid #edf1f4;
+    1px solid #e5e7eb;
 
-  color:#8693a3;
+  direction:ltr;
+
+  text-align:center;
+}
+
+.used-title{
+  margin-bottom:8px;
+
+  color:#26292e;
 
   font:
-    700 10px/1.6
+    500 20px/1.2
     Inter,
     Arial,
     sans-serif;
 }
 
-.active-dot{
-  display:inline-block;
+.used-date{
+  direction:ltr;
 
-  width:8px;
-  height:8px;
+  color:#24272b;
 
-  margin-left:6px;
+  font:
+    500 19px/1.4
+    Inter,
+    Arial,
+    sans-serif;
 
-  border-radius:50%;
-
-  background:
-    var(--green);
+  letter-spacing:.3px;
 }
 
 
 /* =========================
-   LOGIN
+   ERROR / LOGIN
 ========================= */
 
 .login-area{
@@ -603,7 +656,7 @@ button,
 
 
 /* =========================
-   FIELDS
+   FORM
 ========================= */
 
 .field{
@@ -774,7 +827,7 @@ button,
 
 
 /* =========================
-   NOTICES
+   NOTICE
 ========================= */
 
 .notice{
@@ -896,7 +949,7 @@ button,
 
   .content{
     padding:
-      19px 15px 23px;
+      24px 14px;
   }
 
   .login-area{
@@ -916,9 +969,46 @@ button,
     font-size:26px;
   }
 
-  .copy-button{
-    min-width:
-      76px !important;
+  .account-label{
+    font-size:18px;
+  }
+
+  .account-box{
+    min-height:67px;
+  }
+
+  .icon-copy-button{
+    flex-basis:62px;
+
+    width:62px;
+
+    min-height:63px;
+  }
+
+  .icon-copy-button svg{
+    width:27px;
+    height:27px;
+  }
+
+  .copy-divider{
+    height:46px;
+  }
+
+  .account-value{
+    height:63px;
+
+    padding:
+      0 13px;
+
+    font-size:16px;
+  }
+
+  .used-title{
+    font-size:18px;
+  }
+
+  .used-date{
+    font-size:16px;
   }
 }
 
@@ -931,9 +1021,7 @@ button,
 <div class="shell">
 
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header class="topbar">
 
@@ -947,6 +1035,7 @@ button,
       >
 
     </div>
+
 
     <div class="brand-text">
 
@@ -984,9 +1073,8 @@ button,
 </header>
 
 
-<!-- =========================
-     PUBLIC VIEW
-========================= -->
+
+<!-- PUBLIC -->
 
 <section
   id="publicView"
@@ -1043,55 +1131,93 @@ button,
   >
 
 
-    <div class="credential">
+    <!-- EMAIL -->
 
-      <small>
-        ئیمەیڵ
-      </small>
+    <div class="account-block">
 
-      <div class="credential-row">
+      <div class="account-label">
+        Email
+      </div>
+
+
+      <div class="account-box">
+
+
+        <button
+          class="icon-copy-button"
+          onclick="copyFrom('displayEmail',this)"
+          aria-label="Copy Email"
+        >
+
+          <svg viewBox="0 0 24 24">
+
+            <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
+
+          </svg>
+
+        </button>
+
+
+        <div class="copy-divider"></div>
+
 
         <input
           id="displayEmail"
+          class="account-value"
           readonly
         >
 
-        <button
-          class="copy-button"
-          onclick="copyFrom('displayEmail',this)"
-        >
-          کۆپی
-        </button>
 
       </div>
 
     </div>
 
 
-    <div class="credential">
 
-      <small>
-        پاسۆرد
-      </small>
+    <!-- PASSWORD -->
 
-      <div class="credential-row">
+    <div class="account-block">
+
+      <div class="account-label">
+        Password
+      </div>
+
+
+      <div class="account-box">
+
+
+        <button
+          class="icon-copy-button"
+          onclick="copyFrom('displayPassword',this)"
+          aria-label="Copy Password"
+        >
+
+          <svg viewBox="0 0 24 24">
+
+            <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
+
+          </svg>
+
+        </button>
+
+
+        <div class="copy-divider"></div>
+
 
         <input
           id="displayPassword"
+          class="account-value"
           readonly
         >
 
-        <button
-          class="copy-button"
-          onclick="copyFrom('displayPassword',this)"
-        >
-          کۆپی
-        </button>
 
       </div>
 
     </div>
 
+
+
+    <!-- GET CODE -->
 
     <a
       id="btnGetCode"
@@ -1104,34 +1230,40 @@ button,
     </a>
 
 
+
     <div
       id="publicNote"
       class="note hidden"
     ></div>
 
 
-    <div class="record-status">
 
-      <span>
+    <!-- USED -->
 
-        <i class="active-dot"></i>
+    <div
+      id="usedBox"
+      class="used-box hidden"
+    >
 
-        Active
+      <div class="used-title">
+        Used :
+      </div>
 
-      </span>
-
-      <span id="usedAt"></span>
+      <div
+        id="usedDate"
+        class="used-date"
+      ></div>
 
     </div>
+
 
   </div>
 
 </section>
 
 
-<!-- =========================
-     LOGIN
-========================= -->
+
+<!-- LOGIN -->
 
 <section
   id="loginView"
@@ -1202,9 +1334,8 @@ button,
 </section>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+
+<!-- ADMIN -->
 
 <section
   id="adminView"
@@ -1254,6 +1385,7 @@ button,
     </button>
 
   </div>
+
 
 
   <!-- CREATE -->
@@ -1375,6 +1507,7 @@ button,
   </div>
 
 
+
   <!-- EDIT -->
 
   <div
@@ -1418,7 +1551,6 @@ button,
       id="editFields"
       class="hidden"
     >
-
 
       <div class="grid">
 
@@ -1515,10 +1647,13 @@ button,
 
 </section>
 
+
 </div>
 
 
+
 <script>
+
 
 /* =========================
    SETTINGS
@@ -1541,8 +1676,9 @@ const $ = id =>
   document.getElementById(id);
 
 
+
 /* =========================
-   CLEAN TARGET URL
+   CLEAN TARGET LINK
 ========================= */
 
 function cleanTargetUrl(raw){
@@ -1551,22 +1687,21 @@ function cleanTargetUrl(raw){
     return "";
   }
 
+
   let value =
-    String(raw).trim();
+    String(raw)
+      .trim();
 
-
-  /*
-    ئەگەر لینکەکە لەگەڵ
-    نووسینی زیادە Paste کرابێت
-  */
 
   const match =
     value.match(
       /https?:\/\/[^\s<>"']+/i
     );
 
+
   if(match){
-    value = match[0];
+    value =
+      match[0];
   }
 
 
@@ -1576,19 +1711,10 @@ function cleanTargetUrl(raw){
       new URL(value);
 
 
-    /*
-      id ـەکە پاک دەکات.
-      نموونە:
-
-      3928465%20xxxx
-
-      دەبێتە:
-
-      3928465
-    */
-
     const idValue =
-      url.searchParams.get("id");
+      url.searchParams.get(
+        "id"
+      );
 
 
     if(idValue){
@@ -1627,8 +1753,9 @@ function cleanTargetUrl(raw){
 }
 
 
+
 /* =========================
-   BASIC UI
+   UI
 ========================= */
 
 function showOnly(id){
@@ -1663,8 +1790,10 @@ function setNotice(
   const element =
     $(id);
 
+
   element.textContent =
     text;
+
 
   element.className =
     "notice " +
@@ -1682,7 +1811,9 @@ function clearNotice(id){
   const element =
     $(id);
 
+
   element.textContent = "";
+
 
   element.className =
     "notice";
@@ -1731,6 +1862,98 @@ function cleanId(raw){
       );
 
 }
+
+
+
+/* =========================
+   DATE FORMAT
+========================= */
+
+function formatUsedDate(
+  iso
+){
+
+  if(!iso){
+    return "";
+  }
+
+
+  const date =
+    new Date(iso);
+
+
+  try{
+
+    const parts =
+      new Intl.DateTimeFormat(
+        "en-GB",
+        {
+          timeZone:
+            "Asia/Baghdad",
+
+          year:
+            "numeric",
+
+          month:
+            "2-digit",
+
+          day:
+            "2-digit",
+
+          hour:
+            "2-digit",
+
+          minute:
+            "2-digit",
+
+          second:
+            "2-digit",
+
+          hour12:
+            false
+        }
+      )
+      .formatToParts(date);
+
+
+    const values = {};
+
+
+    parts.forEach(
+      part => {
+
+        values[
+          part.type
+        ] =
+          part.value;
+
+      }
+    );
+
+
+    return (
+      values.year +
+      "-" +
+      values.month +
+      "-" +
+      values.day +
+      " " +
+      values.hour +
+      ":" +
+      values.minute +
+      ":" +
+      values.second
+    );
+
+
+  }catch(error){
+
+    return iso;
+
+  }
+
+}
+
 
 
 /* =========================
@@ -1785,6 +2008,7 @@ window.addEventListener(
 
   }
 );
+
 
 
 /* =========================
@@ -1891,6 +2115,7 @@ function logout(){
 }
 
 
+
 /* =========================
    TABS
 ========================= */
@@ -1931,6 +2156,7 @@ function switchTab(name){
 }
 
 
+
 /* =========================
    FORM DATA
 ========================= */
@@ -1966,6 +2192,7 @@ function getFormData(prefix){
 }
 
 
+
 /* =========================
    CREATE
 ========================= */
@@ -1986,11 +2213,6 @@ async function createRecord(){
   const payload =
     getFormData("c");
 
-
-  /*
-    لینکی پاککراوە
-    دەخەینە خانەکەش
-  */
 
   $("cTargetLink")
     .value =
@@ -2099,6 +2321,7 @@ async function createRecord(){
 }
 
 
+
 /* =========================
    LOAD EDIT
 ========================= */
@@ -2185,7 +2408,8 @@ async function loadRecordForEdit(){
     $("eTargetLink")
       .value =
       cleanTargetUrl(
-        data.record.targetLink || ""
+        data.record.targetLink ||
+        ""
       );
 
 
@@ -2224,8 +2448,9 @@ async function loadRecordForEdit(){
 }
 
 
+
 /* =========================
-   SAVE EDIT
+   SAVE
 ========================= */
 
 async function saveRecord(){
@@ -2316,6 +2541,7 @@ async function saveRecord(){
   }
 
 }
+
 
 
 /* =========================
@@ -2416,13 +2642,58 @@ async function deleteRecord(){
 }
 
 
+
 /* =========================
-   PUBLIC RECORD
+   PUBLIC + FIRST VIEW
 ========================= */
 
 async function loadPublicRecord(){
 
   try{
+
+
+    /*
+      یەکەم جار کە لینکەکە
+      دەکرێتەوە Used تۆمار دەکات.
+    */
+
+    let firstViewedAt =
+      null;
+
+
+    try{
+
+      const viewResponse =
+        await fetch(
+          API_BASE +
+          "/api/record/" +
+          encodeURIComponent(
+            currentPublicId
+          ) +
+          "/view",
+          {
+            method:"POST"
+          }
+        );
+
+
+      if(viewResponse.ok){
+
+        const viewData =
+          await viewResponse.json();
+
+
+        firstViewedAt =
+          viewData.firstViewedAt ||
+          null;
+
+      }
+
+    }catch(error){
+
+    }
+
+
 
     const response =
       await fetch(
@@ -2459,6 +2730,17 @@ async function loadPublicRecord(){
     }
 
 
+    if(
+      firstViewedAt &&
+      !data.record.firstViewedAt
+    ){
+
+      data.record.firstViewedAt =
+        firstViewedAt;
+
+    }
+
+
     renderPublic(
       data.record
     );
@@ -2485,8 +2767,9 @@ async function loadPublicRecord(){
 }
 
 
+
 /* =========================
-   RENDER PUBLIC
+   RENDER
 ========================= */
 
 function renderPublic(record){
@@ -2511,12 +2794,6 @@ function renderPublic(record){
     record.password || "";
 
 
-  /*
-    گرنگ:
-    لینکی بەدەستهێنانی کۆد
-    لێرەش پاک دەکرێتەوە
-  */
-
   const cleanLink =
     cleanTargetUrl(
       record.targetLink || ""
@@ -2526,6 +2803,7 @@ function renderPublic(record){
   $("btnGetCode")
     .href =
     cleanLink || "#";
+
 
 
   if(record.note){
@@ -2549,12 +2827,31 @@ function renderPublic(record){
   }
 
 
-  $("usedAt")
-    .textContent =
-    new Date()
-      .toLocaleString();
+
+  if(record.firstViewedAt){
+
+    $("usedDate")
+      .textContent =
+      formatUsedDate(
+        record.firstViewedAt
+      );
+
+
+    $("usedBox")
+      .classList
+      .remove("hidden");
+
+
+  }else{
+
+    $("usedBox")
+      .classList
+      .add("hidden");
+
+  }
 
 }
+
 
 
 /* =========================
@@ -2623,21 +2920,21 @@ function playCopySound(){
     oscillator.frequency
       .exponentialRampToValueAtTime(
         920,
-        now + 0.045
+        now + .045
       );
 
 
     gain.gain
       .setValueAtTime(
-        0.055,
+        .055,
         now
       );
 
 
     gain.gain
       .exponentialRampToValueAtTime(
-        0.001,
-        now + 0.075
+        .001,
+        now + .075
       );
 
 
@@ -2657,7 +2954,7 @@ function playCopySound(){
 
 
     oscillator.stop(
-      now + 0.075
+      now + .075
     );
 
 
@@ -2668,11 +2965,14 @@ function playCopySound(){
 }
 
 
+
 /* =========================
    CLIPBOARD
 ========================= */
 
-async function writeClipboard(text){
+async function writeClipboard(
+  text
+){
 
   if(
     navigator.clipboard &&
@@ -2737,8 +3037,9 @@ async function writeClipboard(text){
 }
 
 
+
 /* =========================
-   COPY FIELD
+   COPY EMAIL / PASSWORD
 ========================= */
 
 async function copyFrom(
@@ -2756,56 +3057,42 @@ async function copyFrom(
     );
 
 
-    const oldText =
-      button.textContent;
+    const svg =
+      button.innerHTML;
 
 
-    button.textContent =
-      "کۆپی کرا";
-
-
-    button.classList
-      .add("copied");
+    button.innerHTML =
+      `
+      <svg viewBox="0 0 24 24">
+        <path
+          fill="#16a66a"
+          d="M9.2 16.2L4.8 11.8L3.4 13.2L9.2 19L21 7.2L19.6 5.8Z"
+        />
+      </svg>
+      `;
 
 
     setTimeout(
       ()=>{
 
-        button.textContent =
-          oldText;
-
-
-        button.classList
-          .remove("copied");
+        button.innerHTML =
+          svg;
 
       },
-      1100
+      900
     );
 
 
   }catch(error){
-
-    button.textContent =
-      "هەڵە";
-
-
-    setTimeout(
-      ()=>{
-
-        button.textContent =
-          "کۆپی";
-
-      },
-      1100
-    );
 
   }
 
 }
 
 
+
 /* =========================
-   COPY GENERATED
+   GENERATED LINK
 ========================= */
 
 async function copyGenerated(){
@@ -2825,10 +3112,6 @@ async function copyGenerated(){
 
 }
 
-
-/* =========================
-   OPEN GENERATED
-========================= */
 
 function openGenerated(){
 
