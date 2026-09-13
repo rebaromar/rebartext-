@@ -2750,6 +2750,63 @@ function openGenerated(){
 }
 
 </script>
+</script>
 
+<script>
+function pasteSingleValue(event, input){
+
+  event.preventDefault();
+
+  const clipboardText =
+    (event.clipboardData || window.clipboardData)
+      .getData("text")
+      .trim();
+
+  if(!clipboardText){
+    return;
+  }
+
+  const cleanValue =
+    clipboardText
+      .split(/\s+/)[0]
+      .trim();
+
+  input.value =
+    cleanValue;
+
+  input.dispatchEvent(
+    new Event("input", {
+      bubbles:true
+    })
+  );
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+
+  [
+    "cEmail",
+    "cPassword",
+    "eEmail",
+    "ePassword"
+  ].forEach(function(id){
+
+    const input =
+      document.getElementById(id);
+
+    if(!input){
+      return;
+    }
+
+    input.addEventListener("paste", function(event){
+      pasteSingleValue(event, input);
+    });
+
+  });
+
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
