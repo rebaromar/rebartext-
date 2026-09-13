@@ -8,7 +8,6 @@
 <title>REBAR IT</title>
 
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root{
@@ -25,8 +24,7 @@
   box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
   margin:0;
   min-height:100%;
 }
@@ -34,21 +32,10 @@ body{
 body{
   font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif;
   color:var(--text);
-
   background:
-    radial-gradient(
-      circle at 12% 0%,
-      rgba(55,190,240,.14),
-      transparent 28%
-    ),
-    linear-gradient(
-      180deg,
-      #fbfdff,
-      #eef4f8
-    );
-
+    radial-gradient(circle at 12% 0%, rgba(55,190,240,.14), transparent 28%),
+    linear-gradient(180deg,#fbfdff,#eef4f8);
   padding:0 12px 34px;
-
   -webkit-font-smoothing:antialiased;
 }
 
@@ -62,78 +49,51 @@ body{
   margin:auto;
 }
 
-
-/* =========================
-   HEADER
-========================= */
-
+/* HEADER */
 .topbar{
   direction:ltr;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:14px;
-
   min-height:106px;
-
   padding:14px 0;
 }
 
 .brand{
   display:flex;
-
   align-items:center;
-
   gap:12px;
-
   min-width:0;
 }
 
 .logo{
   width:78px;
   height:78px;
-
   flex:0 0 78px;
-
   border-radius:50%;
-
   overflow:hidden;
-
   background:#02070d;
-
   border:2px solid #fff;
-
-  box-shadow:
-    0 0 0 2px rgba(7,143,209,.22),
-    0 10px 24px rgba(15,23,42,.14);
+  box-shadow:0 0 0 2px rgba(7,143,209,.22),0 10px 24px rgba(15,23,42,.14);
 }
 
 .logo img{
   width:100%;
   height:100%;
-
   object-fit:contain;
-
   padding:5px;
 }
 
 .brand-text{
   direction:ltr;
-
   text-align:left;
 }
 
 .brand-name{
   font-family:Inter,Arial,sans-serif;
-
   font-size:27px;
-
   font-weight:900;
-
   line-height:1;
 }
 
@@ -147,128 +107,70 @@ body{
 
 .brand-sub{
   margin-top:6px;
-
   color:#718096;
-
-  font:
-    800 9px/1.2
-    Inter,
-    Arial,
-    sans-serif;
-
+  font:800 9px/1.2 Inter,Arial,sans-serif;
   letter-spacing:1px;
 }
 
 .status{
-  direction:ltr;
-
-  display:flex;
-
-  align-items:center;
-
-  gap:7px;
-
-  padding:8px 11px;
-
-  border:
-    1px solid #dce6ee;
-
-  border-radius:999px;
-
-  background:#fff;
-
-  box-shadow:
-    0 7px 18px
-    rgba(15,23,42,.05);
-
-  font:
-    800 9px/1
-    Inter,
-    Arial,
-    sans-serif;
+  display:none;
 }
 
 .dot{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
   background:#22b873;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(34,184,115,.12);
+  box-shadow:0 0 0 3px rgba(34,184,115,.12);
 }
 
-
-/* =========================
-   CARD
-========================= */
-
+/* CARD */
 .card{
   background:#fff;
-
-  border:
-    1px solid #dce6ee;
-
+  border:1px solid #dce6ee;
   border-radius:24px;
-
   overflow:hidden;
-
-  box-shadow:
-    0 20px 55px
-    rgba(15,23,42,.08);
+  box-shadow:0 20px 55px rgba(15,23,42,.08);
 }
 
 .card:before{
   content:"";
-
   display:block;
-
   height:4px;
-
-  background:
-    linear-gradient(
-      90deg,
-      #078fd1,
-      #37bef0,
-      #8be5ff
-    );
+  background:linear-gradient(90deg,#078fd1,#37bef0,#8be5ff);
 }
 
-
-/* =========================
-   PUBLIC HEADER
-========================= */
-
+/* PUBLIC HEADER */
 .public-head{
   text-align:center;
+  padding:28px 20px 20px;
+  border-bottom:1px solid #edf2f5;
+  background:linear-gradient(180deg,#fff,#f9fcfd);
+}
 
-  padding:
-    28px 20px 20px;
+.apple-logo-top{
+  width:62px;
+  height:62px;
+  margin:0 auto 14px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#f7fbff,#edf6fb);
+  border:1px solid #d8e7f0;
+  box-shadow:0 8px 22px rgba(15,23,42,.06);
+}
 
-  border-bottom:
-    1px solid #edf2f5;
-
-  background:
-    linear-gradient(
-      180deg,
-      #fff,
-      #f9fcfd
-    );
+.apple-logo-top svg{
+  width:30px;
+  height:30px;
+  fill:#111827;
 }
 
 .public-head h1{
   margin:0;
-
   direction:ltr;
-
-  font:
-    900 30px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+  font:900 30px/1.2 Inter,Arial,sans-serif;
 }
 
 .public-head h1 span{
@@ -276,353 +178,179 @@ body{
 }
 
 .public-head p{
-  margin:8px 0 0;
-
-  color:#7b8a9b;
-
-  font:
-    800 10px/1.4
-    Inter,
-    Arial,
-    sans-serif;
-
-  letter-spacing:.8px;
+  display:none;
 }
 
-
-/* =========================
-   PUBLIC CONTENT
-========================= */
-
+/* PUBLIC CONTENT */
 .content{
-  padding:
-    28px 24px 26px;
+  padding:28px 24px 26px;
 }
 
-
-/* =========================
-   EMAIL / PASSWORD DESIGN
-========================= */
-
+/* EMAIL / PASSWORD DESIGN */
 .account-block{
   margin-bottom:24px;
 }
 
 .account-label{
   display:block;
-
-  margin:
-    0 0 10px;
-
+  margin:0 0 10px;
   text-align:center;
-
   direction:ltr;
-
   color:#26292e;
-
-  font:
-    500 21px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+  font:500 21px/1.2 Inter,Arial,sans-serif;
 }
 
 .account-box{
   direction:ltr;
-
   display:flex;
-
   align-items:center;
-
   width:100%;
-
   min-height:76px;
-
   overflow:hidden;
-
-  border:
-    2px solid #33363b;
-
+  border:2px solid #33363b;
   border-radius:9px;
-
   background:#d8d8d8;
-
-  box-shadow:
-    inset 0 1px 0
-    rgba(255,255,255,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
 }
 
-
-/* COPY ICON AREA */
-
 .icon-copy-button{
-  flex:
-    0 0 72px;
-
+  flex:0 0 72px;
   width:72px;
-
   min-height:72px;
-
   display:grid;
-
   place-items:center;
-
   padding:0;
-
   border:0;
-
   background:transparent;
-
   cursor:pointer;
-
-  -webkit-tap-highlight-color:
-    transparent;
-
-  transition:
-    transform .12s ease,
-    background .12s ease;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .12s ease,background .12s ease;
 }
 
 .icon-copy-button:active{
   transform:scale(.91);
-
-  background:
-    rgba(255,255,255,.25);
+  background:rgba(255,255,255,.25);
 }
 
 .icon-copy-button svg{
   width:31px;
   height:31px;
-
   fill:#33363b;
 }
 
 .copy-divider{
   width:2px;
-
   height:52px;
-
-  flex:
-    0 0 2px;
-
+  flex:0 0 2px;
   background:#323438;
 }
 
-
-/* VALUE */
-
 .account-value{
   flex:1;
-
   min-width:0;
-
   height:72px;
-
-  padding:
-    0 17px;
-
+  padding:0 17px;
   border:0;
-
   outline:0;
-
   background:transparent;
-
   color:#1698e5;
-
   direction:ltr;
-
   text-align:left;
-
-  font:
-    500 20px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+  font:500 20px/1.2 Inter,Arial,sans-serif;
 }
 
-
-/* =========================
-   MAIN BUTTON
-========================= */
-
-button,
-.button{
+/* MAIN BUTTON */
+button,.button{
   appearance:none;
-
   border:0;
-
   cursor:pointer;
-
   min-height:50px;
-
-  padding:
-    11px 17px;
-
+  padding:11px 17px;
   border-radius:15px;
-
   display:inline-flex;
-
   align-items:center;
-
   justify-content:center;
-
   text-decoration:none;
-
   font-size:13px;
-
   font-weight:900;
-
   font-family:inherit;
-
   transition:.14s ease;
-
   touch-action:manipulation;
 }
 
 .primary{
   color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #078fd1,
-      #37bef0
-    );
-
-  box-shadow:
-    0 11px 24px
-    rgba(7,143,209,.20);
+  background:linear-gradient(135deg,#078fd1,#37bef0);
+  box-shadow:0 11px 24px rgba(7,143,209,.20);
 }
 
 .secondary{
   color:#334155;
-
   background:#f7f9fb;
-
-  border:
-    1px solid #dae3ea;
+  border:1px solid #dae3ea;
 }
 
 .danger{
   color:#b3263b;
-
   background:#fff3f5;
-
-  border:
-    1px solid #f4cad1;
+  border:1px solid #f4cad1;
 }
 
 .wide{
   width:100%;
 }
 
-
-/* =========================
-   NOTE
-========================= */
-
+/* NOTE */
 .note{
   margin-top:16px;
-
   padding:14px;
-
-  border:
-    1px solid #dce4eb;
-
+  border:1px solid #dce4eb;
   border-radius:15px;
-
   background:#fafcfd;
-
   color:#405065;
-
   font-size:12px;
-
   line-height:2;
-
   white-space:pre-wrap;
 }
 
-
-/* =========================
-   USED
-========================= */
-
+/* USED */
 .used-box{
   margin-top:24px;
-
-  padding:
-    20px 12px 6px;
-
-  border-top:
-    1px solid #e5e7eb;
-
+  padding:20px 12px 6px;
+  border-top:1px solid #e5e7eb;
   direction:ltr;
-
   text-align:center;
 }
 
 .used-title{
   margin-bottom:8px;
-
   color:#26292e;
-
-  font:
-    500 20px/1.2
-    Inter,
-    Arial,
-    sans-serif;
+  font:500 20px/1.2 Inter,Arial,sans-serif;
 }
 
 .used-date{
   direction:ltr;
-
   color:#24272b;
-
-  font:
-    500 19px/1.4
-    Inter,
-    Arial,
-    sans-serif;
-
+  font:500 19px/1.4 Inter,Arial,sans-serif;
   letter-spacing:.3px;
 }
 
-
-/* =========================
-   ERROR / LOGIN
-========================= */
-
+/* ERROR / LOGIN */
 .login-area{
   max-width:560px;
-
   margin:auto;
-
-  padding:
-    38px 24px;
+  padding:38px 24px;
 }
 
 .security-logo{
   width:76px;
   height:76px;
-
-  margin:
-    0 auto 17px;
-
+  margin:0 auto 17px;
   border-radius:23px;
-
   display:grid;
-
   place-items:center;
-
-  background:
-    linear-gradient(
-      145deg,
-      #f6fcff,
-      #eaf8fd
-    );
-
-  border:
-    1px solid #cde8f4;
+  background:linear-gradient(145deg,#f6fcff,#eaf8fd);
+  border:1px solid #cde8f4;
 }
 
 .security-logo svg{
@@ -631,183 +359,107 @@ button,
 }
 
 .login-title{
-  margin:
-    0 0 8px;
-
+  margin:0 0 8px;
   text-align:center;
-
   font-size:25px;
-
   font-weight:900;
 }
 
 .login-description{
-  margin:
-    0 auto 22px;
-
+  margin:0 auto 22px;
   text-align:center;
-
   color:#607086;
-
   font-size:13px;
-
   line-height:2;
 }
 
-
-/* =========================
-   FORM
-========================= */
-
+/* FORM */
 .field{
   margin-bottom:14px;
 }
 
 .field label{
   display:block;
-
-  margin:
-    0 4px 8px;
-
+  margin:0 4px 8px;
   color:#27364a;
-
   font-size:13px;
-
   font-weight:800;
 }
 
-.field input,
-.field textarea{
+.field input,.field textarea{
   width:100%;
-
   min-height:54px;
-
-  padding:
-    12px 14px;
-
-  border:
-    1px solid #d5dfe7;
-
+  padding:12px 14px;
+  border:1px solid #d5dfe7;
   border-radius:15px;
-
   outline:0;
-
   background:#fbfdfe;
-
   color:#111827;
-
   font-size:14px;
-
   font-family:inherit;
 }
 
 .field textarea{
   min-height:110px;
-
   resize:vertical;
-
   line-height:2;
 }
 
-.field input:focus,
-.field textarea:focus{
+.field input:focus,.field textarea:focus{
   background:#fff;
-
   border-color:#50bce8;
-
-  box-shadow:
-    0 0 0 4px
-    rgba(7,143,209,.08);
+  box-shadow:0 0 0 4px rgba(7,143,209,.08);
 }
 
 .ltr{
   direction:ltr;
-
   text-align:left;
-
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
+  font-family:Inter,Arial,sans-serif;
 }
 
-
-/* =========================
-   ADMIN
-========================= */
-
+/* ADMIN */
 .admin-header{
-  padding:
-    23px 24px 17px;
-
-  border-bottom:
-    1px solid #edf1f4;
+  padding:23px 24px 17px;
+  border-bottom:1px solid #edf1f4;
 }
 
 .admin-header h1{
   margin:0;
-
   font-size:23px;
 }
 
 .admin-header p{
-  margin:
-    5px 0 0;
-
+  margin:5px 0 0;
   color:#6b7c90;
-
   font-size:12px;
 }
 
 .tabs{
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr 1fr;
-
+  grid-template-columns:1fr 1fr 1fr;
   gap:8px;
-
-  padding:
-    12px 16px;
-
+  padding:12px 16px;
   background:#f8fafc;
-
-  border-bottom:
-    1px solid #edf1f4;
+  border-bottom:1px solid #edf1f4;
 }
 
 .tab{
   min-height:44px;
-
   background:#fff;
-
   color:#627287;
-
-  border:
-    1px solid #dbe3e9;
-
+  border:1px solid #dbe3e9;
   border-radius:13px;
-
   font-size:10.5px;
 }
 
 .tab.active{
   color:#fff;
-
-  background:
-    linear-gradient(
-      135deg,
-      #0c1b2b,
-      #193b56
-    );
+  background:linear-gradient(135deg,#0c1b2b,#193b56);
 }
 
 .grid{
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:14px;
 }
 
@@ -817,104 +469,58 @@ button,
 
 .button-row{
   display:flex;
-
   gap:9px;
-
   flex-wrap:wrap;
-
   margin-top:16px;
 }
 
-
-/* =========================
-   NOTICE
-========================= */
-
+/* NOTICE */
 .notice{
   display:none;
-
   margin-top:13px;
-
-  padding:
-    11px 13px;
-
+  padding:11px 13px;
   border-radius:13px;
-
   font-size:12px;
-
   line-height:1.9;
 }
 
 .notice.ok{
   display:block;
-
   color:#0d784f;
-
   background:#eefbf4;
-
-  border:
-    1px solid #bbe8cf;
+  border:1px solid #bbe8cf;
 }
 
 .notice.err{
   display:block;
-
   color:#b2293d;
-
   background:#fff3f5;
-
-  border:
-    1px solid #f4c8cf;
+  border:1px solid #f4c8cf;
 }
 
-
-/* =========================
-   RESULT
-========================= */
-
+/* RESULT */
 .result{
   display:none;
-
   margin-top:15px;
-
   padding:14px;
-
-  border:
-    1px dashed #9ddaf1;
-
+  border:1px dashed #9ddaf1;
   border-radius:15px;
-
   background:#f3fbff;
 }
 
 .result code{
   display:block;
-
   direction:ltr;
-
   text-align:left;
-
   word-break:break-all;
-
   color:#075985;
-
-  font:
-    700 12px/1.8
-    Inter,
-    Arial,
-    sans-serif;
+  font:700 12px/1.8 Inter,Arial,sans-serif;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
-
+/* MOBILE */
 @media(max-width:650px){
-
   body{
-    padding:
-      0 9px 26px;
+    padding:0 9px 26px;
   }
 
   .topbar{
@@ -924,7 +530,6 @@ button,
   .logo{
     width:62px;
     height:62px;
-
     flex-basis:62px;
   }
 
@@ -936,25 +541,16 @@ button,
     display:none;
   }
 
-  .status{
-    font-size:8px;
-
-    padding:
-      7px 9px;
-  }
-
   .card{
     border-radius:21px;
   }
 
   .content{
-    padding:
-      24px 14px;
+    padding:24px 14px;
   }
 
   .login-area{
-    padding:
-      31px 17px 27px;
+    padding:31px 17px 27px;
   }
 
   .grid{
@@ -979,9 +575,7 @@ button,
 
   .icon-copy-button{
     flex-basis:62px;
-
     width:62px;
-
     min-height:63px;
   }
 
@@ -996,10 +590,7 @@ button,
 
   .account-value{
     height:63px;
-
-    padding:
-      0 13px;
-
+    padding:0 13px;
     font-size:16px;
   }
 
@@ -1010,2127 +601,714 @@ button,
   .used-date{
     font-size:16px;
   }
-}
 
+  .apple-logo-top{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+  }
+
+  .apple-logo-top svg{
+    width:28px;
+    height:28px;
+  }
+}
 </style>
 </head>
 
-
 <body>
-
 <div class="shell">
 
-
-<!-- HEADER -->
-
 <header class="topbar">
-
   <div class="brand">
-
     <div class="logo">
-
-      <img
-        src="https://i.ibb.co/NntMjTNW/IMG-4129.png"
-        alt="REBAR IT Logo"
-      >
-
+      <img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo">
     </div>
-
 
     <div class="brand-text">
-
       <div class="brand-name">
-
-        <span class="rebar">
-          REBAR
-        </span>
-
-        <span class="it">
-          IT
-        </span>
-
+        <span class="rebar">REBAR</span>
+        <span class="it">IT</span>
       </div>
-
-      <div class="brand-sub">
-        SECURE ACCESS
-      </div>
-
+      <div class="brand-sub">SECURE ACCESS</div>
     </div>
-
   </div>
-
 
   <div class="status">
-
-    <span id="modeLabel">
-      Admin
-    </span>
-
+    <span id="modeLabel">Admin</span>
     <span class="dot"></span>
-
   </div>
-
 </header>
 
-
-
-<!-- PUBLIC -->
-
-<section
-  id="publicView"
-  class="card hidden"
->
-
+<section id="publicView" class="card hidden">
   <div class="public-head">
+    <div class="apple-logo-top">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16.37 12.18c.02 2.26 1.98 3.01 2 3.02-.02.05-.31 1.07-1.03 2.11-.62.9-1.26 1.79-2.28 1.81-1 .02-1.32-.59-2.46-.59-1.15 0-1.5.57-2.43.61-.98.04-1.73-.98-2.36-1.87-1.28-1.85-2.26-5.24-.95-7.52.65-1.13 1.81-1.84 3.07-1.86.96-.02 1.87.65 2.46.65.59 0 1.7-.8 2.87-.68.49.02 1.86.2 2.74 1.49-.07.04-1.63.95-1.61 2.83zm-1.98-6.86c.52-.63.87-1.5.77-2.37-.75.03-1.66.5-2.2 1.13-.48.56-.91 1.45-.8 2.3.84.06 1.7-.43 2.23-1.06z"/>
+      </svg>
+    </div>
 
     <h1>
       <span>APPLE</span>
       ID
     </h1>
 
-    <p>
-      INFORMATION
-    </p>
-
+    <p>INFORMATION</p>
   </div>
 
-
-  <div
-    id="publicError"
-    class="login-area hidden"
-  >
-
+  <div id="publicError" class="login-area hidden">
     <div class="security-logo">
-
       <svg viewBox="0 0 24 24">
-
-        <path
-          fill="#078fd1"
-          d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"
-        />
-
+        <path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"/>
       </svg>
-
     </div>
 
-    <h2 class="login-title">
-      بەردەست نییە
-    </h2>
-
-    <p
-      id="publicErrorText"
-      class="login-description"
-    ></p>
-
+    <h2 class="login-title">بەردەست نییە</h2>
+    <p id="publicErrorText" class="login-description"></p>
   </div>
 
-
-  <div
-    id="publicContent"
-    class="content hidden"
-  >
-
-
-    <!-- EMAIL -->
+  <div id="publicContent" class="content hidden">
 
     <div class="account-block">
-
-      <div class="account-label">
-        Email
-      </div>
-
+      <div class="account-label">Email</div>
 
       <div class="account-box">
-
-
-        <button
-          class="icon-copy-button"
-          onclick="copyFrom('displayEmail',this)"
-          aria-label="Copy Email"
-        >
-
+        <button class="icon-copy-button" onclick="copyFrom('displayEmail',this)" aria-label="Copy Email">
           <svg viewBox="0 0 24 24">
-
             <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
-
           </svg>
-
         </button>
-
 
         <div class="copy-divider"></div>
 
-
-        <input
-          id="displayEmail"
-          class="account-value"
-          readonly
-        >
-
-
+        <input id="displayEmail" class="account-value" readonly>
       </div>
-
     </div>
 
-
-
-    <!-- PASSWORD -->
-
     <div class="account-block">
-
-      <div class="account-label">
-        Password
-      </div>
-
+      <div class="account-label">Password</div>
 
       <div class="account-box">
-
-
-        <button
-          class="icon-copy-button"
-          onclick="copyFrom('displayPassword',this)"
-          aria-label="Copy Password"
-        >
-
+        <button class="icon-copy-button" onclick="copyFrom('displayPassword',this)" aria-label="Copy Password">
           <svg viewBox="0 0 24 24">
-
             <path d="M8 2H17C18.1 2 19 2.9 19 4V15C19 16.1 18.1 17 17 17H8C6.9 17 6 16.1 6 15V4C6 2.9 6.9 2 8 2ZM4 7H3C1.9 7 1 7.9 1 9V20C1 21.1 1.9 22 3 22H12C13.1 22 14 21.1 14 20V19H8C5.8 19 4 17.2 4 15V7Z"/>
-
           </svg>
-
         </button>
-
 
         <div class="copy-divider"></div>
 
-
-        <input
-          id="displayPassword"
-          class="account-value"
-          readonly
-        >
-
-
+        <input id="displayPassword" class="account-value" readonly>
       </div>
-
     </div>
 
-
-
-    <!-- GET CODE -->
-
-    <a
-      id="btnGetCode"
-      class="button primary wide"
-      href="#"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <a id="btnGetCode" class="button primary wide" href="#" target="_blank" rel="noopener noreferrer">
       بەدەستهێنانی کۆد
     </a>
 
+    <div id="publicNote" class="note hidden"></div>
 
-
-    <div
-      id="publicNote"
-      class="note hidden"
-    ></div>
-
-
-
-    <!-- USED -->
-
-    <div
-      id="usedBox"
-      class="used-box hidden"
-    >
-
-      <div class="used-title">
-        Used :
-      </div>
-
-      <div
-        id="usedDate"
-        class="used-date"
-      ></div>
-
+    <div id="usedBox" class="used-box hidden">
+      <div class="used-title">First Opened :</div>
+      <div id="usedDate" class="used-date"></div>
     </div>
-
-
   </div>
-
 </section>
 
-
-
-<!-- LOGIN -->
-
-<section
-  id="loginView"
-  class="card hidden"
->
-
+<section id="loginView" class="card hidden">
   <div class="login-area">
-
     <div class="security-logo">
-
       <svg viewBox="0 0 24 24">
-
-        <path
-          fill="#078fd1"
-          d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"
-        />
-
+        <path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"/>
       </svg>
-
     </div>
 
-
-    <h2 class="login-title">
-      بەشی بەڕێوەبەر
-    </h2>
-
+    <h2 class="login-title">بەشی بەڕێوەبەر</h2>
 
     <p class="login-description">
-
       بۆ پاراستنی زانیارییەکان،
       تەنها بە پاسۆردی بەڕێوەبەر
       دەتوانرێت بچیتە ژوورەوە.
-
     </p>
 
-
     <div class="field">
-
-      <label>
-        پاسۆردی بەڕێوەبەر
-      </label>
-
-      <input
-        id="adminPassword"
-        type="password"
-        autocomplete="current-password"
-        placeholder="••••••••"
-      >
-
+      <label>پاسۆردی بەڕێوەبەر</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••">
     </div>
 
-
-    <button
-      class="primary wide"
-      onclick="adminLogin()"
-    >
+    <button class="primary wide" onclick="adminLogin()">
       چوونەژوورەوە
     </button>
 
-
-    <div
-      id="loginMsg"
-      class="notice"
-    ></div>
-
+    <div id="loginMsg" class="notice"></div>
   </div>
-
 </section>
 
-
-
-<!-- ADMIN -->
-
-<section
-  id="adminView"
-  class="card hidden"
->
-
+<section id="adminView" class="card hidden">
   <div class="admin-header">
-
-    <h1>
-      بەڕێوەبردنی لینکەکان
-    </h1>
-
-    <p>
-      لینک دروست بکە،
-      دەستکاری بکە
-      یان بسڕەوە.
-    </p>
-
+    <h1>بەڕێوەبردنی لینکەکان</h1>
+    <p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p>
   </div>
-
 
   <div class="tabs">
-
-    <button
-      id="tabCreate"
-      class="tab active"
-      onclick="switchTab('create')"
-    >
-      لینکی نوێ
-    </button>
-
-
-    <button
-      id="tabEdit"
-      class="tab"
-      onclick="switchTab('edit')"
-    >
-      دەستکاری
-    </button>
-
-
-    <button
-      class="tab"
-      onclick="logout()"
-    >
-      چوونەدەرەوە
-    </button>
-
+    <button id="tabCreate" class="tab active" onclick="switchTab('create')">لینکی نوێ</button>
+    <button id="tabEdit" class="tab" onclick="switchTab('edit')">دەستکاری</button>
+    <button class="tab" onclick="logout()">چوونەدەرەوە</button>
   </div>
 
-
-
-  <!-- CREATE -->
-
-  <div
-    id="createView"
-    class="content"
-  >
-
+  <div id="createView" class="content">
     <div class="grid">
-
+      <div class="field">
+        <label>ئیمەیڵ</label>
+        <input id="cEmail" class="ltr" placeholder="example@email.com">
+      </div>
 
       <div class="field">
-
-        <label>
-          ئیمەیڵ
-        </label>
-
-        <input
-          id="cEmail"
-          class="ltr"
-          placeholder="example@email.com"
-        >
-
+        <label>پاسۆرد</label>
+        <input id="cPassword" class="ltr" placeholder="Password">
       </div>
-
-
-      <div class="field">
-
-        <label>
-          پاسۆرد
-        </label>
-
-        <input
-          id="cPassword"
-          class="ltr"
-          placeholder="Password"
-        >
-
-      </div>
-
 
       <div class="field full">
-
-        <label>
-          لینک
-        </label>
-
-        <input
-          id="cTargetLink"
-          class="ltr"
-          placeholder="https://..."
-        >
-
+        <label>لینک</label>
+        <input id="cTargetLink" class="ltr" placeholder="https://...">
       </div>
-
 
       <div class="field full">
-
-        <label>
-          تێبینی
-        </label>
-
-        <textarea
-          id="cNote"
-          placeholder="تێبینی..."
-        ></textarea>
-
+        <label>تێبینی</label>
+        <textarea id="cNote" placeholder="تێبینی..."></textarea>
       </div>
-
-
     </div>
 
-
-    <button
-      class="primary wide"
-      style="margin-top:15px"
-      onclick="createRecord()"
-    >
+    <button class="primary wide" style="margin-top:15px" onclick="createRecord()">
       دروستکردنی لینک
     </button>
 
+    <div id="createMsg" class="notice"></div>
 
-    <div
-      id="createMsg"
-      class="notice"
-    ></div>
-
-
-    <div
-      id="createResult"
-      class="result"
-    >
-
+    <div id="createResult" class="result">
       <code id="generatedLink"></code>
 
-
       <div class="button-row">
-
-        <button
-          class="secondary"
-          onclick="copyGenerated()"
-        >
-          کۆپی لینک
-        </button>
-
-
-        <button
-          class="secondary"
-          onclick="openGenerated()"
-        >
-          کردنەوە
-        </button>
-
+        <button class="secondary" onclick="copyGenerated()">کۆپی لینک</button>
+        <button class="secondary" onclick="openGenerated()">کردنەوە</button>
       </div>
-
     </div>
-
   </div>
 
-
-
-  <!-- EDIT -->
-
-  <div
-    id="editView"
-    class="content hidden"
-  >
-
+  <div id="editView" class="content hidden">
     <div class="field">
+      <label>ID ی لینک</label>
 
-      <label>
-        ID ی لینک
-      </label>
-
-
-      <div
-        style="
-          display:flex;
-          gap:8px;
-        "
-      >
-
-        <input
-          id="editId"
-          class="ltr"
-          placeholder="ID"
-        >
-
-        <button
-          class="secondary"
-          onclick="loadRecordForEdit()"
-        >
-          بارکردن
-        </button>
-
+      <div style="display:flex; gap:8px;">
+        <input id="editId" class="ltr" placeholder="ID">
+        <button class="secondary" onclick="loadRecordForEdit()">بارکردن</button>
       </div>
-
     </div>
 
-
-    <div
-      id="editFields"
-      class="hidden"
-    >
-
+    <div id="editFields" class="hidden">
       <div class="grid">
-
+        <div class="field">
+          <label>ئیمەیڵ</label>
+          <input id="eEmail" class="ltr">
+        </div>
 
         <div class="field">
-
-          <label>
-            ئیمەیڵ
-          </label>
-
-          <input
-            id="eEmail"
-            class="ltr"
-          >
-
+          <label>پاسۆرد</label>
+          <input id="ePassword" class="ltr">
         </div>
-
-
-        <div class="field">
-
-          <label>
-            پاسۆرد
-          </label>
-
-          <input
-            id="ePassword"
-            class="ltr"
-          >
-
-        </div>
-
 
         <div class="field full">
-
-          <label>
-            لینک
-          </label>
-
-          <input
-            id="eTargetLink"
-            class="ltr"
-          >
-
+          <label>لینک</label>
+          <input id="eTargetLink" class="ltr">
         </div>
-
 
         <div class="field full">
-
-          <label>
-            تێبینی
-          </label>
-
-          <textarea
-            id="eNote"
-          ></textarea>
-
+          <label>تێبینی</label>
+          <textarea id="eNote"></textarea>
         </div>
-
-
       </div>
-
 
       <div class="button-row">
-
-
-        <button
-          class="primary"
-          style="flex:1"
-          onclick="saveRecord()"
-        >
-          پاشەکەوتکردن
-        </button>
-
-
-        <button
-          class="danger"
-          onclick="deleteRecord()"
-        >
-          سڕینەوە
-        </button>
-
-
+        <button class="primary" style="flex:1" onclick="saveRecord()">پاشەکەوتکردن</button>
+        <button class="danger" onclick="deleteRecord()">سڕینەوە</button>
       </div>
-
     </div>
 
-
-    <div
-      id="editMsg"
-      class="notice"
-    ></div>
-
+    <div id="editMsg" class="notice"></div>
   </div>
-
 </section>
-
 
 </div>
 
-
-
 <script>
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-const API_BASE =
-  "https://rebarit-secure-api.rebar4qwrna.workers.dev";
-
-const ADMIN_TOKEN_KEY =
-  "rebarit_admin_session";
-
+const API_BASE = "https://rebarit-secure-api.rebar4qwrna.workers.dev";
+const ADMIN_TOKEN_KEY = "rebarit_admin_session";
 let currentPublicId = "";
-
 let createdUrl = "";
-
 let copyAudioContext = null;
 
-
-const $ = id =>
-  document.getElementById(id);
-
-
-
-/* =========================
-   CLEAN TARGET LINK
-========================= */
+const $ = id => document.getElementById(id);
 
 function cleanTargetUrl(raw){
+  if(!raw) return "";
 
-  if(!raw){
-    return "";
-  }
+  let value = String(raw).trim();
 
-
-  let value =
-    String(raw)
-      .trim();
-
-
-  const match =
-    value.match(
-      /https?:\/\/[^\s<>"']+/i
-    );
-
-
+  const match = value.match(/https?:\/\/[^\s<>"']+/i);
   if(match){
-    value =
-      match[0];
+    value = match[0];
   }
-
 
   try{
-
-    const url =
-      new URL(value);
-
-
-    const idValue =
-      url.searchParams.get(
-        "id"
-      );
-
+    const url = new URL(value);
+    const idValue = url.searchParams.get("id");
 
     if(idValue){
-
-      const cleanIdMatch =
-        String(idValue)
-          .trim()
-          .match(
-            /^[A-Za-z0-9_-]+/
-          );
-
-
+      const cleanIdMatch = String(idValue).trim().match(/^[A-Za-z0-9_-]+/);
       if(cleanIdMatch){
-
-        url.searchParams.set(
-          "id",
-          cleanIdMatch[0]
-        );
-
+        url.searchParams.set("id", cleanIdMatch[0]);
       }
-
     }
-
 
     return url.toString();
-
-
   }catch(error){
-
-    return value
-      .split(/\s+/)[0]
-      .trim();
-
+    return value.split(/\s+/)[0].trim();
   }
-
 }
-
-
-
-/* =========================
-   UI
-========================= */
 
 function showOnly(id){
-
-  [
-    "publicView",
-    "loginView",
-    "adminView"
-
-  ].forEach(item=>{
-
-    $(item)
-      .classList
-      .add("hidden");
-
+  ["publicView","loginView","adminView"].forEach(item=>{
+    $(item).classList.add("hidden");
   });
-
-
-  $(id)
-    .classList
-    .remove("hidden");
-
+  $(id).classList.remove("hidden");
 }
 
-
-function setNotice(
-  id,
-  text,
-  ok=false
-){
-
-  const element =
-    $(id);
-
-
-  element.textContent =
-    text;
-
-
-  element.className =
-    "notice " +
-    (
-      ok
-        ? "ok"
-        : "err"
-    );
-
+function setNotice(id,text,ok=false){
+  const element = $(id);
+  element.textContent = text;
+  element.className = "notice " + (ok ? "ok" : "err");
 }
-
 
 function clearNotice(id){
-
-  const element =
-    $(id);
-
-
+  const element = $(id);
   element.textContent = "";
-
-
-  element.className =
-    "notice";
-
+  element.className = "notice";
 }
-
 
 function authHeaders(){
-
-  return{
-
-    "Content-Type":
-      "application/json",
-
-    "Authorization":
-      "Bearer " +
-      (
-        sessionStorage.getItem(
-          ADMIN_TOKEN_KEY
-        ) || ""
-      )
-
+  return {
+    "Content-Type":"application/json",
+    "Authorization":"Bearer " + (sessionStorage.getItem(ADMIN_TOKEN_KEY) || "")
   };
-
 }
-
 
 function cleanId(raw){
-
-  const value =
-    (raw || "")
-      .trim();
-
-
-  const match =
-    value.match(
-      /[?&]id=([A-Za-z0-9_-]+)/
-    );
-
-
-  return match
-    ? match[1]
-    : value.replace(
-        /[^A-Za-z0-9_-]/g,
-        ""
-      );
-
+  const value = (raw || "").trim();
+  const match = value.match(/[?&]id=([A-Za-z0-9_-]+)/);
+  return match ? match[1] : value.replace(/[^A-Za-z0-9_-]/g,"");
 }
 
+function formatUsedDate(iso){
+  if(!iso) return "";
 
-
-/* =========================
-   DATE FORMAT
-========================= */
-
-function formatUsedDate(
-  iso
-){
-
-  if(!iso){
-    return "";
-  }
-
-
-  const date =
-    new Date(iso);
-
+  const date = new Date(iso);
 
   try{
-
-    const parts =
-      new Intl.DateTimeFormat(
-        "en-GB",
-        {
-          timeZone:
-            "Asia/Baghdad",
-
-          year:
-            "numeric",
-
-          month:
-            "2-digit",
-
-          day:
-            "2-digit",
-
-          hour:
-            "2-digit",
-
-          minute:
-            "2-digit",
-
-          second:
-            "2-digit",
-
-          hour12:
-            false
-        }
-      )
-      .formatToParts(date);
-
+    const parts = new Intl.DateTimeFormat("en-GB",{
+      timeZone:"Asia/Baghdad",
+      year:"numeric",
+      month:"2-digit",
+      day:"2-digit",
+      hour:"2-digit",
+      minute:"2-digit",
+      second:"2-digit",
+      hour12:false
+    }).formatToParts(date);
 
     const values = {};
-
-
-    parts.forEach(
-      part => {
-
-        values[
-          part.type
-        ] =
-          part.value;
-
-      }
-    );
-
+    parts.forEach(part=>{
+      values[part.type] = part.value;
+    });
 
     return (
-      values.year +
-      "-" +
-      values.month +
-      "-" +
-      values.day +
-      " " +
-      values.hour +
-      ":" +
-      values.minute +
-      ":" +
+      values.year + "-" +
+      values.month + "-" +
+      values.day + " " +
+      values.hour + ":" +
+      values.minute + ":" +
       values.second
     );
-
-
   }catch(error){
-
     return iso;
-
   }
-
 }
 
+window.addEventListener("DOMContentLoaded", async()=>{
+  currentPublicId = new URLSearchParams(location.search).get("id") || "";
 
-
-/* =========================
-   START
-========================= */
-
-window.addEventListener(
-  "DOMContentLoaded",
-  async()=>{
-
-    currentPublicId =
-      new URLSearchParams(
-        location.search
-      ).get("id") || "";
-
-
-    if(currentPublicId){
-
-      $("modeLabel")
-        .textContent =
-        "Public";
-
-
-      showOnly(
-        "publicView"
-      );
-
-
-      await loadPublicRecord();
-
-
-    }else{
-
-      $("modeLabel")
-        .textContent =
-        "Admin";
-
-
-      const token =
-        sessionStorage.getItem(
-          ADMIN_TOKEN_KEY
-        );
-
-
-      showOnly(
-        token
-          ? "adminView"
-          : "loginView"
-      );
-
-    }
-
+  if(currentPublicId){
+    $("modeLabel").textContent = "Public";
+    showOnly("publicView");
+    await loadPublicRecord();
+  }else{
+    $("modeLabel").textContent = "Admin";
+    const token = sessionStorage.getItem(ADMIN_TOKEN_KEY);
+    showOnly(token ? "adminView" : "loginView");
   }
-);
-
-
-
-/* =========================
-   LOGIN
-========================= */
+});
 
 async function adminLogin(){
+  clearNotice("loginMsg");
 
-  clearNotice(
-    "loginMsg"
-  );
-
-
-  const password =
-    $("adminPassword")
-      .value;
-
+  const password = $("adminPassword").value;
 
   if(!password){
-
-    setNotice(
-      "loginMsg",
-      "تکایە پاسۆرد بنووسە."
-    );
-
+    setNotice("loginMsg","تکایە پاسۆرد بنووسە.");
     return;
-
   }
-
 
   try{
+    const response = await fetch(API_BASE + "/api/login",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({password})
+    });
 
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/login",
-        {
-
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:
-            JSON.stringify({
-              password
-            })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
+    const data = await response.json();
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Login failed"
-      );
-
+      throw new Error(data.error || "Login failed");
     }
 
-
-    sessionStorage.setItem(
-      ADMIN_TOKEN_KEY,
-      data.token
-    );
-
-
-    $("adminPassword")
-      .value = "";
-
-
-    showOnly(
-      "adminView"
-    );
-
+    sessionStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+    $("adminPassword").value = "";
+    showOnly("adminView");
 
   }catch(error){
-
-    setNotice(
-      "loginMsg",
-      "پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
-    );
-
+    setNotice("loginMsg","پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە.");
   }
-
 }
-
 
 function logout(){
-
-  sessionStorage.removeItem(
-    ADMIN_TOKEN_KEY
-  );
-
+  sessionStorage.removeItem(ADMIN_TOKEN_KEY);
   location.reload();
-
 }
-
-
-
-/* =========================
-   TABS
-========================= */
 
 function switchTab(name){
-
-  $("tabCreate")
-    .classList
-    .toggle(
-      "active",
-      name === "create"
-    );
-
-
-  $("tabEdit")
-    .classList
-    .toggle(
-      "active",
-      name === "edit"
-    );
-
-
-  $("createView")
-    .classList
-    .toggle(
-      "hidden",
-      name !== "create"
-    );
-
-
-  $("editView")
-    .classList
-    .toggle(
-      "hidden",
-      name !== "edit"
-    );
-
+  $("tabCreate").classList.toggle("active", name === "create");
+  $("tabEdit").classList.toggle("active", name === "edit");
+  $("createView").classList.toggle("hidden", name !== "create");
+  $("editView").classList.toggle("hidden", name !== "edit");
 }
-
-
-
-/* =========================
-   FORM DATA
-========================= */
 
 function getFormData(prefix){
-
-  return{
-
-    email:
-      $(prefix + "Email")
-        .value
-        .trim(),
-
-    password:
-      $(prefix + "Password")
-        .value
-        .trim(),
-
-    targetLink:
-      cleanTargetUrl(
-        $(prefix + "TargetLink")
-          .value
-          .trim()
-      ),
-
-    note:
-      $(prefix + "Note")
-        .value
-        .trim()
-
+  return {
+    email: $(prefix + "Email").value.trim(),
+    password: $(prefix + "Password").value.trim(),
+    targetLink: cleanTargetUrl($(prefix + "TargetLink").value.trim()),
+    note: $(prefix + "Note").value.trim()
   };
-
 }
-
-
-
-/* =========================
-   CREATE
-========================= */
 
 async function createRecord(){
+  clearNotice("createMsg");
+  $("createResult").style.display = "none";
 
-  clearNotice(
-    "createMsg"
-  );
+  const payload = getFormData("c");
+  $("cTargetLink").value = payload.targetLink;
 
-
-  $("createResult")
-    .style
-    .display =
-    "none";
-
-
-  const payload =
-    getFormData("c");
-
-
-  $("cTargetLink")
-    .value =
-    payload.targetLink;
-
-
-  if(
-    !payload.email &&
-    !payload.password
-  ){
-
-    setNotice(
-      "createMsg",
-      "لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە."
-    );
-
+  if(!payload.email && !payload.password){
+    setNotice("createMsg","لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.");
     return;
-
   }
-
 
   try{
+    const response = await fetch(API_BASE + "/api/records",{
+      method:"POST",
+      headers:authHeaders(),
+      body:JSON.stringify(payload)
+    });
 
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/records",
-        {
+    const data = await response.json();
 
-          method:"POST",
-
-          headers:
-            authHeaders(),
-
-          body:
-            JSON.stringify(
-              payload
-            )
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
+    if(response.status === 401){
       logout();
-
       return;
-
     }
-
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Create failed"
-      );
-
+      throw new Error(data.error || "Create failed");
     }
 
+    createdUrl = location.origin + location.pathname + "?id=" + encodeURIComponent(data.id);
+    $("generatedLink").textContent = createdUrl;
+    $("createResult").style.display = "block";
 
-    createdUrl =
-      location.origin +
-      location.pathname +
-      "?id=" +
-      encodeURIComponent(
-        data.id
-      );
-
-
-    $("generatedLink")
-      .textContent =
-      createdUrl;
-
-
-    $("createResult")
-      .style
-      .display =
-      "block";
-
-
-    setNotice(
-      "createMsg",
-      "لینکەکە بە سەرکەوتوویی دروست کرا.",
-      true
-    );
-
+    setNotice("createMsg","لینکەکە بە سەرکەوتوویی دروست کرا.",true);
 
   }catch(error){
-
-    setNotice(
-      "createMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
+    setNotice("createMsg", error.message || "هەڵەیەک ڕوویدا.");
   }
-
 }
-
-
-
-/* =========================
-   LOAD EDIT
-========================= */
 
 async function loadRecordForEdit(){
+  clearNotice("editMsg");
 
-  clearNotice(
-    "editMsg"
-  );
-
-
-  const id =
-    cleanId(
-      $("editId").value
-    );
-
-
-  $("editId")
-    .value =
-    id;
-
+  const id = cleanId($("editId").value);
+  $("editId").value = id;
 
   if(!id){
-
-    setNotice(
-      "editMsg",
-      "ID بنووسە."
-    );
-
+    setNotice("editMsg","ID بنووسە.");
     return;
-
   }
-
 
   try{
+    const response = await fetch(API_BASE + "/api/admin/record/" + encodeURIComponent(id),{
+      headers:authHeaders()
+    });
 
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/admin/record/" +
-        encodeURIComponent(id),
-        {
-          headers:
-            authHeaders()
-        }
-      );
+    const data = await response.json();
 
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
+    if(response.status === 401){
       logout();
-
       return;
-
     }
-
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Record not found"
-      );
-
+      throw new Error(data.error || "Record not found");
     }
 
+    $("eEmail").value = data.record.email || "";
+    $("ePassword").value = data.record.password || "";
+    $("eTargetLink").value = cleanTargetUrl(data.record.targetLink || "");
+    $("eNote").value = data.record.note || "";
 
-    $("eEmail")
-      .value =
-      data.record.email || "";
-
-
-    $("ePassword")
-      .value =
-      data.record.password || "";
-
-
-    $("eTargetLink")
-      .value =
-      cleanTargetUrl(
-        data.record.targetLink ||
-        ""
-      );
-
-
-    $("eNote")
-      .value =
-      data.record.note || "";
-
-
-    $("editFields")
-      .classList
-      .remove("hidden");
-
-
-    setNotice(
-      "editMsg",
-      "زانیارییەکان بارکران.",
-      true
-    );
-
+    $("editFields").classList.remove("hidden");
+    setNotice("editMsg","زانیارییەکان بارکران.",true);
 
   }catch(error){
-
-    $("editFields")
-      .classList
-      .add("hidden");
-
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "زانیارییەکە نەدۆزرایەوە."
-    );
-
+    $("editFields").classList.add("hidden");
+    setNotice("editMsg", error.message || "زانیارییەکە نەدۆزرایەوە.");
   }
-
 }
-
-
-
-/* =========================
-   SAVE
-========================= */
 
 async function saveRecord(){
+  clearNotice("editMsg");
 
-  clearNotice(
-    "editMsg"
-  );
-
-
-  const id =
-    cleanId(
-      $("editId").value
-    );
-
-
-  const payload =
-    getFormData("e");
-
-
-  $("eTargetLink")
-    .value =
-    payload.targetLink;
-
+  const id = cleanId($("editId").value);
+  const payload = getFormData("e");
+  $("eTargetLink").value = payload.targetLink;
 
   try{
+    const response = await fetch(API_BASE + "/api/record/" + encodeURIComponent(id),{
+      method:"PUT",
+      headers:authHeaders(),
+      body:JSON.stringify(payload)
+    });
 
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(id),
-        {
+    const data = await response.json();
 
-          method:"PUT",
-
-          headers:
-            authHeaders(),
-
-          body:
-            JSON.stringify(
-              payload
-            )
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
+    if(response.status === 401){
       logout();
-
       return;
-
     }
-
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Update failed"
-      );
-
+      throw new Error(data.error || "Update failed");
     }
 
-
-    setNotice(
-      "editMsg",
-      "گۆڕانکارییەکان پاشەکەوت کران.",
-      true
-    );
-
+    setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true);
 
   }catch(error){
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
+    setNotice("editMsg", error.message || "هەڵەیەک ڕوویدا.");
   }
-
 }
-
-
-
-/* =========================
-   DELETE
-========================= */
 
 async function deleteRecord(){
+  const id = cleanId($("editId").value);
 
-  const id =
-    cleanId(
-      $("editId").value
-    );
+  if(!id) return;
 
-
-  if(!id){
-
+  if(!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟")){
     return;
-
   }
-
-
-  if(
-    !confirm(
-      "دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"
-    )
-  ){
-
-    return;
-
-  }
-
 
   try{
+    const response = await fetch(API_BASE + "/api/record/" + encodeURIComponent(id),{
+      method:"DELETE",
+      headers:authHeaders()
+    });
 
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(id),
-        {
+    const data = await response.json();
 
-          method:"DELETE",
-
-          headers:
-            authHeaders()
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 401
-    ){
-
+    if(response.status === 401){
       logout();
-
       return;
-
     }
-
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "Delete failed"
-      );
-
+      throw new Error(data.error || "Delete failed");
     }
 
-
-    $("editFields")
-      .classList
-      .add("hidden");
-
-
-    setNotice(
-      "editMsg",
-      "لینکەکە سڕایەوە.",
-      true
-    );
-
+    $("editFields").classList.add("hidden");
+    setNotice("editMsg","لینکەکە سڕایەوە.",true);
 
   }catch(error){
-
-    setNotice(
-      "editMsg",
-      error.message ||
-      "هەڵەیەک ڕوویدا."
-    );
-
+    setNotice("editMsg", error.message || "هەڵەیەک ڕوویدا.");
   }
-
 }
-
-
-
-/* =========================
-   PUBLIC + FIRST VIEW
-========================= */
 
 async function loadPublicRecord(){
-
   try{
-
-
-    /*
-      یەکەم جار کە لینکەکە
-      دەکرێتەوە Used تۆمار دەکات.
-    */
-
-    let firstViewedAt =
-      null;
-
+    let firstViewedAt = null;
 
     try{
-
-      const viewResponse =
-        await fetch(
-          API_BASE +
-          "/api/record/" +
-          encodeURIComponent(
-            currentPublicId
-          ) +
-          "/view",
-          {
-            method:"POST"
-          }
-        );
-
+      const viewResponse = await fetch(
+        API_BASE + "/api/record/" + encodeURIComponent(currentPublicId) + "/view",
+        {method:"POST"}
+      );
 
       if(viewResponse.ok){
-
-        const viewData =
-          await viewResponse.json();
-
-
-        firstViewedAt =
-          viewData.firstViewedAt ||
-          null;
-
+        const viewData = await viewResponse.json();
+        firstViewedAt = viewData.firstViewedAt || null;
       }
+    }catch(error){}
 
-    }catch(error){
+    const response = await fetch(
+      API_BASE + "/api/record/" + encodeURIComponent(currentPublicId)
+    );
 
+    const data = await response.json();
+
+    if(response.status === 404){
+      throw new Error("ئەم لینکە نەدۆزرایەوە.");
     }
-
-
-
-    const response =
-      await fetch(
-        API_BASE +
-        "/api/record/" +
-        encodeURIComponent(
-          currentPublicId
-        )
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if(
-      response.status === 404
-    ){
-
-      throw new Error(
-        "ئەم لینکە نەدۆزرایەوە."
-      );
-
-    }
-
 
     if(!response.ok){
-
-      throw new Error(
-        data.error ||
-        "هەڵەیەک ڕوویدا."
-      );
-
+      throw new Error(data.error || "هەڵەیەک ڕوویدا.");
     }
 
-
-    if(
-      firstViewedAt &&
-      !data.record.firstViewedAt
-    ){
-
-      data.record.firstViewedAt =
-        firstViewedAt;
-
+    if(firstViewedAt && !data.record.firstViewedAt){
+      data.record.firstViewedAt = firstViewedAt;
     }
 
-
-    renderPublic(
-      data.record
-    );
-
+    renderPublic(data.record);
 
   }catch(error){
-
-    $("publicContent")
-      .classList
-      .add("hidden");
-
-
-    $("publicError")
-      .classList
-      .remove("hidden");
-
-
-    $("publicErrorText")
-      .textContent =
-      error.message;
-
+    $("publicContent").classList.add("hidden");
+    $("publicError").classList.remove("hidden");
+    $("publicErrorText").textContent = error.message;
   }
-
 }
-
-
-
-/* =========================
-   RENDER
-========================= */
 
 function renderPublic(record){
+  $("publicError").classList.add("hidden");
+  $("publicContent").classList.remove("hidden");
 
-  $("publicError")
-    .classList
-    .add("hidden");
+  $("displayEmail").value = record.email || "";
+  $("displayPassword").value = record.password || "";
 
-
-  $("publicContent")
-    .classList
-    .remove("hidden");
-
-
-  $("displayEmail")
-    .value =
-    record.email || "";
-
-
-  $("displayPassword")
-    .value =
-    record.password || "";
-
-
-  const cleanLink =
-    cleanTargetUrl(
-      record.targetLink || ""
-    );
-
-
-  $("btnGetCode")
-    .href =
-    cleanLink || "#";
-
-
+  const cleanLink = cleanTargetUrl(record.targetLink || "");
+  $("btnGetCode").href = cleanLink || "#";
 
   if(record.note){
-
-    $("publicNote")
-      .textContent =
-      record.note;
-
-
-    $("publicNote")
-      .classList
-      .remove("hidden");
-
-
+    $("publicNote").textContent = record.note;
+    $("publicNote").classList.remove("hidden");
   }else{
-
-    $("publicNote")
-      .classList
-      .add("hidden");
-
+    $("publicNote").classList.add("hidden");
   }
-
-
 
   if(record.firstViewedAt){
-
-    $("usedDate")
-      .textContent =
-      formatUsedDate(
-        record.firstViewedAt
-      );
-
-
-    $("usedBox")
-      .classList
-      .remove("hidden");
-
-
+    $("usedDate").textContent = formatUsedDate(record.firstViewedAt);
+    $("usedBox").classList.remove("hidden");
   }else{
-
-    $("usedBox")
-      .classList
-      .add("hidden");
-
+    $("usedBox").classList.add("hidden");
   }
-
 }
-
-
-
-/* =========================
-   COPY SOUND
-========================= */
 
 function playCopySound(){
-
   try{
-
-    const AudioContextClass =
-      window.AudioContext ||
-      window.webkitAudioContext;
-
-
-    if(!AudioContextClass){
-
-      return;
-
-    }
-
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if(!AudioContextClass) return;
 
     if(!copyAudioContext){
-
-      copyAudioContext =
-        new AudioContextClass();
-
+      copyAudioContext = new AudioContextClass();
     }
 
-
-    if(
-      copyAudioContext.state ===
-      "suspended"
-    ){
-
+    if(copyAudioContext.state === "suspended"){
       copyAudioContext.resume();
-
     }
 
+    const now = copyAudioContext.currentTime;
+    const oscillator = copyAudioContext.createOscillator();
+    const gain = copyAudioContext.createGain();
 
-    const now =
-      copyAudioContext.currentTime;
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(760, now);
+    oscillator.frequency.exponentialRampToValueAtTime(920, now + .045);
 
+    gain.gain.setValueAtTime(.055, now);
+    gain.gain.exponentialRampToValueAtTime(.001, now + .075);
 
-    const oscillator =
-      copyAudioContext
-        .createOscillator();
+    oscillator.connect(gain);
+    gain.connect(copyAudioContext.destination);
 
+    oscillator.start(now);
+    oscillator.stop(now + .075);
 
-    const gain =
-      copyAudioContext
-        .createGain();
-
-
-    oscillator.type =
-      "sine";
-
-
-    oscillator.frequency
-      .setValueAtTime(
-        760,
-        now
-      );
-
-
-    oscillator.frequency
-      .exponentialRampToValueAtTime(
-        920,
-        now + .045
-      );
-
-
-    gain.gain
-      .setValueAtTime(
-        .055,
-        now
-      );
-
-
-    gain.gain
-      .exponentialRampToValueAtTime(
-        .001,
-        now + .075
-      );
-
-
-    oscillator.connect(
-      gain
-    );
-
-
-    gain.connect(
-      copyAudioContext.destination
-    );
-
-
-    oscillator.start(
-      now
-    );
-
-
-    oscillator.stop(
-      now + .075
-    );
-
-
-  }catch(error){
-
-  }
-
+  }catch(error){}
 }
 
-
-
-/* =========================
-   CLIPBOARD
-========================= */
-
-async function writeClipboard(
-  text
-){
-
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
-
-    await navigator
-      .clipboard
-      .writeText(text);
-
+async function writeClipboard(text){
+  if(navigator.clipboard && window.isSecureContext){
+    await navigator.clipboard.writeText(text);
     return;
-
   }
 
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly","");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
 
-  const textarea =
-    document.createElement(
-      "textarea"
-    );
-
-
-  textarea.value =
-    text;
-
-
-  textarea.setAttribute(
-    "readonly",
-    ""
-  );
-
-
-  textarea.style.position =
-    "fixed";
-
-
-  textarea.style.opacity =
-    "0";
-
-
-  document.body
-    .appendChild(
-      textarea
-    );
-
-
+  document.body.appendChild(textarea);
   textarea.select();
-
-
-  textarea.setSelectionRange(
-    0,
-    textarea.value.length
-  );
-
-
-  document.execCommand(
-    "copy"
-  );
-
-
+  textarea.setSelectionRange(0, textarea.value.length);
+  document.execCommand("copy");
   textarea.remove();
-
 }
 
-
-
-/* =========================
-   COPY EMAIL / PASSWORD
-========================= */
-
-async function copyFrom(
-  id,
-  button
-){
-
+async function copyFrom(id,button){
   playCopySound();
 
-
   try{
+    await writeClipboard($(id).value || "");
 
-    await writeClipboard(
-      $(id).value || ""
-    );
+    const svg = button.innerHTML;
 
-
-    const svg =
-      button.innerHTML;
-
-
-    button.innerHTML =
-      `
+    button.innerHTML = `
       <svg viewBox="0 0 24 24">
-        <path
-          fill="#16a66a"
-          d="M9.2 16.2L4.8 11.8L3.4 13.2L9.2 19L21 7.2L19.6 5.8Z"
-        />
+        <path fill="#16a66a" d="M9.2 16.2L4.8 11.8L3.4 13.2L9.2 19L21 7.2L19.6 5.8Z"/>
       </svg>
-      `;
+    `;
 
+    setTimeout(()=>{
+      button.innerHTML = svg;
+    },900);
 
-    setTimeout(
-      ()=>{
-
-        button.innerHTML =
-          svg;
-
-      },
-      900
-    );
-
-
-  }catch(error){
-
-  }
-
+  }catch(error){}
 }
-
-
-
-/* =========================
-   GENERATED LINK
-========================= */
 
 async function copyGenerated(){
-
   playCopySound();
-
-
   try{
-
-    await writeClipboard(
-      createdUrl
-    );
-
-  }catch(error){
-
-  }
-
+    await writeClipboard(createdUrl);
+  }catch(error){}
 }
-
 
 function openGenerated(){
-
-  if(!createdUrl){
-
-    return;
-
-  }
-
-
-  window.open(
-    createdUrl,
-    "_blank",
-    "noopener"
-  );
-
+  if(!createdUrl) return;
+  window.open(createdUrl,"_blank","noopener");
 }
-
 </script>
-
 </body>
 </html>
