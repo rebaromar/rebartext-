@@ -26,11 +26,102 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
 .qr-tools{margin-top:18px;padding-top:17px;border-top:1px solid #dceaf1}.qr-create-btn{width:100%;border:1px solid #c8dce8;background:#fff;color:#14364e}.qr-result-box{margin-top:18px;padding:22px 16px;border:1px solid #d8e6ee;border-radius:22px;background:linear-gradient(180deg,#fff,#f8fcfe);text-align:center;box-shadow:0 10px 25px rgba(15,23,42,.05)}.qr-result-title{margin-bottom:10px;color:#18222d;font:800 15px/1.3 Inter,Arial,sans-serif}.qr-number-top{direction:ltr;margin:0 auto 16px;color:#078fd1;font:900 30px/1.2 Inter,Arial,sans-serif}#qrCodeBox{display:flex;justify-content:center;align-items:center;min-height:220px}#qrCodeBox img,#qrCodeBox canvas{display:block;width:220px!important;height:220px!important;max-width:100%!important;padding:10px;background:#fff;border:1px solid #e2e8ee;border-radius:16px}.qr-save-btn{width:100%;margin-top:18px;color:#fff;background:linear-gradient(135deg,#078fd1,#37bef0)}.qr-note{margin-top:12px;color:#718096;font-size:11px;line-height:1.8}
 .not-found{min-height:72vh;display:grid;place-items:center;text-align:center;color:#64748b}.not-found strong{display:block;font:900 56px/1 Inter,Arial,sans-serif;color:#cbd5e1;margin-bottom:14px}.otp-box{letter-spacing:10px;text-align:center;font:800 24px/1 Inter,Arial,sans-serif}.tiny{font-size:11px;color:#718096;line-height:1.8;margin-top:10px;text-align:center}
 @media(max-width:650px){body{padding:0 9px 26px}.topbar{min-height:88px}.logo{width:62px;height:62px;flex-basis:62px}.brand-name{font-size:19px}.brand-sub{display:none}.card{border-radius:21px}.content{padding:24px 14px}.login-area{padding:31px 17px 27px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.apple-logo-top{width:56px;height:56px;border-radius:16px}.apple-logo-top svg{width:28px;height:28px}.public-head h1{font-size:26px}.account-label{font-size:18px}.account-box{min-height:67px;border-radius:20px}.icon-copy-button{flex-basis:78px;width:78px;min-height:63px;font-size:14px}.icon-copy-button.copied{font-size:12px}.copy-divider{height:44px}.account-value{height:63px;padding:0 13px;font-size:16px}.used-title{font-size:18px}.used-date{font-size:16px}#qrCodeBox img,#qrCodeBox canvas{width:205px!important;height:205px!important}}
+
+/* ===== REBAR IT MOBILE-FIRST FINAL ===== */
+.topbar{
+  direction:ltr;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:106px;
+  padding:14px 4px;
+}
+.top-first-opened{
+  direction:ltr;
+  text-align:right;
+  margin-left:auto;
+  min-width:0;
+}
+.top-first-label{
+  color:#697586;
+  font-family:Inter,Arial,sans-serif;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:5px;
+}
+.top-first-date{
+  color:#17191d;
+  font-family:Inter,Arial,sans-serif;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.2;
+  white-space:nowrap;
+}
+
+@media(max-width:650px){
+  body{padding:0 8px 24px}
+  .shell{width:100%}
+  .topbar{min-height:84px;padding:10px 3px;gap:8px}
+  .brand{gap:8px;min-width:0}
+  .logo{width:54px;height:54px;flex:0 0 54px}
+  .brand-name{font-size:18px;white-space:nowrap}
+  .brand-sub{display:none}
+  .top-first-opened{flex:1;text-align:right}
+  .top-first-label{font-size:10px;margin-bottom:4px}
+  .top-first-date{font-size:11px}
+  .card{border-radius:20px}
+  .content{padding:20px 12px 22px}
+  .admin-header{padding:18px 14px 14px}
+  .admin-header h1{font-size:20px}
+  .tabs{
+    position:sticky;
+    top:0;
+    z-index:20;
+    padding:8px;
+    gap:6px;
+  }
+  .tab{min-height:46px;padding:8px 5px;font-size:11px;border-radius:12px}
+  .grid{grid-template-columns:1fr;gap:8px}
+  .full{grid-column:auto}
+  .field{margin-bottom:10px}
+  .field label{font-size:12px;margin-bottom:6px}
+  .field input,.field textarea{
+    min-height:52px;
+    padding:11px 12px;
+    border-radius:15px;
+    font-size:16px;
+  }
+  .field textarea{min-height:95px}
+  button,.button{min-height:50px;border-radius:14px;font-size:13px}
+  .button-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .qr-result-box{padding:18px 10px}
+  #qrCodeBox img,#qrCodeBox canvas{width:200px!important;height:200px!important}
+  .qr-number-top{font-size:27px}
+  .account-block{margin-bottom:18px}
+  .account-box{min-height:64px}
+  .account-value{height:60px;font-size:15px}
+  .icon-copy-button{width:72px;flex-basis:72px;min-height:60px}
+}
+
 </style>
 </head>
 <body>
 <div class="shell">
-<header id="siteHeader" class="topbar hidden"><div class="brand"><div class="logo"><img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo"></div><div class="brand-text"><div class="brand-name"><span class="rebar">REBAR</span><span class="it">IT</span></div><div class="brand-sub">SECURE ACCESS</div></div></div></header>
+<header id="siteHeader" class="topbar hidden">
+  <div class="brand">
+    <div class="logo"><img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo"></div>
+    <div class="brand-text">
+      <div class="brand-name"><span class="rebar">REBAR</span><span class="it">IT</span></div>
+      <div class="brand-sub">SECURE ACCESS</div>
+    </div>
+  </div>
+  <div id="topFirstOpened" class="top-first-opened hidden">
+    <div class="top-first-label">First Opened</div>
+    <div id="topFirstOpenedDate" class="top-first-date"></div>
+  </div>
+</header>
 
 <section id="notFoundView" class="not-found hidden"><div><strong>404</strong><div>Page Not Found</div></div></section>
 
@@ -139,7 +230,16 @@ async function loadRecordForEdit(){clearNotice("editMsg");const id=cleanId($("ed
 async function saveRecord(){clearNotice("editMsg");const id=cleanId($("editId").value),payload=getFormData("e");$("eTargetLink").value=payload.targetLink;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Update failed");setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
 async function deleteRecord(){const id=cleanId($("editId").value);if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"))return;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Delete failed");$("editFields").classList.add("hidden");setNotice("editMsg","لینکەکە سڕایەوە.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
 async function loadPublicRecord(){try{let firstViewedAt=null;try{const vr=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)+"/view",{method:"POST"});if(vr.ok){const vd=await vr.json();firstViewedAt=vd.firstViewedAt||null}}catch{}const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)),d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");if(firstViewedAt&&!d.record.firstViewedAt)d.record.firstViewedAt=firstViewedAt;renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
-function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){$("usedDate").textContent=formatUsedDate(record.firstViewedAt);$("usedBox").classList.remove("hidden")}else{$("usedBox").classList.add("hidden")}}
+function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
+  const formattedDate=formatUsedDate(record.firstViewedAt);
+  $("topFirstOpenedDate").textContent=formattedDate;
+  $("topFirstOpened").classList.remove("hidden");
+  $("usedBox").classList.add("hidden");
+}else{
+  $("topFirstOpenedDate").textContent="";
+  $("topFirstOpened").classList.add("hidden");
+  $("usedBox").classList.add("hidden");
+}}
 function playCopySound(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;if(!copyAudioContext)copyAudioContext=new A();if(copyAudioContext.state==="suspended")copyAudioContext.resume();const now=copyAudioContext.currentTime,o=copyAudioContext.createOscillator(),g=copyAudioContext.createGain();o.type="sine";o.frequency.setValueAtTime(760,now);o.frequency.exponentialRampToValueAtTime(920,now+.045);g.gain.setValueAtTime(.055,now);g.gain.exponentialRampToValueAtTime(.001,now+.075);o.connect(g);g.connect(copyAudioContext.destination);o.start(now);o.stop(now+.075)}catch{}}
 async function writeClipboard(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return}const t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();t.setSelectionRange(0,t.value.length);document.execCommand("copy");t.remove()}
 async function copyFrom(id,button){playCopySound();try{await writeClipboard($(id).value||"");button.classList.add("copied");button.textContent="کۆپی کرا ✓";setTimeout(()=>{button.classList.remove("copied");button.textContent="کۆپی"},1200)}catch{button.textContent="هەڵە";setTimeout(()=>button.textContent="کۆپی",1200)}}
