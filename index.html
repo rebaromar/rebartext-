@@ -52,27 +52,35 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
 
     <div id="passwordStep">
       <h2 class="login-title">بەشی بەڕێوەبەر</h2>
-      <p class="login-description">قۆناغی 1 لە 3 — پاسۆردی بەڕێوەبەر بنووسە.</p>
+      <p class="login-description">یەکەم پاسۆردی بەڕێوەبەر بنووسە.</p>
       <div class="field"><label>پاسۆردی بەڕێوەبەر</label><input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div>
       <button class="primary wide" onclick="startAdminLogin()">بەردەوامبوون</button>
     </div>
 
+    <div id="methodStep" class="hidden">
+      <h2 class="login-title">ڕێگای پشتڕاستکردنەوە</h2>
+      <p class="login-description">یەکێک هەڵبژێرە؛ تەنها هەمان یەک ڕێگا پێویستە.</p>
+      <button class="primary wide" onclick="chooseAuthenticator()">Google Authenticator</button>
+      <button class="secondary wide" style="margin-top:10px" onclick="chooseEmail()">کۆد بۆ ئیمەیڵ بنێرە</button>
+      <button class="secondary wide" style="margin-top:10px" onclick="resetLoginStep()">گەڕانەوە بۆ پاسۆرد</button>
+    </div>
+
     <div id="totpStep" class="hidden">
       <h2 class="login-title">Google Authenticator</h2>
-      <p class="login-description">قۆناغی 2 لە 3 — کۆدی 6 ژمارەیی REBAR IT لە Google Authenticator داخڵ بکە.</p>
+      <p class="login-description">کۆدی 6 ژمارەیی REBAR IT داخڵ بکە؛ دوای پشتڕاستکردنەوە ڕاستەوخۆ دەچیتە ناو Admin.</p>
       <div class="field"><label>Authenticator Code</label><input id="adminTotp" class="ltr otp-box" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div>
-      <button class="primary wide" onclick="verifyAdminTotp()">پشتڕاستکردنەوە</button>
-      <button class="secondary wide" style="margin-top:9px" onclick="resetLoginStep()">گەڕانەوە</button>
+      <button class="primary wide" onclick="verifyAdminTotp()">چوونەژوورەوە</button>
+      <button class="secondary wide" style="margin-top:9px" onclick="backToMethodChoice()">گۆڕینی ڕێگا</button>
       <div class="tiny">کۆدەکە هەر نزیکەی 30 چرکە دەگۆڕێت.</div>
     </div>
 
     <div id="emailStep" class="hidden">
       <h2 class="login-title">Email Code</h2>
-      <p class="login-description">قۆناغی 3 لە 3 — کۆدی 6 ژمارەیی نێردراو بۆ ئیمەیڵەکەت داخڵ بکە.</p>
+      <p class="login-description">کۆدی 6 ژمارەیی نێردراو بۆ ئیمەیڵەکەت داخڵ بکە؛ دوای پشتڕاستکردنەوە ڕاستەوخۆ دەچیتە ناو Admin.</p>
       <div class="field"><label>کۆدی ئیمەیڵ</label><input id="adminEmailOtp" class="ltr otp-box" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div>
       <button class="primary wide" onclick="verifyEmailOtp()">چوونەژوورەوە</button>
       <button class="secondary wide" style="margin-top:9px" onclick="resendEmailCode()">ناردنەوەی کۆد</button>
-      <button class="secondary wide" style="margin-top:9px" onclick="resetLoginStep()">دەستپێکردنەوە</button>
+      <button class="secondary wide" style="margin-top:9px" onclick="backToMethodChoice()">گۆڕینی ڕێگا</button>
       <div class="tiny">کۆدی ئیمەیڵ بۆ ماوەی 5 خولەک بەردەستە و تەنها یەک جار بەکاردێت.</div>
     </div>
 
@@ -113,11 +121,14 @@ function authHeaders(){return{"Content-Type":"application/json","Authorization":
 function cleanId(raw){const value=String(raw||"").trim(),match=value.match(/[?&]id=([^&#]+)/);let id=match?decodeURIComponent(match[1]):value;return id.replace(/[^A-Za-z0-9_$~_-]/g,"")}
 function formatUsedDate(iso){if(!iso)return"";const date=new Date(iso);try{const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Baghdad",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).formatToParts(date),v={};parts.forEach(p=>v[p.type]=p.value);return`${v.year}-${v.month}-${v.day} ${v.hour}:${v.minute}:${v.second}`}catch{return iso}}
 window.addEventListener("DOMContentLoaded",async()=>{installCleanPaste();const params=new URLSearchParams(location.search);currentPublicId=params.get("id")||"";const owner=params.get(OWNER_PARAM)===OWNER_VALUE;if(currentPublicId){showHeader(true);showOnly("publicView");await loadPublicRecord();return}if(owner){showHeader(true);const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);showOnly(token?"adminView":"loginView");return}showHeader(false);showOnly("notFoundView")});
-async function startAdminLogin(){clearNotice("loginMsg");const password=$("adminPassword").value;if(!password){setNotice("loginMsg","تکایە پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Login failed");loginChallenge=d.challenge||"";$("passwordStep").classList.add("hidden");$("totpStep").classList.remove("hidden");$("adminTotp").value="";setNotice("loginMsg","پاسۆرد دروستە. ئێستا کۆدی Google Authenticator داخڵ بکە.",true);setTimeout(()=>$("adminTotp").focus(),100)}catch(e){setNotice("loginMsg",e.message==="Too many login attempts. Try again later."?"هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە.":"پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە.")}}
-async function verifyAdminTotp(){clearNotice("loginMsg");const code=$("adminTotp").value.replace(/\D/g,"").slice(0,6);if(!loginChallenge||code.length!==6){setNotice("loginMsg","کۆدی 6 ژمارەیی Google Authenticator بە دروستی بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login/totp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge,code})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Verification failed");$("totpStep").classList.add("hidden");$("emailStep").classList.remove("hidden");$("adminEmailOtp").value="";setNotice("loginMsg","Google Authenticator دروستە. کۆدی ئیمەیڵ نێردرا.",true);setTimeout(()=>$("adminEmailOtp").focus(),100)}catch(e){setNotice("loginMsg",e.message==="Challenge expired"?"کاتی چوونەژوورەوە بەسەرچوو. لە سەرەتاوە هەوڵ بدە.":e.message==="Too many TOTP attempts"?"هەوڵی زۆر دراوە. لە سەرەتاوە هەوڵ بدە.":e.message==="Email delivery failed"?"کۆدی ئیمەیڵ نەنێردرا. RESEND_API_KEY و ADMIN_EMAIL بپشکنە.":"کۆدی Google Authenticator هەڵەیە.")}}
+async function startAdminLogin(){clearNotice("loginMsg");const password=$("adminPassword").value;if(!password){setNotice("loginMsg","تکایە پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Login failed");loginChallenge=d.challenge||"";$("passwordStep").classList.add("hidden");$("methodStep").classList.remove("hidden");setNotice("loginMsg","پاسۆرد دروستە. یەکێک لە ڕێگاکانی پشتڕاستکردنەوە هەڵبژێرە.",true)}catch(e){setNotice("loginMsg",e.message==="Too many login attempts. Try again later."?"هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە.":"پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە.")}}
+function chooseAuthenticator(){if(!loginChallenge){resetLoginStep();return}$("methodStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("totpStep").classList.remove("hidden");$("adminTotp").value="";clearNotice("loginMsg");setTimeout(()=>$("adminTotp").focus(),100)}
+async function chooseEmail(){clearNotice("loginMsg");if(!loginChallenge){resetLoginStep();return}try{const r=await fetch(API_BASE+"/api/login/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Email send failed");$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.remove("hidden");$("adminEmailOtp").value="";setNotice("loginMsg","کۆدی 6 ژمارەیی بۆ ئیمەیڵەکەت نێردرا.",true);setTimeout(()=>$("adminEmailOtp").focus(),100)}catch(e){setNotice("loginMsg",e.message==="Please wait before resending"?"تکایە 30 چرکە چاوەڕێ بکە پاشان دووبارە هەوڵ بدە.":e.message==="Challenge expired"?"کاتی چوونەژوورەوە بەسەرچوو. لە سەرەتاوە هەوڵ بدە.":"کۆدی ئیمەیڵ نەنێردرا. RESEND_API_KEY و ADMIN_EMAIL بپشکنە.")}}
+async function verifyAdminTotp(){clearNotice("loginMsg");const code=$("adminTotp").value.replace(/\D/g,"").slice(0,6);if(!loginChallenge||code.length!==6){setNotice("loginMsg","کۆدی 6 ژمارەیی Google Authenticator بە دروستی بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login/totp",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge,code})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Verification failed");sessionStorage.setItem(ADMIN_TOKEN_KEY,d.token);loginChallenge="";showOnly("adminView")}catch(e){setNotice("loginMsg",e.message==="Challenge expired"?"کاتی چوونەژوورەوە بەسەرچوو. لە سەرەتاوە هەوڵ بدە.":e.message==="Too many TOTP attempts"?"هەوڵی زۆر دراوە. لە سەرەتاوە هەوڵ بدە.":"کۆدی Google Authenticator هەڵەیە.")}}
 async function verifyEmailOtp(){clearNotice("loginMsg");const code=$("adminEmailOtp").value.replace(/\D/g,"").slice(0,6);if(!loginChallenge||code.length!==6){setNotice("loginMsg","کۆدی 6 ژمارەیی ئیمەیڵ بە دروستی بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login/email",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge,code})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Verification failed");sessionStorage.setItem(ADMIN_TOKEN_KEY,d.token);loginChallenge="";showOnly("adminView")}catch(e){setNotice("loginMsg",e.message==="Email OTP expired"?"کۆدی ئیمەیڵ بەسەرچوو. کۆدێکی نوێ داوا بکە.":e.message==="Too many email OTP attempts"?"هەوڵی زۆر دراوە. لە سەرەتاوە هەوڵ بدە.":"کۆدی ئیمەیڵ هەڵەیە.")}}
 async function resendEmailCode(){clearNotice("loginMsg");if(!loginChallenge){resetLoginStep();return}try{const r=await fetch(API_BASE+"/api/login/email/resend",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Resend failed");setNotice("loginMsg","کۆدی نوێ بۆ ئیمەیڵ نێردرا.",true)}catch(e){setNotice("loginMsg",e.message==="Please wait before resending"?"تکایە 30 چرکە چاوەڕێ بکە پاشان دووبارە بنێرە.":"کۆدی ئیمەیڵ نەنێردرا.")}}
-function resetLoginStep(){loginChallenge="";$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("passwordStep").classList.remove("hidden");$("adminPassword").value="";$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
+function backToMethodChoice(){if(!loginChallenge){resetLoginStep();return}$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("methodStep").classList.remove("hidden");$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
+function resetLoginStep(){loginChallenge="";$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("passwordStep").classList.remove("hidden");$("adminPassword").value="";$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
 function logout(){sessionStorage.removeItem(ADMIN_TOKEN_KEY);location.href=PUBLIC_BASE+"?owner=1"}
 function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("editView").classList.toggle("hidden",name!=="edit")}
 function getFormData(prefix){return{email:$(prefix+"Email").value.trim(),password:$(prefix+"Password").value.trim(),targetLink:cleanTargetUrl($(prefix+"TargetLink").value.trim()),note:$(prefix+"Note").value.trim()}}
