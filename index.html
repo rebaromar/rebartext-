@@ -105,6 +105,26 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   .icon-copy-button{width:72px;flex-basis:72px;min-height:60px}
 }
 
+
+/* ===== PASSKEY / FACE ID ===== */
+.passkey-btn{
+  color:#fff;
+  background:linear-gradient(135deg,#111827,#243b53);
+  box-shadow:0 10px 22px rgba(15,23,42,.14);
+  margin-bottom:14px;
+}
+.passkey-separator{
+  display:flex;align-items:center;gap:10px;margin:2px 0 14px;color:#94a3b8;font-size:11px;font-weight:800
+}
+.passkey-separator:before,.passkey-separator:after{content:"";height:1px;background:#e2e8f0;flex:1}
+.passkey-manage-btn{
+  margin-top:13px;min-height:44px;padding:9px 13px;border:1px solid #cfe2ee;background:#f5fbff;color:#075985;border-radius:13px
+}
+@media(max-width:650px){
+  .passkey-btn{min-height:54px;font-size:13px}
+  .passkey-manage-btn{width:100%;min-height:48px}
+}
+
 </style>
 </head>
 <body>
@@ -143,6 +163,8 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
 
     <div id="passwordStep">
       <h2 class="login-title">بەشی بەڕێوەبەر</h2>
+      <button class="passkey-btn wide" onclick="loginWithPasskey()">🔐 چوونەژوورەوە بە Passkey / Face ID</button>
+      <div class="passkey-separator"><span>یان</span></div>
       <p class="login-description">یەکەم پاسۆردی بەڕێوەبەر بنووسە.</p>
       <div class="field"><label>پاسۆردی بەڕێوەبەر</label><input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div>
       <button class="primary wide" onclick="startAdminLogin()">بەردەوامبوون</button>
@@ -180,7 +202,12 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
 </section>
 
 <section id="adminView" class="card hidden">
-  <div class="admin-header"><h1>بەڕێوەبردنی لینکەکان</h1><p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p></div>
+  <div class="admin-header">
+    <h1>بەڕێوەبردنی لینکەکان</h1>
+    <p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p>
+    <button class="passkey-manage-btn" onclick="registerPasskey()">🔐 چالاککردنی Passkey / Face ID</button>
+    <div id="passkeyMsg" class="notice"></div>
+  </div>
   <div class="tabs"><button id="tabCreate" class="tab active" onclick="switchTab('create')">لینکی نوێ</button><button id="tabEdit" class="tab" onclick="switchTab('edit')">دەستکاری</button><button class="tab" onclick="logout()">چوونەدەرەوە</button></div>
   <div id="createView" class="content">
     <div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="cEmail" class="ltr" placeholder="example@email.com"></div><div class="field"><label>پاسۆرد</label><input id="cPassword" class="ltr" placeholder="Password"></div><div class="field full"><label>لینک</label><input id="cTargetLink" class="ltr" placeholder="https://..."></div><div class="field full"><label>تێبینی</label><textarea id="cNote" placeholder="تێبینی..."></textarea></div></div>
@@ -268,6 +295,120 @@ function installCleanPaste(){
     }
   });
 }
+
+function b64uToBytesPasskey(v){
+  let s=String(v||"").replace(/-/g,"+").replace(/_/g,"/");
+  while(s.length%4)s+="=";
+  const b=atob(s),a=new Uint8Array(b.length);
+  for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);
+  return a;
+}
+function bytesToB64uPasskey(v){
+  const a=v instanceof Uint8Array?v:new Uint8Array(v);
+  let s=""; for(let i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);
+  return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function passkeySupported(){
+  return !!(window.PublicKeyCredential && navigator.credentials);
+}
+async function registerPasskey(){
+  clearNotice("passkeyMsg");
+  if(!passkeySupported()){setNotice("passkeyMsg","ئەم وێبگەڕە Passkey پشتگیری ناکات.");return}
+  try{
+    const r=await fetch(API_BASE+"/api/passkey/register/options",{method:"POST",headers:authHeaders()});
+    const d=await r.json();
+    if(r.status===401){logout();return}
+    if(!r.ok)throw new Error(d.error||"Passkey setup failed");
+
+    const publicKey={
+      challenge:b64uToBytesPasskey(d.challenge),
+      rp:{name:"REBAR IT",id:d.rpId},
+      user:{id:b64uToBytesPasskey(d.user.id),name:d.user.name,displayName:d.user.displayName},
+      pubKeyCredParams:[{type:"public-key",alg:-7}],
+      timeout:60000,
+      attestation:"none",
+      authenticatorSelection:{
+        residentKey:"required",
+        requireResidentKey:true,
+        userVerification:"required"
+      }
+    };
+    if(Array.isArray(d.excludeCredentials)){
+      publicKey.excludeCredentials=d.excludeCredentials.map(x=>({type:"public-key",id:b64uToBytesPasskey(x.id)}));
+    }
+
+    const cred=await navigator.credentials.create({publicKey});
+    if(!cred)throw new Error("Passkey creation cancelled");
+
+    const response=cred.response;
+    if(typeof response.getPublicKey!=="function")throw new Error("This browser cannot export the Passkey public key");
+    const pk=response.getPublicKey();
+    if(!pk)throw new Error("Public key unavailable");
+    const alg=typeof response.getPublicKeyAlgorithm==="function"?response.getPublicKeyAlgorithm():-7;
+
+    const vr=await fetch(API_BASE+"/api/passkey/register/verify",{
+      method:"POST",headers:authHeaders(),
+      body:JSON.stringify({
+        id:cred.id,
+        rawId:bytesToB64uPasskey(cred.rawId),
+        type:cred.type,
+        clientDataJSON:bytesToB64uPasskey(response.clientDataJSON),
+        publicKey:bytesToB64uPasskey(pk),
+        alg
+      })
+    });
+    const vd=await vr.json();
+    if(!vr.ok)throw new Error(vd.error||"Passkey verification failed");
+    setNotice("passkeyMsg","Passkey / Face ID بە سەرکەوتوویی چالاک کرا. ✓",true);
+  }catch(e){
+    if(e && e.name==="NotAllowedError"){setNotice("passkeyMsg","دروستکردنی Passkey هەڵوەشایەوە.");return}
+    setNotice("passkeyMsg",e.message||"Passkey دروست نەکرا.");
+  }
+}
+async function loginWithPasskey(){
+  clearNotice("loginMsg");
+  if(!passkeySupported()){setNotice("loginMsg","ئەم وێبگەڕە Passkey پشتگیری ناکات.");return}
+  try{
+    const r=await fetch(API_BASE+"/api/passkey/login/options",{method:"POST",headers:{"Content-Type":"application/json"}});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||"Passkey unavailable");
+
+    const publicKey={
+      challenge:b64uToBytesPasskey(d.challenge),
+      rpId:d.rpId,
+      timeout:60000,
+      userVerification:"required"
+    };
+    if(Array.isArray(d.allowCredentials)&&d.allowCredentials.length){
+      publicKey.allowCredentials=d.allowCredentials.map(x=>({type:"public-key",id:b64uToBytesPasskey(x.id)}));
+    }
+
+    const cred=await navigator.credentials.get({publicKey});
+    if(!cred)throw new Error("Passkey login cancelled");
+    const a=cred.response;
+
+    const vr=await fetch(API_BASE+"/api/passkey/login/verify",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        challengeId:d.challengeId,
+        id:cred.id,
+        rawId:bytesToB64uPasskey(cred.rawId),
+        clientDataJSON:bytesToB64uPasskey(a.clientDataJSON),
+        authenticatorData:bytesToB64uPasskey(a.authenticatorData),
+        signature:bytesToB64uPasskey(a.signature),
+        userHandle:a.userHandle?bytesToB64uPasskey(a.userHandle):""
+      })
+    });
+    const vd=await vr.json();
+    if(!vr.ok)throw new Error(vd.error||"Passkey verification failed");
+    sessionStorage.setItem(ADMIN_TOKEN_KEY,vd.token);
+    showOnly("adminView");
+  }catch(e){
+    if(e && e.name==="NotAllowedError"){setNotice("loginMsg","Face ID / Passkey هەڵوەشایەوە.");return}
+    setNotice("loginMsg",e.message==="No passkey registered"?"هێشتا Passkey چالاک نەکراوە. یەکەم جار بە پاسۆرد بچۆ ژوورەوە و چالاکی بکە.":(e.message||"Passkey کار نەکرد."));
+  }
+}
+
 </script>
 </body>
 </html>
