@@ -147,6 +147,75 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   pointer-events:none;
 }
 
+
+/* ===== MODERN CENTER COPY TOAST ===== */
+.copy-toast{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(.92);
+  min-width:210px;
+  max-width:86vw;
+  padding:15px 20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(10,24,39,.97),rgba(20,55,80,.97));
+  color:#fff;
+  text-align:center;
+  box-shadow:0 24px 60px rgba(2,12,27,.30),0 10px 28px rgba(7,143,209,.20);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  opacity:0;
+  visibility:hidden;
+  z-index:99999;
+  transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+  pointer-events:none;
+}
+.copy-toast.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate(-50%,-50%) scale(1);
+}
+.copy-toast-main{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  direction:rtl;
+  font-size:18px;
+  font-weight:900;
+  line-height:1.3;
+}
+.copy-toast-icon{
+  width:32px;
+  height:32px;
+  flex:0 0 32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(55,190,240,.18);
+  border:1px solid rgba(139,229,255,.30);
+  color:#fff;
+  font:900 18px/1 Inter,Arial,sans-serif;
+}
+.copy-toast-sub{
+  margin-top:6px;
+  color:rgba(255,255,255,.76);
+  font-size:11px;
+  font-weight:700;
+  line-height:1.5;
+}
+@media(max-width:650px){
+  .copy-toast{
+    min-width:190px;
+    padding:14px 17px;
+    border-radius:18px;
+  }
+  .copy-toast-main{font-size:17px}
+  .copy-toast-icon{width:30px;height:30px;flex-basis:30px;font-size:16px}
+}
+
 </style>
 </head>
 <body>
@@ -291,7 +360,76 @@ function renderPublic(record){$("publicError").classList.add("hidden");$("public
 }}
 function playCopySound(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;if(!copyAudioContext)copyAudioContext=new A();if(copyAudioContext.state==="suspended")copyAudioContext.resume();const now=copyAudioContext.currentTime,o=copyAudioContext.createOscillator(),g=copyAudioContext.createGain();o.type="sine";o.frequency.setValueAtTime(760,now);o.frequency.exponentialRampToValueAtTime(920,now+.045);g.gain.setValueAtTime(.055,now);g.gain.exponentialRampToValueAtTime(.001,now+.075);o.connect(g);g.connect(copyAudioContext.destination);o.start(now);o.stop(now+.075)}catch{}}
 async function writeClipboard(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return}const t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();t.setSelectionRange(0,t.value.length);document.execCommand("copy");t.remove()}
-async function copyFrom(id,button){playCopySound();try{await writeClipboard($(id).value||"");button.classList.add("copied");button.textContent="کۆپی کرا ✓";setTimeout(()=>{button.classList.remove("copied");button.textContent="کۆپی"},1200)}catch{button.textContent="هەڵە";setTimeout(()=>button.textContent="کۆپی",1200)}}
+let copyToastTimer=null;
+
+function showCopyToast(id){
+  const toast=$("copyToast");
+  if(!toast)return;
+
+  const text=$("copyToastText");
+  const sub=$("copyToastSub");
+
+  if(text)text.textContent="کۆپی کرا ✓";
+  if(sub){
+    sub.textContent=
+      id==="displayEmail" ? "ئیمەیڵەکە کۆپی کرا" :
+      id==="displayPassword" ? "پاسۆردەکە کۆپی کرا" :
+      "بە سەرکەوتوویی کۆپی کرا";
+  }
+
+  toast.classList.remove("show");
+  void toast.offsetWidth;
+  toast.classList.add("show");
+
+  clearTimeout(copyToastTimer);
+  copyToastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },1500);
+}
+
+function showCopyErrorToast(){
+  const toast=$("copyToast");
+  if(!toast)return;
+
+  const text=$("copyToastText");
+  const sub=$("copyToastSub");
+
+  if(text)text.textContent="هەڵە";
+  if(sub)sub.textContent="کۆپی نەکرا";
+
+  toast.classList.remove("show");
+  void toast.offsetWidth;
+  toast.classList.add("show");
+
+  clearTimeout(copyToastTimer);
+  copyToastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },1500);
+}
+
+async function copyFrom(id,button){
+  playCopySound();
+  try{
+    await writeClipboard($(id).value||"");
+
+    showCopyToast(id);
+
+    if(button){
+      button.classList.add("copied");
+      button.textContent="کۆپی کرا ✓";
+      setTimeout(()=>{
+        button.classList.remove("copied");
+        button.textContent="کۆپی";
+      },1200);
+    }
+  }catch{
+    showCopyErrorToast();
+    if(button){
+      button.textContent="هەڵە";
+      setTimeout(()=>button.textContent="کۆپی",1200);
+    }
+  }
+}
 async function copyBox(id,box){
   const button=box.querySelector(".icon-copy-button");
   if(button) await copyFrom(id,button);
@@ -442,5 +580,14 @@ async function loginWithPasskey(){
 }
 
 </script>
+
+<div id="copyToast" class="copy-toast" aria-live="polite" aria-atomic="true">
+  <div class="copy-toast-main">
+    <span id="copyToastText">کۆپی کرا</span>
+    <span class="copy-toast-icon">✓</span>
+  </div>
+  <div id="copyToastSub" class="copy-toast-sub">بە سەرکەوتوویی کۆپی کرا</div>
+</div>
+
 </body>
 </html>
