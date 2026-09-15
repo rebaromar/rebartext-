@@ -146,7 +146,28 @@ async function copyFrom(id,button){playCopySound();try{await writeClipboard($(id
 async function copyGenerated(){playCopySound();try{await writeClipboard(createdUrl)}catch{}}
 function openGenerated(){if(createdUrl)window.open(createdUrl,"_blank","noopener")}
 function pasteSingleValue(event,input){event.preventDefault();const txt=(event.clipboardData||window.clipboardData).getData("text").trim();if(!txt)return;input.value=txt.split(/\s+/)[0].trim();input.dispatchEvent(new Event("input",{bubbles:true}))}
-function installCleanPaste(){["cEmail","cPassword","eEmail","ePassword"].forEach(id=>{const input=$(id);if(input)input.addEventListener("paste",e=>pasteSingleValue(e,input))});["adminTotp","adminEmailOtp"].forEach(id=>{const input=$(id);if(input)input.addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,"").slice(0,6))})}
+function pasteOtpCode(event,input){
+  event.preventDefault();
+  const raw=(event.clipboardData||window.clipboardData).getData("text")||"";
+  const code=raw.replace(/\D/g,"").slice(0,6);
+  input.value=code;
+  input.dispatchEvent(new Event("input",{bubbles:true}));
+}
+function installCleanPaste(){
+  ["cEmail","cPassword","eEmail","ePassword"].forEach(id=>{
+    const input=$(id);
+    if(input)input.addEventListener("paste",e=>pasteSingleValue(e,input));
+  });
+  ["adminTotp","adminEmailOtp"].forEach(id=>{
+    const input=$(id);
+    if(input){
+      input.addEventListener("paste",e=>pasteOtpCode(e,input));
+      input.addEventListener("input",e=>{
+        e.target.value=e.target.value.replace(/\D/g,"").slice(0,6);
+      });
+    }
+  });
+}
 </script>
 </body>
 </html>
