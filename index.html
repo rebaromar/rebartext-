@@ -125,6 +125,28 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   .passkey-manage-btn{width:100%;min-height:48px}
 }
 
+
+/* ===== TAP ANYWHERE TO COPY ===== */
+.tappable-copy{
+  cursor:pointer;
+  -webkit-tap-highlight-color:rgba(22,152,229,.10);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.tappable-copy:active{
+  transform:scale(.985);
+  box-shadow:0 0 0 4px rgba(22,152,229,.08);
+}
+.tappable-copy:focus-visible{
+  outline:3px solid rgba(22,152,229,.24);
+  outline-offset:2px;
+}
+.tappable-copy .account-value{
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  pointer-events:none;
+}
+
 </style>
 </head>
 <body>
@@ -149,8 +171,8 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   <div class="public-head"><div class="apple-logo-top"><svg viewBox="0 0 24 24"><path d="M16.37 12.18c.02 2.26 1.98 3.01 2 3.02-.02.05-.31 1.07-1.03 2.11-.62.9-1.26 1.79-2.28 1.81-1 .02-1.32-.59-2.46-.59-1.15 0-1.5.57-2.43.61-.98.04-1.73-.98-2.36-1.87-1.28-1.85-2.26-5.24-.95-7.52.65-1.13 1.81-1.84 3.07-1.86.96-.02 1.87.65 2.46.65.59 0 1.7-.8 2.87-.68.49.02 1.86.2 2.74 1.49-.07.04-1.63.95-1.61 2.83zm-1.98-6.86c.52-.63.87-1.5.77-2.37-.75.03-1.66.5-2.2 1.13-.48.56-.91 1.45-.8 2.3.84.06 1.7-.43 2.23-1.06z"/></svg></div><h1><span>APPLE</span> ID</h1></div>
   <div id="publicError" class="login-area hidden"><div class="security-logo"><svg viewBox="0 0 24 24"><path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"/></svg></div><h2 class="login-title">بەردەست نییە</h2><p id="publicErrorText" class="login-description"></p></div>
   <div id="publicContent" class="content hidden">
-    <div class="account-block"><div class="account-label">Email</div><div class="account-box"><button class="icon-copy-button" onclick="copyFrom('displayEmail',this)">کۆپی</button><div class="copy-divider"></div><input id="displayEmail" class="account-value" readonly></div></div>
-    <div class="account-block"><div class="account-label">Password</div><div class="account-box"><button class="icon-copy-button" onclick="copyFrom('displayPassword',this)">کۆپی</button><div class="copy-divider"></div><input id="displayPassword" class="account-value" readonly></div></div>
+    <div class="account-block"><div class="account-label">Email</div><div class="account-box tappable-copy" role="button" tabindex="0" onclick="copyBox('displayEmail',this)" onkeydown="copyBoxKey(event,'displayEmail',this)"><button class="icon-copy-button" onclick="event.stopPropagation();copyFrom('displayEmail',this)">کۆپی</button><div class="copy-divider"></div><input id="displayEmail" class="account-value" readonly tabindex="-1"></div></div>
+    <div class="account-block"><div class="account-label">Password</div><div class="account-box tappable-copy" role="button" tabindex="0" onclick="copyBox('displayPassword',this)" onkeydown="copyBoxKey(event,'displayPassword',this)"><button class="icon-copy-button" onclick="event.stopPropagation();copyFrom('displayPassword',this)">کۆپی</button><div class="copy-divider"></div><input id="displayPassword" class="account-value" readonly tabindex="-1"></div></div>
     <a id="btnGetCode" class="button primary wide" href="#" target="_blank" rel="noopener noreferrer">بەدەستهێنانی کۆد</a>
     <div id="publicNote" class="note hidden"></div>
     <div id="usedBox" class="used-box hidden"><div class="used-title">First Opened :</div><div id="usedDate" class="used-date"></div></div>
@@ -270,6 +292,16 @@ function renderPublic(record){$("publicError").classList.add("hidden");$("public
 function playCopySound(){try{const A=window.AudioContext||window.webkitAudioContext;if(!A)return;if(!copyAudioContext)copyAudioContext=new A();if(copyAudioContext.state==="suspended")copyAudioContext.resume();const now=copyAudioContext.currentTime,o=copyAudioContext.createOscillator(),g=copyAudioContext.createGain();o.type="sine";o.frequency.setValueAtTime(760,now);o.frequency.exponentialRampToValueAtTime(920,now+.045);g.gain.setValueAtTime(.055,now);g.gain.exponentialRampToValueAtTime(.001,now+.075);o.connect(g);g.connect(copyAudioContext.destination);o.start(now);o.stop(now+.075)}catch{}}
 async function writeClipboard(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return}const t=document.createElement("textarea");t.value=text;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();t.setSelectionRange(0,t.value.length);document.execCommand("copy");t.remove()}
 async function copyFrom(id,button){playCopySound();try{await writeClipboard($(id).value||"");button.classList.add("copied");button.textContent="کۆپی کرا ✓";setTimeout(()=>{button.classList.remove("copied");button.textContent="کۆپی"},1200)}catch{button.textContent="هەڵە";setTimeout(()=>button.textContent="کۆپی",1200)}}
+async function copyBox(id,box){
+  const button=box.querySelector(".icon-copy-button");
+  if(button) await copyFrom(id,button);
+}
+function copyBoxKey(event,id,box){
+  if(event.key==="Enter"||event.key===" "){
+    event.preventDefault();
+    copyBox(id,box);
+  }
+}
 async function copyGenerated(){playCopySound();try{await writeClipboard(createdUrl)}catch{}}
 function openGenerated(){if(createdUrl)window.open(createdUrl,"_blank","noopener")}
 function pasteSingleValue(event,input){event.preventDefault();const txt=(event.clipboardData||window.clipboardData).getData("text").trim();if(!txt)return;input.value=txt.split(/\s+/)[0].trim();input.dispatchEvent(new Event("input",{bubbles:true}))}
