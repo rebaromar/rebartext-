@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f8fb">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Cache-Control" content="no-store,no-cache,must-revalidate,max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>REBAR IT Admin</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --blue:#1698e5;
+  --text:#17191d;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+}
+
+body{
+  font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 12% 0%,rgba(55,190,240,.14),transparent 28%),
+    linear-gradient(180deg,#fbfdff,#eef4f8);
+  padding:0 12px 34px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.hidden{display:none!important}
+
+.shell{
+  width:100%;
+  max-width:980px;
+  margin:auto;
+}
+
+.topbar{
+  direction:ltr;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  min-height:106px;
+  padding:14px 0;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:78px;
+  height:78px;
+  flex:0 0 78px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#02070d;
+  border:2px solid #fff;
+  box-shadow:
+    0 0 0 2px rgba(7,143,209,.22),
+    0 10px 24px rgba(15,23,42,.14);
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:5px;
+}
+
+.brand-text{
+  direction:ltr;
+  text-align:left;
+}
+
+.brand-name{
+  font-family:Inter,Arial,sans-serif;
+  font-size:27px;
+  font-weight:900;
+  line-height:1;
+}
+
+.brand-name .rebar{color:#078fd1}
+.brand-name .it{margin-left:6px}
+
+.brand-sub{
+  margin-top:6px;
+  color:#718096;
+  font:800 9px/1.2 Inter,Arial,sans-serif;
+  letter-spacing:1px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #dce6ee;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 20px 55px rgba(15,23,42,.08);
+}
+
+.card:before{
+  content:"";
+  display:block;
+  height:4px;
+  background:linear-gradient(90deg,#078fd1,#37bef0,#8be5ff);
+}
+
+.content{padding:28px 24px 26px}
+
+.login-area{
+  max-width:560px;
+  margin:auto;
+  padding:38px 24px;
+}
+
+.security-logo{
+  width:76px;
+  height:76px;
+  margin:0 auto 17px;
+  border-radius:23px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#f6fcff,#eaf8fd);
+  border:1px solid #cde8f4;
+}
+
+.security-logo svg{
+  width:40px;
+  height:40px;
+}
+
+.login-title{
+  margin:0 0 8px;
+  text-align:center;
+  font-size:25px;
+  font-weight:900;
+}
+
+.login-description{
+  margin:0 auto 22px;
+  text-align:center;
+  color:#607086;
+  font-size:13px;
+  line-height:2;
+}
+
+.field{margin-bottom:14px}
+
+.field label{
+  display:block;
+  margin:0 4px 8px;
+  color:#27364a;
+  font-size:13px;
+  font-weight:800;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+  min-height:54px;
+  padding:12px 14px;
+  border:1px solid #d5dfe7;
+  border-radius:18px;
+  outline:0;
+  background:#fbfdfe;
+  color:#111827;
+  font-size:14px;
+  font-family:inherit;
+}
+
+.field textarea{
+  min-height:110px;
+  resize:vertical;
+  line-height:2;
+}
+
+.field input:focus,
+.field textarea:focus{
+  background:#fff;
+  border-color:#50bce8;
+  box-shadow:0 0 0 4px rgba(7,143,209,.08);
+}
+
+.ltr{
+  direction:ltr;
+  text-align:left;
+  font-family:Inter,Arial,sans-serif;
+}
+
+button,.button{
+  appearance:none;
+  border:0;
+  cursor:pointer;
+  min-height:50px;
+  padding:11px 17px;
+  border-radius:15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:900;
+  font-family:inherit;
+}
+
+.primary{
+  color:#fff;
+  background:linear-gradient(135deg,#078fd1,#37bef0);
+  box-shadow:0 11px 24px rgba(7,143,209,.20);
+}
+
+.secondary{
+  color:#334155;
+  background:#f7f9fb;
+  border:1px solid #dae3ea;
+}
+
+.danger{
+  color:#b3263b;
+  background:#fff3f5;
+  border:1px solid #f4cad1;
+}
+
+.wide{width:100%}
+
+.admin-header{
+  padding:23px 24px 17px;
+  border-bottom:1px solid #edf1f4;
+}
+
+.admin-header h1{
+  margin:0;
+  font-size:23px;
+}
+
+.admin-header p{
+  margin:5px 0 0;
+  color:#6b7c90;
+  font-size:12px;
+}
+
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  padding:12px 16px;
+  background:#f8fafc;
+  border-bottom:1px solid #edf1f4;
+}
+
+.tab{
+  min-height:44px;
+  background:#fff;
+  color:#627287;
+  border:1px solid #dbe3e9;
+  border-radius:13px;
+  font-size:10.5px;
+}
+
+.tab.active{
+  color:#fff;
+  background:linear-gradient(135deg,#0c1b2b,#193b56);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.full{grid-column:1/-1}
+
+.button-row{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+
+.notice{
+  display:none;
+  margin-top:13px;
+  padding:11px 13px;
+  border-radius:13px;
+  font-size:12px;
+  line-height:1.9;
+}
+
+.notice.ok{
+  display:block;
+  color:#0d784f;
+  background:#eefbf4;
+  border:1px solid #bbe8cf;
+}
+
+.notice.err{
+  display:block;
+  color:#b2293d;
+  background:#fff3f5;
+  border:1px solid #f4c8cf;
+}
+
+.result{
+  display:none;
+  margin-top:15px;
+  padding:14px;
+  border:1px dashed #9ddaf1;
+  border-radius:18px;
+  background:#f3fbff;
+}
+
+.result code{
+  display:block;
+  direction:ltr;
+  text-align:left;
+  word-break:break-all;
+  color:#075985;
+  font:700 12px/1.8 Inter,Arial,sans-serif;
+}
+
+.qr-tools{
+  margin-top:18px;
+  padding-top:17px;
+  border-top:1px solid #dceaf1;
+}
+
+.qr-create-btn{
+  width:100%;
+  border:1px solid #c8dce8;
+  background:#fff;
+  color:#14364e;
+}
+
+.qr-result-box{
+  margin-top:18px;
+  padding:22px 16px;
+  border:1px solid #d8e6ee;
+  border-radius:22px;
+  background:linear-gradient(180deg,#fff,#f8fcfe);
+  text-align:center;
+  box-shadow:0 10px 25px rgba(15,23,42,.05);
+}
+
+.qr-result-title{
+  margin-bottom:10px;
+  color:#18222d;
+  font:800 15px/1.3 Inter,Arial,sans-serif;
+}
+
+.qr-number-top{
+  direction:ltr;
+  margin:0 auto 16px;
+  color:#078fd1;
+  font:900 30px/1.2 Inter,Arial,sans-serif;
+}
+
+#qrCodeBox{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:220px;
+}
+
+#qrCodeBox img,
+#qrCodeBox canvas{
+  display:block;
+  width:220px!important;
+  height:220px!important;
+  max-width:100%!important;
+  padding:10px;
+  background:#fff;
+  border:1px solid #e2e8ee;
+  border-radius:16px;
+}
+
+.qr-save-btn{
+  width:100%;
+  margin-top:18px;
+  color:#fff;
+  background:linear-gradient(135deg,#078fd1,#37bef0);
+}
+
+.qr-note{
+  margin-top:12px;
+  color:#718096;
+  font-size:11px;
+  line-height:1.8;
+}
+
+@media(max-width:650px){
+  body{padding:0 9px 26px}
+  .topbar{min-height:88px}
+  .logo{width:62px;height:62px;flex-basis:62px}
+  .brand-name{font-size:19px}
+  .brand-sub{display:none}
+  .card{border-radius:21px}
+  .content{padding:24px 14px}
+  .login-area{padding:31px 17px 27px}
+  .grid{grid-template-columns:1fr}
+  .full{grid-column:auto}
+  #qrCodeBox img,#qrCodeBox canvas{
+    width:205px!important;
+    height:205px!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="shell">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">
+      <img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo">
+    </div>
+
+    <div class="brand-text">
+      <div class="brand-name">
+        <span class="rebar">REBAR</span>
+        <span class="it">IT</span>
+      </div>
+      <div class="brand-sub">SECURE ADMIN</div>
+    </div>
+  </div>
+</header>
+
+<section id="loginView" class="card">
+
+  <div class="login-area">
+
+    <div class="security-logo">
+      <svg viewBox="0 0 24 24">
+        <path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2ZM10.7 15.4L16.4 9.7L14.9 8.2L10.7 12.4L8.9 10.6L7.4 12.1L10.7 15.4Z"/>
+      </svg>
+    </div>
+
+    <h2 class="login-title">بەشی بەڕێوەبەر</h2>
+
+    <p class="login-description">
+      Cloudflare Access پێش ئەم پەڕەیە پاراستن دادەنێت؛ دوای ئەوە پاسۆردی Admin ـیش داوادەکرێت.
+    </p>
+
+    <div class="field">
+      <label>پاسۆردی بەڕێوەبەر</label>
+      <input id="adminPassword" type="password" autocomplete="current-password" placeholder="••••••••">
+    </div>
+
+    <button class="primary wide" onclick="adminLogin()">
+      چوونەژوورەوە
+    </button>
+
+    <div id="loginMsg" class="notice"></div>
+
+  </div>
+
+</section>
+
+<section id="adminView" class="card hidden">
+
+  <div class="admin-header">
+    <h1>بەڕێوەبردنی لینکەکان</h1>
+    <p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p>
+  </div>
+
+  <div class="tabs">
+
+    <button id="tabCreate" class="tab active" onclick="switchTab('create')">
+      لینکی نوێ
+    </button>
+
+    <button id="tabEdit" class="tab" onclick="switchTab('edit')">
+      دەستکاری
+    </button>
+
+    <button class="tab" onclick="logout()">
+      چوونەدەرەوە
+    </button>
+
+  </div>
+
+  <div id="createView" class="content">
+
+    <div class="grid">
+
+      <div class="field">
+        <label>ئیمەیڵ</label>
+        <input id="cEmail" class="ltr" placeholder="example@email.com">
+      </div>
+
+      <div class="field">
+        <label>پاسۆرد</label>
+        <input id="cPassword" class="ltr" placeholder="Password">
+      </div>
+
+      <div class="field full">
+        <label>لینک</label>
+        <input id="cTargetLink" class="ltr" placeholder="https://...">
+      </div>
+
+      <div class="field full">
+        <label>تێبینی</label>
+        <textarea id="cNote" placeholder="تێبینی..."></textarea>
+      </div>
+
+    </div>
+
+    <button class="primary wide" style="margin-top:15px" onclick="createRecord()">
+      دروستکردنی لینک
+    </button>
+
+    <div id="createMsg" class="notice"></div>
+
+    <div id="createResult" class="result">
+
+      <code id="generatedLink"></code>
+
+      <div class="button-row">
+
+        <button class="secondary" onclick="copyGenerated()">
+          کۆپی لینک
+        </button>
+
+        <button class="secondary" onclick="openGenerated()">
+          کردنەوە
+        </button>
+
+      </div>
+
+      <div class="qr-tools">
+
+        <button class="qr-create-btn" onclick="generateCreatedQr()">
+          دروستکردنی QR Code
+        </button>
+
+        <div id="qrResultBox" class="qr-result-box hidden">
+
+          <div class="qr-result-title">
+            QR Code
+          </div>
+
+          <div class="qr-number-top">
+            <span id="qrNumber"></span>
+          </div>
+
+          <div id="qrCodeBox"></div>
+
+          <button class="qr-save-btn" onclick="saveQrImage()">
+            خەزنکردنی QR
+          </button>
+
+          <div class="qr-note">
+            کاتێ خەزنی دەکەیت، تەنها ژمارەکە لە سەرەوەی QR ـەکە دەبێت.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="editView" class="content hidden">
+
+    <div class="field">
+
+      <label>ID ی لینک</label>
+
+      <div style="display:flex;gap:8px">
+
+        <input id="editId" class="ltr" placeholder="ID">
+
+        <button class="secondary" onclick="loadRecordForEdit()">
+          بارکردن
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="editFields" class="hidden">
+
+      <div class="grid">
+
+        <div class="field">
+          <label>ئیمەیڵ</label>
+          <input id="eEmail" class="ltr">
+        </div>
+
+        <div class="field">
+          <label>پاسۆرد</label>
+          <input id="ePassword" class="ltr">
+        </div>
+
+        <div class="field full">
+          <label>لینک</label>
+          <input id="eTargetLink" class="ltr">
+        </div>
+
+        <div class="field full">
+          <label>تێبینی</label>
+          <textarea id="eNote"></textarea>
+        </div>
+
+      </div>
+
+      <div class="button-row">
+
+        <button class="primary" style="flex:1" onclick="saveRecord()">
+          پاشەکەوتکردن
+        </button>
+
+        <button class="danger" onclick="deleteRecord()">
+          سڕینەوە
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="editMsg" class="notice"></div>
+
+  </div>
+
+</section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+const API_BASE="https://rebarit-secure-api.rebar4qwrna.workers.dev";
+const PUBLIC_BASE="https://rebarit.store/";
+const ADMIN_TOKEN_KEY="rebarit_admin_session";
+
+let createdUrl="";
+let createdRecordId="";
+let currentQrNo=null;
+let copyAudioContext=null;
+
+const $=id=>document.getElementById(id);
+
+function cleanTargetUrl(raw){
+
+  if(!raw){
+    return "";
+  }
+
+  let value=
+    String(raw).trim();
+
+  const match=
+    value.match(/https?:\/\/[^\s<>"']+/i);
+
+  if(match){
+    value=match[0];
+  }
+
+  try{
+    return new URL(value).toString();
+  }catch{
+    return value.split(/\s+/)[0].trim();
+  }
+}
+
+function setNotice(id,text,ok=false){
+
+  const e=$(id);
+
+  e.textContent=text;
+  e.className="notice "+(ok?"ok":"err");
+}
+
+function clearNotice(id){
+
+  const e=$(id);
+
+  e.textContent="";
+  e.className="notice";
+}
+
+function authHeaders(){
+
+  return{
+    "Content-Type":"application/json",
+    "Authorization":
+      "Bearer "+
+      (
+        sessionStorage.getItem(ADMIN_TOKEN_KEY)||
+        ""
+      )
+  };
+}
+
+function cleanId(raw){
+
+  const value=
+    String(raw||"").trim();
+
+  const match=
+    value.match(/[?&]id=([^&#]+)/);
+
+  let id=
+    match
+      ?decodeURIComponent(match[1])
+      :value;
+
+  return id.replace(
+    /[^A-Za-z0-9_$~_-]/g,
+    ""
+  );
+}
+
+window.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    const token=
+      sessionStorage.getItem(
+        ADMIN_TOKEN_KEY
+      );
+
+    if(token){
+
+      $("loginView")
+        .classList
+        .add("hidden");
+
+      $("adminView")
+        .classList
+        .remove("hidden");
+    }
+
+    installCleanPaste();
+  }
+);
+
+async function adminLogin(){
+
+  clearNotice("loginMsg");
+
+  const password=
+    $("adminPassword").value;
+
+  if(!password){
+
+    setNotice(
+      "loginMsg",
+      "تکایە پاسۆرد بنووسە."
+    );
+
+    return;
+  }
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+"/api/login",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              password
+            })
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "Login failed"
+      );
+    }
+
+    sessionStorage.setItem(
+      ADMIN_TOKEN_KEY,
+      d.token
+    );
+
+    $("adminPassword")
+      .value="";
+
+    $("loginView")
+      .classList
+      .add("hidden");
+
+    $("adminView")
+      .classList
+      .remove("hidden");
+
+  }catch(e){
+
+    setNotice(
+      "loginMsg",
+      e.message===
+      "Too many login attempts. Try again later."
+        ?"هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە."
+        :"پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە."
+    );
+  }
+}
+
+function logout(){
+
+  sessionStorage.removeItem(
+    ADMIN_TOKEN_KEY
+  );
+
+  location.reload();
+}
+
+function switchTab(name){
+
+  $("tabCreate")
+    .classList
+    .toggle(
+      "active",
+      name==="create"
+    );
+
+  $("tabEdit")
+    .classList
+    .toggle(
+      "active",
+      name==="edit"
+    );
+
+  $("createView")
+    .classList
+    .toggle(
+      "hidden",
+      name!=="create"
+    );
+
+  $("editView")
+    .classList
+    .toggle(
+      "hidden",
+      name!=="edit"
+    );
+}
+
+function getFormData(prefix){
+
+  return{
+
+    email:
+      $(prefix+"Email")
+        .value
+        .trim(),
+
+    password:
+      $(prefix+"Password")
+        .value
+        .trim(),
+
+    targetLink:
+      cleanTargetUrl(
+        $(prefix+"TargetLink")
+          .value
+          .trim()
+      ),
+
+    note:
+      $(prefix+"Note")
+        .value
+        .trim()
+  };
+}
+
+async function createRecord(){
+
+  clearNotice(
+    "createMsg"
+  );
+
+  createdUrl="";
+  createdRecordId="";
+  currentQrNo=null;
+
+  $("createResult")
+    .style
+    .display="none";
+
+  $("qrResultBox")
+    .classList
+    .add("hidden");
+
+  $("qrCodeBox")
+    .innerHTML="";
+
+  $("qrNumber")
+    .textContent="";
+
+  const payload=
+    getFormData("c");
+
+  $("cTargetLink")
+    .value=
+    payload.targetLink;
+
+  if(
+    !payload.email &&
+    !payload.password
+  ){
+
+    setNotice(
+      "createMsg",
+      "لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە."
+    );
+
+    return;
+  }
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+
+        "/api/records",
+        {
+          method:"POST",
+          headers:authHeaders(),
+          body:
+            JSON.stringify(
+              payload
+            )
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(
+      r.status===401
+    ){
+
+      logout();
+      return;
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "Create failed"
+      );
+    }
+
+    createdRecordId=
+      d.id;
+
+    createdUrl=
+      PUBLIC_BASE+
+      "?id="+
+      d.id;
+
+    $("generatedLink")
+      .textContent=
+      createdUrl;
+
+    $("createResult")
+      .style
+      .display="block";
+
+    setNotice(
+      "createMsg",
+      "لینکەکە بە سەرکەوتوویی دروست کرا.",
+      true
+    );
+
+  }catch(e){
+
+    setNotice(
+      "createMsg",
+      e.message||
+      "هەڵەیەک ڕوویدا."
+    );
+  }
+}
+
+async function generateCreatedQr(){
+
+  if(
+    !createdRecordId ||
+    !createdUrl
+  ){
+
+    setNotice(
+      "createMsg",
+      "سەرەتا لینکێک دروست بکە."
+    );
+
+    return;
+  }
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+
+        "/api/record/"+
+        encodeURIComponent(
+          createdRecordId
+        )+
+        "/qr",
+        {
+          method:"POST",
+          headers:authHeaders()
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(
+      r.status===401
+    ){
+
+      logout();
+      return;
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "QR creation failed"
+      );
+    }
+
+    if(
+      typeof QRCode===
+      "undefined"
+    ){
+
+      throw new Error(
+        "QR library not loaded"
+      );
+    }
+
+    currentQrNo=
+      Number(
+        d.qrNo
+      );
+
+    $("qrNumber")
+      .textContent=
+      String(
+        currentQrNo
+      );
+
+    const box=
+      $("qrCodeBox");
+
+    box.innerHTML="";
+
+    new QRCode(
+      box,
+      {
+        text:createdUrl,
+        width:220,
+        height:220,
+        colorDark:"#111827",
+        colorLight:"#ffffff",
+        correctLevel:
+          QRCode.CorrectLevel.H
+      }
+    );
+
+    $("qrResultBox")
+      .classList
+      .remove("hidden");
+
+  }catch(e){
+
+    setNotice(
+      "createMsg",
+      "QR Code دروست نەکرا: "+
+      (
+        e.message||
+        "هەڵە"
+      )
+    );
+  }
+}
+
+async function saveQrImage(){
+
+  if(!currentQrNo){
+
+    setNotice(
+      "createMsg",
+      "سەرەتا QR Code دروست بکە."
+    );
+
+    return;
+  }
+
+  const box=
+    $("qrCodeBox");
+
+  const source=
+    box.querySelector("canvas")||
+    box.querySelector("img");
+
+  if(!source){
+
+    setNotice(
+      "createMsg",
+      "QR Code نەدۆزرایەوە."
+    );
+
+    return;
+  }
+
+  const SIZE=640;
+  const QR_SIZE=500;
+  const TOP_SPACE=110;
+  const BOTTOM_SPACE=45;
+
+  const c=
+    document.createElement(
+      "canvas"
+    );
+
+  c.width=SIZE;
+
+  c.height=
+    TOP_SPACE+
+    QR_SIZE+
+    BOTTOM_SPACE;
+
+  const ctx=
+    c.getContext("2d");
+
+  ctx.fillStyle=
+    "#fff";
+
+  ctx.fillRect(
+    0,
+    0,
+    c.width,
+    c.height
+  );
+
+  ctx.fillStyle=
+    "#078fd1";
+
+  ctx.textAlign=
+    "center";
+
+  ctx.textBaseline=
+    "middle";
+
+  ctx.font=
+    "900 58px Arial";
+
+  ctx.fillText(
+    String(
+      currentQrNo
+    ),
+    SIZE/2,
+    58
+  );
+
+  ctx.imageSmoothingEnabled=
+    false;
+
+  ctx.drawImage(
+    source,
+    (SIZE-QR_SIZE)/2,
+    TOP_SPACE,
+    QR_SIZE,
+    QR_SIZE
+  );
+
+  const filename=
+    "REBAR-IT-QR-"+
+    currentQrNo+
+    ".png";
+
+  c.toBlob(
+    blob=>{
+
+      if(!blob){
+
+        window.open(
+          c.toDataURL(
+            "image/png"
+          ),
+          "_blank"
+        );
+
+        return;
+      }
+
+      const u=
+        URL.createObjectURL(
+          blob
+        );
+
+      const a=
+        document.createElement(
+          "a"
+        );
+
+      a.href=u;
+      a.download=filename;
+
+      document.body
+        .appendChild(a);
+
+      a.click();
+      a.remove();
+
+      setTimeout(
+        ()=>{
+          URL.revokeObjectURL(
+            u
+          );
+        },
+        1500
+      );
+
+    },
+    "image/png",
+    1
+  );
+}
+
+async function loadRecordForEdit(){
+
+  clearNotice(
+    "editMsg"
+  );
+
+  const id=
+    cleanId(
+      $("editId").value
+    );
+
+  $("editId")
+    .value=id;
+
+  if(!id){
+
+    setNotice(
+      "editMsg",
+      "ID بنووسە."
+    );
+
+    return;
+  }
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+
+        "/api/admin/record/"+
+        encodeURIComponent(id),
+        {
+          headers:
+            authHeaders()
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(
+      r.status===401
+    ){
+
+      logout();
+      return;
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "Record not found"
+      );
+    }
+
+    $("eEmail").value=
+      d.record.email||
+      "";
+
+    $("ePassword").value=
+      d.record.password||
+      "";
+
+    $("eTargetLink").value=
+      cleanTargetUrl(
+        d.record.targetLink||
+        ""
+      );
+
+    $("eNote").value=
+      d.record.note||
+      "";
+
+    $("editFields")
+      .classList
+      .remove("hidden");
+
+    setNotice(
+      "editMsg",
+      "زانیارییەکان بارکران.",
+      true
+    );
+
+  }catch(e){
+
+    $("editFields")
+      .classList
+      .add("hidden");
+
+    setNotice(
+      "editMsg",
+      e.message||
+      "زانیارییەکە نەدۆزرایەوە."
+    );
+  }
+}
+
+async function saveRecord(){
+
+  clearNotice(
+    "editMsg"
+  );
+
+  const id=
+    cleanId(
+      $("editId").value
+    );
+
+  const payload=
+    getFormData("e");
+
+  $("eTargetLink")
+    .value=
+    payload.targetLink;
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+
+        "/api/record/"+
+        encodeURIComponent(id),
+        {
+          method:"PUT",
+          headers:authHeaders(),
+          body:
+            JSON.stringify(
+              payload
+            )
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(
+      r.status===401
+    ){
+
+      logout();
+      return;
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "Update failed"
+      );
+    }
+
+    setNotice(
+      "editMsg",
+      "گۆڕانکارییەکان پاشەکەوت کران.",
+      true
+    );
+
+  }catch(e){
+
+    setNotice(
+      "editMsg",
+      e.message||
+      "هەڵەیەک ڕوویدا."
+    );
+  }
+}
+
+async function deleteRecord(){
+
+  const id=
+    cleanId(
+      $("editId").value
+    );
+
+  if(
+    !id ||
+    !confirm(
+      "دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"
+    )
+  ){
+    return;
+  }
+
+  try{
+
+    const r=
+      await fetch(
+        API_BASE+
+        "/api/record/"+
+        encodeURIComponent(id),
+        {
+          method:"DELETE",
+          headers:authHeaders()
+        }
+      );
+
+    const d=
+      await r.json();
+
+    if(
+      r.status===401
+    ){
+
+      logout();
+      return;
+    }
+
+    if(!r.ok){
+
+      throw new Error(
+        d.error||
+        "Delete failed"
+      );
+    }
+
+    $("editFields")
+      .classList
+      .add("hidden");
+
+    setNotice(
+      "editMsg",
+      "لینکەکە سڕایەوە.",
+      true
+    );
+
+  }catch(e){
+
+    setNotice(
+      "editMsg",
+      e.message||
+      "هەڵەیەک ڕوویدا."
+    );
+  }
+}
+
+function playCopySound(){
+
+  try{
+
+    const A=
+      window.AudioContext||
+      window.webkitAudioContext;
+
+    if(!A){
+      return;
+    }
+
+    if(!copyAudioContext){
+      copyAudioContext=
+        new A();
+    }
+
+    if(
+      copyAudioContext.state===
+      "suspended"
+    ){
+      copyAudioContext.resume();
+    }
+
+    const now=
+      copyAudioContext.currentTime;
+
+    const o=
+      copyAudioContext
+        .createOscillator();
+
+    const g=
+      copyAudioContext
+        .createGain();
+
+    o.type="sine";
+
+    o.frequency
+      .setValueAtTime(
+        760,
+        now
+      );
+
+    o.frequency
+      .exponentialRampToValueAtTime(
+        920,
+        now+.045
+      );
+
+    g.gain
+      .setValueAtTime(
+        .055,
+        now
+      );
+
+    g.gain
+      .exponentialRampToValueAtTime(
+        .001,
+        now+.075
+      );
+
+    o.connect(g);
+    g.connect(
+      copyAudioContext.destination
+    );
+
+    o.start(now);
+    o.stop(now+.075);
+
+  }catch{}
+}
+
+async function writeClipboard(text){
+
+  if(
+    navigator.clipboard &&
+    window.isSecureContext
+  ){
+
+    await navigator
+      .clipboard
+      .writeText(text);
+
+    return;
+  }
+
+  const t=
+    document.createElement(
+      "textarea"
+    );
+
+  t.value=text;
+
+  t.setAttribute(
+    "readonly",
+    ""
+  );
+
+  t.style.position=
+    "fixed";
+
+  t.style.opacity=
+    "0";
+
+  document.body
+    .appendChild(t);
+
+  t.select();
+
+  t.setSelectionRange(
+    0,
+    t.value.length
+  );
+
+  document.execCommand(
+    "copy"
+  );
+
+  t.remove();
+}
+
+async function copyGenerated(){
+
+  playCopySound();
+
+  try{
+    await writeClipboard(
+      createdUrl
+    );
+  }catch{}
+}
+
+function openGenerated(){
+
+  if(createdUrl){
+
+    window.open(
+      createdUrl,
+      "_blank",
+      "noopener"
+    );
+  }
+}
+
+function pasteSingleValue(
+  event,
+  input
+){
+
+  event.preventDefault();
+
+  const txt=
+    (
+      event.clipboardData||
+      window.clipboardData
+    )
+    .getData("text")
+    .trim();
+
+  if(!txt){
+    return;
+  }
+
+  input.value=
+    txt
+      .split(/\s+/)[0]
+      .trim();
+
+  input.dispatchEvent(
+    new Event(
+      "input",
+      {
+        bubbles:true
+      }
+    )
+  );
+}
+
+function installCleanPaste(){
+
+  [
+    "cEmail",
+    "cPassword",
+    "eEmail",
+    "ePassword"
+  ].forEach(
+    id=>{
+
+      const input=$(id);
+
+      if(input){
+
+        input.addEventListener(
+          "paste",
+          e=>
+            pasteSingleValue(
+              e,
+              input
+            )
+        );
+      }
+    }
+  );
+}
+</script>
+
+</body>
+</html>
