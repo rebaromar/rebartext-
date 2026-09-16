@@ -831,6 +831,92 @@ body{
 .apple-logo-top::before{will-change:transform;transform:translateZ(0)}
 @media(prefers-reduced-motion:reduce){.apple-logo-top::before{animation:none!important}#btnGetCode::after{animation:none!important}}
 
+
+/* =========================================================
+   APPLE LOGO FRAME — WHITE GLOW FINAL
+   Visual-only update: no text/content/order changes
+   ========================================================= */
+.apple-logo-top{
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+  border:1px solid rgba(255,255,255,.68) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 0 0 1px rgba(255,255,255,.05),
+    0 0 16px rgba(255,255,255,.18),
+    0 0 34px rgba(255,255,255,.10),
+    0 18px 38px rgba(0,0,0,.40) !important;
+}
+.apple-logo-top::before{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:inherit;
+  padding:1.4px;
+  background:
+    conic-gradient(
+      from 0deg,
+      rgba(255,255,255,.02) 0deg,
+      rgba(255,255,255,.06) 80deg,
+      rgba(255,255,255,.26) 145deg,
+      rgba(255,255,255,.90) 190deg,
+      rgba(255,255,255,.30) 230deg,
+      rgba(255,255,255,.05) 300deg,
+      rgba(255,255,255,.02) 360deg
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  filter:
+    drop-shadow(0 0 4px rgba(255,255,255,.52))
+    drop-shadow(0 0 11px rgba(255,255,255,.22));
+  animation:whiteFrameGlowSpin 3.2s linear infinite;
+  pointer-events:none;
+  z-index:3;
+}
+.apple-logo-top::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:
+    0 0 16px rgba(255,255,255,.14),
+    0 0 34px rgba(255,255,255,.08);
+  pointer-events:none;
+  z-index:-1;
+}
+@keyframes whiteFrameGlowSpin{
+  to{transform:rotate(360deg)}
+}
+.apple-logo-top svg{
+  width:80px !important;
+  height:80px !important;
+  fill:#f8d16e !important;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.80))
+    drop-shadow(0 0 8px rgba(255,255,255,.20))
+    drop-shadow(0 0 14px rgba(240,199,94,.18)) !important;
+  position:relative;
+  z-index:2;
+}
+@media(max-width:650px){
+  .apple-logo-top svg{
+    width:72px !important;
+    height:72px !important;
+  }
+  .apple-logo-top::before{
+    inset:-4px;
+    padding:1.3px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .apple-logo-top::before{animation:none!important}
+}
+
 </style>
 </head>
 <body>
