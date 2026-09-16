@@ -664,6 +664,66 @@ body{
   }
 }
 
+
+
+/* ===== Variant 1: SOFT GOLD ===== */
+.apple-logo-top{
+  position:relative;
+  width:108px;
+  height:108px;
+  margin:0 auto 18px;
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 35% 25%,rgba(255,242,197,.16),transparent 26%),
+    linear-gradient(180deg,#18120a 0%,#090603 100%);
+  border:1px solid rgba(243,205,112,.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255,247,214,.10),
+    0 0 0 1px rgba(255,223,140,.08),
+    0 0 12px rgba(237,196,86,.18),
+    0 14px 28px rgba(0,0,0,.28) !important;
+  overflow:visible;
+}
+.apple-logo-top::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:33px;
+  border:1px solid rgba(255,228,150,.16);
+  box-shadow:0 0 14px rgba(237,196,86,.12);
+  pointer-events:none;
+}
+.apple-logo-top::after{
+  content:"";
+  position:absolute;
+  left:-18px;
+  right:-18px;
+  top:50%;
+  height:1px;
+  transform:translateY(-50%);
+  background:linear-gradient(90deg,transparent,rgba(255,224,136,.55) 22%,rgba(255,243,198,.82) 50%,rgba(255,224,136,.55) 78%,transparent);
+  opacity:.88;
+  z-index:-1;
+  pointer-events:none;
+}
+.apple-logo-top svg{
+  width:54px !important;
+  height:54px !important;
+  fill:#f4cf79 !important;
+  filter:
+    drop-shadow(0 0 2px rgba(255,247,220,.55))
+    drop-shadow(0 0 6px rgba(237,196,86,.20));
+}
+@media(max-width:650px){
+  .apple-logo-top{width:98px;height:98px;border-radius:27px}
+  .apple-logo-top::before{inset:-3px;border-radius:30px}
+  .apple-logo-top::after{left:-14px;right:-14px}
+  .apple-logo-top svg{width:48px !important;height:48px !important}
+}
+
 </style>
 </head>
 <body>
