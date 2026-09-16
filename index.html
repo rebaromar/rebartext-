@@ -947,6 +947,86 @@ body{
   }
 }
 
+
+/* =========================================================
+   APPLE FRAME — SNAKE LIGHT EFFECT
+   A short white/gold light segment travels continuously
+   around the OUTER FRAME only.
+   ========================================================= */
+.apple-logo-top{
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+}
+.apple-logo-top::before{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:inherit;
+  padding:1.6px;
+  background:conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 292deg,
+    rgba(255,255,255,.04) 300deg,
+    rgba(255,255,255,.18) 307deg,
+    rgba(255,238,174,.42) 314deg,
+    rgba(255,224,118,.72) 320deg,
+    rgba(255,255,255,1) 326deg,
+    rgba(255,245,205,.92) 331deg,
+    rgba(255,218,92,.58) 337deg,
+    rgba(255,255,255,.16) 344deg,
+    transparent 352deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  filter:
+    drop-shadow(0 0 3px rgba(255,255,255,.70))
+    drop-shadow(0 0 8px rgba(255,224,118,.38))
+    drop-shadow(0 0 13px rgba(255,201,53,.18));
+  animation:rebarSnakeLight 2.6s linear infinite !important;
+  -webkit-animation:rebarSnakeLight 2.6s linear infinite !important;
+  transform-origin:50% 50%;
+  -webkit-transform-origin:50% 50%;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  pointer-events:none;
+  z-index:4;
+}
+.apple-logo-top::after{
+  content:"";
+  position:absolute;
+  inset:-9px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:
+    0 0 13px rgba(255,255,255,.10),
+    0 0 26px rgba(240,199,94,.07);
+  pointer-events:none;
+  z-index:-1;
+  animation:none !important;
+  -webkit-animation:none !important;
+}
+@keyframes rebarSnakeLight{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+@-webkit-keyframes rebarSnakeLight{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .apple-logo-top::before{
+    animation:rebarSnakeLight 2.6s linear infinite !important;
+    -webkit-animation:rebarSnakeLight 2.6s linear infinite !important;
+  }
+}
+
 </style>
 </head>
 <body>
