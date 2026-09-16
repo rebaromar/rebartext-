@@ -917,6 +917,36 @@ body{
   .apple-logo-top::before{animation:none!important}
 }
 
+
+/* =========================================================
+   WHITE GLOW ROTATION — SAFARI / IPHONE FIX
+   Forces the thin white light to continuously rotate
+   around the Apple logo FRAME.
+   ========================================================= */
+.apple-logo-top::before{
+  animation:whiteFrameGlowSpinFixed 2.4s linear infinite !important;
+  -webkit-animation:whiteFrameGlowSpinFixed 2.4s linear infinite !important;
+  transform-origin:50% 50% !important;
+  -webkit-transform-origin:50% 50% !important;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+@keyframes whiteFrameGlowSpinFixed{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+@-webkit-keyframes whiteFrameGlowSpinFixed{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+@media(prefers-reduced-motion:reduce){
+  .apple-logo-top::before{
+    animation:whiteFrameGlowSpinFixed 2.4s linear infinite !important;
+    -webkit-animation:whiteFrameGlowSpinFixed 2.4s linear infinite !important;
+  }
+}
+
 </style>
 </head>
 <body>
