@@ -731,6 +731,95 @@ body{
   .apple-logo-top svg{width:51px !important;height:51px !important}
 }
 
+
+/* =========================================================
+   FINAL APPLE LOGO UPDATE
+   - Apple mark larger
+   - Thin gold light continuously rotates around FRAME only
+   - No wording/layout changes
+   ========================================================= */
+
+.apple-logo-top{
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+  border:1px solid rgba(255,220,118,.72) !important;
+}
+
+/* Rotating thin gold light — FRAME ONLY */
+.apple-logo-top::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:inherit;
+  padding:1.5px;
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 250deg,
+      rgba(255,211,84,.08) 278deg,
+      rgba(255,226,126,.48) 300deg,
+      rgba(255,248,211,1) 318deg,
+      rgba(255,213,88,.88) 333deg,
+      rgba(255,188,43,.22) 348deg,
+      transparent 360deg
+    );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  filter:
+    drop-shadow(0 0 3px rgba(255,222,105,.55))
+    drop-shadow(0 0 7px rgba(255,196,42,.28));
+  animation:rebarGoldFrameSpin 2.8s linear infinite;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* Soft outer halo around frame */
+.apple-logo-top::after{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:inherit;
+  border:1px solid rgba(255,213,89,.10);
+  box-shadow:
+    0 0 14px rgba(255,208,73,.20),
+    0 0 28px rgba(255,196,42,.10);
+  pointer-events:none;
+  z-index:-1;
+}
+
+@keyframes rebarGoldFrameSpin{
+  to{ transform:rotate(360deg); }
+}
+
+/* Bigger Apple mark inside the SAME frame */
+.apple-logo-top svg{
+  width:74px !important;
+  height:74px !important;
+  fill:#f8d16e !important;
+  filter:
+    drop-shadow(0 0 2px rgba(255,250,229,.88))
+    drop-shadow(0 0 8px rgba(255,211,84,.45))
+    drop-shadow(0 0 16px rgba(255,193,32,.24)) !important;
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:650px){
+  .apple-logo-top svg{
+    width:68px !important;
+    height:68px !important;
+  }
+  .apple-logo-top::before{
+    inset:-4px;
+    padding:1.4px;
+  }
+}
+
 </style>
 </head>
 <body>
