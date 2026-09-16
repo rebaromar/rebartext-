@@ -10,8 +10,14 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>REBAR IT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://rebarit-secure-api.rebar4qwrna.workers.dev" crossorigin>
+<link rel="dns-prefetch" href="//rebarit-secure-api.rebar4qwrna.workers.dev">
+<link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 :root{--blue:#1698e5;--text:#17191d;--muted:#697586;--line:#dce5ec;--green:#16a66a;--red:#d94b5c}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{font-family:"Noto Sans Arabic",Tahoma,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% 0%,rgba(55,190,240,.14),transparent 28%),linear-gradient(180deg,#fbfdff,#eef4f8);padding:0 12px 34px;-webkit-font-smoothing:antialiased}
@@ -820,13 +826,18 @@ body{
   }
 }
 
+
+/* ===== FAST LOAD / MOBILE PERFORMANCE ===== */
+.apple-logo-top::before{will-change:transform;transform:translateZ(0)}
+@media(prefers-reduced-motion:reduce){.apple-logo-top::before{animation:none!important}#btnGetCode::after{animation:none!important}}
+
 </style>
 </head>
 <body>
 <div class="shell">
 <header id="siteHeader" class="topbar hidden">
   <div class="brand">
-    <div class="logo"><img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo"></div>
+    <div class="logo"><img src="https://i.ibb.co/NntMjTNW/IMG-4129.png" alt="REBAR IT Logo" decoding="async" fetchpriority="high"></div>
     <div class="brand-text">
       <div class="brand-name"><span class="rebar">REBAR</span><span class="it">IT</span></div>
       <div class="brand-sub">SECURE ACCESS</div>
@@ -916,7 +927,6 @@ body{
   </div>
 </section>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 const API_BASE="https://rebarit-secure-api.rebar4qwrna.workers.dev";
 const PUBLIC_BASE="https://rebarit.store/";
@@ -925,6 +935,20 @@ const OWNER_PARAM="owner";
 const OWNER_VALUE="1";
 let currentPublicId="",createdUrl="",createdRecordId="",currentQrNo=null,copyAudioContext=null,loginChallenge="";
 const $=id=>document.getElementById(id);
+let qrLibraryPromise=null;
+function ensureQrLibrary(){
+  if(typeof QRCode!=="undefined")return Promise.resolve();
+  if(qrLibraryPromise)return qrLibraryPromise;
+  qrLibraryPromise=new Promise((resolve,reject)=>{
+    const s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+    s.async=true;
+    s.onload=()=>typeof QRCode!=="undefined"?resolve():reject(new Error("QR library not loaded"));
+    s.onerror=()=>reject(new Error("QR library failed to load"));
+    document.head.appendChild(s);
+  });
+  return qrLibraryPromise;
+}
 function showOnly(id){["notFoundView","publicView","loginView","adminView"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");}
 function showHeader(show){$("siteHeader").classList.toggle("hidden",!show)}
 function cleanTargetUrl(raw){if(!raw)return"";let value=String(raw).trim();const match=value.match(/https?:\/\/[^\s<>"']+/i);if(match)value=match[0];try{return new URL(value).toString()}catch{return value.split(/\s+/)[0].trim()}}
@@ -946,12 +970,12 @@ function logout(){sessionStorage.removeItem(ADMIN_TOKEN_KEY);location.href=PUBLI
 function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("editView").classList.toggle("hidden",name!=="edit")}
 function getFormData(prefix){return{email:$(prefix+"Email").value.trim(),password:$(prefix+"Password").value.trim(),targetLink:cleanTargetUrl($(prefix+"TargetLink").value.trim()),note:$(prefix+"Note").value.trim()}}
 async function createRecord(){clearNotice("createMsg");createdUrl="";createdRecordId="";currentQrNo=null;$("createResult").style.display="none";$("qrResultBox").classList.add("hidden");$("qrCodeBox").innerHTML="";$("qrNumber").textContent="";const payload=getFormData("c");$("cTargetLink").value=payload.targetLink;if(!payload.email&&!payload.password){setNotice("createMsg","لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/records",{method:"POST",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Create failed");createdRecordId=d.id;createdUrl=PUBLIC_BASE+"?id="+d.id;$("generatedLink").textContent=createdUrl;$("createResult").style.display="block";setNotice("createMsg","لینکەکە بە سەرکەوتوویی دروست کرا.",true)}catch(e){setNotice("createMsg",e.message||"هەڵەیەک ڕوویدا.")}}
-async function generateCreatedQr(){if(!createdRecordId||!createdUrl){setNotice("createMsg","سەرەتا لینکێک دروست بکە.");return}try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(createdRecordId)+"/qr",{method:"POST",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"QR creation failed");if(typeof QRCode==="undefined")throw new Error("QR library not loaded");currentQrNo=Number(d.qrNo);$("qrNumber").textContent=String(currentQrNo);const box=$("qrCodeBox");box.innerHTML="";new QRCode(box,{text:createdUrl,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});$("qrResultBox").classList.remove("hidden")}catch(e){setNotice("createMsg","QR Code دروست نەکرا: "+(e.message||"هەڵە"))}}
+async function generateCreatedQr(){if(!createdRecordId||!createdUrl){setNotice("createMsg","سەرەتا لینکێک دروست بکە.");return}try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(createdRecordId)+"/qr",{method:"POST",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"QR creation failed");await ensureQrLibrary();currentQrNo=Number(d.qrNo);$("qrNumber").textContent=String(currentQrNo);const box=$("qrCodeBox");box.innerHTML="";new QRCode(box,{text:createdUrl,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});$("qrResultBox").classList.remove("hidden")}catch(e){setNotice("createMsg","QR Code دروست نەکرا: "+(e.message||"هەڵە"))}}
 async function saveQrImage(){if(!currentQrNo){setNotice("createMsg","سەرەتا QR Code دروست بکە.");return}const box=$("qrCodeBox"),source=box.querySelector("canvas")||box.querySelector("img");if(!source){setNotice("createMsg","QR Code نەدۆزرایەوە.");return}const SIZE=640,QR_SIZE=500,TOP_SPACE=110,BOTTOM_SPACE=45,c=document.createElement("canvas");c.width=SIZE;c.height=TOP_SPACE+QR_SIZE+BOTTOM_SPACE;const ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#078fd1";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="900 58px Arial";ctx.fillText(String(currentQrNo),SIZE/2,58);ctx.imageSmoothingEnabled=false;ctx.drawImage(source,(SIZE-QR_SIZE)/2,TOP_SPACE,QR_SIZE,QR_SIZE);const filename="REBAR-IT-QR-"+currentQrNo+".png";c.toBlob(blob=>{if(!blob){window.open(c.toDataURL("image/png"),"_blank");return}const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)},"image/png",1)}
 async function loadRecordForEdit(){clearNotice("editMsg");const id=cleanId($("editId").value);$("editId").value=id;if(!id){setNotice("editMsg","ID بنووسە.");return}try{const r=await fetch(API_BASE+"/api/admin/record/"+encodeURIComponent(id),{headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Record not found");$("eEmail").value=d.record.email||"";$("ePassword").value=d.record.password||"";$("eTargetLink").value=cleanTargetUrl(d.record.targetLink||"");$("eNote").value=d.record.note||"";$("editFields").classList.remove("hidden");setNotice("editMsg","زانیارییەکان بارکران.",true)}catch(e){$("editFields").classList.add("hidden");setNotice("editMsg",e.message||"زانیارییەکە نەدۆزرایەوە.")}}
 async function saveRecord(){clearNotice("editMsg");const id=cleanId($("editId").value),payload=getFormData("e");$("eTargetLink").value=payload.targetLink;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Update failed");setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
 async function deleteRecord(){const id=cleanId($("editId").value);if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"))return;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Delete failed");$("editFields").classList.add("hidden");setNotice("editMsg","لینکەکە سڕایەوە.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
-async function loadPublicRecord(){try{let firstViewedAt=null;try{const vr=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)+"/view",{method:"POST"});if(vr.ok){const vd=await vr.json();firstViewedAt=vd.firstViewedAt||null}}catch{}const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)),d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");if(firstViewedAt&&!d.record.firstViewedAt)d.record.firstViewedAt=firstViewedAt;renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
+async function loadPublicRecord(){try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store"}),d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
 function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
   $("topFirstOpenedDate").textContent=formattedDate;
