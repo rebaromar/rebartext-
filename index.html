@@ -1027,6 +1027,96 @@ body{
   }
 }
 
+
+/* =========================================================
+   APPLE FRAME — SINGLE SUNLIGHT ORBIT
+   One concentrated white/gold sun-like light continuously
+   travels around the OUTER FRAME only.
+   ========================================================= */
+
+.apple-logo-top{
+  position:relative;
+  isolation:isolate;
+  overflow:visible;
+}
+
+/* One bright sun-like glint, not a snake/tail */
+.apple-logo-top::before{
+  content:"";
+  position:absolute;
+  inset:-5px;
+  border-radius:inherit;
+  padding:2px;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      transparent 351deg,
+      rgba(255,224,120,.12) 353deg,
+      rgba(255,242,194,.55) 355deg,
+      rgba(255,255,255,1) 357deg,
+      rgba(255,255,255,1) 358.5deg,
+      rgba(255,226,125,.62) 359deg,
+      transparent 360deg
+    ) !important;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,1))
+    drop-shadow(0 0 6px rgba(255,247,211,.95))
+    drop-shadow(0 0 12px rgba(255,220,105,.72))
+    drop-shadow(0 0 20px rgba(255,193,37,.35)) !important;
+
+  animation:rebarSunOrbit 2.9s linear infinite !important;
+  -webkit-animation:rebarSunOrbit 2.9s linear infinite !important;
+
+  transform-origin:50% 50%;
+  -webkit-transform-origin:50% 50%;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  pointer-events:none;
+  z-index:5;
+}
+
+/* Very soft fixed halo around the frame */
+.apple-logo-top::after{
+  content:"";
+  position:absolute;
+  inset:-9px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.045);
+  box-shadow:
+    0 0 12px rgba(255,255,255,.08),
+    0 0 24px rgba(240,199,94,.05);
+  pointer-events:none;
+  z-index:-1;
+  animation:none !important;
+  -webkit-animation:none !important;
+}
+
+@keyframes rebarSunOrbit{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+@-webkit-keyframes rebarSunOrbit{
+  0%{-webkit-transform:rotate(0deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .apple-logo-top::before{
+    animation:rebarSunOrbit 2.9s linear infinite !important;
+    -webkit-animation:rebarSunOrbit 2.9s linear infinite !important;
+  }
+}
+
 </style>
 </head>
 <body>
