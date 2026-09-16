@@ -153,15 +153,14 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   position:fixed;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%) scale(.92);
-  min-width:210px;
-  max-width:86vw;
-  padding:15px 20px;
-  border-radius:20px;
-  background:linear-gradient(135deg,rgba(10,24,39,.97),rgba(20,55,80,.97));
+  transform:translate(-50%,-50%) scale(.94);
+  width:min(250px,78vw);
+  padding:15px 18px 14px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(10,27,43,.98),rgba(20,55,80,.98));
   color:#fff;
   text-align:center;
-  box-shadow:0 24px 60px rgba(2,12,27,.30),0 10px 28px rgba(7,143,209,.20);
+  box-shadow:0 22px 55px rgba(2,12,27,.30),0 10px 26px rgba(7,143,209,.18);
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
@@ -180,16 +179,16 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:9px;
+  gap:8px;
   direction:rtl;
   font-size:18px;
   font-weight:900;
-  line-height:1.3;
+  line-height:1.35;
 }
 .copy-toast-icon{
-  width:32px;
-  height:32px;
-  flex:0 0 32px;
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -197,23 +196,23 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   background:rgba(55,190,240,.18);
   border:1px solid rgba(139,229,255,.30);
   color:#fff;
-  font:900 18px/1 Inter,Arial,sans-serif;
+  font:900 17px/1 Inter,Arial,sans-serif;
 }
 .copy-toast-sub{
-  margin-top:6px;
-  color:rgba(255,255,255,.76);
-  font-size:11px;
-  font-weight:700;
-  line-height:1.5;
+  margin-top:5px;
+  color:rgba(255,255,255,.78);
+  font-size:13px;
+  font-weight:800;
+  line-height:1.45;
 }
 @media(max-width:650px){
   .copy-toast{
-    min-width:190px;
-    padding:14px 17px;
-    border-radius:18px;
+    width:min(225px,76vw);
+    padding:14px 16px 13px;
+    border-radius:17px;
   }
   .copy-toast-main{font-size:17px}
-  .copy-toast-icon{width:30px;height:30px;flex-basis:30px;font-size:16px}
+  .copy-toast-sub{font-size:12.5px}
 }
 
 </style>
@@ -369,13 +368,14 @@ function showCopyToast(id){
   const text=$("copyToastText");
   const sub=$("copyToastSub");
 
-  if(text)text.textContent="کۆپی کرا ✓";
-  if(sub){
-    sub.textContent=
-      id==="displayEmail" ? "ئیمەیڵەکە کۆپی کرا" :
-      id==="displayPassword" ? "پاسۆردەکە کۆپی کرا" :
-      "بە سەرکەوتوویی کۆپی کرا";
+  if(text){
+    text.textContent=
+      id==="displayEmail" ? "ئیمەیڵەکە" :
+      id==="displayPassword" ? "پاسۆردەکە" :
+      "زانیارییەکە";
   }
+
+  if(sub)sub.textContent="کۆپی کرا";
 
   toast.classList.remove("show");
   void toast.offsetWidth;
@@ -384,7 +384,7 @@ function showCopyToast(id){
   clearTimeout(copyToastTimer);
   copyToastTimer=setTimeout(()=>{
     toast.classList.remove("show");
-  },1500);
+  },1400);
 }
 
 function showCopyErrorToast(){
@@ -583,10 +583,10 @@ async function loginWithPasskey(){
 
 <div id="copyToast" class="copy-toast" aria-live="polite" aria-atomic="true">
   <div class="copy-toast-main">
-    <span id="copyToastText">کۆپی کرا</span>
+    <span id="copyToastText">ئیمەیڵەکە</span>
     <span class="copy-toast-icon">✓</span>
   </div>
-  <div id="copyToastSub" class="copy-toast-sub">بە سەرکەوتوویی کۆپی کرا</div>
+  <div id="copyToastSub" class="copy-toast-sub">کۆپی کرا</div>
 </div>
 
 </body>
