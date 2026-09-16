@@ -210,6 +210,400 @@ button,.button{appearance:none;border:0;cursor:pointer;min-height:50px;padding:1
   .copy-toast-icon{width:31px;height:31px;flex-basis:31px;font-size:17px}
 }
 
+
+/* =========================================================
+   REBAR IT — ROYAL GOLD VIP THEME
+   VISUAL-ONLY OVERRIDE
+   IMPORTANT: no text, content, order, or element position changed.
+   ========================================================= */
+
+:root{
+  --gold-1:#fff0b5;
+  --gold-2:#f6cf6b;
+  --gold-3:#d9a62e;
+  --gold-4:#9e6f12;
+  --gold-soft:rgba(246,207,107,.18);
+  --gold-line:rgba(246,207,107,.38);
+  --vip-bg:#070707;
+  --vip-bg-2:#0c0c0d;
+  --vip-card:#111113;
+  --vip-card-2:#171719;
+  --vip-text:#f8f5ea;
+  --vip-muted:#a9a391;
+}
+
+/* Page */
+html{
+  background:#050505;
+}
+body{
+  color:var(--vip-text);
+  background:
+    radial-gradient(circle at 12% 0%,rgba(217,166,46,.14),transparent 27%),
+    radial-gradient(circle at 88% 12%,rgba(246,207,107,.08),transparent 26%),
+    linear-gradient(180deg,#050505 0%,#090909 42%,#050505 100%);
+}
+
+/* Header / Brand — layout stays exactly the same */
+.topbar{
+  background:transparent;
+}
+.logo{
+  background:#050505;
+  border-color:rgba(255,240,181,.82);
+  box-shadow:
+    0 0 0 2px rgba(217,166,46,.34),
+    0 10px 28px rgba(0,0,0,.42),
+    0 0 24px rgba(217,166,46,.12);
+}
+.brand-name .rebar{
+  color:var(--gold-2);
+  text-shadow:0 0 18px rgba(246,207,107,.16);
+}
+.brand-name .it{
+  color:#fffaf0;
+}
+.brand-sub,
+.top-first-label{
+  color:#b9af91;
+}
+.top-first-date{
+  color:var(--gold-1);
+}
+
+/* Main cards */
+.card{
+  background:
+    linear-gradient(180deg,rgba(19,19,21,.98),rgba(10,10,11,.99));
+  border-color:rgba(246,207,107,.26);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.48),
+    0 0 0 1px rgba(255,255,255,.015),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+.card:before{
+  background:linear-gradient(
+    90deg,
+    #8c6211 0%,
+    #d9a62e 22%,
+    #fff0b5 50%,
+    #d9a62e 78%,
+    #8c6211 100%
+  );
+  box-shadow:0 0 18px rgba(217,166,46,.32);
+}
+
+/* Public Apple-ID header — styling only */
+.public-head{
+  border-bottom-color:rgba(246,207,107,.13);
+  background:
+    radial-gradient(circle at 50% 10%,rgba(246,207,107,.08),transparent 44%),
+    linear-gradient(180deg,#151516,#0e0e0f);
+}
+.apple-logo-top{
+  background:
+    linear-gradient(145deg,#1a1813,#0b0b0c);
+  border-color:rgba(246,207,107,.30);
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.34),
+    inset 0 0 24px rgba(246,207,107,.035),
+    0 0 20px rgba(217,166,46,.08);
+}
+.apple-logo-top svg{
+  fill:var(--gold-2);
+  filter:drop-shadow(0 0 8px rgba(246,207,107,.12));
+}
+.public-head h1{
+  color:#fffaf0;
+}
+.public-head h1 span{
+  color:var(--gold-2);
+  text-shadow:0 0 20px rgba(246,207,107,.10);
+}
+
+/* Public content */
+.content{
+  background:transparent;
+}
+.account-label{
+  color:#f4eedf;
+}
+.account-box{
+  background:
+    linear-gradient(180deg,#191919,#121212);
+  border-color:rgba(246,207,107,.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 8px 22px rgba(0,0,0,.20);
+}
+.account-box:focus-within,
+.tappable-copy:focus-visible{
+  outline-color:rgba(246,207,107,.28);
+}
+.tappable-copy:active{
+  box-shadow:
+    0 0 0 4px rgba(246,207,107,.08),
+    0 8px 22px rgba(0,0,0,.20);
+}
+.icon-copy-button{
+  color:var(--gold-1);
+}
+.icon-copy-button:active{
+  background:rgba(246,207,107,.08);
+}
+.icon-copy-button.copied{
+  color:#f8d978;
+}
+.copy-divider{
+  background:linear-gradient(180deg,#8d691c,#f0cf72,#8d691c);
+}
+.account-value{
+  color:#f8d978;
+}
+
+/* Main buttons */
+.primary{
+  color:#15100a;
+  background:
+    linear-gradient(135deg,#b78019 0%,#e6ba4f 38%,#fff0b5 62%,#d8a12a 100%);
+  box-shadow:
+    0 13px 28px rgba(217,166,46,.20),
+    inset 0 1px 0 rgba(255,255,255,.48);
+  text-shadow:0 1px 0 rgba(255,255,255,.24);
+}
+.primary:active{
+  filter:brightness(.96);
+}
+.secondary{
+  color:#f1dfaa;
+  background:linear-gradient(180deg,#181818,#111);
+  border-color:rgba(246,207,107,.26);
+}
+.danger{
+  color:#ffb4bb;
+  background:#211114;
+  border-color:#603038;
+}
+
+/* Notes / status */
+.note{
+  border-color:rgba(246,207,107,.22);
+  background:
+    linear-gradient(180deg,rgba(27,25,20,.98),rgba(16,16,16,.98));
+  color:#d9d1bc;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+}
+.used-box{
+  border-top-color:rgba(246,207,107,.17);
+}
+.used-title{
+  color:#d5c9aa;
+}
+.used-date{
+  color:var(--gold-1);
+}
+
+/* Login / security */
+.security-logo{
+  background:
+    radial-gradient(circle at 50% 35%,rgba(246,207,107,.13),transparent 55%),
+    linear-gradient(145deg,#181816,#0d0d0e);
+  border-color:rgba(246,207,107,.30);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+.security-logo svg path{
+  fill:var(--gold-2)!important;
+}
+.login-title{
+  color:#fff8e8;
+}
+.login-description,
+.tiny{
+  color:#aaa38f;
+}
+.passkey-btn{
+  color:#181009;
+  background:
+    linear-gradient(135deg,#a87614,#d9a62e 38%,#fff0b5 62%,#c58c1d);
+  box-shadow:
+    0 12px 27px rgba(217,166,46,.18),
+    inset 0 1px 0 rgba(255,255,255,.45);
+}
+.passkey-separator{
+  color:#8f8876;
+}
+.passkey-separator:before,
+.passkey-separator:after{
+  background:rgba(246,207,107,.18);
+}
+.passkey-manage-btn{
+  color:#f5d77a;
+  border-color:rgba(246,207,107,.28);
+  background:linear-gradient(180deg,#171612,#101010);
+}
+
+/* Form fields */
+.field label{
+  color:#e8dfca;
+}
+.field input,
+.field textarea{
+  background:#101011;
+  color:#fff8e8;
+  border-color:rgba(246,207,107,.22);
+  caret-color:var(--gold-2);
+}
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#716c60;
+}
+.field input:focus,
+.field textarea:focus{
+  background:#131313;
+  border-color:#d9a62e;
+  box-shadow:0 0 0 4px rgba(217,166,46,.08);
+}
+
+/* Admin */
+.admin-header{
+  border-bottom-color:rgba(246,207,107,.14);
+  background:
+    radial-gradient(circle at 88% 0%,rgba(246,207,107,.07),transparent 35%),
+    transparent;
+}
+.admin-header h1{
+  color:#fff8e8;
+}
+.admin-header p{
+  color:#9f9887;
+}
+.tabs{
+  background:#0c0c0d;
+  border-bottom-color:rgba(246,207,107,.12);
+}
+.tab{
+  background:#131314;
+  color:#aaa18b;
+  border-color:rgba(246,207,107,.18);
+}
+.tab.active{
+  color:#1a1207;
+  background:
+    linear-gradient(135deg,#a67516,#d9a62e 42%,#f5d876);
+  border-color:rgba(255,240,181,.55);
+  box-shadow:0 7px 17px rgba(217,166,46,.12);
+}
+
+/* Notices */
+.notice.ok{
+  color:#f4d777;
+  background:#18160f;
+  border-color:rgba(246,207,107,.30);
+}
+.notice.err{
+  color:#ffb2bb;
+  background:#211114;
+  border-color:#603038;
+}
+
+/* Create-result + QR */
+.result{
+  border-color:rgba(246,207,107,.42);
+  background:#12110e;
+}
+.result code{
+  color:#f5d77a;
+}
+.qr-tools{
+  border-top-color:rgba(246,207,107,.14);
+}
+.qr-create-btn{
+  border-color:rgba(246,207,107,.28);
+  background:#151515;
+  color:#f3d575;
+}
+.qr-result-box{
+  border-color:rgba(246,207,107,.22);
+  background:
+    radial-gradient(circle at 50% 10%,rgba(246,207,107,.07),transparent 34%),
+    linear-gradient(180deg,#171717,#101010);
+  box-shadow:0 14px 32px rgba(0,0,0,.28);
+}
+.qr-result-title{
+  color:#f8efd8;
+}
+.qr-number-top{
+  color:var(--gold-2);
+}
+#qrCodeBox img,
+#qrCodeBox canvas{
+  border-color:rgba(246,207,107,.26);
+  box-shadow:0 10px 28px rgba(0,0,0,.24);
+}
+.qr-save-btn{
+  color:#171008;
+  background:
+    linear-gradient(135deg,#a87614,#e0b13c 42%,#fff0b5 65%,#c58c1d);
+  box-shadow:0 10px 22px rgba(217,166,46,.16);
+}
+.qr-note{
+  color:#9d9581;
+}
+
+/* 404 */
+.not-found{
+  color:#9f9887;
+}
+.not-found strong{
+  color:#6e5a2b;
+}
+
+/* OTP */
+.otp-box{
+  color:#f8d978!important;
+}
+
+/* Center copy-toast — same behavior and same position */
+.copy-toast{
+  background:
+    linear-gradient(135deg,rgba(20,15,7,.98),rgba(51,37,11,.98));
+  color:#fff7df;
+  border-color:rgba(246,207,107,.34);
+  box-shadow:
+    0 26px 65px rgba(0,0,0,.48),
+    0 0 28px rgba(217,166,46,.10);
+}
+.copy-toast-icon{
+  background:rgba(246,207,107,.12);
+  border-color:rgba(246,207,107,.42);
+  color:#ffe89d;
+}
+
+/* Selection */
+::selection{
+  background:rgba(246,207,107,.30);
+  color:#fff;
+}
+
+/* Scrollbar where supported */
+*{
+  scrollbar-color:#8e691a #111;
+}
+
+/* Mobile: visual polish only; existing dimensions/order are preserved */
+@media(max-width:650px){
+  .card{
+    box-shadow:
+      0 20px 48px rgba(0,0,0,.44),
+      0 0 0 1px rgba(255,255,255,.012);
+  }
+  .account-box{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.02),
+      0 8px 18px rgba(0,0,0,.20);
+  }
+}
+
 </style>
 </head>
 <body>
