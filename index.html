@@ -15,7 +15,24 @@
 <link rel="preconnect" href="https://rebarit-secure-api.rebar4qwrna.workers.dev" crossorigin>
 <link rel="dns-prefetch" href="//rebarit-secure-api.rebar4qwrna.workers.dev">
 <link rel="preconnect" href="https://i.ibb.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+
+<script>
+(function(){
+  try{
+    const id=new URLSearchParams(location.search).get("id");
+    if(!id)return;
+    const safe=String(id).replace(/[^A-Za-z0-9_$~_-]/g,"");
+    if(!safe)return;
+    window.__rebarPublicFetch=fetch(
+      "https://rebarit-secure-api.rebar4qwrna.workers.dev/api/record/"+encodeURIComponent(safe),
+      {cache:"no-store"}
+    );
+  }catch{}
+})();
+</script>
+
 <style>
 
 :root{--blue:#1698e5;--text:#17191d;--muted:#697586;--line:#dce5ec;--green:#16a66a;--red:#d94b5c}
@@ -1135,28 +1152,28 @@ body{
   top:50%;
   transform:translate(-50%,-50%);
   z-index:10;
-  min-width:54px;
-  height:38px;
-  padding:0 10px;
+  min-width:68px;
+  height:46px;
+  padding:0 13px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:11px;
+  border-radius:13px;
   background:#fff;
   border:2px solid #111827;
   color:#111827;
   box-shadow:0 3px 10px rgba(0,0,0,.15);
-  font:900 20px/1 Inter,Arial,sans-serif;
+  font:900 27px/1 Inter,Arial,sans-serif;
   direction:ltr;
   pointer-events:none;
 }
 @media(max-width:650px){
   .qr-center-number{
-    min-width:50px;
-    height:35px;
-    padding:0 9px;
-    border-radius:10px;
-    font-size:18px;
+    min-width:62px;
+    height:42px;
+    padding:0 11px;
+    border-radius:12px;
+    font-size:24px;
   }
 }
 
@@ -1347,16 +1364,16 @@ async function saveQrImage(){
 
   // Small centered white badge so the QR stays easy to scan.
   const label=String(currentQrNo);
-  ctx.font="900 52px Arial";
+  ctx.font="900 68px Arial";
   ctx.textAlign="center";
   ctx.textBaseline="middle";
 
   const metrics=ctx.measureText(label);
-  const badgeW=Math.max(108,Math.min(190,metrics.width+46));
-  const badgeH=82;
+  const badgeW=Math.max(138,Math.min(230,metrics.width+56));
+  const badgeH=98;
   const x=(SIZE-badgeW)/2;
   const y=(SIZE-badgeH)/2;
-  const r=18;
+  const r=20;
 
   ctx.fillStyle="#ffffff";
   ctx.strokeStyle="#111827";
@@ -1398,7 +1415,7 @@ async function saveQrImage(){
 async function loadRecordForEdit(){clearNotice("editMsg");const id=cleanId($("editId").value);$("editId").value=id;if(!id){setNotice("editMsg","ID بنووسە.");return}try{const r=await fetch(API_BASE+"/api/admin/record/"+encodeURIComponent(id),{headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Record not found");$("eEmail").value=d.record.email||"";$("ePassword").value=d.record.password||"";$("eTargetLink").value=cleanTargetUrl(d.record.targetLink||"");$("eNote").value=d.record.note||"";$("editFields").classList.remove("hidden");setNotice("editMsg","زانیارییەکان بارکران.",true)}catch(e){$("editFields").classList.add("hidden");setNotice("editMsg",e.message||"زانیارییەکە نەدۆزرایەوە.")}}
 async function saveRecord(){clearNotice("editMsg");const id=cleanId($("editId").value),payload=getFormData("e");$("eTargetLink").value=payload.targetLink;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Update failed");setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
 async function deleteRecord(){const id=cleanId($("editId").value);if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"))return;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Delete failed");$("editFields").classList.add("hidden");setNotice("editMsg","لینکەکە سڕایەوە.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
-async function loadPublicRecord(){try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store"}),d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
+async function loadPublicRecord(){try{const requestPromise=window.__rebarPublicFetch||fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store"});window.__rebarPublicFetch=null;const r=await requestPromise,d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
 function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
   $("topFirstOpenedDate").textContent=formattedDate;
