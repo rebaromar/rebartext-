@@ -1117,6 +1117,49 @@ body{
   }
 }
 
+
+/* ===== QR NUMBER INSIDE CENTER ===== */
+.qr-number-top{
+  display:none !important;
+}
+#qrCodeBox{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:220px;
+}
+.qr-center-number{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  min-width:54px;
+  height:38px;
+  padding:0 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:11px;
+  background:#fff;
+  border:2px solid #111827;
+  color:#111827;
+  box-shadow:0 3px 10px rgba(0,0,0,.15);
+  font:900 20px/1 Inter,Arial,sans-serif;
+  direction:ltr;
+  pointer-events:none;
+}
+@media(max-width:650px){
+  .qr-center-number{
+    min-width:50px;
+    height:35px;
+    padding:0 9px;
+    border-radius:10px;
+    font-size:18px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1204,7 +1247,7 @@ body{
   <div id="createView" class="content">
     <div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="cEmail" class="ltr" placeholder="example@email.com"></div><div class="field"><label>پاسۆرد</label><input id="cPassword" class="ltr" placeholder="Password"></div><div class="field full"><label>لینک</label><input id="cTargetLink" class="ltr" placeholder="https://..."></div><div class="field full"><label>تێبینی</label><textarea id="cNote" placeholder="تێبینی..."></textarea></div></div>
     <button class="primary wide" style="margin-top:15px" onclick="createRecord()">دروستکردنی لینک</button><div id="createMsg" class="notice"></div>
-    <div id="createResult" class="result"><code id="generatedLink"></code><div class="button-row"><button class="secondary" onclick="copyGenerated()">کۆپی لینک</button><button class="secondary" onclick="openGenerated()">کردنەوە</button></div><div class="qr-tools"><button class="qr-create-btn" onclick="generateCreatedQr()">دروستکردنی QR Code</button><div id="qrResultBox" class="qr-result-box hidden"><div class="qr-result-title">QR Code</div><div class="qr-number-top"><span id="qrNumber"></span></div><div id="qrCodeBox"></div><button class="qr-save-btn" onclick="saveQrImage()">خەزنکردنی QR</button><div class="qr-note">کاتێ خەزنی دەکەیت، تەنها ژمارەکە لە سەرەوەی QR ـەکە دەبێت.</div></div></div></div>
+    <div id="createResult" class="result"><code id="generatedLink"></code><div class="button-row"><button class="secondary" onclick="copyGenerated()">کۆپی لینک</button><button class="secondary" onclick="openGenerated()">کردنەوە</button></div><div class="qr-tools"><button class="qr-create-btn" onclick="generateCreatedQr()">دروستکردنی QR Code</button><div id="qrResultBox" class="qr-result-box hidden"><div class="qr-result-title">QR Code</div><div class="qr-number-top"><span id="qrNumber"></span></div><div id="qrCodeBox"></div><button class="qr-save-btn" onclick="saveQrImage()">خەزنکردنی QR</button><div class="qr-note">ژمارەی QR لە ناوەڕاستی خودی QR ـەکە دەردەکەوێت.</div></div></div></div>
   </div>
   <div id="editView" class="content hidden">
     <div class="field"><label>ID ی لینک</label><div style="display:flex;gap:8px"><input id="editId" class="ltr" placeholder="ID"><button class="secondary" onclick="loadRecordForEdit()">بارکردن</button></div></div>
@@ -1268,8 +1311,90 @@ function smoothScrollToElement(id,delay=120){
 }
 function getFormData(prefix){return{email:$(prefix+"Email").value.trim(),password:$(prefix+"Password").value.trim(),targetLink:cleanTargetUrl($(prefix+"TargetLink").value.trim()),note:$(prefix+"Note").value.trim()}}
 async function createRecord(){clearNotice("createMsg");createdUrl="";createdRecordId="";currentQrNo=null;$("createResult").style.display="none";$("qrResultBox").classList.add("hidden");$("qrCodeBox").innerHTML="";$("qrNumber").textContent="";const payload=getFormData("c");$("cTargetLink").value=payload.targetLink;if(!payload.email&&!payload.password){setNotice("createMsg","لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/records",{method:"POST",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Create failed");createdRecordId=d.id;createdUrl=PUBLIC_BASE+"?id="+d.id;$("generatedLink").textContent=createdUrl;$("createResult").style.display="block";setNotice("createMsg","لینکەکە بە سەرکەوتوویی دروست کرا.",true);smoothScrollToElement("createResult",140)}catch(e){setNotice("createMsg",e.message||"هەڵەیەک ڕوویدا.")}}
-async function generateCreatedQr(){if(!createdRecordId||!createdUrl){setNotice("createMsg","سەرەتا لینکێک دروست بکە.");return}try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(createdRecordId)+"/qr",{method:"POST",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"QR creation failed");await ensureQrLibrary();currentQrNo=Number(d.qrNo);$("qrNumber").textContent=String(currentQrNo);const box=$("qrCodeBox");box.innerHTML="";new QRCode(box,{text:createdUrl,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});$("qrResultBox").classList.remove("hidden");smoothScrollToElement("qrResultBox",220)}catch(e){setNotice("createMsg","QR Code دروست نەکرا: "+(e.message||"هەڵە"))}}
-async function saveQrImage(){if(!currentQrNo){setNotice("createMsg","سەرەتا QR Code دروست بکە.");return}const box=$("qrCodeBox"),source=box.querySelector("canvas")||box.querySelector("img");if(!source){setNotice("createMsg","QR Code نەدۆزرایەوە.");return}const SIZE=640,QR_SIZE=500,TOP_SPACE=110,BOTTOM_SPACE=45,c=document.createElement("canvas");c.width=SIZE;c.height=TOP_SPACE+QR_SIZE+BOTTOM_SPACE;const ctx=c.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#078fd1";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="900 58px Arial";ctx.fillText(String(currentQrNo),SIZE/2,58);ctx.imageSmoothingEnabled=false;ctx.drawImage(source,(SIZE-QR_SIZE)/2,TOP_SPACE,QR_SIZE,QR_SIZE);const filename="REBAR-IT-QR-"+currentQrNo+".png";c.toBlob(blob=>{if(!blob){window.open(c.toDataURL("image/png"),"_blank");return}const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)},"image/png",1)}
+async function generateCreatedQr(){if(!createdRecordId||!createdUrl){setNotice("createMsg","سەرەتا لینکێک دروست بکە.");return}try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(createdRecordId)+"/qr",{method:"POST",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"QR creation failed");await ensureQrLibrary();currentQrNo=Number(d.qrNo);$("qrNumber").textContent=String(currentQrNo);const box=$("qrCodeBox");box.innerHTML="";new QRCode(box,{text:createdUrl,width:220,height:220,colorDark:"#111827",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H});
+const centerNo=document.createElement("div");
+centerNo.className="qr-center-number";
+centerNo.textContent=String(currentQrNo);
+box.appendChild(centerNo);
+$("qrResultBox").classList.remove("hidden");
+smoothScrollToElement("qrResultBox",220)}catch(e){setNotice("createMsg","QR Code دروست نەکرا: "+(e.message||"هەڵە"))}}
+async function saveQrImage(){
+  if(!currentQrNo){
+    setNotice("createMsg","سەرەتا QR Code دروست بکە.");
+    return;
+  }
+
+  const box=$("qrCodeBox");
+  const source=box.querySelector("canvas")||box.querySelector("img");
+  if(!source){
+    setNotice("createMsg","QR Code نەدۆزرایەوە.");
+    return;
+  }
+
+  const SIZE=640;
+  const QR_SIZE=560;
+  const MARGIN=(SIZE-QR_SIZE)/2;
+  const c=document.createElement("canvas");
+  c.width=SIZE;
+  c.height=SIZE;
+
+  const ctx=c.getContext("2d");
+  ctx.fillStyle="#fff";
+  ctx.fillRect(0,0,SIZE,SIZE);
+
+  ctx.imageSmoothingEnabled=false;
+  ctx.drawImage(source,MARGIN,MARGIN,QR_SIZE,QR_SIZE);
+
+  // Small centered white badge so the QR stays easy to scan.
+  const label=String(currentQrNo);
+  ctx.font="900 52px Arial";
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+
+  const metrics=ctx.measureText(label);
+  const badgeW=Math.max(108,Math.min(190,metrics.width+46));
+  const badgeH=82;
+  const x=(SIZE-badgeW)/2;
+  const y=(SIZE-badgeH)/2;
+  const r=18;
+
+  ctx.fillStyle="#ffffff";
+  ctx.strokeStyle="#111827";
+  ctx.lineWidth=5;
+
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+badgeW-r,y);
+  ctx.quadraticCurveTo(x+badgeW,y,x+badgeW,y+r);
+  ctx.lineTo(x+badgeW,y+badgeH-r);
+  ctx.quadraticCurveTo(x+badgeW,y+badgeH,x+badgeW-r,y+badgeH);
+  ctx.lineTo(x+r,y+badgeH);
+  ctx.quadraticCurveTo(x,y+badgeH,x,y+badgeH-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.fillStyle="#111827";
+  ctx.fillText(label,SIZE/2,SIZE/2+2);
+
+  const filename="REBAR-IT-QR-"+currentQrNo+".png";
+  c.toBlob(blob=>{
+    if(!blob){
+      window.open(c.toDataURL("image/png"),"_blank");
+      return;
+    }
+    const u=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=u;
+    a.download=filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(u),1500);
+  },"image/png",1);
+}
 async function loadRecordForEdit(){clearNotice("editMsg");const id=cleanId($("editId").value);$("editId").value=id;if(!id){setNotice("editMsg","ID بنووسە.");return}try{const r=await fetch(API_BASE+"/api/admin/record/"+encodeURIComponent(id),{headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Record not found");$("eEmail").value=d.record.email||"";$("ePassword").value=d.record.password||"";$("eTargetLink").value=cleanTargetUrl(d.record.targetLink||"");$("eNote").value=d.record.note||"";$("editFields").classList.remove("hidden");setNotice("editMsg","زانیارییەکان بارکران.",true)}catch(e){$("editFields").classList.add("hidden");setNotice("editMsg",e.message||"زانیارییەکە نەدۆزرایەوە.")}}
 async function saveRecord(){clearNotice("editMsg");const id=cleanId($("editId").value),payload=getFormData("e");$("eTargetLink").value=payload.targetLink;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Update failed");setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
 async function deleteRecord(){const id=cleanId($("editId").value);if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"))return;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Delete failed");$("editFields").classList.add("hidden");setNotice("editMsg","لینکەکە سڕایەوە.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
