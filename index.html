@@ -1177,6 +1177,18 @@ body{
   }
 }
 
+
+/* QR-number lookup — matches the existing gold theme */
+.edit-lookup-row{display:flex;gap:8px;align-items:stretch}
+.edit-lookup-row input{min-width:0;flex:1}
+.edit-lookup-row button{flex-shrink:0}
+.edit-lookup-separator{display:flex;align-items:center;gap:12px;margin:18px 0;color:#ad9a69;font-size:12px}
+.edit-lookup-separator:before,.edit-lookup-separator:after{content:"";height:1px;flex:1;background:rgba(240,199,94,.18)}
+.edit-qr-hint{margin:9px 4px 0;color:#ad9a69;font-size:11px;line-height:1.9}
+.edit-selected-summary{margin:18px 0 14px;padding:12px;border:1px solid rgba(240,199,94,.25);border-radius:13px;color:#f0c75e;background:#151007;font:700 12px/1.6 Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.qr-match-choice{margin-top:8px;overflow-wrap:anywhere}
+#editView button:disabled{opacity:.55;cursor:wait}
+
 </style>
 </head>
 <body>
@@ -1267,9 +1279,13 @@ body{
     <div id="createResult" class="result"><code id="generatedLink"></code><div class="button-row"><button class="secondary" onclick="copyGenerated()">کۆپی لینک</button><button class="secondary" onclick="openGenerated()">کردنەوە</button></div><div class="qr-tools"><button class="qr-create-btn" onclick="generateCreatedQr()">دروستکردنی QR Code</button><div id="qrResultBox" class="qr-result-box hidden"><div class="qr-result-title">QR Code</div><div class="qr-number-top"><span id="qrNumber"></span></div><div id="qrCodeBox"></div><button class="qr-save-btn" onclick="saveQrImage()">خەزنکردنی QR</button><div class="qr-note">ژمارەی QR لە ناوەڕاستی خودی QR ـەکە دەردەکەوێت.</div></div></div></div>
   </div>
   <div id="editView" class="content hidden">
-    <div class="field"><label>ID ی لینک</label><div style="display:flex;gap:8px"><input id="editId" class="ltr" placeholder="ID"><button class="secondary" onclick="loadRecordForEdit()">بارکردن</button></div></div>
-    <div id="editFields" class="hidden"><div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="eEmail" class="ltr"></div><div class="field"><label>پاسۆرد</label><input id="ePassword" class="ltr"></div><div class="field full"><label>لینک</label><input id="eTargetLink" class="ltr"></div><div class="field full"><label>تێبینی</label><textarea id="eNote"></textarea></div></div><div class="button-row"><button class="primary" style="flex:1" onclick="saveRecord()">پاشەکەوتکردن</button><button class="danger" onclick="deleteRecord()">سڕینەوە</button></div></div>
-    <div id="editMsg" class="notice"></div>
+    <div class="field"><label for="editId">ID ی لینک</label><div class="edit-lookup-row"><input id="editId" class="ltr" placeholder="ID" autocomplete="off"><button class="secondary" onclick="loadRecordForEdit()">بارکردن</button></div></div>
+    <div class="edit-lookup-separator"><span>یان</span></div>
+    <div class="field"><label for="editQrNo">ژمارەی باڕکۆد</label><div class="edit-lookup-row"><input id="editQrNo" class="ltr" type="text" inputmode="numeric" maxlength="16" placeholder="125" autocomplete="off" aria-describedby="editQrHint"><button class="secondary" onclick="loadRecordForEditByQr()">بارکردن</button></div><div id="editQrHint" class="edit-qr-hint">ژمارەی ناوەڕاستی QR بنووسە بۆ بارکردنی لینکەکە.</div></div>
+    <button id="editLookupCancel" class="secondary wide hidden" onclick="cancelEditLookup()">هەڵوەشاندنەوەی گەڕان</button>
+    <div id="editQrMatches" class="hidden"></div>
+    <div id="editFields" class="hidden"><div id="editSelectedSummary" class="edit-selected-summary" dir="ltr"></div><div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="eEmail" class="ltr"></div><div class="field"><label>پاسۆرد</label><input id="ePassword" class="ltr"></div><div class="field full"><label>لینک</label><input id="eTargetLink" class="ltr"></div><div class="field full"><label>تێبینی</label><textarea id="eNote"></textarea></div></div><div class="button-row"><button class="primary" style="flex:1" onclick="saveRecord()">پاشەکەوتکردن</button><button class="danger" onclick="deleteRecord()">سڕینەوە</button></div></div>
+    <div id="editMsg" class="notice" role="status" aria-live="polite"></div>
   </div>
 </section>
 </div>
@@ -1412,9 +1428,179 @@ async function saveQrImage(){
     setTimeout(()=>URL.revokeObjectURL(u),1500);
   },"image/png",1);
 }
-async function loadRecordForEdit(){clearNotice("editMsg");const id=cleanId($("editId").value);$("editId").value=id;if(!id){setNotice("editMsg","ID بنووسە.");return}try{const r=await fetch(API_BASE+"/api/admin/record/"+encodeURIComponent(id),{headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Record not found");$("eEmail").value=d.record.email||"";$("ePassword").value=d.record.password||"";$("eTargetLink").value=cleanTargetUrl(d.record.targetLink||"");$("eNote").value=d.record.note||"";$("editFields").classList.remove("hidden");setNotice("editMsg","زانیارییەکان بارکران.",true)}catch(e){$("editFields").classList.add("hidden");setNotice("editMsg",e.message||"زانیارییەکە نەدۆزرایەوە.")}}
-async function saveRecord(){clearNotice("editMsg");const id=cleanId($("editId").value),payload=getFormData("e");$("eTargetLink").value=payload.targetLink;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"PUT",headers:authHeaders(),body:JSON.stringify(payload)}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Update failed");setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
-async function deleteRecord(){const id=cleanId($("editId").value);if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟"))return;try{const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(id),{method:"DELETE",headers:authHeaders()}),d=await r.json();if(r.status===401){logout();return}if(!r.ok)throw new Error(d.error||"Delete failed");$("editFields").classList.add("hidden");setNotice("editMsg","لینکەکە سڕایەوە.",true)}catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}}
+// ID and QR lookup share one selected record, independent of editable lookup text.
+let selectedEditId="",editLookupVersion=0,editLookupController=null,editMutationBusy=false;
+function normalizeQrInput(raw){
+ return String(raw||"").trim().replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-0x660)).replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-0x6f0));
+}
+function clearEditSelection(){
+ selectedEditId="";
+ $("editFields").classList.add("hidden");
+ ["eEmail","ePassword","eTargetLink","eNote"].forEach(id=>$(id).value="");
+ $("editSelectedSummary").textContent="";
+ $("editQrMatches").replaceChildren();
+ $("editQrMatches").classList.add("hidden");
+}
+function cancelEditLookup(clearMessage=true){
+ editLookupVersion++;
+ if(editLookupController)editLookupController.abort();
+ editLookupController=null;
+ $("editLookupCancel").classList.add("hidden");
+ clearEditSelection();
+ if(clearMessage)clearNotice("editMsg");
+}
+function beginEditLookup(){
+ cancelEditLookup();
+ editLookupController=new AbortController();
+ $("editLookupCancel").classList.remove("hidden");
+ return {version:editLookupVersion,signal:editLookupController.signal};
+}
+function editLookupIsCurrent(state){return state.version===editLookupVersion&&!state.signal.aborted}
+function finishEditLookup(state){
+ if(editLookupIsCurrent(state)){
+  editLookupController=null;
+  $("editLookupCancel").classList.add("hidden");
+ }
+}
+async function editApi(path,options={},parentSignal){
+ const controller=new AbortController();
+ const abort=()=>controller.abort();
+ if(parentSignal){if(parentSignal.aborted)abort();else parentSignal.addEventListener("abort",abort,{once:true})}
+ const timer=setTimeout(abort,25000);
+ try{
+  const response=await fetch(API_BASE+path,{...options,headers:authHeaders(),cache:"no-store",signal:controller.signal});
+  if(response.status===401){cancelEditLookup();logout();throw new Error("کاتی چوونەژوورەوە بەسەرچووە.")}
+  let data;
+  try{data=await response.json()}catch{throw new Error("وەڵامی سێرڤەر دروست نییە؛ کۆدی نوێی Worker دابنێ.")}
+  if(!response.ok){
+   if(response.status===404&&path.startsWith("/api/admin/records/by-qr/"))
+    throw new Error("سەرەتا کۆدی نوێی Worker دابنێ، پاشان دووبارە هەوڵ بدە.");
+   if(response.status===404)throw new Error("لینکەکە نەدۆزرایەوە؛ لەوانەیە سڕابێتەوە.");
+   throw new Error(data.error||"بارکردنی زانیارییەکان سەرکەوتوو نەبوو.");
+  }
+  return data;
+ }catch(error){
+  if(error.name==="AbortError"&&!parentSignal?.aborted)
+   throw new Error("وەڵامی سێرڤەر دوا کەوت؛ دووبارە هەوڵ بدە.");
+  throw error;
+ }finally{clearTimeout(timer);parentSignal?.removeEventListener("abort",abort)}
+}
+async function populateEditRecord(id,state,expectedQr=null){
+ const data=await editApi("/api/admin/record/"+encodeURIComponent(id),{},state.signal);
+ if(!editLookupIsCurrent(state))return;
+ if(!data.record||typeof data.record!=="object")throw new Error("زانیارییەکان تەواو نین.");
+ const r=data.record;
+ if(expectedQr!==null&&Number(r.qrNo)!==expectedQr)
+  throw new Error("ژمارەی ئەم لینکە گۆڕاوە؛ دووبارە بگەڕێ.");
+ selectedEditId=id;
+ $("editId").value=id;
+ $("editQrNo").value=Number.isSafeInteger(Number(r.qrNo))&&Number(r.qrNo)>0?String(r.qrNo):"";
+ $("eEmail").value=r.email||"";
+ $("ePassword").value=r.password||"";
+ $("eTargetLink").value=cleanTargetUrl(r.targetLink||"");
+ $("eNote").value=r.note||"";
+ $("editSelectedSummary").textContent="ID: "+id+($("editQrNo").value?"  |  QR: "+$("editQrNo").value:"");
+ $("editFields").classList.remove("hidden");
+ setNotice("editMsg","زانیارییەکان بارکران؛ ئێستا دەتوانیت دەستکارییان بکەیت.",true);
+}
+async function loadRecordForEdit(){
+ if(editMutationBusy)return;
+ const state=beginEditLookup();
+ try{
+  const id=cleanId($("editId").value);
+  if(!id)throw new Error("ID ی لینک بنووسە.");
+  $("editId").value=id;
+  setNotice("editMsg","زانیارییەکان بار دەکرێن…",true);
+  await populateEditRecord(id,state);
+ }catch(e){if(editLookupIsCurrent(state))setNotice("editMsg",e.message||"بارکردن سەرکەوتوو نەبوو.")}
+ finally{finishEditLookup(state)}
+}
+async function loadRecordForEditByQr(){
+ if(editMutationBusy)return;
+ const state=beginEditLookup();
+ try{
+  const normalized=normalizeQrInput($("editQrNo").value),number=Number(normalized);
+  if(!/^\d{1,16}$/.test(normalized)||!Number.isSafeInteger(number)||number<1)
+   throw new Error("ژمارەیەکی دروستی باڕکۆد بنووسە، بۆ نموونە 125.");
+  $("editQrNo").value=String(number);
+  let cursor="",scanned=0,unreadable=0;
+  const matches=new Map(),seenCursors=new Set();
+  while(true){
+   setNotice("editMsg","گەڕان بە ژمارەی باڕکۆد… "+(scanned?"("+scanned+" لینک پشکنرا)":""),true);
+   const path="/api/admin/records/by-qr/"+number+(cursor?"?cursor="+encodeURIComponent(cursor):"");
+   const d=await editApi(path,{},state.signal);
+   if(!editLookupIsCurrent(state))return;
+   if(d.ok!==true||Number(d.qrNo)!==number||!Array.isArray(d.matches)||typeof d.done!=="boolean")
+    throw new Error("وەڵامی گەڕان دروست نییە؛ کۆدی نوێی Worker دابنێ.");
+   scanned+=Number(d.scanned)||0;
+   unreadable+=Number(d.unreadable)||0;
+   for(const row of d.matches){
+    if(!row||typeof row.id!=="string"||!/^[A-Za-z0-9_$~_-]{1,128}$/.test(row.id)||Number(row.qrNo)!==number)
+     throw new Error("ئەنجامی گەڕان دروست نییە.");
+    matches.set(row.id,row);
+   }
+   if(d.done)break;
+   if(typeof d.cursor!=="string"||!d.cursor||seenCursors.has(d.cursor))throw new Error("گەڕان تەواو نەبوو؛ دووبارە هەوڵ بدە.");
+   seenCursors.add(d.cursor);cursor=d.cursor;
+  }
+  if(unreadable)throw new Error("هەندێک تۆمار ناخوێنرێنەوە؛ گەڕان بە ژمارە تەواو نەبوو. بە ID بگەڕێ.");
+  if(matches.size===0)throw new Error("هیچ لینکێک بە ژمارەی "+number+" نەدۆزرایەوە. ئەگەر تازە دروستت کردووە، کەمێک دواتر هەوڵ بدە.");
+  if(matches.size===1){await populateEditRecord(matches.keys().next().value,state,number);return}
+  const container=$("editQrMatches");container.replaceChildren();container.classList.remove("hidden");
+  for(const row of matches.values()){
+   const button=document.createElement("button");button.type="button";button.className="secondary wide qr-match-choice";
+   button.textContent="ID: "+row.id;button.dir="ltr";
+   button.addEventListener("click",()=>selectQrMatch(row.id,number));container.appendChild(button);
+  }
+  setNotice("editMsg","ئەم ژمارەیە بۆ "+matches.size+" لینک تۆمار کراوە؛ ID ی لینکە مەبەستەکە هەڵبژێرە.");
+ }catch(e){if(editLookupIsCurrent(state))setNotice("editMsg",e.message||"گەڕان سەرکەوتوو نەبوو.")}
+ finally{finishEditLookup(state)}
+}
+async function selectQrMatch(id,number){
+ if(editMutationBusy)return;
+ const state=beginEditLookup();
+ try{await populateEditRecord(id,state,number)}
+ catch(e){if(editLookupIsCurrent(state))setNotice("editMsg",e.message||"بارکردن سەرکەوتوو نەبوو.")}
+ finally{finishEditLookup(state)}
+}
+function setEditMutationBusy(busy){
+ editMutationBusy=busy;
+ document.querySelectorAll("#editView button,#editView input,#editView textarea").forEach(el=>el.disabled=busy);
+}
+async function saveRecord(){
+ if(editMutationBusy)return;
+ clearNotice("editMsg");
+ const id=selectedEditId;
+ if(!id){setNotice("editMsg","سەرەتا لینکەکە بە ID یان ژمارەی باڕکۆد بار بکە.");return}
+ const payload=getFormData("e");
+ if(!payload.email&&!payload.password){setNotice("editMsg","لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.");return}
+ $("eTargetLink").value=payload.targetLink;
+ setEditMutationBusy(true);
+ try{
+  await editApi("/api/record/"+encodeURIComponent(id),{method:"PUT",body:JSON.stringify(payload)});
+  setNotice("editMsg","گۆڕانکارییەکان پاشەکەوت کران.",true);
+ }catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}
+ finally{setEditMutationBusy(false)}
+}
+async function deleteRecord(){
+ if(editMutationBusy)return;
+ const id=selectedEditId;
+ if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟\nID: "+id))return;
+ setEditMutationBusy(true);
+ try{
+  await editApi("/api/record/"+encodeURIComponent(id),{method:"DELETE"});
+  cancelEditLookup();$("editId").value="";$("editQrNo").value="";
+  setNotice("editMsg","لینکەکە سڕایەوە.",true);
+ }catch(e){setNotice("editMsg",e.message||"هەڵەیەک ڕوویدا.")}
+ finally{setEditMutationBusy(false)}
+}
+window.addEventListener("DOMContentLoaded",()=>{
+ for(const [id,load] of [["editId",loadRecordForEdit],["editQrNo",loadRecordForEditByQr]]){
+  $(id).addEventListener("input",()=>{if(!editMutationBusy)cancelEditLookup()});
+  $(id).addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();load()}});
+ }
+});
+
 async function loadPublicRecord(){try{const requestPromise=window.__rebarPublicFetch||fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store"});window.__rebarPublicFetch=null;const r=await requestPromise,d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
 function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
