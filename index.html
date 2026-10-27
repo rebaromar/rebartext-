@@ -1235,6 +1235,12 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;text-shadow:non
 #publicView .icon-copy-button{font-size:17px;font-weight:900}
 #publicView #btnGetCode{font-size:21px;line-height:1.4;background:linear-gradient(180deg,#fff3cd,#f9dd91)}
 #publicView #btnGetCode::before{font-size:28px;margin-left:9px}
+/* Soft Apple glow and readable copy feedback */
+#publicView .apple-logo-top svg{filter:drop-shadow(0 0 5px rgba(220,163,48,.28)) drop-shadow(0 0 12px rgba(220,163,48,.12))!important}
+#publicView .icon-copy-button.copied{color:#14834f;font-size:14px;font-weight:900;white-space:nowrap}
+body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
+@media(max-width:650px){body:has(#publicView:not(.hidden)) .top-first-date{font-size:12px}}
+
 
 </style>
 </head>
