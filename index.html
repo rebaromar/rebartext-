@@ -1190,6 +1190,36 @@ body{
 #editView button:disabled{opacity:.55;cursor:wait}
 
 </style>
+<style id="rebar-design-5">
+
+/* Customer design 5: visual changes only */
+body:has(#publicView:not(.hidden)){background:#f4ede1}
+body:has(#publicView:not(.hidden)) .shell{max-width:420px;background:#fffaf1;border-radius:22px;padding:18px;box-shadow:0 12px 45px #806b4940}
+body:has(#publicView:not(.hidden)) .topbar{direction:ltr;display:flex;justify-content:space-between;align-items:center;min-height:60px;padding:0}
+body:has(#publicView:not(.hidden)) .logo{width:52px;height:52px;flex-basis:52px;border:2px solid #e9b54c;box-shadow:none}
+body:has(#publicView:not(.hidden)) .brand-name{font-size:19px;color:#17130e}
+body:has(#publicView:not(.hidden)) .brand-name .rebar{color:#17130e}
+body:has(#publicView:not(.hidden)) .brand-sub{display:none}
+body:has(#publicView:not(.hidden)) .top-first-opened{color:#17130e;text-align:right;font-size:10px}
+#publicView.card{margin-top:12px;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;color:#17130e}
+#publicView .public-head{text-align:center;padding:24px 0 12px;border:0;background:radial-gradient(ellipse at center,#fff2d5 0%,transparent 60%),linear-gradient(160deg,transparent 30%,#edb94b44 31%,transparent 50%)}
+#publicView .apple-logo-top{width:100px;height:100px;display:flex;align-items:center;justify-content:center;background:linear-gradient(#fff,#f2eee8);border:0;border-radius:26px;margin:auto;box-shadow:0 4px 22px #aa864744}
+#publicView .apple-logo-top:before,#publicView .apple-logo-top:after{display:none}
+#publicView .apple-logo-top svg{width:54px!important;height:54px!important;fill:#050505;filter:none}
+#publicView .public-head h1{font:900 23px Arial,sans-serif;margin:8px;color:#17130e}
+#publicView .public-head h1 span{color:#17130e}
+#publicView .content{padding:0}
+#publicView .account-block{margin:10px 0}
+#publicView .account-label{font:14px Arial,sans-serif;color:#625c54;margin:0 0 5px;direction:ltr;text-align:right}
+#publicView .account-box{direction:rtl;display:flex;align-items:center;background:#fff;border:1px solid #e7dac5;border-radius:17px;box-shadow:0 3px 10px #8f7b5a20;min-height:53px}
+#publicView .icon-copy-button{border:0;background:transparent;color:#17130e;padding:10px 16px;min-height:51px;flex:0 0 auto;width:auto;font-weight:bold;font-size:14px}
+#publicView .copy-divider{height:28px;width:1px;flex-basis:1px;background:#eee4d5}
+#publicView .account-value{border:0;background:transparent;padding:12px;min-width:0;height:51px;flex:1;color:#605c58;text-align:left;font:14px Arial,sans-serif}
+#publicView #btnGetCode{display:block;text-align:center;text-decoration:none;background:linear-gradient(#ffe394,#f5ae25);border:0;color:#1b1406;border-radius:15px;padding:15px;font-weight:bold;margin:12px 0;box-shadow:0 5px 15px #d99d3f55}
+#publicView .note{background:#fffdf9;color:#17130e;border:1px solid #e9dcc8;border-radius:15px;padding:12px;text-align:center;font-size:11px;line-height:1.8}
+#publicView .used-box{color:#17130e;border-color:#e9dcc8}
+
+</style>
 </head>
 <body>
 <div class="shell">
@@ -1840,3 +1870,4 @@ async function loginWithPasskey(){
 
 </body>
 </html>
+
