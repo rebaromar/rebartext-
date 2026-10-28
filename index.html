@@ -2115,10 +2115,11 @@ window.addEventListener("DOMContentLoaded",()=>{
    span.append(reserve,ink);el.replaceChildren(span);
    const chars=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(full),v=>v.segment):Array.from(full);
    ink.textContent=full;
-   let i=0;
-   function begin(){if(!el.isConnected)return;if(document.hidden){setTimeout(begin,1000);return}i=0;ink.textContent="";tick()}
-   function tick(){if(!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length){setTimeout(tick,85)}else{setTimeout(begin,1000)}}
-   setTimeout(begin,5000);
+   let i=0,stopped=false,timer;
+   function begin(){if(stopped||!el.isConnected)return;if(document.hidden){timer=setTimeout(begin,1000);return}i=0;ink.textContent="";tick()}
+   function tick(){if(stopped||!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length){timer=setTimeout(tick,85)}else{timer=setTimeout(begin,1000)}}
+   timer=setTimeout(begin,5000);
+   setTimeout(()=>{stopped=true;clearTimeout(timer);ink.textContent=full},20000);
   });
   observer.disconnect();
  }
