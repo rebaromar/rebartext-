@@ -10,14 +10,6 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>REBAR IT</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://rebarit-secure-api.rebar4qwrna.workers.dev" crossorigin>
-<link rel="dns-prefetch" href="//rebarit-secure-api.rebar4qwrna.workers.dev">
-<link rel="preconnect" href="https://i.ibb.co" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
-
 <script>
 (function(){
   try{
@@ -27,11 +19,20 @@
     if(!safe)return;
     window.__rebarPublicFetch=fetch(
       "https://rebarit-secure-api.rebar4qwrna.workers.dev/api/record/"+encodeURIComponent(safe),
-      {cache:"no-store"}
-    );
+      {cache:"no-store",priority:"high"}
+    ).then(async response=>({response,data:await response.json()})).then(value=>({value}),error=>({error}));
   }catch{}
 })();
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://rebarit-secure-api.rebar4qwrna.workers.dev" crossorigin>
+<link rel="dns-prefetch" href="//rebarit-secure-api.rebar4qwrna.workers.dev">
+<link rel="preconnect" href="https://i.ibb.co" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+
+
 
 <style>
 
@@ -1391,6 +1392,12 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 @keyframes appleBorderShine{to{--apple-shine-angle:360deg}}
 @media(prefers-reduced-motion:reduce){#publicView .apple-logo-top::after{animation:none!important}}
 </style>
+<style>
+/* Data fields become readable immediately after the server responds. */
+#publicContent:not(.hidden) .account-block,
+#publicContent:not(.hidden) #btnGetCode,
+#publicContent:not(.hidden) .note{animation-duration:.25s!important;animation-delay:0s!important}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -1799,7 +1806,7 @@ window.addEventListener("DOMContentLoaded",()=>{
  }
 });
 
-async function loadPublicRecord(){try{const requestPromise=window.__rebarPublicFetch||fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store"});window.__rebarPublicFetch=null;const r=await requestPromise,d=await r.json();if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
+async function loadPublicRecord(){try{const early=window.__rebarPublicFetch;window.__rebarPublicFetch=null;let r,d;if(early){const result=await early;if(result.error)throw result.error;r=result.value.response;d=result.value.data}else{r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store",priority:"high"});d=await r.json()}if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
 function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";requestAnimationFrame(fitPublicEmail);$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
   $("topFirstOpenedDate").textContent=formattedDate;
