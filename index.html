@@ -1382,6 +1382,15 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 #adminView .admin-field-heading .field-tools{display:flex;direction:rtl;flex:0 0 auto;margin:0}
 
 </style>
+<style>
+#prayerBanner{padding:12px 16px 4px;text-align:center;color:#332719;font:700 18px/1.9 "Noto Sans Arabic",Tahoma,sans-serif;overflow-wrap:anywhere}
+#prayerBanner[hidden]{display:none}
+#publicView .apple-logo-top{position:relative;isolation:isolate}
+#publicView .apple-logo-top::after{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(from var(--apple-shine-angle,0deg),transparent 0deg,transparent 240deg,#e4ba60 285deg,#fff9dc 310deg,transparent 345deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:appleBorderShine 3.8s linear infinite!important}
+@property --apple-shine-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes appleBorderShine{to{--apple-shine-angle:360deg}}
+@media(prefers-reduced-motion:reduce){#publicView .apple-logo-top::after{animation:none!important}}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -1403,6 +1412,7 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 <section id="notFoundView" class="not-found hidden"><div><strong>404</strong><div>Page Not Found</div></div></section>
 
 <section id="publicView" class="card hidden">
+  <div id="prayerBanner" dir="rtl" hidden><span id="prayerText"></span></div>
   <div class="public-head"><div class="apple-logo-top"><svg viewBox="0 0 24 24"><path d="M16.37 12.18c.02 2.26 1.98 3.01 2 3.02-.02.05-.31 1.07-1.03 2.11-.62.9-1.26 1.79-2.28 1.81-1 .02-1.32-.59-2.46-.59-1.15 0-1.5.57-2.43.61-.98.04-1.73-.98-2.36-1.87-1.28-1.85-2.26-5.24-.95-7.52.65-1.13 1.81-1.84 3.07-1.86.96-.02 1.87.65 2.46.65.59 0 1.7-.8 2.87-.68.49.02 1.86.2 2.74 1.49-.07.04-1.63.95-1.61 2.83zm-1.98-6.86c.52-.63.87-1.5.77-2.37-.75.03-1.66.5-2.2 1.13-.48.56-.91 1.45-.8 2.3.84.06 1.7-.43 2.23-1.06z"/></svg></div><h1><span>APPLE</span> ID</h1></div>
   <div id="publicError" class="login-area hidden"><div class="security-logo"><svg viewBox="0 0 24 24"><path fill="#078fd1" d="M12 2L20 5V10.5C20 16 16.7 20.3 12 22C7.3 20.3 4 16 4 10.5V5L12 2Z"/></svg></div><h2 class="login-title">بەردەست نییە</h2><p id="publicErrorText" class="login-description"></p></div>
   <div id="publicContent" class="content hidden">
@@ -2063,6 +2073,23 @@ function prepareNextRecord(){if(adminCreateBusy){showAdminActionToast('تکای�
 async function createRecord(){if(adminCreateBusy)return;adminCreateBusy=true;const controls=[$('createWithQr')],previous=controls.map(el=>el.disabled);controls.forEach(el=>el.disabled=true);const button=$('createWithQr'),old=button.textContent;button.textContent='پشکنین و دروستکردن…';clearNotice('createMsg');try{const payload=getFormData('c');if(!payload.email&&!payload.password)throw Error('لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.');if(payload.email||payload.targetLink){setNotice('createMsg','پشکنینی ئیمەیڵ و لینکی دووبارە…',true);const d=await findCreateDuplicates(payload);if(d.emailCount||d.linkCount){const lines=[];if(d.emailCount)lines.push('ئەم ئیمەیڵە پێشتر '+d.emailCount+' جار بەکار هاتووە.');if(d.linkCount)lines.push('ئەم لینکە پێشتر '+d.linkCount+' جار بەکار هاتووە.');if(!confirm(lines.join('\n')+'\nدەتەوێت لینکێکی نوێ دروست بکەیت؟')){clearNotice('createMsg');return}}}await createRecordCore(payload)}catch(e){setNotice('createMsg',e.message||'هەڵەیەک ڕوویدا.')}finally{controls.forEach((el,i)=>el.disabled=previous[i]);button.textContent=old;adminCreateBusy=false;unlockCreateFields();button.disabled=false}}
 window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#adminView input,#adminView textarea').forEach(el=>{if(!el.id)return;const bar=document.createElement('div');bar.className='field-tools';for(const [label,fn] of [['پاککردن',()=>clearAdminField(el.id)]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.addEventListener('click',fn);bar.append(b)}const field=el.closest('.field'),label=field&&field.querySelector('label');if(label){const row=document.createElement('div');row.className='admin-field-heading';row.dataset.field=el.id;label.before(row);row.append(label);if(!el.id.endsWith('Note'))row.append(bar)}else{if(!el.id.endsWith('Note'))el.before(bar)};if(el.id.endsWith('Note')){const tools=document.createElement('div');tools.className='note-presets';const select=document.createElement('select');select.className='note-preset-select';select.setAttribute('aria-label','تێبینیی ئامادە');select.addEventListener('change',()=>{if(select.value!==''){el.value=readNotePresets()[Number(select.value)]||'';el.dispatchEvent(new Event('input',{bubbles:true}));showAdminActionToast('تێبینییەکە هەڵبژێردرا ✓')}});const save=document.createElement('button');save.type='button';save.className='secondary';save.textContent='خەزنکردنی تێبینی';save.onclick=()=>saveNotePreset(el.id);const remove=document.createElement('button');remove.type='button';remove.className='secondary';remove.textContent='سڕینەوەی تێبینیی ئامادە';remove.onclick=()=>removeNotePreset(select);tools.append(select,save,remove);el.before(tools)}});renderNotePresets()});
 
+</script>
+<script>
+window.addEventListener("DOMContentLoaded",()=>{
+ if(!new URLSearchParams(location.search).get("id"))return;
+ const banner=document.getElementById("prayerBanner"),text=document.getElementById("prayerText");
+ if(!banner||!text)return;
+ setTimeout(()=>{
+  text.textContent="صلي على النبي ❤️";banner.hidden=false;
+  setTimeout(()=>{
+   const message="❤️اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ❤️";
+   const parts=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(message),x=>x.segment):Array.from(message);
+   text.textContent="";let i=0;
+   function typeNext(){text.textContent+=parts[i++];if(i<parts.length){setTimeout(typeNext,65)}else{setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}}
+   if(matchMedia("(prefers-reduced-motion: reduce)").matches){text.textContent=message;setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}else{typeNext()}
+  },3000);
+ },3000);
+});
 </script>
 </body>
 </html>
