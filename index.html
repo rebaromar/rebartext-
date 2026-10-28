@@ -1264,19 +1264,19 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
 /* Staggered rain entrance, shown once when public content opens. */
 /* Fast entrance: keep the rain effect without delaying usable content. */
 @keyframes rebarRain{
- 0%{opacity:.35;transform:translateY(-24px)}
+ 0%{opacity:0;transform:translateY(12px)}
  100%{opacity:1;transform:translateY(0)}
 }
 @media(prefers-reduced-motion:no-preference){
  body:has(#publicView:not(.hidden)) #siteHeader,
  #publicView:not(.hidden) .apple-logo-top,
  #publicView:not(.hidden) .public-head h1{
- animation:rebarRain .28s ease-out backwards;
+ animation:rebarRain .25s ease-out backwards;
  }
  #publicContent:not(.hidden) .account-block,
  #publicContent:not(.hidden) #btnGetCode,
  #publicContent:not(.hidden) .note{
- animation:rebarRain .28s ease-out backwards;
+ animation:rebarRain .25s ease-out backwards;
  }
 }
 
