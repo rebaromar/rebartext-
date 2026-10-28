@@ -1317,6 +1317,13 @@ body:has(#adminView:not(.hidden)) #createView:not(.hidden) .admin-create-dock{po
 #adminView .tabs{padding:6px;gap:5px}
 #adminView .tab{min-height:42px}
 
+.admin-top-tools{display:none}
+body:has(#adminView:not(.hidden)) .admin-top-tools{display:flex;flex-direction:column;align-items:flex-end;gap:3px;direction:rtl;margin-left:auto;font-size:11px;font-weight:800}
+body:has(#adminView:not(.hidden)) .admin-top-tools .passkey-manage-btn{margin:0;width:auto;min-height:36px;padding:5px 9px;font-size:11px;border-radius:10px}
+#adminView .admin-header{padding:0;border:0}
+#adminView #passkeyMsg.ok,#adminView #passkeyMsg.err{margin:8px}
+@media(max-width:380px){body:has(#adminView:not(.hidden)) .brand-name{font-size:16px}body:has(#adminView:not(.hidden)) .brand{gap:5px}}
+
 </style>
 </head>
 <body>
@@ -1329,6 +1336,7 @@ body:has(#adminView:not(.hidden)) #createView:not(.hidden) .admin-create-dock{po
       <div class="brand-sub">SECURE ACCESS</div>
     </div>
   </div>
+  <div class="admin-top-tools"><span>بەڕێوەبردنی لینکەکان</span><button class="passkey-manage-btn" onclick="registerPasskey()" aria-label="چالاککردنی Passkey / Face ID">🔐 Face ID / Passkey</button></div>
   <div id="topFirstOpened" class="top-first-opened hidden">
     <div class="top-first-label">First Opened</div>
     <div id="topFirstOpenedDate" class="top-first-date"></div>
@@ -1394,12 +1402,7 @@ body:has(#adminView:not(.hidden)) #createView:not(.hidden) .admin-create-dock{po
 </section>
 
 <section id="adminView" class="card hidden">
-  <div class="admin-header">
-    <h1>بەڕێوەبردنی لینکەکان</h1>
-    <p>لینک دروست بکە، دەستکاری بکە یان بسڕەوە.</p>
-    <button class="passkey-manage-btn" onclick="registerPasskey()">🔐 چالاککردنی Passkey / Face ID</button>
-    <div id="passkeyMsg" class="notice"></div>
-  </div>
+  <div class="admin-header"><div id="passkeyMsg" class="notice"></div></div>
   <div class="tabs"><button id="tabCreate" class="tab active" onclick="switchTab('create')">لینکی نوێ</button><button id="tabEdit" class="tab" onclick="switchTab('edit')">دەستکاری</button><button class="tab" onclick="logout()">چوونەدەرەوە</button></div>
   <div id="createView" class="content">
     <div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="cEmail" class="ltr" placeholder="example@email.com"></div><div class="field"><label>پاسۆرد</label><input id="cPassword" class="ltr" placeholder="Password"></div><div class="field full"><label>لینک</label><input id="cTargetLink" class="ltr" placeholder="https://..."></div><div class="field full"><label>تێبینی</label><textarea id="cNote" placeholder="تێبینی..."></textarea></div></div>
