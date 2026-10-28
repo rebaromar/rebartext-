@@ -2023,17 +2023,17 @@ async function saveNotePreset(id){const value=$(id).value.trim();if(!value){aler
 async function removeNotePreset(select){if(select.value==='')return;const text=serverNotePresets[Number(select.value)];if(!text)return;try{await editApi('/api/admin/note-presets',{method:'POST',body:JSON.stringify({action:'remove',note:text})});serverNotePresets=serverNotePresets.filter(n=>n!==text);renderNotePresets();showAdminActionToast('تێبینیی ئامادە سڕایەوە ✓')}catch(e){alert('سڕینەوە سەرکەوتوو نەبوو: '+e.message)}}
 window.addEventListener('focus',()=>{if(!$('adminView')?.classList.contains('hidden'))syncNotePresets().catch(()=>{})});
 
-const pendingAdminPaste=new Set();
+
 function applyAdminPastedText(id,text){const el=$(id);if(!el)return;if(id.endsWith('Note'))el.value=text;else if(id.endsWith('TargetLink'))el.value=cleanTargetUrl(text);else if(id==='editQrNo')el.value=normalizeQrInput(text);else el.value=text.trim();el.dispatchEvent(new Event('input',{bubbles:true}));showAdminActionToast('پەیست کرا ✓')}
 function showNativePasteHelp(id){const el=$(id);if(!el)return;el.disabled=false;el.readOnly=false;el.focus();try{el.setSelectionRange(0,el.value.length)}catch{}const field=el.closest('.field');if(!field)return;let help=field.querySelector('.native-paste-help');if(!help){help=document.createElement('div');help.className='native-paste-help';help.setAttribute('role','status');field.append(help)}help.textContent='لە ناو خانەکە دەستت ڕابگرە، پاشان Paste / پەیست هەڵبژێرە.'}
-async function pasteAdminField(id){const el=$(id);if(!el||pendingAdminPaste.has(id))return;pendingAdminPaste.add(id);let timer;try{
+async function pasteAdminField(id){const el=$(id);if(!el)return;let timer;try{
 // Read immediately in the click gesture; focusing first can dismiss iOS paste UI.
 if(!navigator.clipboard?.readText)throw Error('Clipboard unavailable');
 const reading=navigator.clipboard.readText();
-const text=await Promise.race([reading,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Clipboard timeout')),12000)})]);
+const text=await Promise.race([reading,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Clipboard timeout')),4000)})]);
 if(!text){showAdminActionToast('Clipboard بەتاڵە؛ سەرەتا دەقێک کۆپی بکە.');return}
 applyAdminPastedText(id,text);const help=el.closest('.field')?.querySelector('.native-paste-help');if(help)help.remove();
-}catch{showNativePasteHelp(id)}finally{clearTimeout(timer);pendingAdminPaste.delete(id)}}
+}catch{showNativePasteHelp(id)}finally{clearTimeout(timer)}}
 window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#adminView input,#adminView textarea').forEach(el=>el.addEventListener('paste',event=>{const text=event.clipboardData?.getData('text');if(text===undefined)return;event.preventDefault();applyAdminPastedText(el.id,text);el.closest('.field')?.querySelector('.native-paste-help')?.remove()}))});
 
 async function waitForQrLibrary(){let timer;try{await Promise.race([ensureQrLibrary(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('بارکردنی QR دوا کەوت؛ دووبارە دوگمەی QR دابگرە.')),15000)})])}finally{clearTimeout(timer)}}
