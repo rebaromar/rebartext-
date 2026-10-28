@@ -1454,7 +1454,7 @@ function ensureQrLibrary(){
   });
   return qrLibraryPromise;
 }
-function showOnly(id){["notFoundView","publicView","loginView","adminView"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");}
+function showOnly(id){["notFoundView","publicView","loginView","adminView"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden");if(id==="adminView")queueMicrotask(()=>syncNotePresets().catch(()=>{}));}
 function showHeader(show){$("siteHeader").classList.toggle("hidden",!show)}
 function cleanTargetUrl(raw){if(!raw)return"";let value=String(raw).trim();const match=value.match(/https?:\/\/[^\s<>"']+/i);if(match)value=match[0];try{return new URL(value).toString()}catch{return value.split(/\s+/)[0].trim()}}
 function setNotice(id,text,ok=false){const e=$(id);e.textContent=text;e.className="notice "+(ok?"ok":"err");if(ok&&/(سەرکەوتوویی|پاشەکەوت کران|سڕایەوە|بارکران)/.test(text))showAdminActionToast(text)}
@@ -1989,10 +1989,14 @@ async function loginWithPasskey(){
 function showAdminActionToast(message){const toast=$("copyToast"),text=$("copyToastText");if(!toast||!text)return;text.textContent=message;clearTimeout(copyToastTimer);toast.classList.remove("show");void toast.offsetWidth;toast.classList.add("show");copyToastTimer=setTimeout(()=>toast.classList.remove("show"),1600)}
 let adminCreateBusy=false;
 const NOTE_PRESET_KEY='rebarit_note_presets_v1';
-function readNotePresets(){try{const a=JSON.parse(localStorage.getItem(NOTE_PRESET_KEY)||'[]');return Array.isArray(a)?a.filter(x=>typeof x==='string').slice(0,30):[]}catch{return[]}}
+let serverNotePresets=[],noteSyncPromise=null;
+function readNotePresets(){return serverNotePresets.slice()}
 function renderNotePresets(){document.querySelectorAll('.note-preset-select').forEach(select=>{select.replaceChildren(new Option('تێبینیی ئامادە هەڵبژێرە',''));readNotePresets().forEach((text,i)=>select.add(new Option(text.slice(0,55),String(i))))})}
-function saveNotePreset(id){const value=$(id).value.trim();if(!value){alert('سەرەتا تێبینییەک بنووسە.');return}const notes=readNotePresets();if(notes.includes(value)){showAdminActionToast('ئەم تێبینییە پێشتر خەزن کراوە ✓');return;}if(notes.length>=30){alert('زۆرترین ژمارە 30 تێبینییە.');return}try{localStorage.setItem(NOTE_PRESET_KEY,JSON.stringify([...notes,value]));renderNotePresets();showAdminActionToast('تێبینییەکە خەزن کرا ✓')}catch{alert('تێبینییەکە خەزن نەکرا.')}}
-function removeNotePreset(select){if(select.value==='')return;const notes=readNotePresets();notes.splice(Number(select.value),1);try{localStorage.setItem(NOTE_PRESET_KEY,JSON.stringify(notes));renderNotePresets();showAdminActionToast('تێبینیی ئامادە سڕایەوە ✓')}catch{alert('سڕینەوە سەرکەوتوو نەبوو.')}}
+async function syncNotePresets(){if(noteSyncPromise)return noteSyncPromise;noteSyncPromise=(async()=>{const d=await editApi('/api/admin/note-presets');if(d.ok!==true||!Array.isArray(d.notes)||d.notes.some(n=>typeof n!=='string'))throw Error('وەڵامی تێبینییەکان دروست نییە.');serverNotePresets=[...new Set(d.notes)];let old=[];try{old=JSON.parse(localStorage.getItem(NOTE_PRESET_KEY)||'[]')}catch{}if(Array.isArray(old)){for(const text of old.filter(n=>typeof n==='string'&&n.trim())){if(serverNotePresets.includes(text.trim()))continue;await editApi('/api/admin/note-presets',{method:'POST',body:JSON.stringify({action:'add',note:text.trim()})});serverNotePresets.push(text.trim())}try{localStorage.removeItem(NOTE_PRESET_KEY)}catch{}}renderNotePresets()})().catch(e=>{showAdminActionToast('تێبینییەکان بار نەکران؛ Worker نوێ بکەرەوە.');throw e}).finally(()=>{noteSyncPromise=null});return noteSyncPromise}
+async function saveNotePreset(id){const value=$(id).value.trim();if(!value){alert('سەرەتا تێبینییەک بنووسە.');return}try{await editApi('/api/admin/note-presets',{method:'POST',body:JSON.stringify({action:'add',note:value})});if(!serverNotePresets.includes(value))serverNotePresets.push(value);renderNotePresets();showAdminActionToast('تێبینییەکە لە سێرڤەر خەزن کرا ✓')}catch(e){alert('تێبینی خەزن نەکرا: '+e.message)}}
+async function removeNotePreset(select){if(select.value==='')return;const text=serverNotePresets[Number(select.value)];if(!text)return;try{await editApi('/api/admin/note-presets',{method:'POST',body:JSON.stringify({action:'remove',note:text})});serverNotePresets=serverNotePresets.filter(n=>n!==text);renderNotePresets();showAdminActionToast('تێبینیی ئامادە سڕایەوە ✓')}catch(e){alert('سڕینەوە سەرکەوتوو نەبوو: '+e.message)}}
+window.addEventListener('focus',()=>{if(!$('adminView')?.classList.contains('hidden'))syncNotePresets().catch(()=>{})});
+
 async function pasteAdminField(id){const el=$(id);try{const text=await navigator.clipboard.readText();if(id.endsWith('Note'))el.value=text;else if(id.endsWith('TargetLink'))el.value=cleanTargetUrl(text);else if(id==='editQrNo')el.value=normalizeQrInput(text);else el.value=text.trim();el.dispatchEvent(new Event('input',{bubbles:true}));el.focus();showAdminActionToast('پەیست کرا ✓')}catch{alert('ڕێگەی پەیست نەدرا؛ دەستت لە خانەکە ڕابگرە و Paste هەڵبژێرە.');el.focus()}}
 function clearAdminField(id){const el=$(id);el.value='';el.dispatchEvent(new Event('input',{bubbles:true}));el.focus();showAdminActionToast('پاک کرایەوە ✓')}
 async function findCreateDuplicates(payload){let cursor='',unreadable=0,emailCount=0,linkCount=0;const seen=new Set();do{const d=await editApi('/api/admin/records/check-duplicates',{method:'POST',body:JSON.stringify({email:payload.email,targetLink:payload.targetLink,cursor})});if(d.ok!==true||typeof d.done!=='boolean'||!Number.isSafeInteger(d.emailCount)||!Number.isSafeInteger(d.linkCount))throw Error('وەڵامی پشکنین دروست نییە.');emailCount+=d.emailCount;linkCount+=d.linkCount;unreadable+=Number(d.unreadable)||0;if(d.done)break;if(typeof d.cursor!=='string'||!d.cursor||seen.has(d.cursor))throw Error('پشکنین تەواو نەبوو.');seen.add(d.cursor);cursor=d.cursor}while(true);if(unreadable)throw Error('هەندێک تۆمار نەخوێندرایەوە؛ پشکنینی دووبارەکان تەواو نییە.');return {emailCount,linkCount}}
@@ -2002,6 +2006,7 @@ window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#admi
 </script>
 </body>
 </html>
+
 
 
 
