@@ -2118,7 +2118,7 @@ window.addEventListener("DOMContentLoaded",()=>{
    let i=0,stopped=false,timer;
    function begin(){if(stopped||!el.isConnected)return;if(document.hidden){timer=setTimeout(begin,1000);return}i=0;ink.textContent="";tick()}
    function tick(){if(stopped||!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length){timer=setTimeout(tick,85)}else{timer=setTimeout(begin,1000)}}
-   timer=setTimeout(begin,5000);
+   timer=setTimeout(begin,7000);
    setTimeout(()=>{stopped=true;clearTimeout(timer);ink.textContent=full},20000);
   });
   observer.disconnect();
