@@ -2080,7 +2080,11 @@ window.addEventListener("DOMContentLoaded",()=>{
  const banner=document.getElementById("prayerBanner"),text=document.getElementById("prayerText");
  if(!banner||!text)return;
  setTimeout(()=>{
-  text.textContent="صلي على النبي ❤️";banner.hidden=false;
+  banner.hidden=false;text.textContent="";
+  const intro="صلي على النبي ❤️";
+  const introParts=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(intro),x=>x.segment):Array.from(intro);
+  let introIndex=0;
+  function showMainPrayer(){
   setTimeout(()=>{
    const message="❤️اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ❤️";
    const parts=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(message),x=>x.segment):Array.from(message);
@@ -2088,6 +2092,9 @@ window.addEventListener("DOMContentLoaded",()=>{
    function typeNext(){text.textContent+=parts[i++];if(i<parts.length){setTimeout(typeNext,65)}else{setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}}
    if(matchMedia("(prefers-reduced-motion: reduce)").matches){text.textContent=message;setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}else{typeNext()}
   },3000);
+  }
+  function typeIntro(){text.textContent+=introParts[introIndex++];if(introIndex<introParts.length){setTimeout(typeIntro,65)}else{showMainPrayer()}}
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches){text.textContent=intro;showMainPrayer()}else{typeIntro()}
  },1000);
 });
 </script>
