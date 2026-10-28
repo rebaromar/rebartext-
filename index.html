@@ -1267,8 +1267,8 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
 /* Staggered rain entrance, shown once when public content opens. */
 /* Fast entrance: keep the rain effect without delaying usable content. */
 @keyframes rebarRain{
- from{clip-path:inset(0 100% 0 0);transform:translateX(-8px)}
- to{clip-path:inset(0 0 0 0);transform:translateX(0)}
+ from{opacity:0;transform:translateY(-40px)}
+ to{opacity:1;transform:translateY(0)}
 }
 @media(prefers-reduced-motion:no-preference){
  body:has(#publicView:not(.hidden)) #siteHeader,
@@ -1394,38 +1394,10 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 @keyframes appleBorderShine{to{--apple-shine-angle:360deg}}
 @media(prefers-reduced-motion:reduce){#publicView .apple-logo-top::after{animation:none!important}}
 </style>
-<style>
-/* Data fields become readable immediately after the server responds. */
-#publicContent:not(.hidden) .account-block,
-#publicContent:not(.hidden) #btnGetCode,
-#publicContent:not(.hidden) .note{animation-duration:.25s!important;animation-delay:0s!important}
-</style>
-<style>
 
 
-html.public-loading #siteHeader,html.public-loading #publicView *{animation:none!important}
-html.public-ready #siteHeader,
-html.public-ready #publicView .apple-logo-top,
-html.public-ready #publicView .public-head h1,
-html.public-ready #publicContent .account-block,
-html.public-ready #publicContent #btnGetCode,
-html.public-ready #publicContent .note{animation-delay:0s!important;animation-duration:.25s!important}
-</style>
-<style>
-/* Avoid clipping flashes during initial reveal; retain label typewriter effects. */
-html.public-ready #siteHeader,
-html.public-ready #publicView .apple-logo-top,
-html.public-ready #publicView .public-head h1,
-html.public-ready #publicContent .account-block,
-html.public-ready #publicContent #btnGetCode,
-html.public-ready #publicContent .note{animation:none!important;clip-path:none!important;transform:none}
-</style>
-<style>
-/* Render the layout immediately while the record request runs. */
-body:has(#publicView:not(.hidden)) #siteHeader,
-#publicView .apple-logo-top,#publicView .public-head h1,
-#publicContent .account-block,#publicContent #btnGetCode,#publicContent .note{animation:none!important}
-</style>
+
+
 </head>
 <body>
 <div class="shell">
