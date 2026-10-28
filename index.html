@@ -17,6 +17,7 @@
     if(!id)return;
     const safe=String(id).replace(/[^A-Za-z0-9_$~_-]/g,"");
     if(!safe)return;
+    if(window.__rebarPublicFetch)return;
     document.documentElement.classList.add("public-loading");
     window.__rebarPublicFetch=fetch(
       "https://rebarit-secure-api.rebar4qwrna.workers.dev/api/record/"+encodeURIComponent(safe),
