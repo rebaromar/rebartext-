@@ -17,6 +17,7 @@
     if(!id)return;
     const safe=String(id).replace(/[^A-Za-z0-9_$~_-]/g,"");
     if(!safe)return;
+    document.documentElement.classList.add("public-loading");
     window.__rebarPublicFetch=fetch(
       "https://rebarit-secure-api.rebar4qwrna.workers.dev/api/record/"+encodeURIComponent(safe),
       {cache:"no-store",priority:"high"}
@@ -1398,6 +1399,17 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 #publicContent:not(.hidden) #btnGetCode,
 #publicContent:not(.hidden) .note{animation-duration:.25s!important;animation-delay:0s!important}
 </style>
+<style>
+html.public-loading #siteHeader,html.public-loading #publicView{visibility:hidden}
+html.public-loading body::after{content:"بار دەکرێت…";position:fixed;inset:0;display:grid;place-items:center;color:#725524;background:#fffaf0;font:700 18px Tahoma,Arial,sans-serif;z-index:9999}
+html.public-loading #siteHeader,html.public-loading #publicView *{animation:none!important}
+html.public-ready #siteHeader,
+html.public-ready #publicView .apple-logo-top,
+html.public-ready #publicView .public-head h1,
+html.public-ready #publicContent .account-block,
+html.public-ready #publicContent #btnGetCode,
+html.public-ready #publicContent .note{animation-delay:0s!important;animation-duration:.25s!important}
+</style>
 </head>
 <body>
 <div class="shell">
@@ -1806,7 +1818,7 @@ window.addEventListener("DOMContentLoaded",()=>{
  }
 });
 
-async function loadPublicRecord(){try{const early=window.__rebarPublicFetch;window.__rebarPublicFetch=null;let r,d;if(early){const result=await early;if(result.error)throw result.error;r=result.value.response;d=result.value.data}else{r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store",priority:"high"});d=await r.json()}if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}}
+async function loadPublicRecord(){try{const early=window.__rebarPublicFetch;window.__rebarPublicFetch=null;let r,d;if(early){const result=await early;if(result.error)throw result.error;r=result.value.response;d=result.value.data}else{r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store",priority:"high"});d=await r.json()}if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}finally{document.documentElement.classList.remove("public-loading");document.documentElement.classList.add("public-ready")}}
 function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";requestAnimationFrame(fitPublicEmail);$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
   $("topFirstOpenedDate").textContent=formattedDate;
