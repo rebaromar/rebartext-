@@ -2107,7 +2107,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(played||view.classList.contains("hidden"))return;
   played=true;
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  view.querySelectorAll(".account-label,#btnGetCode").forEach((el,index)=>{
+  view.querySelectorAll("#btnGetCode").forEach((el,index)=>{
    const full=el.textContent;el.setAttribute("aria-label",full);
    const span=document.createElement("span");span.style.display="inline-grid";span.style.verticalAlign="middle";
    const reserve=document.createElement("span");reserve.textContent=full;reserve.style.visibility="hidden";reserve.style.gridArea="1 / 1";reserve.setAttribute("aria-hidden","true");
@@ -2115,7 +2115,7 @@ window.addEventListener("DOMContentLoaded",()=>{
    span.append(reserve,ink);el.replaceChildren(span);
    const chars=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(full),v=>v.segment):Array.from(full);
    let i=0;function tick(){if(!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length)setTimeout(tick,85)}
-   setTimeout(tick,1100+index*130);
+   setTimeout(tick,5000);
   });
   observer.disconnect();
  }
