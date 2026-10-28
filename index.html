@@ -1262,20 +1262,22 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
 #publicView .account-block:has(#displayPassword) .account-label::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b6822d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10' width='14' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3M12 14v3'/%3E%3C/svg%3E")}
 
 /* Staggered rain entrance, shown once when public content opens. */
+/* Fast entrance: keep the rain effect without delaying usable content. */
 @keyframes rebarRain{
- 0%{opacity:0;transform:translateY(-140px) scale(.8) rotate(var(--rain-angle,-9deg));filter:blur(7px)}
- 62%{opacity:1;transform:translateY(9px) scale(1.025) rotate(0);filter:blur(0)}
- 80%{opacity:1;transform:translateY(-5px) scale(.99);filter:blur(0)}
- 100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+ 0%{opacity:.35;transform:translateY(-24px)}
+ 100%{opacity:1;transform:translateY(0)}
 }
 @media(prefers-reduced-motion:no-preference){
- body:has(#publicView:not(.hidden)) #siteHeader{animation:rebarRain 1.15s ease-out backwards}
- #publicView:not(.hidden) .apple-logo-top{--rain-angle:9deg;animation:rebarRain 1.15s ease-out .155s backwards}
- #publicView:not(.hidden) .public-head h1{animation:rebarRain 1.15s ease-out .31s backwards}
- #publicContent:not(.hidden) .account-block:nth-child(1){--rain-angle:9deg;animation:rebarRain 1.15s ease-out .465s backwards}
- #publicContent:not(.hidden) .account-block:nth-child(2){animation:rebarRain 1.15s ease-out .62s backwards}
- #publicContent:not(.hidden) #btnGetCode{--rain-angle:9deg;animation:rebarRain 1.15s ease-out .775s backwards}
- #publicContent:not(.hidden) .note{animation:rebarRain 1.15s ease-out .93s backwards}
+ body:has(#publicView:not(.hidden)) #siteHeader,
+ #publicView:not(.hidden) .apple-logo-top,
+ #publicView:not(.hidden) .public-head h1{
+ animation:rebarRain .28s ease-out backwards;
+ }
+ #publicContent:not(.hidden) .account-block,
+ #publicContent:not(.hidden) #btnGetCode,
+ #publicContent:not(.hidden) .note{
+ animation:rebarRain .28s ease-out backwards;
+ }
 }
 
 
