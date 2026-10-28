@@ -1233,6 +1233,10 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;text-shadow:non
 #publicView .account-value{font-size:19px;font-weight:900;color:#000000;flex:1 1 0;min-width:0;width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #publicView #displayEmail{font-size:16px}
 #publicView .icon-copy-button{font-size:17px;font-weight:900}
+#publicView .icon-copy-button{display:inline-flex;direction:rtl;align-items:center;justify-content:center;gap:6px}
+#publicView .icon-copy-button::before{content:"";width:20px;height:20px;flex:0 0 20px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171717' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='8' y='3' width='12' height='14' rx='2'/%3E%3Crect x='4' y='7' width='12' height='14' rx='2' fill='%23fffdf9'/%3E%3C/svg%3E")}
+#publicView .icon-copy-button.copied::before{display:none}
+
 #publicView #btnGetCode{font-size:21px;line-height:1.4;border:1.5px solid #333333;background:linear-gradient(180deg,#fff2c6,#f6d784);transition:transform .16s ease,box-shadow .16s ease}
 #publicView #btnGetCode:active{transform:scale(.98);box-shadow:0 3px 9px rgba(160,113,35,.20)}
 @media(prefers-reduced-motion:reduce){#publicView #btnGetCode{transition:none}}
