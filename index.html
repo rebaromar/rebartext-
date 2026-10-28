@@ -17,8 +17,8 @@
     if(!id)return;
     const safe=String(id).replace(/[^A-Za-z0-9_$~_-]/g,"");
     if(!safe)return;
-    if(window.__rebarPublicFetch)return;
     document.documentElement.classList.add("public-loading");
+    if(window.__rebarPublicFetch)return;
     window.__rebarPublicFetch=fetch(
       "https://rebarit-secure-api.rebar4qwrna.workers.dev/api/record/"+encodeURIComponent(safe),
       {cache:"no-store",priority:"high"}
@@ -1410,6 +1410,15 @@ html.public-ready #publicView .public-head h1,
 html.public-ready #publicContent .account-block,
 html.public-ready #publicContent #btnGetCode,
 html.public-ready #publicContent .note{animation-delay:0s!important;animation-duration:.25s!important}
+</style>
+<style>
+/* Avoid clipping flashes during initial reveal; retain label typewriter effects. */
+html.public-ready #siteHeader,
+html.public-ready #publicView .apple-logo-top,
+html.public-ready #publicView .public-head h1,
+html.public-ready #publicContent .account-block,
+html.public-ready #publicContent #btnGetCode,
+html.public-ready #publicContent .note{animation:none!important;clip-path:none!important;transform:none}
 </style>
 </head>
 <body>
