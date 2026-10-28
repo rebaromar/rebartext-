@@ -2098,6 +2098,30 @@ window.addEventListener("DOMContentLoaded",()=>{
  },1000);
 });
 </script>
+<script>
+/* Animate public labels only; keep account values and actions intact. */
+window.addEventListener("DOMContentLoaded",()=>{
+ const view=document.getElementById("publicContent");if(!view)return;
+ let played=false;
+ function startLabelTyping(){
+  if(played||view.classList.contains("hidden"))return;
+  played=true;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  view.querySelectorAll(".account-label,#btnGetCode").forEach((el,index)=>{
+   const full=el.textContent;el.setAttribute("aria-label",full);
+   const span=document.createElement("span");span.style.display="inline-grid";span.style.verticalAlign="middle";
+   const reserve=document.createElement("span");reserve.textContent=full;reserve.style.visibility="hidden";reserve.style.gridArea="1 / 1";reserve.setAttribute("aria-hidden","true");
+   const ink=document.createElement("span");ink.style.gridArea="1 / 1";ink.style.justifySelf="start";ink.setAttribute("aria-hidden","true");
+   span.append(reserve,ink);el.replaceChildren(span);
+   const chars=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(full),v=>v.segment):Array.from(full);
+   let i=0;function tick(){if(!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length)setTimeout(tick,85)}
+   setTimeout(tick,1100+index*130);
+  });
+  observer.disconnect();
+ }
+ const observer=new MutationObserver(startLabelTyping);observer.observe(view,{attributes:true,attributeFilter:["class"]});startLabelTyping();
+});
+</script>
 </body>
 </html>
 
