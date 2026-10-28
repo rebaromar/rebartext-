@@ -1233,7 +1233,9 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;text-shadow:non
 #publicView .account-value{font-size:18px;font-weight:900;color:#000000;flex:1 1 0;min-width:0;width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #publicView #displayEmail{font-size:15px}
 #publicView .icon-copy-button{font-size:17px;font-weight:900}
-#publicView #btnGetCode{font-size:21px;line-height:1.4;border:1.5px solid #333333;background:linear-gradient(180deg,#fff9e4,#ffedb7)}
+#publicView #btnGetCode{font-size:21px;line-height:1.4;border:1.5px solid #333333;background:linear-gradient(180deg,#fff2c6,#f6d784);transition:transform .16s ease,box-shadow .16s ease}
+#publicView #btnGetCode:active{transform:scale(.98);box-shadow:0 3px 9px rgba(160,113,35,.20)}
+@media(prefers-reduced-motion:reduce){#publicView #btnGetCode{transition:none}}
 #publicView #btnGetCode::before{font-size:28px;margin-left:9px}
 /* Soft Apple glow and readable copy feedback */
 #publicView .apple-logo-top svg{filter:drop-shadow(0 0 5px rgba(220,163,48,.28)) drop-shadow(0 0 12px rgba(220,163,48,.12))!important}
@@ -1245,7 +1247,7 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
 /* Cream and gold cover with a black Apple mark. */
 #publicView .public-head{position:relative;isolation:isolate;overflow:hidden;padding:12px 0 12px;background:radial-gradient(ellipse 70% 55% at 15% 78%,rgba(213,160,55,.22),transparent 70%),radial-gradient(ellipse 72% 55% at 88% 18%,rgba(225,173,65,.27),transparent 72%),linear-gradient(135deg,#fffaf0,#fffdf8)}
 #publicView .public-head::before{content:"";position:absolute;z-index:-1;width:145%;height:100px;left:-25%;top:30%;border-radius:50%;border-top:18px solid rgba(229,178,75,.18);border-bottom:1px solid rgba(209,160,65,.22);transform:rotate(-16deg);box-shadow:0 12px 26px rgba(232,183,87,.13)}
-#publicView .apple-logo-top{width:104px;height:104px;border-radius:25px;background:linear-gradient(145deg,#fff,#f5efe4);border:1px solid rgba(215,195,159,.6);box-shadow:0 8px 24px rgba(104,79,42,.18)}
+#publicView .apple-logo-top{width:104px;height:104px;border-radius:25px;background:linear-gradient(145deg,#fff,#f5efe4);border:1px solid rgba(190,145,61,.65)!important;box-shadow:0 5px 16px rgba(104,79,42,.10)!important}
 #publicView .apple-logo-top svg{width:100px!important;height:100px!important;fill:#090909!important;filter:none!important}
 #publicView .public-head h1{font:900 26px/1.2 Inter,Arial,sans-serif;margin:3px 0 0;color:#111}
 #publicView .public-head h1 span{color:#111}
