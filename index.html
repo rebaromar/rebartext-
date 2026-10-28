@@ -1290,6 +1290,15 @@ body:has(#adminView:not(.hidden)) #createView:not(.hidden) .admin-create-dock{po
 body:has(#adminView:not(.hidden)) :is(#createView,#editView){padding-bottom:110px}
 body:has(#adminView:not(.hidden)) #createView:not(.hidden) .admin-create-dock{position:fixed;z-index:50;bottom:0;left:50%;transform:translateX(-50%);width:min(980px,100%);padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#110d07;border-top:1px solid #745827;box-shadow:0 -6px 22px #0004}
 .admin-create-dock button:disabled{opacity:.65;cursor:wait}
+/* Compact admin form spacing. */
+#adminView .grid{gap:8px}
+#adminView .field{margin-bottom:2px}
+#adminView .field label{margin-bottom:4px;line-height:1.5}
+#adminView .field-tools{margin-top:4px;gap:6px}
+#adminView .field-tools button{min-height:36px;padding:5px 10px}
+#adminView .note-presets{margin-bottom:5px;gap:5px}
+#adminView .field textarea{min-height:85px}
+
 </style>
 </head>
 <body>
