@@ -1401,7 +1401,7 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 #publicContent:not(.hidden) .note{animation-duration:.25s!important;animation-delay:0s!important}
 </style>
 <style>
-html.public-loading #siteHeader,html.public-loading #publicView{visibility:hidden}
+
 
 html.public-loading #siteHeader,html.public-loading #publicView *{animation:none!important}
 html.public-ready #siteHeader,
@@ -1419,6 +1419,12 @@ html.public-ready #publicView .public-head h1,
 html.public-ready #publicContent .account-block,
 html.public-ready #publicContent #btnGetCode,
 html.public-ready #publicContent .note{animation:none!important;clip-path:none!important;transform:none}
+</style>
+<style>
+/* Render the layout immediately while the record request runs. */
+body:has(#publicView:not(.hidden)) #siteHeader,
+#publicView .apple-logo-top,#publicView .public-head h1,
+#publicContent .account-block,#publicContent #btnGetCode,#publicContent .note{animation:none!important}
 </style>
 </head>
 <body>
@@ -1546,7 +1552,7 @@ function clearNotice(id){const e=$(id);e.textContent="";e.className="notice"}
 function authHeaders(){return{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem(ADMIN_TOKEN_KEY)||"")}}
 function cleanId(raw){const value=String(raw||"").trim(),match=value.match(/[?&]id=([^&#]+)/);let id=match?decodeURIComponent(match[1]):value;return id.replace(/[^A-Za-z0-9_$~_-]/g,"")}
 function formatUsedDate(iso){if(!iso)return"";const date=new Date(iso);try{const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Baghdad",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).formatToParts(date),v={};parts.forEach(p=>v[p.type]=p.value);return`${v.year}-${v.month}-${v.day} ${v.hour}:${v.minute}:${v.second}`}catch{return iso}}
-window.addEventListener("DOMContentLoaded",async()=>{installCleanPaste();const params=new URLSearchParams(location.search);currentPublicId=params.get("id")||"";const owner=params.get(OWNER_PARAM)===OWNER_VALUE;if(currentPublicId){showHeader(true);showOnly("publicView");await loadPublicRecord();return}if(owner){showHeader(true);const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);showOnly(token?"adminView":"loginView");return}showHeader(false);showOnly("notFoundView")});
+window.addEventListener("DOMContentLoaded",async()=>{installCleanPaste();const params=new URLSearchParams(location.search);currentPublicId=params.get("id")||"";const owner=params.get(OWNER_PARAM)===OWNER_VALUE;if(currentPublicId){showHeader(true);showOnly("publicView");$("publicContent").classList.remove("hidden");$("btnGetCode").classList.add("hidden");await loadPublicRecord();return}if(owner){showHeader(true);const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);showOnly(token?"adminView":"loginView");return}showHeader(false);showOnly("notFoundView")});
 async function startAdminLogin(){clearNotice("loginMsg");const password=$("adminPassword").value;if(!password){setNotice("loginMsg","تکایە پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Login failed");loginChallenge=d.challenge||"";$("passwordStep").classList.add("hidden");$("methodStep").classList.remove("hidden");setNotice("loginMsg","پاسۆرد دروستە. یەکێک لە ڕێگاکانی پشتڕاستکردنەوە هەڵبژێرە.",true)}catch(e){setNotice("loginMsg",e.message==="Too many login attempts. Try again later."?"هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە.":"پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە.")}}
 function chooseAuthenticator(){if(!loginChallenge){resetLoginStep();return}$("methodStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("totpStep").classList.remove("hidden");$("adminTotp").value="";clearNotice("loginMsg");setTimeout(()=>$("adminTotp").focus(),100)}
 async function chooseEmail(){clearNotice("loginMsg");if(!loginChallenge){resetLoginStep();return}try{const r=await fetch(API_BASE+"/api/login/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Email send failed");$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.remove("hidden");$("adminEmailOtp").value="";setNotice("loginMsg","کۆدی 6 ژمارەیی بۆ ئیمەیڵەکەت نێردرا.",true);setTimeout(()=>$("adminEmailOtp").focus(),100)}catch(e){setNotice("loginMsg",e.message==="Please wait before resending"?"تکایە 30 چرکە چاوەڕێ بکە پاشان دووبارە هەوڵ بدە.":e.message==="Challenge expired"?"کاتی چوونەژوورەوە بەسەرچوو. لە سەرەتاوە هەوڵ بدە.":"کۆدی ئیمەیڵ نەنێردرا. RESEND_API_KEY و ADMIN_EMAIL بپشکنە.")}}
