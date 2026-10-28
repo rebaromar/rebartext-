@@ -1372,6 +1372,11 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:170px}
 #adminView .admin-field-heading .field-tools button:only-child{color:#f1a6ad;border-color:#6b343d;background:#291217}
 body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 
+/* Center each label with its clear action on the left. */
+#adminView .admin-field-heading{display:flex;direction:rtl;justify-content:center;align-items:center;gap:9px}
+#adminView .admin-field-heading>label{flex:0 0 auto;text-align:center;direction:rtl;padding:0 0 0 10px;border-right:0;border-left:1px solid rgba(240,199,94,.3)}
+#adminView .admin-field-heading .field-tools{display:flex;direction:rtl;flex:0 0 auto;margin:0}
+
 </style>
 </head>
 <body>
