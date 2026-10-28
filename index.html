@@ -2088,7 +2088,7 @@ window.addEventListener("DOMContentLoaded",()=>{
    function typeNext(){text.textContent+=parts[i++];if(i<parts.length){setTimeout(typeNext,65)}else{setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}}
    if(matchMedia("(prefers-reduced-motion: reduce)").matches){text.textContent=message;setTimeout(()=>{banner.hidden=true;text.textContent=""},10000)}else{typeNext()}
   },3000);
- },3000);
+ },1000);
 });
 </script>
 </body>
