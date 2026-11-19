@@ -1275,13 +1275,13 @@ body:has(#publicView:not(.hidden)) .top-first-date{color:#17130e;font-size:14px}
  #publicView:not(.hidden) .apple-logo-top,
  #publicView:not(.hidden) .public-head h1,
  #publicContent:not(.hidden) .account-block,
- #publicContent:not(.hidden) #otpCardWrap,
+ #publicContent:not(.hidden) #btnGetCode,
  #publicContent:not(.hidden) .note{animation:rebarRain 1.1s cubic-bezier(.22,1,.36,1) backwards}
  #publicView:not(.hidden) .apple-logo-top{animation-delay:.08s}
  #publicView:not(.hidden) .public-head h1{animation-delay:.16s}
  #publicContent:not(.hidden) .account-block:nth-child(1){animation-delay:.24s}
  #publicContent:not(.hidden) .account-block:nth-child(2){animation-delay:.32s}
- #publicContent:not(.hidden) #otpCardWrap{animation-delay:.4s}
+ #publicContent:not(.hidden) #btnGetCode{animation-delay:.4s}
  #publicContent:not(.hidden) .note{animation-delay:.48s}
 }
 
@@ -1393,197 +1393,6 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 @property --apple-shine-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes appleBorderShine{to{--apple-shine-angle:360deg}}
 @media(prefers-reduced-motion:reduce){#publicView .apple-logo-top::after{animation:none!important}}
-
-/* ===== CUSTOMER OTP CARD (CREAM & GOLD VIP) ===== */
-#publicView .otp-block{margin:14px 0 12px}
-#publicView .otp-label{
-  display:flex;
-  direction:ltr;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  margin:0 0 8px;
-  font:800 20px/1.2 "Noto Sans Arabic",Inter,Arial,sans-serif;
-  color:#2d2d2d;
-}
-#publicView .otp-key-icon{
-  width:22px;
-  height:22px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  color:#c58c28;
-  flex:0 0 22px;
-}
-#publicView .otp-panel{
-  background:linear-gradient(180deg,#ffffff 0%,#fffcf5 100%);
-  border:2px solid #333333;
-  border-radius:20px;
-  padding:16px 14px 14px;
-  text-align:center;
-  box-shadow:0 6px 18px rgba(123,91,40,.10),inset 0 1px 0 rgba(255,255,255,.95);
-}
-#publicView .otp-sub{
-  color:#6b645b;
-  font:700 13px/1.4 "Noto Sans Arabic",Arial,sans-serif;
-  margin-bottom:10px;
-}
-#publicView .otp-digits{
-  direction:ltr;
-  font:900 34px/1.2 Inter,Arial,sans-serif;
-  letter-spacing:9px;
-  padding-left:9px;
-  color:#17130e;
-  margin:4px 0 12px;
-  user-select:all;
-  cursor:pointer;
-  transition:transform .14s ease,color .18s ease;
-}
-#publicView .otp-digits.empty{
-  color:#9c9283;
-  letter-spacing:7px;
-  padding-left:7px;
-  font-size:28px;
-}
-#publicView .otp-digits.ready{
-  color:#111111;
-  text-shadow:0 1px 0 rgba(233,181,76,.25);
-}
-#publicView .otp-digits:active{transform:scale(.97)}
-#publicView .otp-bar-track{
-  width:88%;
-  height:6px;
-  margin:0 auto 10px;
-  border-radius:999px;
-  background:#ebe0ce;
-  overflow:hidden;
-  position:relative;
-}
-#publicView .otp-bar-fill{
-  height:100%;
-  width:0%;
-  border-radius:999px;
-  background:linear-gradient(90deg,#d8a536,#f5ae25);
-  transition:width .35s ease,background .25s ease;
-}
-#publicView .otp-bar-fill.loading{
-  width:42%;
-  animation:otpBarSweep 1.15s ease-in-out infinite;
-}
-#publicView .otp-bar-fill.ready{
-  width:100%;
-  background:linear-gradient(90deg,#16a66a,#28c780);
-}
-@keyframes otpBarSweep{
-  0%{transform:translateX(-110%)}
-  100%{transform:translateX(260%)}
-}
-#publicView .otp-status{
-  color:#5b544c;
-  font:800 13px/1.5 "Noto Sans Arabic",Arial,sans-serif;
-  margin-bottom:12px;
-  min-height:20px;
-}
-#publicView .otp-status.ok{color:#14834f}
-#publicView .otp-status.err{color:#b3263b}
-#publicView .otp-actions{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:22px;
-  padding-top:10px;
-  border-top:1px solid #efe4d2;
-}
-#publicView .otp-act-btn{
-  appearance:none;
-  border:0;
-  background:transparent;
-  min-height:38px;
-  padding:6px 12px;
-  border-radius:12px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  font:900 15px/1.2 "Noto Sans Arabic",Arial,sans-serif;
-  cursor:pointer;
-  transition:transform .12s ease,background .15s ease,color .15s ease;
-}
-#publicView .otp-act-btn:active{transform:scale(.95)}
-#publicView .otp-act-refresh{color:#9a6b16}
-#publicView .otp-act-refresh:hover{background:rgba(233,181,76,.14)}
-#publicView .otp-act-copy{color:#17130e}
-#publicView .otp-act-copy:hover{background:rgba(23,19,14,.06)}
-#publicView .otp-act-copy.copied{color:#14834f}
-#publicView .otp-spin-svg{width:18px;height:18px;transition:transform .3s ease}
-#publicView .otp-act-refresh.spinning .otp-spin-svg{animation:otpIconSpin .85s linear infinite}
-@keyframes otpIconSpin{to{transform:rotate(360deg)}}
-#publicView .otp-digits.fresh-pulse{animation:otpFreshPulse .65s ease}
-@keyframes otpFreshPulse{
-  0%{transform:scale(.94);color:#c58c28}
-  50%{transform:scale(1.05);color:#14834f}
-  100%{transform:scale(1);color:#111111}
-}
-@media(max-width:650px){
-  #publicView .otp-digits{font-size:30px;letter-spacing:7px;padding-left:7px}
-  #publicView .otp-digits.empty{font-size:25px}
-  #publicView .otp-actions{gap:16px}
-}
-
-/* ===== ADMIN BULK EXCEL IMPORT ===== */
-.tabs{grid-template-columns:repeat(4,1fr)}
-@media(max-width:650px){.tabs{grid-template-columns:1fr 1fr}}
-.bulk-dropzone{
-  border:2px dashed rgba(240,199,94,.42);
-  border-radius:18px;
-  padding:22px 16px;
-  text-align:center;
-  background:linear-gradient(180deg,#171107,#0f0a04);
-  cursor:pointer;
-  transition:border-color .18s ease,background .18s ease;
-}
-.bulk-dropzone:hover,.bulk-dropzone.dragover{
-  border-color:#f0c75e;
-  background:linear-gradient(180deg,#1f170a,#130d05);
-}
-.bulk-drop-title{color:#f7e8b8;font-size:15px;font-weight:900;margin-bottom:6px}
-.bulk-drop-sub{color:#ad9a69;font-size:12px;line-height:1.8}
-.bulk-option-row{
-  display:flex;align-items:center;gap:10px;margin-top:12px;
-  padding:10px 12px;border-radius:14px;background:#140e06;border:1px solid rgba(240,199,94,.18);
-  color:#dcc78b;font-size:12px;font-weight:700;cursor:pointer;
-}
-.bulk-option-row input[type="checkbox"]{width:18px;height:18px;min-height:18px;accent-color:#e5b84a;cursor:pointer}
-.bulk-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0;
-}
-.bulk-stat-card{
-  padding:12px 10px;border-radius:14px;background:#151007;border:1px solid rgba(240,199,94,.22);text-align:center;
-}
-.bulk-stat-num{font:900 22px/1.2 Inter,Arial,sans-serif;color:#f0c75e}
-.bulk-stat-lbl{font-size:11px;color:#ad9a69;margin-top:4px;font-weight:700}
-.bulk-table-wrap{
-  overflow-x:auto;border:1px solid rgba(240,199,94,.20);border-radius:14px;margin:12px 0;background:#0f0a04;
-}
-.bulk-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left;direction:ltr}
-.bulk-table th,.bulk-table td{padding:9px 10px;border-bottom:1px solid rgba(240,199,94,.12);white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis}
-.bulk-table th{color:#f0c75e;background:#171107;font-family:Inter,Arial,sans-serif;font-weight:800}
-.bulk-table td{color:#e8d8ab;font-family:Inter,Arial,sans-serif}
-.bulk-progress-wrap{margin-top:12px;background:#140e06;border:1px solid rgba(240,199,94,.22);border-radius:12px;height:12px;overflow:hidden}
-.bulk-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#d8a536,#ffe99d);transition:width .2s ease}
-.bulk-list{max-height:320px;overflow-y:auto;margin-top:12px;display:flex;flex-direction:column;gap:7px}
-.bulk-item{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-  padding:10px 12px;border-radius:13px;background:#151007;border:1px solid rgba(240,199,94,.20);
-  direction:ltr;font-family:Inter,Arial,sans-serif;font-size:12px;color:#f4e3b2;
-}
-.bulk-item-info{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.bulk-qr-badge{
-  display:inline-block;padding:3px 8px;border-radius:8px;background:rgba(240,199,94,.16);
-  border:1px solid rgba(240,199,94,.38);color:#f0c75e;font-weight:900;margin-right:8px;
-}
-.bulk-mini-btn{min-height:34px;padding:5px 10px;border-radius:10px;font-size:11px}
-
 </style>
 
 
@@ -1616,27 +1425,7 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
   <div id="publicContent" class="content hidden">
     <div class="account-block"><div class="account-label">Email</div><div class="account-box tappable-copy" role="button" tabindex="0" onclick="copyBox('displayEmail',this)" onkeydown="copyBoxKey(event,'displayEmail',this)"><button class="icon-copy-button" onclick="event.stopPropagation();copyFrom('displayEmail',this)">کۆپی</button><div class="copy-divider"></div><input id="displayEmail" class="account-value" type="text" readonly tabindex="-1" aria-label="Email"></div></div>
     <div class="account-block"><div class="account-label">Password</div><div class="account-box tappable-copy" role="button" tabindex="0" onclick="copyBox('displayPassword',this)" onkeydown="copyBoxKey(event,'displayPassword',this)"><button class="icon-copy-button" onclick="event.stopPropagation();copyFrom('displayPassword',this)">کۆپی</button><div class="copy-divider"></div><input id="displayPassword" class="account-value" readonly tabindex="-1"></div></div>
-    <div id="otpCardWrap" class="otp-block">
-      <div class="otp-label">
-        <span>کۆدی OTP</span>
-        <span class="otp-key-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
-        </span>
-      </div>
-      <div class="otp-panel">
-        <div id="otpSubtitle" class="otp-sub">کۆدی چوونەژوورەوەی ئێستا</div>
-        <div id="otpDigitsDisplay" class="otp-digits empty" role="button" tabindex="0" onclick="copyPublicOtp()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();copyPublicOtp()}">— — — — — —</div>
-        <div class="otp-bar-track"><div id="otpBarFill" class="otp-bar-fill"></div></div>
-        <div id="otpStatusText" class="otp-status">ئامادەیە</div>
-        <div class="otp-actions">
-          <button type="button" id="btnOtpRefresh" class="otp-act-btn otp-act-refresh" onclick="fetchPublicOtp({manual:true})">
-            <svg class="otp-spin-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
-            <span>وەرگرتن</span>
-          </button>
-          <button type="button" id="btnOtpCopy" class="otp-act-btn otp-act-copy" onclick="copyPublicOtp()">کۆپیکردن</button>
-        </div>
-      </div>
-    </div>
+    <a id="btnGetCode" class="button primary wide" href="#" target="_blank" rel="noopener noreferrer">بەدەستهێنانی کۆد</a>
     <div id="publicNote" class="note hidden"></div>
     <div id="usedBox" class="used-box hidden"><div class="used-title">First Opened :</div><div id="usedDate" class="used-date"></div></div>
   </div>
@@ -1688,58 +1477,11 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
 
 <section id="adminView" class="card hidden">
   <div class="admin-header"><div id="passkeyMsg" class="notice"></div></div>
-  <div class="tabs"><button id="tabCreate" class="tab active" onclick="switchTab('create')">لینکی نوێ</button><button id="tabBulk" class="tab" onclick="switchTab('bulk')">هاوردەکردن (File)</button><button id="tabEdit" class="tab" onclick="switchTab('edit')">دەستکاری</button><button class="tab" onclick="logout()">چوونەدەرەوە</button></div>
+  <div class="tabs"><button id="tabCreate" class="tab active" onclick="switchTab('create')">لینکی نوێ</button><button id="tabEdit" class="tab" onclick="switchTab('edit')">دەستکاری</button><button class="tab" onclick="logout()">چوونەدەرەوە</button></div>
   <div id="createView" class="content">
     <div class="grid"><div class="field"><label>ئیمەیڵ</label><input id="cEmail" class="ltr" placeholder="example@email.com"></div><div class="field"><label>پاسۆرد</label><input id="cPassword" class="ltr" placeholder="Password"></div><div class="field full"><label>لینک</label><input id="cTargetLink" class="ltr" placeholder="https://..."></div><div class="field full"><label>تێبینی</label><textarea id="cNote" placeholder="تێبینی..."></textarea></div></div>
     <div class="admin-create-dock"><button id="createWithQr" class="primary wide" onclick="createRecord()">دروستکردنی لینک + QR</button></div><div id="createMsg" class="notice"></div>
     <div id="createResult" class="result"><code id="generatedLink"></code><div class="button-row"><button class="secondary" onclick="copyGenerated()">کۆپی لینک</button><button class="secondary" onclick="openGenerated()">کردنەوە</button></div><div class="qr-tools"><button class="qr-create-btn" onclick="generateCreatedQr()">دروستکردنی QR Code</button><div id="qrResultBox" class="qr-result-box hidden"><div class="qr-result-title">QR Code</div><div class="qr-number-top"><span id="qrNumber"></span></div><div id="qrCodeBox"></div><button class="qr-save-btn" onclick="saveQrImage()">خەزنکردنی QR</button><div class="qr-note">ژمارەی QR لە ناوەڕاستی خودی QR ـەکە دەردەکەوێت.</div></div></div></div>
-  </div>
-  <div id="bulkView" class="content hidden">
-    <input id="bulkExcelInput" type="file" accept=".xlsx,.xls,.csv,.tsv,.ods,.pdf,.txt,.docx,.doc" class="hidden" onchange="handleBulkFileSelected(this.files[0])">
-    <div id="bulkDropzone" class="bulk-dropzone" onclick="$('bulkExcelInput').click()" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="event.preventDefault();this.classList.remove('dragover');handleBulkFileSelected(event.dataTransfer.files[0])">
-      <div class="bulk-drop-title">📂 فایل هەڵبژێرە (Excel • Sheet • PDF • Word • Note)</div>
-      <div class="bulk-drop-sub">پشتگیری لە هەموو جۆرە فایلەکان دەکات: <b>Excel</b> (.xlsx, .xls)، <b>Google Sheet / CSV</b> (.csv, .ods)، <b>PDF</b> (.pdf)، <b>Word</b> (.docx)، و <b>Note</b> (.txt)؛ بە شێوەی ئۆتۆماتیکی ئیمەیڵ، پاسۆرد، لینک و تێبینییەکان دەخوێنێتەوە و دووبارەبووەکان دەپەڕێنێت.</div>
-    </div>
-    <div class="edit-lookup-separator"><span>یان دەقەکە لێرە دابنێ (Paste)</span></div>
-    <div class="field" style="margin-bottom:8px">
-      <textarea id="bulkPasteText" class="ltr" style="min-height:92px" placeholder="michaellong6915@gmail.com,Mega@@2024,said7,said8,said9,1990-01-01" oninput="handleBulkPasteInput(this.value)"></textarea>
-    </div>
-    <label class="bulk-option-row">
-      <input id="bulkIncludeExtraNote" type="checkbox" checked onchange="reparseBulkFile()">
-      <span>زیادکردنی زانیارییە زیادەکان (پرسیارەکانی پاراستن، بەرواری لەدایکبوون، ژمارە مۆبایل) بۆ تێبینی (Note)</span>
-    </label>
-    <div id="bulkMsg" class="notice"></div>
-
-    <div id="bulkPreviewSection" class="hidden">
-      <div class="bulk-stats">
-        <div class="bulk-stat-card"><div id="bulkStatTotal" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">کۆی ڕیزەکان</div></div>
-        <div class="bulk-stat-card"><div id="bulkStatDupInFile" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">دووبارەی ناو فایل</div></div>
-        <div class="bulk-stat-card"><div id="bulkStatReady" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">ئامادە بۆ دروستکردن</div></div>
-      </div>
-      <div class="bulk-table-wrap">
-        <table class="bulk-table">
-          <thead><tr><th>#</th><th>Email</th><th>Password</th><th>Link</th><th>Note (Extra)</th></tr></thead>
-          <tbody id="bulkPreviewBody"></tbody>
-        </table>
-      </div>
-      <button id="btnRunBulkImport" class="primary wide" onclick="runBulkImport()">🚀 داخڵکردن و دروستکردنی QR بۆ هەموویان</button>
-    </div>
-
-    <div id="bulkProgressWrap" class="bulk-progress-wrap hidden"><div id="bulkProgressBar" class="bulk-progress-bar"></div></div>
-
-    <div id="bulkResultSection" class="hidden">
-      <div class="bulk-stats">
-        <div class="bulk-stat-card"><div id="bulkResCreated" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">دروستکراو + QR</div></div>
-        <div class="bulk-stat-card"><div id="bulkResSkipped" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">دووبارەبووەوە (پەڕێنراو)</div></div>
-        <div class="bulk-stat-card"><div id="bulkResInvalid" class="bulk-stat-num">0</div><div class="bulk-stat-lbl">نادروست / بەتاڵ</div></div>
-      </div>
-      <div class="button-row" id="bulkExportActions">
-        <button id="btnDownloadBulkZip" class="primary" style="flex:1" onclick="downloadAllBulkQrsZip()">📦 دابەزاندنی هەموو QRـەکان (ZIP)</button>
-        <button class="secondary" onclick="copyAllBulkLinks()">📋 کۆپیکردنی لینکەکان</button>
-      </div>
-      <div id="bulkCreatedList" class="bulk-list"></div>
-      <div id="bulkSkippedBox" class="note hidden" style="margin-top:12px"></div>
-    </div>
   </div>
   <div id="editView" class="content hidden">
     <div class="field"><label for="editId">ID ی لینک</label><div class="edit-lookup-row"><input id="editId" class="ltr" placeholder="ID" autocomplete="off"><button class="secondary" onclick="loadRecordForEdit()">بارکردن</button></div></div>
@@ -1782,7 +1524,7 @@ function clearNotice(id){const e=$(id);e.textContent="";e.className="notice"}
 function authHeaders(){return{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem(ADMIN_TOKEN_KEY)||"")}}
 function cleanId(raw){const value=String(raw||"").trim(),match=value.match(/[?&]id=([^&#]+)/);let id=match?decodeURIComponent(match[1]):value;return id.replace(/[^A-Za-z0-9_$~_-]/g,"")}
 function formatUsedDate(iso){if(!iso)return"";const date=new Date(iso);try{const parts=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Baghdad",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).formatToParts(date),v={};parts.forEach(p=>v[p.type]=p.value);return`${v.year}-${v.month}-${v.day} ${v.hour}:${v.minute}:${v.second}`}catch{return iso}}
-window.addEventListener("DOMContentLoaded",async()=>{installCleanPaste();const params=new URLSearchParams(location.search);currentPublicId=params.get("id")||"";const owner=params.get(OWNER_PARAM)===OWNER_VALUE;if(currentPublicId){showHeader(true);showOnly("publicView");$("publicContent").classList.remove("hidden");$("otpCardWrap").classList.add("hidden");await loadPublicRecord();return}if(owner){showHeader(true);const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);showOnly(token?"adminView":"loginView");return}showHeader(false);showOnly("notFoundView")});
+window.addEventListener("DOMContentLoaded",async()=>{installCleanPaste();const params=new URLSearchParams(location.search);currentPublicId=params.get("id")||"";const owner=params.get(OWNER_PARAM)===OWNER_VALUE;if(currentPublicId){showHeader(true);showOnly("publicView");$("publicContent").classList.remove("hidden");$("btnGetCode").classList.add("hidden");await loadPublicRecord();return}if(owner){showHeader(true);const token=sessionStorage.getItem(ADMIN_TOKEN_KEY);showOnly(token?"adminView":"loginView");return}showHeader(false);showOnly("notFoundView")});
 async function startAdminLogin(){clearNotice("loginMsg");const password=$("adminPassword").value;if(!password){setNotice("loginMsg","تکایە پاسۆرد بنووسە.");return}try{const r=await fetch(API_BASE+"/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Login failed");loginChallenge=d.challenge||"";$("passwordStep").classList.add("hidden");$("methodStep").classList.remove("hidden");setNotice("loginMsg","پاسۆرد دروستە. یەکێک لە ڕێگاکانی پشتڕاستکردنەوە هەڵبژێرە.",true)}catch(e){setNotice("loginMsg",e.message==="Too many login attempts. Try again later."?"هەوڵی زۆر دراوە. تکایە دواتر هەوڵ بدە.":"پاسۆرد هەڵەیە یان پەیوەندی بە سێرڤەرەوە نییە.")}}
 function chooseAuthenticator(){if(!loginChallenge){resetLoginStep();return}$("methodStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("totpStep").classList.remove("hidden");$("adminTotp").value="";clearNotice("loginMsg");setTimeout(()=>$("adminTotp").focus(),100)}
 async function chooseEmail(){clearNotice("loginMsg");if(!loginChallenge){resetLoginStep();return}try{const r=await fetch(API_BASE+"/api/login/email/send",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({challenge:loginChallenge})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Email send failed");$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.remove("hidden");$("adminEmailOtp").value="";setNotice("loginMsg","کۆدی 6 ژمارەیی بۆ ئیمەیڵەکەت نێردرا.",true);setTimeout(()=>$("adminEmailOtp").focus(),100)}catch(e){setNotice("loginMsg",e.message==="Please wait before resending"?"تکایە 30 چرکە چاوەڕێ بکە پاشان دووبارە هەوڵ بدە.":e.message==="Challenge expired"?"کاتی چوونەژوورەوە بەسەرچوو. لە سەرەتاوە هەوڵ بدە.":"کۆدی ئیمەیڵ نەنێردرا. RESEND_API_KEY و ADMIN_EMAIL بپشکنە.")}}
@@ -1792,7 +1534,7 @@ async function resendEmailCode(){clearNotice("loginMsg");if(!loginChallenge){res
 function backToMethodChoice(){if(!loginChallenge){resetLoginStep();return}$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("methodStep").classList.remove("hidden");$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
 function resetLoginStep(){loginChallenge="";$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("passwordStep").classList.remove("hidden");$("adminPassword").value="";$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
 function logout(){sessionStorage.removeItem(ADMIN_TOKEN_KEY);location.href=PUBLIC_BASE+"?owner=1"}
-function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabBulk").classList.toggle("active",name==="bulk");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("bulkView").classList.toggle("hidden",name!=="bulk");$("editView").classList.toggle("hidden",name!=="edit")}
+function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("editView").classList.toggle("hidden",name!=="edit")}
 function smoothScrollToElement(id,delay=120){
   setTimeout(()=>{
     const el=$(id);
@@ -2048,8 +1790,7 @@ async function saveRecord(){
 async function deleteRecord(){
  if(editMutationBusy)return;
  const id=selectedEditId;
- if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟
-ID: "+id))return;
+ if(!id||!confirm("دڵنیایت دەتەوێت ئەم لینکە بسڕیتەوە؟\nID: "+id))return;
  setEditMutationBusy(true);
  try{
   await editApi("/api/record/"+encodeURIComponent(id),{method:"DELETE"});
@@ -2066,7 +1807,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 });
 
 async function loadPublicRecord(){try{const early=window.__rebarPublicFetch;window.__rebarPublicFetch=null;let r,d;if(early){const result=await early;if(result.error)throw result.error;r=result.value.response;d=result.value.data}else{r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId),{cache:"no-store",priority:"high"});d=await r.json()}if(r.status===404)throw new Error("ئەم لینکە نەدۆزرایەوە.");if(r.status===429)throw new Error("داواکاری زۆرە. تکایە دوای کەمێک هەوڵ بدەوە.");if(!r.ok)throw new Error(d.error||"هەڵەیەک ڕوویدا.");renderPublic(d.record)}catch(e){$("publicContent").classList.add("hidden");$("publicError").classList.remove("hidden");$("publicErrorText").textContent=e.message}finally{document.documentElement.classList.remove("public-loading");document.documentElement.classList.add("public-ready")}}
-function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";requestAnimationFrame(fitPublicEmail);$("displayPassword").value=record.password||"";const hasOtpSource=!!String(record.targetLink||"").trim();if(hasOtpSource){$("otpCardWrap").classList.remove("hidden");startLiveOtp()}else{stopLiveOtp();$("otpCardWrap").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
+function renderPublic(record){$("publicError").classList.add("hidden");$("publicContent").classList.remove("hidden");$("displayEmail").value=record.email||"";requestAnimationFrame(fitPublicEmail);$("displayPassword").value=record.password||"";const cleanLink=cleanTargetUrl(record.targetLink||"");if(cleanLink){$("btnGetCode").href=cleanLink;$("btnGetCode").classList.remove("hidden")}else{$("btnGetCode").classList.add("hidden")}if(record.note){$("publicNote").textContent=record.note;$("publicNote").classList.remove("hidden")}else{$("publicNote").classList.add("hidden")}if(record.firstViewedAt){
   const formattedDate=formatUsedDate(record.firstViewedAt);
   $("topFirstOpenedDate").textContent=formattedDate;
   $("topFirstOpened").classList.remove("hidden");
@@ -2093,7 +1834,6 @@ function showCopyToast(id){
     text.textContent=
       id==="displayEmail" ? "ئیمەیڵەکە کۆپی کرا" :
       id==="displayPassword" ? "پاسۆردەکە کۆپی کرا" :
-      id==="otpCode" ? "کۆدەکە کۆپی کرا" :
       "کۆپی کرا";
   }
 
@@ -2297,667 +2037,6 @@ async function loginWithPasskey(){
   }
 }
 
-/* ===== PUBLIC OTP CARD LOGIC (CONTINUOUS LIVE AUTO-UPDATE) ===== */
-const OTP_POLL_SECONDS=10;
-let currentOtpCode="",otpBusy=false,otpCountdownTimer=null,otpLiveActive=false,otpRateLimitedUntil=0;
-
-function formatSpacedOtp(code){
-  const clean=String(code||"").trim();
-  return clean?clean.split("").join(" "):"— — — — — —";
-}
-function stopLiveOtp(){
-  otpLiveActive=false;
-  if(otpCountdownTimer){clearInterval(otpCountdownTimer);otpCountdownTimer=null}
-}
-function resetPublicOtpUi(){
-  stopLiveOtp();
-  currentOtpCode="";
-  const d=$("otpDigitsDisplay"),bar=$("otpBarFill"),st=$("otpStatusText");
-  if(d){d.textContent="— — — — — —";d.className="otp-digits empty"}
-  if(bar){bar.className="otp-bar-fill";bar.style.width="0%"}
-  if(st){st.textContent="ئامادەیە";st.className="otp-status"}
-}
-function startLiveOtp(){
-  resetPublicOtpUi();
-  otpLiveActive=true;
-  fetchPublicOtp({silent:false});
-}
-function scheduleNextOtpTick(totalSeconds,mode,baseLabel){
-  if(otpCountdownTimer){clearInterval(otpCountdownTimer);otpCountdownTimer=null}
-  if(!otpLiveActive)return;
-  const bar=$("otpBarFill"),st=$("otpStatusText");
-  let left=Math.max(1,Math.round(totalSeconds));
-  const denom=mode==="totp"?30:Math.max(1,left);
-
-  const renderTick=()=>{
-    if(bar){
-      bar.classList.remove("loading");
-      bar.className=currentOtpCode?"otp-bar-fill ready":"otp-bar-fill";
-      bar.style.width=Math.max(6,Math.round((left/denom)*100))+"%";
-    }
-    if(st){
-      st.className=currentOtpCode?"otp-status ok":(mode==="err"?"otp-status err":"otp-status");
-      st.textContent=baseLabel+" • "+left+" چرکە";
-    }
-  };
-  renderTick();
-
-  otpCountdownTimer=setInterval(()=>{
-    if(!otpLiveActive){clearInterval(otpCountdownTimer);otpCountdownTimer=null;return}
-    if(document.hidden)return;
-    left--;
-    if(left<=0){
-      clearInterval(otpCountdownTimer);
-      otpCountdownTimer=null;
-      fetchPublicOtp({silent:true});
-      return;
-    }
-    renderTick();
-  },1000);
-}
-
-async function fetchPublicOtp(opts={}){
-  const silent=!!opts.silent;
-  const manual=!!opts.manual;
-  if(otpBusy||!currentPublicId)return;
-  if(manual)otpRateLimitedUntil=0;
-  if(!manual&&Date.now()<otpRateLimitedUntil){
-    const waitSec=Math.ceil((otpRateLimitedUntil-Date.now())/1000);
-    scheduleNextOtpTick(waitSec,"err","داواکاری زۆرە، هەوڵدانەوە دوای");
-    return;
-  }
-  otpBusy=true;
-  if(otpCountdownTimer){clearInterval(otpCountdownTimer);otpCountdownTimer=null}
-  const btn=$("btnOtpRefresh"),bar=$("otpBarFill"),st=$("otpStatusText"),d=$("otpDigitsDisplay");
-  if(btn)btn.classList.add("spinning");
-
-  // Keep existing code visible during background refreshes so it never flickers
-  if(!silent||!currentOtpCode){
-    if(bar){bar.className="otp-bar-fill loading";bar.style.width=""}
-    if(st){st.className="otp-status";st.textContent="چاوەڕێ بکە، کۆد دەهێنرێت..."}
-  }
-
-  try{
-    const r=await fetch(API_BASE+"/api/record/"+encodeURIComponent(currentPublicId)+"/otp",{cache:"no-store"});
-    const data=await r.json();
-    if(bar)bar.classList.remove("loading");
-    if(!r.ok){
-      if(r.status===429){
-        otpRateLimitedUntil=Date.now()+20000;
-        scheduleNextOtpTick(20,"err","داواکاری زۆرە، نوێکردنەوە");
-      }else{
-        scheduleNextOtpTick(10,"err","کۆد وەرنەگیرا، هەوڵدانەوە");
-      }
-      return;
-    }
-    if(data.ok&&data.code){
-      const nextCode=String(data.code);
-      const isNew=nextCode!==currentOtpCode;
-      currentOtpCode=nextCode;
-      if(d){
-        d.textContent=formatSpacedOtp(currentOtpCode);
-        d.className="otp-digits ready";
-        if(isNew){
-          void d.offsetWidth;
-          d.classList.add("fresh-pulse");
-          setTimeout(()=>d.classList.remove("fresh-pulse"),700);
-        }
-      }
-      if(data.source==="totp"&&Number(data.expiresIn)>0){
-        scheduleNextOtpTick(Number(data.expiresIn),"totp","ئامادەیە");
-      }else{
-        scheduleNextOtpTick(OTP_POLL_SECONDS,"remote","ئامادەیە (نوێکردنەوەی خۆکار)");
-      }
-      return;
-    }
-    // No code yet on server — keep checking automatically
-    if(currentOtpCode){
-      scheduleNextOtpTick(OTP_POLL_SECONDS,"remote","ئامادەیە (نوێکردنەوەی خۆکار)");
-    }else{
-      const waitMsg=data.ok?"چاوەڕوانی کۆد...":"هەوڵدانەوەی خۆکار";
-      scheduleNextOtpTick(OTP_POLL_SECONDS,data.ok?"wait":"err",waitMsg);
-    }
-  }catch{
-    if(bar)bar.classList.remove("loading");
-    scheduleNextOtpTick(10,"err","پەیوەندی نەبوو، هەوڵدانەوە");
-  }finally{
-    otpBusy=false;
-    if(btn)btn.classList.remove("spinning");
-  }
-}
-
-document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden&&otpLiveActive&&currentPublicId&&!otpBusy){
-    fetchPublicOtp({silent:true});
-  }
-});
-async function copyPublicOtp(){
-  if(!currentOtpCode){
-    fetchPublicOtp();
-    return;
-  }
-  playCopySound();
-  const btn=$("btnOtpCopy");
-  try{
-    await writeClipboard(currentOtpCode);
-    showCopyToast("otpCode");
-    if(btn){
-      btn.classList.add("copied");
-      btn.textContent="کۆپی کرا ✓";
-      setTimeout(()=>{btn.classList.remove("copied");btn.textContent="کۆپیکردن"},1200);
-    }
-  }catch{
-    showCopyErrorToast();
-  }
-}
-
-/* ===== ADMIN BULK EXCEL IMPORT & QR ZIP GENERATOR ===== */
-let xlsxLibPromise=null,jsZipLibPromise=null,pdfLibPromise=null,mammothLibPromise=null;
-let lastRawSheetRows=[],parsedBulkRows=[],inFileDuplicateCount=0,bulkCreatedRecords=[];
-
-function ensureXlsxLibrary(){
-  if(typeof XLSX!=="undefined")return Promise.resolve();
-  if(xlsxLibPromise)return xlsxLibPromise;
-  xlsxLibPromise=new Promise((resolve,reject)=>{
-    const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
-    s.async=true;
-    s.onload=()=>typeof XLSX!=="undefined"?resolve():reject(new Error("XLSX library failed"));
-    s.onerror=()=>reject(new Error("XLSX library network error"));
-    document.head.appendChild(s);
-  });
-  return xlsxLibPromise;
-}
-function ensurePdfLibrary(){
-  if(typeof pdfjsLib!=="undefined")return Promise.resolve();
-  if(pdfLibPromise)return pdfLibPromise;
-  pdfLibPromise=new Promise((resolve,reject)=>{
-    const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
-    s.async=true;
-    s.onload=()=>{
-      if(typeof pdfjsLib!=="undefined"){
-        pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-        resolve();
-      }else reject(new Error("PDF library failed"));
-    };
-    s.onerror=()=>reject(new Error("PDF library network error"));
-    document.head.appendChild(s);
-  });
-  return pdfLibPromise;
-}
-function ensureMammothLibrary(){
-  if(typeof mammoth!=="undefined")return Promise.resolve();
-  if(mammothLibPromise)return mammothLibPromise;
-  mammothLibPromise=new Promise((resolve,reject)=>{
-    const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js";
-    s.async=true;
-    s.onload=()=>typeof mammoth!=="undefined"?resolve():reject(new Error("Word library failed"));
-    s.onerror=()=>reject(new Error("Word library network error"));
-    document.head.appendChild(s);
-  });
-  return mammothLibPromise;
-}
-function ensureJsZipLibrary(){
-  if(typeof JSZip!=="undefined")return Promise.resolve();
-  if(jsZipLibPromise)return jsZipLibPromise;
-  jsZipLibPromise=new Promise((resolve,reject)=>{
-    const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js";
-    s.async=true;
-    s.onload=()=>typeof JSZip!=="undefined"?resolve():reject(new Error("JSZip library failed"));
-    s.onerror=()=>reject(new Error("JSZip library network error"));
-    document.head.appendChild(s);
-  });
-  return jsZipLibPromise;
-}
-
-function formatCellValue(cell){
-  if(cell===null||cell===undefined)return"";
-  if(cell instanceof Date&&!isNaN(cell.getTime())){
-    return cell.toISOString().slice(0,10);
-  }
-  return String(cell).trim();
-}
-
-function isHeaderRow(cells){
-  const joined=cells.join(" ").toLowerCase();
-  if(cells.some(c=>/@/.test(c)||/^https?:\/\//i.test(c)))return false;
-  return /(email|mail|password|pass|link|url|otp|ئیمەیڵ|پاسۆرد|لینک|البريد|كلمة)/i.test(joined);
-}
-
-function parsePlainTextLines(text){
-  const lines=String(text||"").replace(/\r\n/g,"\n").replace(/\r/g,"\n").split("\n");
-  const rows=[];
-  for(const rawLine of lines){
-    const line=rawLine.trim();
-    if(!line)continue;
-    let sep=",";
-    if(line.includes("\t"))sep="\t";
-    else if(line.includes("|"))sep="|";
-    else if(line.includes(";")&&!line.includes(","))sep=";";
-    else if(!line.includes(",")&&/\s{2,}/.test(line)){
-      const parts=line.split(/\s{2,}/).map(c=>c.trim()).filter(Boolean);
-      if(parts.length>=2){rows.push(parts);continue}
-    }else if(!line.includes(",")&&/^[^\s@]+@[^\s@]+\.[^\s@]+\s+\S+/.test(line)){
-      const parts=line.split(/\s+/).map(c=>c.trim()).filter(Boolean);
-      if(parts.length>=2){rows.push(parts);continue}
-    }
-    const cells=line.split(sep).map(c=>c.trim());
-    if(cells.some(c=>c!==""))rows.push(cells);
-  }
-  return rows;
-}
-
-async function extractTextFromPdfBuffer(buf){
-  await ensurePdfLibrary();
-  const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
-  const allLines=[];
-  for(let p=1;p<=pdf.numPages;p++){
-    const page=await pdf.getPage(p);
-    const tc=await page.getTextContent();
-    const items=tc.items.filter(it=>it&&typeof it.str==="string"&&it.str.trim()!=="");
-    // Group text items by Y coordinate so table rows on the same visual line stay together
-    const lineBuckets=[];
-    for(const it of items){
-      const y=it.transform?it.transform[5]:0;
-      const x=it.transform?it.transform[4]:0;
-      let bucket=lineBuckets.find(b=>Math.abs(b.y-y)<=4);
-      if(!bucket){bucket={y,parts:[]};lineBuckets.push(bucket)}
-      bucket.parts.push({x,str:it.str.trim()});
-    }
-    lineBuckets.sort((a,b)=>b.y-a.y);
-    for(const b of lineBuckets){
-      b.parts.sort((a,c)=>a.x-c.x);
-      const joined=b.parts.map(pt=>pt.str).join("  ");
-      if(joined.trim())allLines.push(joined.trim());
-    }
-  }
-  return allLines.join("\n");
-}
-
-async function extractRowsFromDocxBuffer(buf){
-  await ensureMammothLibrary();
-  // Convert to HTML first so Word tables (<tr><td>) are preserved accurately, plus paragraphs
-  const htmlRes=await mammoth.convertToHtml({arrayBuffer:buf});
-  const doc=new DOMParser().parseFromString(htmlRes.value||"","text/html");
-  const rows=[];
-  const trs=doc.querySelectorAll("tr");
-  if(trs.length>0){
-    trs.forEach(tr=>{
-      const cells=Array.from(tr.querySelectorAll("td,th")).map(td=>td.textContent.trim());
-      if(cells.some(c=>c!==""))rows.push(cells);
-    });
-  }
-  if(rows.length>0)return rows;
-  const rawRes=await mammoth.extractRawText({arrayBuffer:buf});
-  return parsePlainTextLines(rawRes.value||"");
-}
-
-function detectColumnsFromRows(dataRows){
-  let emailCol=-1,linkCol=-1;
-  const sample=dataRows.slice(0,25);
-  for(const row of sample){
-    row.forEach((val,idx)=>{
-      if(emailCol===-1&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))emailCol=idx;
-      if(linkCol===-1&&/^https?:\/\//i.test(val))linkCol=idx;
-    });
-  }
-  if(emailCol===-1)emailCol=0;
-  let passCol=emailCol+1;
-  if(passCol===linkCol)passCol=emailCol===0?1:0;
-  return{emailCol,passCol,linkCol};
-}
-
-function handleBulkPasteInput(text){
-  clearNotice("bulkMsg");
-  $("bulkResultSection").classList.add("hidden");
-  lastRawSheetRows=parsePlainTextLines(text);
-  if(!lastRawSheetRows.length){
-    $("bulkPreviewSection").classList.add("hidden");
-    parsedBulkRows=[];
-    return;
-  }
-  reparseBulkFile();
-}
-
-async function handleBulkFileSelected(file){
-  if(!file)return;
-  clearNotice("bulkMsg");
-  $("bulkResultSection").classList.add("hidden");
-  if($("bulkPasteText"))$("bulkPasteText").value="";
-  setNotice("bulkMsg","خوێندنەوەی فایلەکە: "+file.name+" ...",true);
-  try{
-    const nameLower=String(file.name||"").toLowerCase();
-    if(nameLower.endsWith(".txt")||nameLower.endsWith(".csv")||nameLower.endsWith(".tsv")){
-      const text=await file.text();
-      lastRawSheetRows=parsePlainTextLines(text);
-    }else if(nameLower.endsWith(".pdf")){
-      const buf=await file.arrayBuffer();
-      const pdfText=await extractTextFromPdfBuffer(buf);
-      lastRawSheetRows=parsePlainTextLines(pdfText);
-    }else if(nameLower.endsWith(".docx")){
-      const buf=await file.arrayBuffer();
-      lastRawSheetRows=await extractRowsFromDocxBuffer(buf);
-    }else if(nameLower.endsWith(".doc")){
-      throw new Error("فایلی .doc زۆر کۆنە؛ لە Word بیگۆڕە بۆ .docx یان دەقەکەی کۆپی-پەیست بکە.");
-    }else{
-      // Supports .xlsx, .xls, .ods (Google Sheets / Excel)
-      await ensureXlsxLibrary();
-      const buf=await file.arrayBuffer();
-      const wb=XLSX.read(buf,{type:"array",cellDates:true});
-      const merged=[];
-      for(const sheetName of wb.SheetNames){
-        const sheet=wb.Sheets[sheetName];
-        const raw2D=XLSX.utils.sheet_to_json(sheet,{header:1,defval:""});
-        for(const r of raw2D){
-          if(Array.isArray(r)){
-            const cleaned=r.map(formatCellValue);
-            if(cleaned.some(c=>c!==""))merged.push(cleaned);
-          }
-        }
-      }
-      lastRawSheetRows=merged;
-    }
-    if(!lastRawSheetRows.length){
-      setNotice("bulkMsg","فایلەکە بەتاڵە یان هیچ داتایەکی تێدا نییە (ئەگەر PDF وێنەی سکانکراوە بێت ناخوێنرێتەوە).");
-      return;
-    }
-    reparseBulkFile();
-    setNotice("bulkMsg","فایلەکە بە سەرکەوتوویی خوێندرایەوە: "+file.name,true);
-  }catch(e){
-    setNotice("bulkMsg","خوێندنەوەی فایلەکە سەرکەوتوو نەبوو: "+(e.message||"هەڵە"));
-  }
-}
-
-function reparseBulkFile(){
-  if(!lastRawSheetRows.length)return;
-  const includeMeta=$("bulkIncludeExtraNote").checked;
-  const startIdx=isHeaderRow(lastRawSheetRows[0])?1:0;
-  const dataRows=lastRawSheetRows.slice(startIdx);
-  const {emailCol,passCol,linkCol}=detectColumnsFromRows(dataRows);
-
-  const seen=new Set();
-  parsedBulkRows=[];
-  inFileDuplicateCount=0;
-
-  dataRows.forEach((cells,i)=>{
-    const email=(cells[emailCol]||"").trim();
-    const password=(cells[passCol]||"").trim();
-    let rawLink="";
-    if(linkCol>=0){
-      rawLink=(cells[linkCol]||"").trim();
-    }else{
-      const foundUrl=cells.find((v,idx)=>idx!==emailCol&&idx!==passCol&&/^https?:\/\//i.test(v));
-      if(foundUrl)rawLink=foundUrl.trim();
-    }
-    const targetLink=cleanTargetUrl(rawLink);
-    if(!email&&!password)return;
-
-    let note="";
-    if(includeMeta){
-      const extras=cells.filter((v,idx)=>v&&idx!==emailCol&&idx!==passCol&&v.trim()!==rawLink);
-      if(extras.length)note=extras.join(" | ");
-    }
-
-    const eKey=email.toLowerCase();
-    if(eKey&&seen.has(eKey)){
-      inFileDuplicateCount++;
-      return;
-    }
-    if(eKey)seen.add(eKey);
-
-    parsedBulkRows.push({
-      rowIndex:startIdx+i+1,
-      email,
-      password,
-      targetLink,
-      note
-    });
-  });
-
-  $("bulkStatTotal").textContent=String(dataRows.length);
-  $("bulkStatDupInFile").textContent=String(inFileDuplicateCount);
-  $("bulkStatReady").textContent=String(parsedBulkRows.length);
-
-  const tbody=$("bulkPreviewBody");
-  tbody.replaceChildren();
-  parsedBulkRows.slice(0,6).forEach((row,idx)=>{
-    const tr=document.createElement("tr");
-    [String(idx+1),row.email,row.password,row.targetLink||"—",row.note||"—"].forEach(val=>{
-      const td=document.createElement("td");
-      td.textContent=val;
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
-  });
-
-  $("bulkPreviewSection").classList.remove("hidden");
-}
-
-function renderQrCanvasWithBadge(url,qrNo){
-  return new Promise(async(resolve,reject)=>{
-    try{
-      await ensureQrLibrary();
-      const tempDiv=document.createElement("div");
-      tempDiv.style.position="fixed";
-      tempDiv.style.left="-9999px";
-      document.body.appendChild(tempDiv);
-
-      new QRCode(tempDiv,{
-        text:url,
-        width:560,
-        height:560,
-        colorDark:"#111827",
-        colorLight:"#ffffff",
-        correctLevel:QRCode.CorrectLevel.H
-      });
-
-      await new Promise(r=>setTimeout(r,30));
-      const src=tempDiv.querySelector("canvas")||tempDiv.querySelector("img");
-      if(!src){tempDiv.remove();reject(new Error("QR render failed"));return}
-
-      const SIZE=640,QR_SIZE=560,MARGIN=(SIZE-QR_SIZE)/2;
-      const c=document.createElement("canvas");
-      c.width=SIZE;c.height=SIZE;
-      const ctx=c.getContext("2d");
-      ctx.fillStyle="#ffffff";
-      ctx.fillRect(0,0,SIZE,SIZE);
-      ctx.imageSmoothingEnabled=false;
-      ctx.drawImage(src,MARGIN,MARGIN,QR_SIZE,QR_SIZE);
-      tempDiv.remove();
-
-      if(qrNo){
-        const label=String(qrNo);
-        ctx.font="900 68px Arial";
-        ctx.textAlign="center";
-        ctx.textBaseline="middle";
-        const metrics=ctx.measureText(label);
-        const badgeW=Math.max(138,Math.min(230,metrics.width+56));
-        const badgeH=98,x=(SIZE-badgeW)/2,y=(SIZE-badgeH)/2,r=20;
-
-        ctx.fillStyle="#ffffff";
-        ctx.strokeStyle="#111827";
-        ctx.lineWidth=5;
-        ctx.beginPath();
-        ctx.moveTo(x+r,y);
-        ctx.lineTo(x+badgeW-r,y);
-        ctx.quadraticCurveTo(x+badgeW,y,x+badgeW,y+r);
-        ctx.lineTo(x+badgeW,y+badgeH-r);
-        ctx.quadraticCurveTo(x+badgeW,y+badgeH,x+badgeW-r,y+badgeH);
-        ctx.lineTo(x+r,y+badgeH);
-        ctx.quadraticCurveTo(x,y+badgeH,x,y+badgeH-r);
-        ctx.lineTo(x,y+r);
-        ctx.quadraticCurveTo(x,y,x+r,y);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle="#111827";
-        ctx.fillText(label,SIZE/2,SIZE/2+2);
-      }
-      resolve(c);
-    }catch(err){reject(err)}
-  });
-}
-
-async function downloadSingleBulkQr(item){
-  try{
-    const c=await renderQrCanvasWithBadge(item.publicUrl,item.qrNo);
-    const filename="REBAR-IT-QR-"+(item.qrNo||item.id)+".png";
-    c.toBlob(blob=>{
-      if(!blob)return;
-      const u=URL.createObjectURL(blob);
-      const a=document.createElement("a");
-      a.href=u;a.download=filename;
-      document.body.appendChild(a);a.click();a.remove();
-      setTimeout(()=>URL.revokeObjectURL(u),1500);
-    },"image/png",1);
-  }catch(e){
-    setNotice("bulkMsg","دابەزاندنی QR سەرکەوتوو نەبوو.");
-  }
-}
-
-async function runBulkImport(){
-  if(!parsedBulkRows.length){
-    setNotice("bulkMsg","سەرەتا فایلێکی ئێکسڵ هەڵبژێرە.");
-    return;
-  }
-  const btn=$("btnRunBulkImport");
-  btn.disabled=true;
-  clearNotice("bulkMsg");
-  $("bulkProgressWrap").classList.remove("hidden");
-  $("bulkProgressBar").style.width="8%";
-  $("bulkResultSection").classList.add("hidden");
-
-  bulkCreatedRecords=[];
-  const allSkipped=[];
-  const allInvalid=[];
-  const CHUNK_SIZE=50;
-
-  try{
-    for(let offset=0;offset<parsedBulkRows.length;offset+=CHUNK_SIZE){
-      const chunk=parsedBulkRows.slice(offset,offset+CHUNK_SIZE);
-      const pct=Math.min(95,Math.round(((offset+chunk.length)/parsedBulkRows.length)*90)+5);
-      $("bulkProgressBar").style.width=pct+"%";
-      setNotice("bulkMsg","هاوردەکردن... ("+Math.min(offset+chunk.length,parsedBulkRows.length)+" / "+parsedBulkRows.length+")",true);
-
-      const r=await fetch(API_BASE+"/api/admin/records/batch-import",{
-        method:"POST",
-        headers:authHeaders(),
-        body:JSON.stringify({rows:chunk,skipDuplicates:true,assignQr:true})
-      });
-      if(r.status===401){logout();return}
-      const d=await r.json();
-      if(!r.ok)throw new Error(d.error||"Batch import failed");
-
-      if(Array.isArray(d.created))bulkCreatedRecords.push(...d.created);
-      if(Array.isArray(d.skippedDuplicates))allSkipped.push(...d.skippedDuplicates);
-      if(Array.isArray(d.invalid))allInvalid.push(...d.invalid);
-    }
-
-    $("bulkProgressBar").style.width="100%";
-    const totalSkipped=allSkipped.length+inFileDuplicateCount;
-
-    $("bulkResCreated").textContent=String(bulkCreatedRecords.length);
-    $("bulkResSkipped").textContent=String(totalSkipped);
-    $("bulkResInvalid").textContent=String(allInvalid.length);
-
-    const listEl=$("bulkCreatedList");
-    listEl.replaceChildren();
-    bulkCreatedRecords.forEach(item=>{
-      const row=document.createElement("div");
-      row.className="bulk-item";
-      const info=document.createElement("div");
-      info.className="bulk-item-info";
-      const badge=document.createElement("span");
-      badge.className="bulk-qr-badge";
-      badge.textContent="QR #"+item.qrNo;
-      info.appendChild(badge);
-      info.appendChild(document.createTextNode((item.email||item.id)+"  →  "+item.publicUrl));
-
-      const dlBtn=document.createElement("button");
-      dlBtn.type="button";
-      dlBtn.className="secondary bulk-mini-btn";
-      dlBtn.textContent="QR";
-      dlBtn.onclick=()=>downloadSingleBulkQr(item);
-
-      row.appendChild(info);
-      row.appendChild(dlBtn);
-      listEl.appendChild(row);
-    });
-
-    const skippedBox=$("bulkSkippedBox");
-    if(allSkipped.length>0){
-      skippedBox.textContent="ئەپڵ ئایدییە دووبارەبووەکان کە پەڕێنران ("+allSkipped.length+"): "+allSkipped.map(x=>x.email).filter(Boolean).join(" , ");
-      skippedBox.classList.remove("hidden");
-    }else{
-      skippedBox.classList.add("hidden");
-    }
-
-    $("btnDownloadBulkZip").classList.toggle("hidden",bulkCreatedRecords.length===0);
-    $("bulkResultSection").classList.remove("hidden");
-    setNotice("bulkMsg","تەواو بوو! "+bulkCreatedRecords.length+" لینک و QR دروست کران و "+totalSkipped+" دانەی دووبارە پەڕێنران.",true);
-    smoothScrollToElement("bulkResultSection",140);
-  }catch(e){
-    setNotice("bulkMsg","هەڵە لە کاتی هاوردەکردن: "+(e.message||"هەڵە"));
-  }finally{
-    btn.disabled=false;
-  }
-}
-
-async function downloadAllBulkQrsZip(){
-  if(!bulkCreatedRecords.length){
-    setNotice("bulkMsg","هیچ QRـێک نییە بۆ دابەزاندن.");
-    return;
-  }
-  const btn=$("btnDownloadBulkZip");
-  btn.disabled=true;
-  const origText=btn.textContent;
-  try{
-    await Promise.all([ensureQrLibrary(),ensureJsZipLibrary()]);
-    const zip=new JSZip();
-    for(let i=0;i<bulkCreatedRecords.length;i++){
-      const item=bulkCreatedRecords[i];
-      btn.textContent="دروستکردنی ZIP... ("+(i+1)+"/"+bulkCreatedRecords.length+")";
-      const canvas=await renderQrCanvasWithBadge(item.publicUrl,item.qrNo);
-      const blob=await new Promise(res=>canvas.toBlob(res,"image/png",1));
-      const safeMail=(item.email||item.id).replace(/[^a-zA-Z0-9@._-]/g,"_");
-      zip.file("REBAR-IT-QR-"+item.qrNo+"-"+safeMail+".png",blob);
-    }
-    btn.textContent="پەستاندنی فایل...";
-    const zipBlob=await zip.generateAsync({type:"blob"});
-    const dateTag=new Date().toISOString().slice(0,10);
-    const u=URL.createObjectURL(zipBlob);
-    const a=document.createElement("a");
-    a.href=u;
-    a.download="REBAR-IT-QR-BATCH-"+dateTag+".zip";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(u),2000);
-    setNotice("bulkMsg","فایلی ZIPـی هەموو QRـەکان دابەزێنرا ✓",true);
-  }catch(e){
-    setNotice("bulkMsg","دروستکردنی ZIP سەرکەوتوو نەبوو: "+(e.message||"هەڵە"));
-  }finally{
-    btn.disabled=false;
-    btn.textContent=origText;
-  }
-}
-
-async function copyAllBulkLinks(){
-  if(!bulkCreatedRecords.length)return;
-  const lines=bulkCreatedRecords.map(x=>"QR #"+x.qrNo+" | "+x.email+" | "+x.publicUrl).join("\n");
-  playCopySound();
-  try{
-    await writeClipboard(lines);
-    setNotice("bulkMsg","هەموو لینکەکان کۆپی کران ✓",true);
-  }catch{
-    setNotice("bulkMsg","کۆپیکردن سەرکەوتوو نەبوو.");
-  }
-}
-
 </script>
 
 <div id="copyToast" class="copy-toast" aria-live="polite" aria-atomic="true">
@@ -2999,7 +2078,7 @@ async function findCreateDuplicates(payload){let cursor='',unreadable=0,emailCou
 function unlockCreateFields(){document.querySelectorAll('#createView input,#createView textarea,#createView select').forEach(el=>{el.disabled=false;el.removeAttribute('disabled');if(el.tagName!=='SELECT'){el.readOnly=false;el.removeAttribute('readonly')}});document.querySelectorAll('#createView .field-tools button').forEach(el=>el.disabled=false)}
 function prepareNextRecord(){if(adminCreateBusy){showAdminActionToast('تکایە تا تەواوبوونی دروستکردن چاوەڕێ بکە.');return}unlockCreateFields();['cEmail','cPassword','cTargetLink'].forEach(id=>{$(id).value='';$(id).dispatchEvent(new Event('input',{bubbles:true}))});document.querySelectorAll('#createView .native-paste-help').forEach(el=>el.remove());clearNotice('createMsg');$('cEmail').focus();$('cEmail').scrollIntoView({behavior:'smooth',block:'center'});showAdminActionToast('خانەکان بۆ لینکێکی نوێ ئامادەن ✓')}
 async function createRecord(){if(adminCreateBusy)return;adminCreateBusy=true;const controls=[$('createWithQr')],previous=controls.map(el=>el.disabled);controls.forEach(el=>el.disabled=true);const button=$('createWithQr'),old=button.textContent;button.textContent='پشکنین و دروستکردن…';clearNotice('createMsg');try{const payload=getFormData('c');if(!payload.email&&!payload.password)throw Error('لایەنی کەم ئیمەیڵ یان پاسۆرد بنووسە.');if(payload.email||payload.targetLink){setNotice('createMsg','پشکنینی ئیمەیڵ و لینکی دووبارە…',true);const d=await findCreateDuplicates(payload);if(d.emailCount||d.linkCount){const lines=[];if(d.emailCount)lines.push('ئەم ئیمەیڵە پێشتر '+d.emailCount+' جار بەکار هاتووە.');if(d.linkCount)lines.push('ئەم لینکە پێشتر '+d.linkCount+' جار بەکار هاتووە.');if(!confirm(lines.join('\n')+'\nدەتەوێت لینکێکی نوێ دروست بکەیت؟')){clearNotice('createMsg');return}}}await createRecordCore(payload)}catch(e){setNotice('createMsg',e.message||'هەڵەیەک ڕوویدا.')}finally{controls.forEach((el,i)=>el.disabled=previous[i]);button.textContent=old;adminCreateBusy=false;unlockCreateFields();button.disabled=false}}
-window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#adminView input,#adminView textarea').forEach(el=>{if(!el.id||el.id==='bulkPasteText')return;const bar=document.createElement('div');bar.className='field-tools';for(const [label,fn] of [['پاککردن',()=>clearAdminField(el.id)]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.addEventListener('click',fn);bar.append(b)}const field=el.closest('.field'),label=field&&field.querySelector('label');if(label){const row=document.createElement('div');row.className='admin-field-heading';row.dataset.field=el.id;label.before(row);row.append(label);if(!el.id.endsWith('Note'))row.append(bar)}else{if(!el.id.endsWith('Note'))el.before(bar)};if(el.id.endsWith('Note')){const tools=document.createElement('div');tools.className='note-presets';const select=document.createElement('select');select.className='note-preset-select';select.setAttribute('aria-label','تێبینیی ئامادە');select.addEventListener('change',()=>{if(select.value!==''){el.value=readNotePresets()[Number(select.value)]||'';el.dispatchEvent(new Event('input',{bubbles:true}));showAdminActionToast('تێبینییەکە هەڵبژێردرا ✓')}});const save=document.createElement('button');save.type='button';save.className='secondary';save.textContent='خەزنکردنی تێبینی';save.onclick=()=>saveNotePreset(el.id);const remove=document.createElement('button');remove.type='button';remove.className='secondary';remove.textContent='سڕینەوەی تێبینیی ئامادە';remove.onclick=()=>removeNotePreset(select);tools.append(select,save,remove);el.before(tools)}});renderNotePresets()});
+window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('#adminView input,#adminView textarea').forEach(el=>{if(!el.id)return;const bar=document.createElement('div');bar.className='field-tools';for(const [label,fn] of [['پاککردن',()=>clearAdminField(el.id)]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.addEventListener('click',fn);bar.append(b)}const field=el.closest('.field'),label=field&&field.querySelector('label');if(label){const row=document.createElement('div');row.className='admin-field-heading';row.dataset.field=el.id;label.before(row);row.append(label);if(!el.id.endsWith('Note'))row.append(bar)}else{if(!el.id.endsWith('Note'))el.before(bar)};if(el.id.endsWith('Note')){const tools=document.createElement('div');tools.className='note-presets';const select=document.createElement('select');select.className='note-preset-select';select.setAttribute('aria-label','تێبینیی ئامادە');select.addEventListener('change',()=>{if(select.value!==''){el.value=readNotePresets()[Number(select.value)]||'';el.dispatchEvent(new Event('input',{bubbles:true}));showAdminActionToast('تێبینییەکە هەڵبژێردرا ✓')}});const save=document.createElement('button');save.type='button';save.className='secondary';save.textContent='خەزنکردنی تێبینی';save.onclick=()=>saveNotePreset(el.id);const remove=document.createElement('button');remove.type='button';remove.className='secondary';remove.textContent='سڕینەوەی تێبینیی ئامادە';remove.onclick=()=>removeNotePreset(select);tools.append(select,save,remove);el.before(tools)}});renderNotePresets()});
 
 </script>
 <script>
@@ -3026,5 +2105,37 @@ window.addEventListener("DOMContentLoaded",()=>{
  },1000);
 });
 </script>
+<script>
+/* Animate public labels only; keep account values and actions intact. */
+window.addEventListener("DOMContentLoaded",()=>{
+ const view=document.getElementById("publicContent");if(!view)return;
+ let played=false;
+ function startLabelTyping(){
+  if(played||view.classList.contains("hidden"))return;
+  played=true;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  view.querySelectorAll("#btnGetCode").forEach((el,index)=>{
+   const full=el.textContent;el.setAttribute("aria-label",full);
+   const span=document.createElement("span");span.style.display="inline-grid";span.style.verticalAlign="middle";
+   const reserve=document.createElement("span");reserve.textContent=full;reserve.style.visibility="hidden";reserve.style.gridArea="1 / 1";reserve.setAttribute("aria-hidden","true");
+   const ink=document.createElement("span");ink.style.gridArea="1 / 1";ink.style.justifySelf="start";ink.setAttribute("aria-hidden","true");
+   span.append(reserve,ink);el.replaceChildren(span);
+   const chars=typeof Intl.Segmenter==="function"?Array.from(new Intl.Segmenter("ar",{granularity:"grapheme"}).segment(full),v=>v.segment):Array.from(full);
+   ink.textContent=full;
+   let i=0,stopped=false,timer;
+   function begin(){if(stopped||!el.isConnected)return;if(document.hidden){timer=setTimeout(begin,1000);return}i=0;ink.textContent="";tick()}
+   function tick(){if(stopped||!el.isConnected)return;ink.textContent+=chars[i++];if(i<chars.length){timer=setTimeout(tick,85)}else{timer=setTimeout(begin,1000)}}
+   timer=setTimeout(begin,7000);
+   setTimeout(()=>{stopped=true;clearTimeout(timer);ink.textContent=full},20000);
+  });
+  observer.disconnect();
+ }
+ const observer=new MutationObserver(startLabelTyping);observer.observe(view,{attributes:true,attributeFilter:["class"]});startLabelTyping();
+});
+</script>
 </body>
 </html>
+
+
+
+
