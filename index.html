@@ -1704,9 +1704,19 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
     <div class="field" style="margin-bottom:8px">
       <textarea id="bulkPasteText" class="ltr" style="min-height:92px" placeholder="michaellong6915@gmail.com,Mega@@2024,said7,said8,said9,1990-01-01" oninput="handleBulkPasteInput(this.value)"></textarea>
     </div>
+    <div class="field" style="margin-top:12px">
+      <label for="bulkPresetSelect">تێبینی خەزن کراو (Saved Note)</label>
+      <div class="note-presets">
+        <select id="bulkPresetSelect" class="note-preset-select" aria-label="تێبینیی ئامادە بۆ فایل" onchange="handleBulkPresetChange(this)">
+          <option value="">تێبینیی ئامادە هەڵبژێرە</option>
+        </select>
+        <button type="button" class="secondary" onclick="syncNotePresets()">🔄 نوێکردنەوە</button>
+      </div>
+      <textarea id="bulkCustomNote" style="min-height:74px" placeholder="تێبینی خەزن کراو لێرە دەردەکەوێت یان خۆت دەتوانیت بینووسیت..." oninput="reparseBulkFile()"></textarea>
+    </div>
     <label class="bulk-option-row">
       <input id="bulkIncludeExtraNote" type="checkbox" checked onchange="reparseBulkFile()">
-      <span>زیادکردنی زانیارییە زیادەکان (پرسیارەکانی پاراستن، بەرواری لەدایکبوون، ژمارە مۆبایل) بۆ تێبینی (Note)</span>
+      <span>نووسینی بەرواری لەدایکبوون و زانیارییە زیادەکان لە دێڕی کۆتایی تێبینییەکەدا</span>
     </label>
     <div id="bulkMsg" class="notice"></div>
 
@@ -1792,7 +1802,7 @@ async function resendEmailCode(){clearNotice("loginMsg");if(!loginChallenge){res
 function backToMethodChoice(){if(!loginChallenge){resetLoginStep();return}$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("methodStep").classList.remove("hidden");$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
 function resetLoginStep(){loginChallenge="";$("methodStep").classList.add("hidden");$("totpStep").classList.add("hidden");$("emailStep").classList.add("hidden");$("passwordStep").classList.remove("hidden");$("adminPassword").value="";$("adminTotp").value="";$("adminEmailOtp").value="";clearNotice("loginMsg")}
 function logout(){sessionStorage.removeItem(ADMIN_TOKEN_KEY);location.href=PUBLIC_BASE+"?owner=1"}
-function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabBulk").classList.toggle("active",name==="bulk");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("bulkView").classList.toggle("hidden",name!=="bulk");$("editView").classList.toggle("hidden",name!=="edit")}
+function switchTab(name){$("tabCreate").classList.toggle("active",name==="create");$("tabBulk").classList.toggle("active",name==="bulk");$("tabEdit").classList.toggle("active",name==="edit");$("createView").classList.toggle("hidden",name!=="create");$("bulkView").classList.toggle("hidden",name!=="bulk");$("editView").classList.toggle("hidden",name!=="edit");if(name==="bulk")syncNotePresets().catch(()=>{})}
 function smoothScrollToElement(id,delay=120){
   setTimeout(()=>{
     const el=$(id);
@@ -2670,6 +2680,17 @@ async function handleBulkFileSelected(file){
   }
 }
 
+function handleBulkPresetChange(select){
+  if(!select||select.value==="")return;
+  const chosen=readNotePresets()[Number(select.value)]||"";
+  const box=$("bulkCustomNote");
+  if(box){
+    box.value=chosen;
+    reparseBulkFile();
+    showAdminActionToast("تێبینییەکە هەڵبژێردرا ✓");
+  }
+}
+
 function reparseBulkFile(){
   if(!lastRawSheetRows.length)return;
   const includeMeta=$("bulkIncludeExtraNote").checked;
@@ -2694,11 +2715,13 @@ function reparseBulkFile(){
     const targetLink=cleanTargetUrl(rawLink);
     if(!email&&!password)return;
 
-    let note="";
+    const baseNote=($("bulkCustomNote")?$("bulkCustomNote").value.trim():"");
+    let extraLine="";
     if(includeMeta){
       const extras=cells.filter((v,idx)=>v&&idx!==emailCol&&idx!==passCol&&v.trim()!==rawLink);
-      if(extras.length)note=extras.join(" | ");
+      if(extras.length)extraLine=extras.join(" | ");
     }
+    const note=[baseNote,extraLine].filter(Boolean).join("\n");
 
     const eKey=email.toLowerCase();
     if(eKey&&seen.has(eKey)){
