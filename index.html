@@ -1718,6 +1718,10 @@ body:has(#adminView:not(.hidden)) #createView{padding-bottom:125px}
       <input id="bulkIncludeExtraNote" type="checkbox" checked onchange="reparseBulkFile()">
       <span>نووسینی بەرواری لەدایکبوون و زانیارییە زیادەکان لە دێڕی کۆتایی تێبینییەکەدا</span>
     </label>
+    <label class="bulk-option-row">
+      <input id="bulkSkipDuplicates" type="checkbox" checked onchange="reparseBulkFile()">
+      <span>ڕێگری لە دووبارەبوونەوە (ئەگەر لاتبردیت، ئەپڵ ئایدییە کۆنەکانیش دووبارە دروست دەکاتەوە)</span>
+    </label>
     <div id="bulkMsg" class="notice"></div>
 
     <div id="bulkPreviewSection" class="hidden">
@@ -2723,8 +2727,9 @@ function reparseBulkFile(){
     }
     const note=[baseNote,extraLine].filter(Boolean).join("\n");
 
+    const skipDup=$("bulkSkipDuplicates")?$("bulkSkipDuplicates").checked:true;
     const eKey=email.toLowerCase();
-    if(eKey&&seen.has(eKey)){
+    if(skipDup&&eKey&&seen.has(eKey)){
       inFileDuplicateCount++;
       return;
     }
@@ -2857,26 +2862,43 @@ async function runBulkImport(){
   const allSkipped=[];
   const allInvalid=[];
   const CHUNK_SIZE=50;
+  let skipDup=$("bulkSkipDuplicates")?$("bulkSkipDuplicates").checked:true;
 
   try{
-    for(let offset=0;offset<parsedBulkRows.length;offset+=CHUNK_SIZE){
-      const chunk=parsedBulkRows.slice(offset,offset+CHUNK_SIZE);
-      const pct=Math.min(95,Math.round(((offset+chunk.length)/parsedBulkRows.length)*90)+5);
-      $("bulkProgressBar").style.width=pct+"%";
-      setNotice("bulkMsg","هاوردەکردن... ("+Math.min(offset+chunk.length,parsedBulkRows.length)+" / "+parsedBulkRows.length+")",true);
+    while(true){
+      bulkCreatedRecords=[];
+      allSkipped.length=0;
+      allInvalid.length=0;
 
-      const r=await fetch(API_BASE+"/api/admin/records/batch-import",{
-        method:"POST",
-        headers:authHeaders(),
-        body:JSON.stringify({rows:chunk,skipDuplicates:true,assignQr:true})
-      });
+      for(let offset=0;offset<parsedBulkRows.length;offset+=CHUNK_SIZE){
+        const chunk=parsedBulkRows.slice(offset,offset+CHUNK_SIZE);
+        const pct=Math.min(95,Math.round(((offset+chunk.length)/parsedBulkRows.length)*90)+5);
+        $("bulkProgressBar").style.width=pct+"%";
+        setNotice("bulkMsg","هاوردەکردن... ("+Math.min(offset+chunk.length,parsedBulkRows.length)+" / "+parsedBulkRows.length+")",true);
+
+        const r=await fetch(API_BASE+"/api/admin/records/batch-import",{
+          method:"POST",
+          headers:authHeaders(),
+          body:JSON.stringify({rows:chunk,skipDuplicates:skipDup,assignQr:true})
+        });
       if(r.status===401){logout();return}
       const d=await r.json();
       if(!r.ok)throw new Error(d.error||"Batch import failed");
 
-      if(Array.isArray(d.created))bulkCreatedRecords.push(...d.created);
-      if(Array.isArray(d.skippedDuplicates))allSkipped.push(...d.skippedDuplicates);
-      if(Array.isArray(d.invalid))allInvalid.push(...d.invalid);
+        if(Array.isArray(d.created))bulkCreatedRecords.push(...d.created);
+        if(Array.isArray(d.skippedDuplicates))allSkipped.push(...d.skippedDuplicates);
+        if(Array.isArray(d.invalid))allInvalid.push(...d.invalid);
+      }
+
+      if(skipDup&&bulkCreatedRecords.length===0&&allSkipped.length>0){
+        const okRetry=confirm("ئەم "+allSkipped.length+" ئەپڵ ئایدییە پێشتر لە سایتەکەدا تۆمار کراون!\nدەتەوێت ڕازی بیت و دووبارە لینک و QRـی نوێیان بۆ دروست بکەیتەوە؟");
+        if(okRetry){
+          skipDup=false;
+          if($("bulkSkipDuplicates"))$("bulkSkipDuplicates").checked=false;
+          continue;
+        }
+      }
+      break;
     }
 
     $("bulkProgressBar").style.width="100%";
